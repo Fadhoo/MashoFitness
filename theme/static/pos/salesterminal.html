@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en" x-data="data()">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masho Fitness</title>
+    <link rel="stylesheet" href="../public/main.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="../js/init-alpine.js"></script>
+    <script src="js/focus-trap.js"></script>
+
+</head>
+
+<body>
+
+    <div class="flex h-full bg-gray-50 ">
+
+        <div class="flex flex-col w-full">
+            <!-- Header -->
+            <header class="py-1 bg-white border border-slate-800 m-1 shadow-sm ">
+                <div class=" flex items-center h-full px-3 mx-auto text-red-900 ">
+
+
+                    <ul class="hidden sm:flex items-center flex-shrink-0 space-x-4">
+                        <li class="relative">
+                            <a href="pos.html">
+                                <button
+                                    class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                    </svg>
+                                </button>
+                            </a>
+                        </li>
+                        <a href="" class=" text-lg font-bold text-red-600">Masho Fitness Cafeteria</a>
+                        <!-- Large Screen -->
+                        <li class="relative">
+                            <button
+                                class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                                </svg>
+                            </button>
+                        </li>
+                        <!-- Lock Screen -->
+                        <li class="relative">
+                            <button
+                                class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                            </button>
+                        </li>
+                        <!-- Calender -->
+                        <li class="relative">
+                            <button
+                                class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </button>
+                        </li>
+                        
+                        <li class="relative">
+                            <div class="inline-flex w-full bg-white shadow-sm flex-row p-1">
+                        
+                                <ul class="flex flex-row gap-1">
+                                    <li class="px-5 py-1 bg-red-400 rounded-xl text-white text-sm mr-4">
+                                        All Items
+                                    </li>
+                                    <li class="px-5 py-1 bg-red-400 rounded-xl text-white text-sm mr-4">
+                                        Food
+                                    </li>
+                                    <li class="px-5 py-1 bg-red-400 rounded-xl text-white text-sm mr-4">
+                                        Cold Drinks
+                                    </li>
+                                    <li class="px-5 py-1 bg-red-400 rounded-xl text-white text-sm mr-4">
+                                        Hot Drinks
+                                    </li>
+                                </ul>
+                                <!-- Search input -->
+                                <div class="relative focus-within:text-purple-500">
+                                    <div class="absolute inset-y-0 flex items-center pl-2">
+                                        <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                    <input
+                                        class="w-96 pl-8 h-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-200 border-0 rounded-md      focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                        type="search" placeholder="Search" aria-label="Search" />
+                                </div>
+        
+                                <!-- Item List -->
+        
+                                <button class="p-1 bg-slate-500 text-white rounded-md ml-3 px-2">
+                                    Item List
+                                </button>
+        
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </header>
+            <!-- Main Inner Complete Page -->
+            <main class="h-full bg-white overflow-hidden">
+                <div class="w-full flex flex-col">
+
+                        <div class="flex flex-row lg:h-128 2xl:h-120">
+                            <div class="w-3/5 border border-gray-700 ml-1 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-red-600 scrollbar-track-red-300">
+                                <!-- left daba -->
+                                <div class="flex flex-col  md:col-span-3 border-r-8 border-white bg-white">
+                                    <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-7 p-5 gap-4  overflow-y-auto shadow-inner scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200">
+
+                                        <!-- products -->
+                                        <div
+                                            class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="../img/wallet.png" class="h-14 object-cover rounded-md"
+                                                    alt="">
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Ranch Burger</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$7.00</span>
+                                                <img src="../img/wallet.png" class="h-14 w-14 object-cover rounded-md"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Pizza Bacon</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/sc5sTPMrVfk/500x500"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="px-3 py-3 flex flex-col border bg-gray-200 border-gray-200 rounded-md h-32 justify-between">
+                                            <div>
+                                                <div class="font-bold text-gray-800">Griled corn</div>
+                                                <span class="font-light text-sm text-gray-400">150g</span>
+                                            </div>
+                                            <div class="flex flex-row justify-between items-center">
+                                                <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
+                                                <img src="https://source.unsplash.com/MNtag_eXMKw/600x600"
+                                                    class=" h-14 w-14 object-cover rounded-md" alt="">
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                        <!-- end products -->
+
+                                    </div>
+                                </div>
+                                <!-- left daba khatama -->
+                            </div>
+                            <div class="w-2/5 border border-gray-600 m-1 mt-0 mb-0 bg-white">
+                                <!-- right daba -->
+                                <div class="shadow-inner w-full">
+
+                                    <!-- header -->
+                                    <div class="flex flex-row shadow-inner p-1">
+                                        <div class="font-bold text-lg px-1">Current Order</div>
+                                    </div>
+                                    <!-- end header -->
+
+                                    <!-- order list -->
+                                    <div class="px-1 lg:h-110 2xl:h-120 bg-white scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200">
+
+                                        <table class="table-auto border-gray-200 w-full">
+
+                                            <thead class="border-b-2 border-gray-400 sticky top-0 bg-red-100">
+                                                <tr class=" text-sm">
+
+                                                    <th class="p-1"></th>
+                                                    <th class="p-1">S No.</th>
+                                                    <th class="p-1">Item Code</th>
+                                                    <th class="p-1">Item Name</th>
+                                                    <th class="p-1">Price</th>
+                                                    <th class="p-1">Quantity</th>
+                                                    <th class="p-1">Discount</th>
+                                                    <th class="p-1">Total Price</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="">
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">11111</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1 inline-flex items-center space-x-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                                          </svg>
+                                                          <span>1</span>
+                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                          </svg>
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1
+
+                                                    </td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                                <tr class="border-2 text-center">
+                                                    <td>
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-5 w-5 text-red-900 cursor-pointer"
+                                                            fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">F001</td>
+                                                    <td class="p-1">Masho Fitness</td>
+                                                    <td class="p-1">000000</td>
+                                                    <td class="p-1">1</td>
+                                                    <td class="p-1">10000</td>
+                                                    <td class="p-1 font-semibold">100000</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <!-- end order list -->
+
+                                     
+
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <!-- totalItems -->
+                            <div class="w-full fixed bottom-24">
+                                <div class="p-1 bg-gray-200 justify-end border border-slate-800 ml-1 mr-1 flex flex-row">
+                                    <div class="border px-6 flex flex-col bg-white">
+                                        <span class="font-semibold text-md">Subtotal</span>
+                                        <span class="font-bold text-right">1000</span>
+                                    </div>
+                                    <div class="border px-6 flex flex-col bg-white">
+                                        <span class="font-semibold text-md">Discount</span>
+                                        <span class="font-bold text-right">- 200</span>
+                                    </div>
+                                    <div class="border px-6 flex flex-col bg-white">
+                                        <span class="font-semibold text-md">Sales Tax</span>
+                                        <span class="font-bold text-right">0</span>
+                                    </div>
+                                    <div class="border px-6 items-center flex gap-4 bg-white">
+                                        <span class="font-semibold text-2xl">Total :</span>
+                                        <span class="font-bold text-2xl">800</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end total -->
+
+                        <div class="fixed ml-1 mr-1 left-0 right-0 bottom-0 border border-red-900 py-1 bg-gray-200 shadow-md ">
+                            <div class="px-2">
+    
+                                <div class="grid grid-flow-col gap-3">
+                                    <!-- Hold Button -->
+                                    <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
+                                        <span
+                                            class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F1</span>
+                                        <img src="../img/hand.png" class="ml-6 mt-2 h-10" />
+                                        <span class="font-semibold float-right">Hold</span>
+                                    </div>
+    
+                                    <!-- Retrieve button -->
+                                    <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
+                                        <span
+                                            class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F2</span>
+                                        <img src="../img/synchronize.png" class="ml-8 mt-2 h-10" />
+                                        <span class="font-semibold float-right">Retrieve</span>
+                                    </div>
+    
+                                    <!-- Credit Card -->
+                                    <!-- <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
+                                        <span
+                                            class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F3</span>
+                                        <img src="../img/credit-card.png" class="ml-7 h-12" />
+                                        <span class="font-semibold float-right">Credit Card</span>
+                                    </div> -->
+    
+                                    <!-- Debit Card -->
+                                    <!-- <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
+                                        <span
+                                            class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F4</span>
+                                        <img src="../img/credit-cards.png" class="ml-7 h-12" />
+                                        <span class="font-semibold float-right">Debit Card</span>
+                                    </div> -->
+    
+                                    <!-- Save -->
+                                    <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
+                                        <span
+                                            class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F5</span>
+                                        <img src="../img/save.png" class="ml-4 mt-2 h-10" />
+                                        <span class="font-semibold float-right">Save</span>
+                                    </div>
+    
+                                    <!-- Cash -->
+                                    <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
+                                        <span
+                                            class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F6</span>
+                                        <img src="../img/cash.png" class="ml-9 h-12" />
+                                        <span class="font-semibold float-right">Cash Payment</span>
+                                    </div>
+    
+    
+                                    <!-- Close -->
+                                    <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
+                                        <span
+                                            class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F7</span>
+                                        <img src="../img/close.png" class="ml-9 h-12" />
+                                        <span class="font-semibold float-right">Close</span>
+                                    </div>
+    
+                                    <!-- cash -->
+                                    <!-- <div class="px-5 mt-5"> -->
+                                    <div class="rounded-md shadow-lg bg-white px-1 py-1 w-auto">
+                                        <div class="flex flex-row justify-between items-center">
+                                            <div class="flex flex-col">
+                                                <span class="uppercase text-sm font-semibold">cashless credit</span>
+                                                <span class="text-xl font-bold text-yellow-500">1000</span>
+                                                <span class="text-sm text-gray-600 ">Available</span>
+                                            </div>
+    
+                                            <!-- Cancel -->
+                                            <div class=" bg-gray-200 p-1 pr-3 rounded-md shadow-inner">
+                                                <span
+                                                    class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F8</span>
+                                                <img src="../img/cancel.png" class="ml-4 mt-2 p-1 h-10" />
+                                                <span class="font-semibold float-right">Cancel</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </div> -->
+                                    <!-- end cash -->
+    
+                                    <!-- Customer -->
+                                    <div class="rounded-md shadow-lg bg-white px-1 py-1 w-auto">
+                                        <div class="flex flex-row justify-between items-center">
+                                            <div class="flex flex-col">
+                                                <span class="text-lg font-semibold">Walk-In Customer</span>
+                                                <div class="flex-row">
+                                                    <span class="text-xl font-bold text-yellow-500">Balance :
+                                                    </span>
+                                                    <span class="text-sm text-gray-600 ">1000</span>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Cancel -->
+                                            <div
+                                                class=" bg-gray-200 p-1 pr-3 rounded-md shadow-inner cursor-pointer">
+                                                <span
+                                                    class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">CTRL
+                                                    +
+                                                    C</span>
+                                                <img src="../img/discuss.png" class="h-12" />
+                                                <span class="font-semibold float-right">Customer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end Customer -->
+                                </div>
+                            </div>
+                        </div>                   
+
+                </div>
+
+
+
+            </main>
+
+
+        </div>
+
+    </div>
+</body>
+
+</html>
