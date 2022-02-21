@@ -95,7 +95,7 @@ document.getElementById("paidamounts").onchange = function(){
     let paidamount = document.getElementById("paidamounts").value;
     let remainingamount = payableamount - paidamount
     document.getElementById("remaining-amount").value = remainingamount;
-    alert(remainingamount)
+    
 };
 
 // function payableOnChange(this){

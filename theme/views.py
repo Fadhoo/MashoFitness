@@ -174,6 +174,8 @@ def futsalMatch(request):
     return render(request,"futsalMatch.html")
 
 def futsal(request):
+    if request.method == "POST":
+        print("ssssssssssss*****************")
     return render(request,"futsal.html")
 
 
