@@ -20,8 +20,7 @@ def index(request):
     return render(request, 'index.html')
 
 
-def viewTeam(request):
-    return render(request, 'viewTeam.html')
+
 
 
 
@@ -29,8 +28,6 @@ def viewRecord(request):
     return render(request, 'viewRecord.html')
 
 
-def teamDetails(request):
-    return render(request, 'teamDetails.html')
 
 
 def bodyAssesments(request):
@@ -68,14 +65,7 @@ def bodyAssesments(request):
 
 
 
-def futsal(request):
-    return render(request, 'futsal.html')
 
-def futsalMatch(request):
-    return render(request, 'futsalMatch.html')
-
-def matches(request):
-    return render(request, 'matches.html')
 
 def smshistory(request):
     return render(request, 'smshistory.html')
@@ -170,11 +160,7 @@ def gymManagement(request):
         'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
     })
 
-def futsalMatch(request):
-    return render(request,"futsalMatch.html")
 
-def futsal(request):
-    return render(request,"futsal.html")
 
 
 def employee(request):
@@ -183,11 +169,7 @@ def employee(request):
 def createUser(request):
     return render(request,"creteUser.html")
 
-def addTeam(request):
-    return render(request,"addTeam.html")
 
-def updateFutsalMatch(request):
-    return render(request,"updateFutsalMatch.html")
 
 def addMember(request):
     if request.method=="POST":

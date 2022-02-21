@@ -1,4 +1,3 @@
-from cgi import print_environ
 from django.db.models import Sum
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
