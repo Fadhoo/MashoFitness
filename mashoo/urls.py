@@ -24,7 +24,8 @@ urlpatterns = [
     path('',include('theme.urls')),
     path('',include('snooker.urls') ),
     path('', include('expenses.urls')),
-    path('', include('employees.urls'))
+    ath('', include('employees.urls')),
+    path('', include('futsal.urls'))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,10 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('addMember/', views.addMember, name='addMember'),
-    path('addTeam/', views.addTeam, name='addTeam'),
     path("bodyAssesments/", views.bodyAssesments, name="bodyAssesments"),
-    path("futsal", views.futsal, name="futsal"),
-    path("futsalMatch/", views.futsalMatch, name="futsalMatch"),
     path("gymManagement", views.gymManagement, name="gymManagement"),
     path("GymSetting/gymSetting/", views.gymSetting, name="gymSetting"),
     path("GymSetting/editGymSetting/", views.editGymSetting, name="editGymSetting"),
@@ -17,12 +14,9 @@ urlpatterns = [
     path("memberDetails/", views.memberDetails, name="memberDetails"),
     path("printform/", views.printform, name="printform"),
     path("smshistory/", views.smshistory, name="smshistory"),
-    path("teamDetails/", views.teamDetails, name="teamDetails"),
     path("viewMembers/", views.viewMembers, name="viewMembers"),
     path("viewRecord/", views.viewRecord, name="viewRecord"),
-    path("viewTeam/", views.viewTeam, name="viewTeam"),
-    path("matches/", views.matches, name="matches"),
-    path("updateFutsalMatch/", views.updateFutsalMatch, name="updateFutsalMatch"),
+    
 
 
 
