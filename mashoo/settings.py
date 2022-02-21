@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'snooker',
     'expenses',
+    'employees',
 ]
 
 TAILWIND_APP_NAME = 'theme'

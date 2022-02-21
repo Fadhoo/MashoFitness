@@ -179,11 +179,6 @@ def futsal(request):
     return render(request,"futsal.html")
 
 
-def employee(request):
-    return render(request,"employee.html")
-
-def createUser(request):
-    return render(request,"creteUser.html")
 
 def addTeam(request):
     return render(request,"addTeam.html")
