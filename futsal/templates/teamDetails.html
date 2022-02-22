@@ -249,7 +249,7 @@
             <main class="h-full overflow-y-auto scrollbar scrollbar-thin scrollbar-track-orange-200 scrollbar-thumb-orange-600">
                 <div class="container px-2 mx-auto grid">
                     <div class="inline-flex my-2">
-                        <a href="addTeam.html">
+                        <a href="/addTeam/">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-red-900 m-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                               </svg>
@@ -257,22 +257,23 @@
 
                           <h2 class="ml-80 text-2xl font-semibold text-blue-900 ">
                         
-                            <span class="text-red-600">Name</span> - Team Details
+                            <span class="text-red-600">{{TeamRecord.team_name}}</span> - Team Details
                         </h2>
                     </div>
                     
                     <div class="px-4 py-4 bg-white rounded-lg shadow-md ">
 
-                        <form action="">
+                        <form action="{% url 'teamDetails'% }" method="post">
+                            {% csrf_token %}
                             <div class="grid sm:grid-cols-1 md:grid-cols-4 font-semibold gap-x-5">
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Team Name</label>
-                                    <input type="text"
+                                    <input type="text" value="{{TeamRecord.team_name}}" name="team-name"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Contact Number</label>
-                                    <input type="text"
+                                    <input type="text" value="{{TeamRecord.contact_number}}" name="contact"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <!-- <div class="flex flex-col">
@@ -282,59 +283,59 @@
                                 </div> -->
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Time From</label>
-                                    <input type="time"
+                                    <input type="time" name="time-from"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Time To</label>
-                                    <input type="time"
+                                    <input type="time" name="time-to"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Total Amount</label>
-                                    <input type="text" value="0"
+                                    <input type="text" value="0" name="total-amount"
                                         class="rounded-md text-right rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Paid Amount</label>
-                                    <input type="text" value="0"
+                                    <input type="text" value="0" name="paid-amount"
                                         class="rounded-md text-right rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Remaining Amount</label>
-                                    <input type="text" value="0"
+                                    <input type="text" value="0" name="remaining-amount"
                                         class="rounded-md text-right rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Mode of Payment</label>
-                                    <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                    <select name="payment-mode" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="" class="">select payment mode</option>
-                                        <option value="">Cash</option>
-                                        <option value="">Bank Transaction</option>
-                                        <option value="">Other</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Bank">Bank Transaction</option>
+                                        
                                     </select>
                                 </div>
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Attended By</label>
-                                    <select name="" id="" class="rounded-md bg-gray-200 outline-none rounded-br-none border-none shadow-inner">
+                                    <select name="attended-by" id="" class="rounded-md bg-gray-200 outline-none rounded-br-none border-none shadow-inner">
                                         <option value="" class="">select user</option>
-                                        <option value="">user 1</option>
-                                        <option value="">user 2</option>
-                                        <option value="">Other</option>
+                                        <option value="User 1">user 1</option>
+                                        <option value="User 2">user 2</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
 
                                 <div class="flex flex-col col-span-2">
                                     <label for="" class="m-1">Description</label>
-                                    <input type="text"
+                                    <input type="text" name="description"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Added Date</label>
-                                    <input type="date"
+                                    <input type="date" name="added-date"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 
@@ -346,7 +347,7 @@
                                 <div class="flex flex-col">
                                     <button
                                         class="bg-blue-400 px-10 mt-4 rounded-lg text-white shadow-md rounded-br-none py-1">
-                                        <a href="bodyAssesments.html">
+                                        <a href="{% url 'bodyAssesments' %}">
                                             Update
                                         </a>
                                     </button>
@@ -354,7 +355,7 @@
                                 <div class="flex flex-col">
                                     <button
                                         class="bg-blue-400 px-10 mt-4 rounded-lg text-white shadow-md rounded-br-none py-1">
-                                        <a href="bodyAssesments.html">
+                                        <a href="{% url 'bodyAssesments' %}">
                                             Delete
                                         </a>
                                     </button>

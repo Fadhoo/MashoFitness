@@ -23,15 +23,15 @@
 </head>
 <body>
 
-    <div class="flex h-screen bg-gray-100 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <div class="flex h-screen bg-gray-100 " :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop Sidebar ye side navigation ha -->
         <aside
-            class="z-20 hidden w-60 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white dark:bg-gray-800 md:block flex-shrink-0">
-            <div class="py-4 text-gray-600 dark:text-gray-400">
+            class="z-20 hidden w-60 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
+            <div class="py-4 text-gray-600 ">
                 <a href="" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="{% url 'index' %}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -44,7 +44,7 @@
                     
                     <!-- View Team -->
                     <li class="relative px-6 py-3 ">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href=""{% url 'futsal' %}"">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -56,7 +56,7 @@
 
                     <!-- View Team -->
                    <li class="relative px-6 py-3">
-                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 dark:hover:text-gray-200"
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                         href="{% url 'addTeam' %}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +69,7 @@
                     
                     <!-- View Team -->
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="{% url 'viewTeam' %}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +82,7 @@
 
                      <!-- Book Match -->
                      <li class="relative px-6 py-3 text-red-900">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 dark:hover:text-gray-200"
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="{% url 'matches' %}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
@@ -101,9 +101,9 @@
 
         <div class="flex flex-col flex-1 w-full">
             <!-- Header -->
-            <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+            <header class="z-10 py-4 bg-white shadow-md ">
                 <div
-                    class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
+                    class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 ">
 
                     <!-- Mobile hamburger -->
                     <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
@@ -160,7 +160,7 @@
                                 </svg>
                             </div>
                             <input
-                                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md   focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                 type="text" placeholder="Search" aria-label="Search" />
                         </div>
                     </div>
@@ -183,12 +183,12 @@
             <!-- Main Inner Complete Page -->
             <main class="h-full overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-red-700 scrollbar-track-red-300">
                 <div class="container px-6 mx-auto grid">
-                    <h2 class="my-3 text-2xl text-center font-semibold text-red-600 dark:text-gray-200">
+                    <h2 class="my-3 text-2xl text-center font-semibold text-red-600 ">
                         Update Match
                     </h2>
-                    <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                    <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md ">
                         <p
-                            class="p-2 font-semibold text-lg text-gray-600 dark:text-gray-400 border-b-2 border-gray-700 border-opacity-80">
+                            class="p-2 font-semibold text-lg text-gray-600  border-b-2 border-gray-700 border-opacity-80">
                             Update Team Details
                         </p>
                         <form class="m-3" action="">

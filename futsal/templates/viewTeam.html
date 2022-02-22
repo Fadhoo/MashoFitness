@@ -201,31 +201,34 @@
                         
                         <div class="grid grid-cols-7 gap-2">
                             <div class="flex flex-col ">
-                                <label for="" class="m-1">Size</label>
-                                <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                    <option value="" class="">select sort</option>
-                                    <option value="">10</option>
-                                    <option value="">25</option>
-                                    <option value="">50</option>
-                                    <option value="">100</option>
-                                    <option value="">All</option>
+                                <label for="" class="m-1">Result Per Page</label>
+                                <select name="result-per-pager" id="result-per-page" class="rounded-md bg-gray-200 outline-none border-none shadow-inner"
+                                        onchange="resultperpageValueChanged()">
+                                    
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="All">All</option>
                                     
                                 </select>
                             </div>
 
-                            <div class="flex flex-col ">
-                                <label for="" class="m-1">Added Team Type</label>
-                                <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                    <option value="" class="">select Type</option>
-                                    <option value="">Paid</option>
-                                    <option value="">UnPaid</option>
+                            <div class="flex flex-col col-span-2 ">
+                                <label for="" class="m-1">Type</label>
+                                <select name="search-by-field" id="search-by-field" 
+                                    class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                    <option value="" selected>Search by Fields</option>
+                                        <option value="team_name">Team Name</option>
+                                        <option value="captain_name">Captian Name</option>
+                                        <option value="contact_number">Contact Number</option>
                                 </select>
                             </div>
-
                             <div class="flex flex-col col-span-2">
-                                <label for="" class="m-1">Search Team</label>
-                                <input type="search" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" 
-                                placeholder="search team by name">
+                                <label for="" class="m-1">Search Head of Account</label>
+                                <input type="search" name="search-by-value" id="search-by-value" oninput="SearchByFields();"
+                                    class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    placeholder="search by number">
                             </div>
 
                             <div class="flex flex-col">
@@ -279,6 +282,7 @@
                                 <th class="p-2">
                                   <input type="checkbox" class="cursor-pointer rounded-md">
                                 </th>
+                                <th class="p-1">S No.</th>
                                 <th class="p-2">Date</th>
                                 <th class="p-2">Team Name</th>
                                 <th class="p-2">Captain Team</th>
@@ -289,17 +293,19 @@
                               </tr>
                             </thead>
                             <tbody>
+                                {% for team in TeamRecord%}
                               <tr class="border-2 hover:bg-slate-300">
                                 <td class="p-1">
-                                  <input type="checkbox" class="cursor-pointer rounded-md">
+                                    <input  onclick="requestDelete(this)" data-id="{{expense.id}}" type="checkbox" class="cursor-pointer rounded-md">
                                 </td>
-                                <td class="p-1">11/11/1111</td>
-                                <td class="p-1">sami football</td>
-                                <td class="p-1">sami</td>
-                                <td class="p-1">0000 0000000</td>
-                                <td class="p-1">admin</td>
+                                <td class="p-1" value="{{team.id}}">{{team.id}}</td>
+                                <td class="p-1" value="{{team.member_created_at}}">{{team.member_created_at}}</td>
+                                <td class="p-1" value="{{team.team_name}}">{{team.team_name}}</td>
+                                <td class="p-1" value="{{team.captain_name}}">{{team.captain_name}}</td>
+                                <td class="p-1" value="{{team.contact_number}}">{{team.contact_number}}</td>
+                                <td class="p-1" value="{{team.team_attended_by}}">{{team.team_attended_by}}</td>
                                 <td class="p-1">
-                                    <a href="{% url 'futsalMatch' %}">
+                                    <a href="/futsalMatch/?futsal-match={{team.id}}">
                                         <button class="bg-green-500 drop-shadow-md rounded-lg inline-flex items-center py-1 px-1 rounded-br-none">
                                             <span>Match</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -308,7 +314,7 @@
                                         </button>
                                     </a>
 
-                                    <a href="/teamDetails/">
+                                    <a href="/teamDetails/?team-details={{team.id}}">
                                         <button class="bg-blue-600 drop-shadow-md px-2 py-1 rounded-lg inline-flex items-center rounded-br-none">
                                             <span>Edit</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 ml-2 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -325,6 +331,7 @@
                                     </button>
                                 </td>
                               </tr>
+                                {% endfor %}
                               
                             </tbody>
                           </table>
@@ -338,6 +345,7 @@
         </div>
 
     </div>
+    <script src="{% static 'js/futsal.js'%}"></script>
 </body>
 
 </html>

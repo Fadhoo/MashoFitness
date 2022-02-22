@@ -15,28 +15,25 @@ def addTeam(request):
             return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
     else:
         # code here
-        
+        if request.POST.get("edit-team"):
+            print(request.POST.get("edit-team"))
         return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
 
-
-
-
-
-
-
-
-
-
-
-
-
+def teamDetails(request):
+    if request.method=="POST":
+        print(request.GET.get("team-details"))
+    
+    return render(request,"teamDetails.html",{"TeamRecord": Team.objects.filter(id=request.GET.get('team-details'))[0],})
 
 
 
 
 
 def viewTeam(request):
-    return render(request, 'viewTeam.html')
+    if request.method == "POST":
+        print("post post post post post ")
+    else:
+        return render(request, 'viewTeam.html', {"TeamRecord":Team.objects.all().order_by("-id")})
 
 
 def teamDetails(request):
@@ -78,7 +75,21 @@ def updateFutsalMatch(request):
 
 
 
+@api_view(["GET"])
+def searchByTeamData(request):
+    try:
+        print(request.GET)
+        resultperpage = request.GET.get("result-per-page", None)
 
+        if resultperpage!="All":
+            print("result per page is not equal to all")
+            return Response(TeamSerializer(Team.objects.order_by('-id')[:int(resultperpage)],many=True).data)
+
+        else:
+            return Response(TeamSerializer(Team.objects.order_by('-id'),many=True).data)
+
+    except Exception as e:
+        return Response({"error": str(e)})
 
 
 

@@ -187,7 +187,9 @@ function update_table(data) {
             '</a>'+
 
         '</td>'+
-    '</tr>'
+    '</tr>' 
+
+    
 
         all_rows = all_rows + row;
     });
