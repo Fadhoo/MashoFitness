@@ -162,15 +162,6 @@ def gymManagement(request):
 
 
 
-
-def employee(request):
-    return render(request,"employee.html")
-
-def createUser(request):
-    return render(request,"creteUser.html")
-
-
-
 def addMember(request):
     if request.method=="POST":
         print("post called add member")

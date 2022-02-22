@@ -28,7 +28,7 @@
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            href="index.html">
+                            href="/index/">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -41,8 +41,8 @@
                     <!-- GRM Management -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            href="gymManagement.html">
-                            <img src="img/gym.png" class="h-6"/>
+                            href="/gymManagement/">
+                            <img src="{% static 'img/gym.png'%}" class="h-6"/>
                             <span class="ml-4 text-md font-semibold">GYM Member</span>
                         </a>
                         
@@ -51,7 +51,7 @@
                     <!-- Futsal -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            href="futsal.html">
+                            href="{% url 'futsal'%}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
@@ -87,7 +87,7 @@
                                 aria-label="submenu">
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="income.html">Income/ Receipt</a>
+                                    <a class="w-full" href="/income/">Income/ Receipt</a>
                                 </li>
                                 
                                 <li
@@ -102,7 +102,7 @@
                     <!-- Snooker Club -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            href="snooker.html">
+                            href="/snooker/">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                               </svg>
@@ -125,7 +125,7 @@
                     <!-- Expenses -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            href="expenses.html">
+                            href="/expenses/">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                               </svg>
@@ -162,7 +162,7 @@
                                 aria-label="submenu">
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="gymSetting.html">GYM Settings</a>
+                                    <a class="w-full" href="/gymSetting/">GYM Settings</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
@@ -350,25 +350,27 @@
 
                     <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md">
                         
-                        <form class="m-2" action="">
+                        <form class="m-2" action="{% url 'employee' %}" method="post">
+                            {% csrf_token %}
                             <!-- Member Details-->
                             <div class="grid sm:grid-cols-1 md:grid-cols-3 font-semibold gap-x-4 gap-y-1">
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Full Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" name="emp-name">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Contact No.</label>
-                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-contact">
                                     
                                 </div>
 
                                 <div class="flex flex-col items-center row-span-2">
                                     <label for="" class="m-1">Profile Photo</label>
                                     <div class="flex flex-col">
-                                        <div class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
+                                        <div class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100"
+                                            onClick="document.getElementById('fileInput').click()">
                                             <img id="image" class="object-cover w-full h-32" src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
                                             
                                             <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center" onClick="document.getElementById('fileInput').click()">
@@ -399,81 +401,81 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">CNIC Number</label>
-                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-cnic">
                                 </div>
                                 
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">eMail</label>
-                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-email">
                                 </div>
                                 
                                 <div class="flex flex-col col-span-2">
                                     <label for="" class="m-1">Address</label>
-                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-address">
                                 </div>
                                 
                                 <div class="grid sm:grid-cols-2 col-span-3 md:grid-cols-6 gap-3">
 
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Gender</label>
-                                        <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                            <option value="" class="">select gender</option>
-                                            <option value="">Male</option>
-                                            <option value="">Female</option>
+                                        <select name="emp-gender" class=""id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                            <option value="" class="" selected>select gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
                                         </select>
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Date of Birth</label>
-                                        <input type="date" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                        <input type="date" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="dateofbirth" id="dateofbirth">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Age</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300">
+                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" name="emp-age" id="emp-age" readonly>
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label for=""  class="m-1">Blood Group</label>
-                                        <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <select name="emp-blood-group" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="">Select Blood Group</option>
-                                            <option value="">A +</option>
-                                            <option value="">A -</option>
-                                            <option value="">B +</option>
-                                            <option value="">B -</option>
-                                            <option value="">AB +</option>
-                                            <option value="">AB -</option>
-                                            <option value="">O +</option>
-                                            <option value="">O -</option>
-                                            <option value="">unknown</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                            <option value=Unknown"">Unknown</option>
                                         </select>
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Type of Employee</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-type">
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Pay</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-pay">
                                     </div>
                                     
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">User Name</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-username">
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Password</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-password">
                                     </div>
 
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Status</label>
-                                        <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <select name="emp-status" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="" class="">select status</option>
-                                            <option value="">Active</option>
-                                            <option value="">Inactive</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
                                         </select>
                                     </div>
 
@@ -488,7 +490,7 @@
                             <div class="flex flex-row justify-end gap-4 mt-5">
                         
                                 <div class="flex flex-col">
-                                    <button class="bg-blue-400 rounded-lg w-36 text-white shadow-md rounded-br-none py-2">
+                                    <button class="bg-blue-400 rounded-lg w-36 text-white shadow-md rounded-br-none py-2" name="add-employee" value="add-employee">
                                         Add Employee
                                     </button>
                                 </div>
@@ -534,17 +536,18 @@
                               </tr>
                             </thead>
                             <tbody>
+                                {% for data in employees %}
                               <tr class="border-2 hover:bg-slate-300">
                                 <td class="p-1">
                                   <input type="checkbox" class="cursor-pointer rounded-md">
                                 </td>
                                 
-                                <td class="p-1">001</td>
-                                <td class="p-1">samishah</td>
-                                <td class="p-1">sami</td>
-                                <td class="p-1">0000 0000000</td>
-                                <td class="p-1">male</td>
-                                <td class="p-1">manager</td>
+                                <td class="p-1">{{data.id}}</td>
+                                <td class="p-1">{{data.employee_username}}</td>
+                                <td class="p-1">{{data.employee_name}}</td>
+                                <td class="p-1">{{data.employee_contact}}</td>
+                                <td class="p-1">{{data.employee_gender}}</td>
+                                <td class="p-1">{{data.employee_type}}</td>
                                 <td class="p-1">
                                     <button class="bg-blue-500 drop-shadow-md rounded-lg inline-flex items-center py-1 px-1 rounded-br-none">
                                         <span>Edit</span>
@@ -553,15 +556,15 @@
                                           </svg>
                                     </button>
 
-                                    <button class="bg-red-500 drop-shadow-md rounded-lg inline-flex items-center py-1 px-1 rounded-br-none">
+                                    <!-- <button class="bg-red-500 drop-shadow-md rounded-lg inline-flex items-center py-1 px-1 rounded-br-none">
                                         <span>Delete</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                           </svg>
-                                    </button>
+                                    </button> -->
                                 </td>
                               </tr>
-                              
+                              {% endfor %}
                             </tbody>
                           </table>
                     </div>
@@ -572,6 +575,9 @@
         </div>
 
     </div>
+    <script src="{% static 'js/employee.js' %}"> 
+
+    </script>
 </body>
 
 </html>
