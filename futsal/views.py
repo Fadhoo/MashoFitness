@@ -8,6 +8,9 @@ from rest_framework.response import Response
 from .serializer import TeamSerializer
 
 
+def futsal(request):
+    return render(request, 'futsal.html',{"TeamRecord":Team.objects.all().order_by("-id")})
+
 def addTeam(request):
     if request.method=="POST":
         if request.POST.get("add-team"):
@@ -19,30 +22,32 @@ def addTeam(request):
             print(request.POST.get("edit-team"))
         return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
 
-def teamDetails(request):
-    if request.method=="POST":
-        print(request.GET.get("team-details"))
-    
-    return render(request,"teamDetails.html",{"TeamRecord": Team.objects.filter(id=request.GET.get('team-details'))[0],})
-
-
-
-
 
 def viewTeam(request):
-    if request.method == "POST":
-        print("post post post post post ")
-    else:
-        return render(request, 'viewTeam.html', {"TeamRecord":Team.objects.all().order_by("-id")})
-
+    return render(request, 'viewTeam.html',{"TeamRecord":Team.objects.all().order_by("-id")})
 
 def teamDetails(request):
-    return render(request, 'teamDetails.html')
+    if request.method=="POST":
+        pass
+    else:
+        if request.GET.get("team-details"):
+            team_id=request.GET.get("team-details")
+            team_details=Team.objects.filter(id=team_id)[0]
+            print(team_details.team_name)
+            return render(request,"teamDetails.html",{"TeamRecord":team_details})
+        # return render(request, 'teamDetails.html')
 
-def futsal(request):
-    return render(request, 'futsal.html')
 
 def futsalMatch(request):
+    if request.method=="POST":
+        pass
+    else:
+        pass
+        # if request.GET.get("futsal-match"):
+        #     match_id=request.GET.get("futsal-match")
+        #     futsal_match=FutsalMatch.objects.filter(id=match_id)[0]
+        #     print(futsal_match.match_name)
+        #     return render(request,"futsalMatch.html",{"FutsalMatch":futsal_match})
     return render(request, 'futsalMatch.html')
 
 def matches(request):
@@ -117,21 +122,22 @@ def SearchByFutsalField(request):
 
 
 
-# @api_view(['GET'])
-# def deleteExpense(request):
-#     # print(request.DELETE.get('delete_array'))
-#     try:
-#         delete_list=request.GET.getlist('arr[]')
-#         if delete_list is not None:
-#             for i in delete_list:
-#                 print(i)
-#                 expensesData.objects.filter(id=int(i)).delete()
-#             return Response(expensesSerializer(expensesData.objects.order_by('-id'),many=True).data)
-#         else:
-#             return Response({"error":str("No data selected")})
-#     except Exception as e:
-#         print(e)
-#         return Response({"error":str(e)})
+@api_view(['GET'])
+def deleteTeamRecord(request):
+    # print(request.DELETE.get('delete_array'))
+    try:
+        delete_list=request.GET.getlist('arr[]')
+        print(delete_list)
+        if delete_list is not None:
+            for i in delete_list:
+                print(i)
+                Team.objects.filter(id=int(i)).delete()
+            return Response(TeamSerializer(Team.objects.all().order_by("-id"),many=True).data)
+        else:
+            return Response({"error":str("No data selected")})
+    except Exception as e:
+        print(e)
+        return Response({"error":str(e)})
 
 
 # @api_view(['GET'])

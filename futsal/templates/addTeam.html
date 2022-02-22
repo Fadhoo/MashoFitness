@@ -423,7 +423,7 @@
                                 {% for team in TeamRecord %}
                                 <tr class="border-2 hover:bg-slate-300">
                                     <td class="p-1">
-                                        <input  onclick="requestDelete(this)" data-id="{{expense.id}}" type="checkbox" class="cursor-pointer rounded-md">
+                                        <input  onclick="requestDelete(this)" data-id="{{team.id}}" type="checkbox" class="cursor-pointer rounded-md">
                                     </td>
                                     <td class="p-1">{{team.id}}</td>
                                     <td class="p-1">{{team.member_created_at}}</td>
