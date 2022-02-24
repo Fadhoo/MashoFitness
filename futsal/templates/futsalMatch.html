@@ -246,17 +246,23 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.team_name}}"
+                                    >
                                 </div>
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Captain Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.captain_name}}"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Contact number</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.contact_number}}"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
@@ -267,7 +273,14 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team 2</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <select name="" id=""
+                                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <option value="">Select</option>
+                                        {% for i in teamNames %}
+                                        
+                                        <option value="{{i.team_name}}">{{i.team_name}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
 
                                 <div class="flex flex-col">

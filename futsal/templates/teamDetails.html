@@ -263,7 +263,7 @@
                     
                     <div class="px-4 py-4 bg-white rounded-lg shadow-md ">
 
-                        <form action="{% url 'teamDetails'% }" method="post">
+                        <form action="/teamDetails/" method="post">
                             {% csrf_token %}
                             <div class="grid sm:grid-cols-1 md:grid-cols-4 font-semibold gap-x-5">
                                 <div class="flex flex-col">
@@ -271,6 +271,13 @@
                                     <input type="text" value="{{TeamRecord.team_name}}" name="team-name"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
+
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1">Captain Name</label>
+                                    <input type="text" name="captain-name" id="captain-name" value="{{TeamRecord.captain_name}}"
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required>
+                                </div>
+
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Contact Number</label>
                                     <input type="text" value="{{TeamRecord.contact_number}}" name="contact"
@@ -281,85 +288,34 @@
                                     <input type="text"
                                         class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div> -->
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1">Time From</label>
-                                    <input type="time" name="time-from"
-                                        class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
-                                </div>
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1">Time To</label>
-                                    <input type="time" name="time-to"
-                                        class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
-                                </div>
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1">Total Amount</label>
-                                    <input type="text" value="0" name="total-amount"
-                                        class="rounded-md text-right rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
-                                </div>
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1">Paid Amount</label>
-                                    <input type="text" value="0" name="paid-amount"
-                                        class="rounded-md text-right rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
-                                </div>
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1">Remaining Amount</label>
-                                    <input type="text" value="0" name="remaining-amount"
-                                        class="rounded-md text-right rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
-                                </div>
-                                
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1">Mode of Payment</label>
-                                    <select name="payment-mode" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                        <option value="" class="">select payment mode</option>
-                                        <option value="Cash">Cash</option>
-                                        <option value="Bank">Bank Transaction</option>
-                                        
-                                    </select>
-                                </div>
+                    
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Attended By</label>
                                     <select name="attended-by" id="" class="rounded-md bg-gray-200 outline-none rounded-br-none border-none shadow-inner">
-                                        <option value="" class="">select user</option>
+                                        <option value="" selected>{{TeamRecord.team_attended_by}}</option>
                                         <option value="User 1">user 1</option>
                                         <option value="User 2">user 2</option>
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
 
-                                <div class="flex flex-col col-span-2">
-                                    <label for="" class="m-1">Description</label>
-                                    <input type="text" name="description"
-                                        class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
-                                </div>
-
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1">Added Date</label>
-                                    <input type="date" name="added-date"
-                                        class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
-                                </div>
                                 
 
                             </div>
 
-                            <div class="grid grid-cols-2 float-right mb-2 mt-2 font-semibold gap-x-2">
+                            <div class="grid grid-cols-1 float-right mb-2 mt-2 font-semibold gap-x-2">
+                                <input type="number" value="{{TeamRecord.id}}" name="id" hidden>
 
                                 <div class="flex flex-col">
-                                    <button
-                                        class="bg-blue-400 px-10 mt-4 rounded-lg text-white shadow-md rounded-br-none py-1">
-                                        <a href="{% url 'bodyAssesments' %}">
+                                    <button name="update-team" value="update-team"
+                                        class="bg-blue-400 px-10 mt-4 rounded-lg text-white shadow-md rounded-br-none py-1"> Update
+                                        <!-- <a href="/viewTeam/">
                                             Update
-                                        </a>
+                                        </a> -->
                                     </button>
                                 </div>
-                                <div class="flex flex-col">
-                                    <button
-                                        class="bg-blue-400 px-10 mt-4 rounded-lg text-white shadow-md rounded-br-none py-1">
-                                        <a href="{% url 'bodyAssesments' %}">
-                                            Delete
-                                        </a>
-                                    </button>
-                                </div>
+                             
 
                             </div>
                         </form>
