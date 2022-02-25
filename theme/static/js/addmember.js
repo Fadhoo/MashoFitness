@@ -28,6 +28,7 @@ function categoryClassChange(){
                 document.getElementById("category-months").value=value['category_months'];
                 document.getElementById("amount").value=value["category_fee"];
                 document.getElementById("payableamount").value=value["category_fee"];
+                getExpiry(value['category_months']);
 
             });
         },
@@ -82,9 +83,10 @@ document.getElementById("dateofbirth").onchange = function () {
     document.getElementById('age').value = ~~((Date.now() - Bday) / (31557600000));
 }
 
-function getExpiry() {
+function getExpiry(data) {
     var expiry = new Date();
-    var getmonth = document.getElementById('membership').value;
+    var getmonth = data 
+    
     getmonth = parseInt(getmonth.replace(/[^\d.]/g, ''));
     expiry.setMonth(expiry.getMonth() + getmonth);
     document.getElementById('expiry').value = expiry.toISOString().slice(0, 10);

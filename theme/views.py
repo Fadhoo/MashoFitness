@@ -276,11 +276,11 @@ def searchbydata(request):
         if searchbytype!='':
             if resultperpage!="all":
                 print("if resultperpage!=all:")
-                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype.lower()}' order by theme_member.id DESC LIMIT {int(resultperpage)};"))
+                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype}' order by theme_member.id DESC LIMIT {int(resultperpage)};"))
 
             else:
                 print("if resultperpage==all:")
-                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype.lower()}' order by theme_member.id DESC;"))
+                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype}' order by theme_member.id DESC;"))
         else:
             
             if resultperpage!="all":
@@ -300,7 +300,7 @@ def searchbydate(request):
         from_date=request.GET.get('fromdate',None)
         to_date=request.GET.get('todate',None)
         if from_date is not None and to_date is not None:
-            return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.membershp_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_member.member_created_at between '{from_date}' and '{to_date}' order by theme_member.id DESC;"))
+            return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_member.member_created_at between '{from_date}' and '{to_date}' order by theme_member.id DESC;"))
         else:
             return Response({"error":str("Please select date")})
     except Exception as e:
