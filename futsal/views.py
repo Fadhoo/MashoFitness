@@ -8,6 +8,8 @@ from rest_framework.response import Response
 from .serializer import TeamSerializer
 
 
+
+
 def futsal(request):
     return render(request, 'futsal.html',{"TeamRecord":Team.objects.all().order_by("-id")})
 
@@ -18,7 +20,8 @@ def addTeam(request):
             return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
     else:
         # code here
-        
+        if request.POST.get("edit-team"):
+            print(request.POST.get("edit-team"))
         return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
 
 
@@ -27,7 +30,10 @@ def viewTeam(request):
 
 def teamDetails(request):
     if request.method=="POST":
-        pass
+        if request.POST.get("update-team"):
+            Team.objects.filter(id=request.POST.get("id")).update(team_name=request.POST.get("team-name"),
+                    captain_name=request.POST.get("captain-name"), contact_number=request.POST.get("contact"), team_attended_by=request.POST.get("attended-by"))
+            return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
     else:
         if request.GET.get("team-details"):
             team_id=request.GET.get("team-details")
@@ -41,7 +47,10 @@ def futsalMatch(request):
     if request.method=="POST":
         pass
     else:
-        pass
+        if request.GET.get("futsal-match"):
+            return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],
+            "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match"))
+            })
         # if request.GET.get("futsal-match"):
         #     match_id=request.GET.get("futsal-match")
         #     futsal_match=FutsalMatch.objects.filter(id=match_id)[0]
@@ -79,7 +88,21 @@ def updateFutsalMatch(request):
 
 
 
+@api_view(["GET"])
+def searchByTeamData(request):
+    try:
+        print(request.GET)
+        resultperpage = request.GET.get("result-per-page", None)
 
+        if resultperpage!="All":
+            print("result per page is not equal to all")
+            return Response(TeamSerializer(Team.objects.order_by('-id')[:int(resultperpage)],many=True).data)
+
+        else:
+            return Response(TeamSerializer(Team.objects.order_by('-id'),many=True).data)
+
+    except Exception as e:
+        return Response({"error": str(e)})
 
 
 

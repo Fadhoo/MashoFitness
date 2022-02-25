@@ -232,12 +232,12 @@
             <!-- Main Inner Complete Page -->
             <main class="h-full overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-red-700 scrollbar-track-red-300">
                 <div class="container px-6 mx-auto grid">
-                    <h2 class="my-3 text-2xl text-center font-semibold text-gray-700 dark:text-gray-200">
+                    <h2 class="my-3 text-2xl text-center font-semibold text-gray-700 ">
                         Book Match
                     </h2>
-                    <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                    <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md ">
                         <p
-                            class="p-2 font-semibold text-lg text-gray-600 dark:text-gray-400 border-b-2 border-gray-700 border-opacity-80">
+                            class="p-2 font-semibold text-lg text-gray-600  border-b-2 border-gray-700 border-opacity-80">
                             Team Details
                         </p>
                         <form class="m-3" action="">
@@ -246,17 +246,23 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.team_name}}"
+                                    >
                                 </div>
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Captain Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.captain_name}}"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Contact number</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.contact_number}}"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
@@ -267,7 +273,14 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team 2</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <select name="" id=""
+                                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <option value="">Select</option>
+                                        {% for i in teamNames %}
+                                        
+                                        <option value="{{i.team_name}}">{{i.team_name}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
 
                                 <div class="flex flex-col">
@@ -555,11 +568,11 @@
                         </form>
                     </div>
 
-                    <div class="px-3 py-3 mb-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                    <div class="px-3 py-3 mb-6 bg-white rounded-lg shadow-md ">
                         
 
                         <div class="flex flex-row mt-2 justify-between border-b-2 border-gray-700 border-opacity-80">
-                            <p class="p-2 text-lg font-semibold text-gray-600 dark:text-gray-400">
+                            <p class="p-2 text-lg font-semibold text-gray-600 ">
                             Team Details</p>
 
 

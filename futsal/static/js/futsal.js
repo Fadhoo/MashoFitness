@@ -72,14 +72,13 @@ function reloadPage() {
 function SearchByFields() {
     let field = document.getElementById('search-by-field').value;
     let value = document.getElementById('search-by-value').value;
-    console.log(field, value);
     if (field != '' && value != '') {
         $.ajax({
             method: "GET",
             url: "/api/SearchByFutsalField/",
             data: { "field": field, "value": value },
             success: function (data) {
-                console.log("success on search" + data);
+                // console.log("success on search" + data);
                 update_table(data)
             },
             error: function () {
@@ -140,16 +139,14 @@ function SearchByFields() {
 
 
 function update_table(data) {
-    console.log(data);
+    // console.log(data);
     let row;
     let all_rows = '';
 
     Object.keys(data).forEach(key => {
         elem = data[key];
-        console.log(elem['id']);
-        row =
-
-        '<tr class="border-2 hover:bg-slate-300">'+
+        console.log(elem);
+        row ='<tr class="border-2 hover:bg-slate-300">'+
         '<td class="p-1">'+
             '<input onclick="requestDelete(this)" data-id="' + elem['id'] +'" type="checkbox" class="cursor-pointer rounded-md" >' +
         '</td>'+
@@ -187,7 +184,9 @@ function update_table(data) {
             '</a>'+
 
         '</td>'+
-    '</tr>'
+    '</tr>' 
+
+    
 
         all_rows = all_rows + row;
     });
