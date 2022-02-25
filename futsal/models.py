@@ -11,13 +11,18 @@ class Team(models.Model):
     member_updated_at = models.DateField(auto_now=True)
 
 
+class Booking(models.Model):
+    time = models.CharField(max_length=25, default="")
+    meridiem = models.CharField(max_length=5)
+    booking_date = models.DateField(auto_now=True)
+    status = models.BooleanField(default=True)
+
 
 class Match(models.Model):
-    time = models.DateTimeField(auto_now=True)
-    meridiem = models.CharField(max_length=5)
+    
+    date = models.DateField(default=datetime.now())
+    fee = models.IntegerField()
+    paid= models.CharField(max_length=10, default="Unpaid")
     team1 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team1')
     team2 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team2')
-    fee = models.IntegerField()
-    paid= models.IntegerField()
-    data = models.DateField(auto_now_add=True)
-
+    booking_time = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='booking_time', default=0)
