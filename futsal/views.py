@@ -45,11 +45,11 @@ def teamDetails(request):
 
 def futsalMatch(request):
     if request.method=="POST":
-        if request.POST.get("add-book"):
+        if request.POST.get("add-match"):
             print("add book add book add book")
             addMatch = addMatchBooking(request)
             if addMatch:
-                return render(request, "matches.html", {'TeamRecord': addMatch})
+                return render(request, "matches.html", {'TeamRecord': Match.objects.all()})
             else:
                 pass
     else:
@@ -62,10 +62,17 @@ def futsalMatch(request):
         #     futsal_match=FutsalMatch.objects.filter(id=match_id)[0]
         #     print(futsal_match.match_name)
         #     return render(request,"futsalMatch.html",{"FutsalMatch":futsal_match})
-    return render(request, 'futsalMatch.html')
+        return render(request, 'futsalMatch.html', {'TeamRecord': Match.objects.all()})
 
 def matches(request):
-    return render(request, 'matches.html')
+    if request.method == "POST":
+        pass
+    else:
+        if request.GET.get("match_done_row_id"):
+            pass
+        if request.GET.get("match_edit_row_id"):
+            pass
+    return render(request, 'matches.html', {'TeamRecord': Match.objects.all()})
 
 def updateFutsalMatch(request):
     return render(request,"updateFutsalMatch.html")

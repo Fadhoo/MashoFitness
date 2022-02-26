@@ -251,41 +251,43 @@
                                 </th>
                                 <th class="p-1">S No.</th>
                                 <th class="p-1">Date</th>
-                                <th class="p-1">Team Name</th>
+                                <th class="p-1">Team 1</th>
                                 <th class="p-1">Team 2</th>
                                 <th class="p-1">Book at</th>
                                 <th class="p-1">Contact No.</th>
-                                <th class="p-1">Payment Status</th>
+                                <th class="p-1">Status</th>
                                 <th class="p-1">By</th>
                                 <th class="p-1">Action</th>
                                 
                               </tr>
                             </thead>
                             <tbody>
-                                {% for match in matches %}
+                                {% for match in TeamRecord %}
                               <tr class="border-2 hover:bg-slate-300">
                                 <td class="p-1">
                                   <input type="checkbox" class="cursor-pointer rounded-md">
                                 </td>
                                 <td class="p-1">{{match.id}}</td>
                                 <td class="p-1">{{match.date}}</td>
-                                <td class="p-1">Masho football</td>
-                                <td class="p-1">Masho football</td>
-                                <td class="p-1">8:00 to 9:00</td>
-                                <td class="p-1">0000 0000000</td>
-                                <td class="p-1">unpaid</td>
+                                <td class="p-1">{{match.team1.team_name}}</td>
+                                <td class="p-1">{{match.team2.team_name}}</td>
+                                <td class="p-1">{{match.booking_time.time}}</td>
+                                <td class="p-1">{{match.team1.contact_number}}</td>
+                                <td class="p-1">{{match.paid}}</td>
                                 <td class="p-1">admin</td>
                                 
                                 <td class="p-1">
-                                    <a href="">
-                                        <button class="bg-green-400 drop-shadow-md rounded-lg inline-flex items-center py-1 px-1 rounded-br-none">
+                                    <a href="/doneButton/?match_done_row_id={{match.id}}">
+                                        <button class="bg-green-400 drop-shadow-md rounded-lg inline-flex items-center py-1 px-1 rounded-br-none"
+                                        
+                                        >
                                             <span>Done</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                               </svg>
                                         </button>
                                     </a>
-                                    <a href="/updateFutsalMatch/">
+                                    <a href="/updateFutsalMatch/?match_edit_row_id={{match.id}}">
                                         <button class="bg-blue-600 drop-shadow-md px-1 py-1 rounded-lg inline-flex items-center rounded-br-none">
                                             <span>Edit</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 ml-2 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -293,13 +295,6 @@
                                               </svg>
                                         </button>
                                     </a>
-
-                                    <button class="bg-red-500 drop-shadow-md rounded-lg inline-flex items-center py-1 px-1 rounded-br-none">
-                                        <span>Delete</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                          </svg>
-                                    </button>
                                 </td>
                               </tr>
                               {% endfor %}
