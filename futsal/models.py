@@ -15,7 +15,7 @@ class Booking(models.Model):
     time = models.CharField(max_length=25, default="")
     meridiem = models.CharField(max_length=5)
     booking_date = models.DateField(auto_now=True)
-    status = models.BooleanField(default=True)
+    status = models.BooleanField(default=False)
 
 
 class Match(models.Model):

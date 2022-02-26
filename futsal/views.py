@@ -47,8 +47,11 @@ def futsalMatch(request):
     if request.method=="POST":
         if request.POST.get("add-book"):
             print("add book add book add book")
-            addMatch = addBook(request)
-            return render(request, "matches.html", {'TeamRecord': addMatch})
+            addMatch = addMatchBooking(request)
+            if addMatch:
+                return render(request, "matches.html", {'TeamRecord': addMatch})
+            else:
+                pass
     else:
         if request.GET.get("futsal-match"):
             return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],

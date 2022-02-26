@@ -38,7 +38,6 @@ function get_Bookings(data){
 
 
 function onlyOne(checkbox) {
-    console.log()
     var checkboxes = document.getElementsByName('check')
     checkboxes.forEach((item) => {
         if (item !== checkbox) item.checked = false

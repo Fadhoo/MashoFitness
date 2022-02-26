@@ -248,8 +248,8 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team Name</label>
                                     <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                    value="{{TeamRecord.team_name}}"
-                                    >
+                                    value="{{TeamRecord.team_name}}" name="team_name1" readonly>
+                                    
                                 </div>
                                 
                                 <div class="flex flex-col">
@@ -275,7 +275,7 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team 2</label>
-                                    <select name="team2" id=""
+                                    <select name="team_name2" id=""
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="">Select</option>
                                         {% for i in teamNames %}
@@ -293,7 +293,7 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Payment Status</label>
-                                    <select name="status" id=""
+                                    <select name="payment_status" id=""
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="">Select</option>
                                         <option value="Paid">Paid</option>
@@ -304,12 +304,13 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Get Bookings</label>
-                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" onchange="get_Bookings(this)">
+                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    name="booking_date" onchange="get_Bookings(this)">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic" readonly>Book at</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" id="book-at" readonly>
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" id="book-at" name="book_at" readonly>
                                 </div>
                                 
                                 <div class="flex flex-col">

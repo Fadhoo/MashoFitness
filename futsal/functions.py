@@ -34,12 +34,22 @@ def createDailyMatchTimeTable(date):
 
         return Booking.objects.filter(booking_date=date)
 
-def addBook(request):
-    team1=Team.objects.filter(team_name=request.POST.get("team-name"))[0]
-    team2=Team.objects.filter(team_name=request.POST.get("team-name"))[0]
-    booking_time=Booking.objects.filter(booking_date=request.POST.get("booking-date"))[0]
-    match = Match.objects.create(date=request.POST.get("date"), fee=request.POST.get("fee"), 
-            paid=request.POST.get("status"), team1=team1, team2=team2, booking_time=booking_time)
-
-    return match
-
+def addMatchBooking(request):
+    try:
+        team1=Team.objects.filter(team_name=request.POST.get('team_name1'))[0]
+        team2=Team.objects.filter(team_name=request.POST.get('team_name2'))[0]
+        booking_time=Booking.objects.filter(time=request.POST.get('book_at')[:-2],
+                                            meridiem=request.POST.get('book_at')[-2:],
+                                            booking_date=request.POST.get("booking_date"))[0]
+        booking_time.status=True
+        booking_time.save()
+        date=request.POST.get('date')
+        fee=request.POST.get('fee')
+        payment_status=request.POST.get('payment_status')
+        attended_by=request.POST.get('attended-by')
+        Match.objects.create(team1=team1,team2=team2,booking_time=booking_time,
+        paid=payment_status,fee=fee,date=date)
+        return True
+    except Exception as e:
+        print("error in addMatchBooking",e)
+        return False
