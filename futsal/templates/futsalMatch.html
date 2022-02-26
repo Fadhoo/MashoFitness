@@ -301,14 +301,14 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Get Bookings</label>
-                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" onchange="get_Bookings(this)">
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1 italic">Book at</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <label for="" class="m-1 italic" readonly>Book at</label>
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" id="book-at" readonly>
                                 </div>
-
+                                
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Attended By</label>
                                     <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
@@ -326,237 +326,13 @@
                                 
 
                             </div>
-
-                            <div class="border-b border-teal-900 ">
-                                <h1 class="p-2">Available Time</h1>
-                                <h1 class="">PM</h1>
-                                <div class="grid grid-cols-6 gap-1 p-2">
-                                    <!-- 12 to 1 pm -->
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>12:00 to 1:00 PM</span>
-                                        <input type="checkbox" class="m-1 rounded-md">
-                                    </div>
-                                    <!-- 1 to 2 pm -->
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>1:00</span>
-                                        <span>to</span>
-                                        <span>2:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <!-- 2 to 3 pm -->
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>2:00</span>
-                                        <span>to</span>
-                                        <span>3:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>3:00</span>
-                                        <span>to</span>
-                                        <span>4:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>4:00</span>
-                                        <span>to</span>
-                                        <span>5:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>5:00</span>
-                                        <span>to</span>
-                                        <span>6:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>6:00</span>
-                                        <span>to</span>
-                                        <span>7:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>7:00</span>
-                                        <span>to</span>
-                                        <span>8:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>8:00</span>
-                                        <span>to</span>
-                                        <span>9:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>9:00</span>
-                                        <span>to</span>
-                                        <span>10:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>10:00</span>
-                                        <span>to</span>
-                                        <span>11:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>11:00</span>
-                                        <span>to</span>
-                                        <span>12:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-red-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                          </svg>
-                                    </div>
+                            <h1 class="p-2">Available Time</h1>
+                            <div class="border-b border-teal-900 grid grid-cols-6 gap-1 p-2" id="booking-div-id">
+                                
                                     
-                                </div>
-                                <!-- AM -->
-                                <h2 class="">AM</h2>
-
-                                <div class="grid grid-cols-6 gap-2 p-3">
-                                    <!-- 12 to 1 am -->
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>12:00</span>
-                                        <span>to</span>
-                                        <span>1:00</span>
-                                        <span>PM</span>
-                                        <input type="checkbox" class="m-1 rounded-md">
-                                    </div>
-                                    <!-- 1 to 2 am -->
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>1:00</span>
-                                        <span>to</span>
-                                        <span>2:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <!-- 2 to 3 am -->
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>2:00</span>
-                                        <span>to</span>
-                                        <span>3:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>3:00</span>
-                                        <span>to</span>
-                                        <span>4:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>4:00</span>
-                                        <span>to</span>
-                                        <span>5:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>5:00</span>
-                                        <span>to</span>
-                                        <span>6:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>6:00</span>
-                                        <span>to</span>
-                                        <span>7:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>7:00</span>
-                                        <span>to</span>
-                                        <span>8:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>8:00</span>
-                                        <span>to</span>
-                                        <span>9:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>9:00</span>
-                                        <span>to</span>
-                                        <span>10:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>10:00</span>
-                                        <span>to</span>
-                                        <span>11:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-1 border p-1 border-teal-900">
-                                        <span>11:00</span>
-                                        <span>to</span>
-                                        <span>12:00</span>
-                                        <span>PM</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-red-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                          </svg>
-                                    </div>
-                                    
-                                </div>
                             </div>
 
-                            <div class="flex flex-col float-right mt-5">
+                            <div class="flex flex-col  float-right mt-5">
                                 <button class="bg-blue-600 rounded-lg px-3 text-white shadow-md rounded-br-none py-1">
                                     Book Match
                                 </button>
@@ -658,6 +434,8 @@
         </div>
 
     </div>
+    <script src="{% static 'js/futsalMatch.js'%}"></script>
+    
 </body>
 
 </html>

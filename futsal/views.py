@@ -2,10 +2,10 @@ from django.db.models import Sum
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from .models import *
-# from .functions import *
+from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import TeamSerializer
+from .serializer import TeamSerializer, MatchSerializer, BookingSerializer
 
 
 
@@ -145,6 +145,15 @@ def deleteTeamRecord(request):
             return Response({"error":str("No data selected")})
     except Exception as e:
         print(e)
+        return Response({"error":str(e)})
+
+@api_view(['GET'])
+def getBookings(request):
+    date=request.GET.get('booking_date')
+    print(date)
+    try:
+        return Response(BookingSerializer(createDailyMatchTimeTable(date),many=True).data)
+    except Exception as e:
         return Response({"error":str(e)})
 
 
