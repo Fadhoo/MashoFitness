@@ -6,7 +6,7 @@ from .models import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import TeamSerializer
-
+from .functions import *
 
 
 
@@ -45,7 +45,10 @@ def teamDetails(request):
 
 def futsalMatch(request):
     if request.method=="POST":
-        pass
+        if request.POST.get("add-book"):
+            print("add book add book add book")
+            addMatch = addBook(request)
+            return render(request, "matches.html", {'TeamRecord': addMatch})
     else:
         if request.GET.get("futsal-match"):
             return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],

@@ -262,12 +262,13 @@
                               </tr>
                             </thead>
                             <tbody>
+                                {% for match in matches %}
                               <tr class="border-2 hover:bg-slate-300">
                                 <td class="p-1">
                                   <input type="checkbox" class="cursor-pointer rounded-md">
                                 </td>
-                                <td class="p-1">11</td>
-                                <td class="p-1">11/11/1111</td>
+                                <td class="p-1">{{match.id}}</td>
+                                <td class="p-1">{{match.date}}</td>
                                 <td class="p-1">Masho football</td>
                                 <td class="p-1">Masho football</td>
                                 <td class="p-1">8:00 to 9:00</td>
@@ -301,7 +302,7 @@
                                     </button>
                                 </td>
                               </tr>
-                              
+                              {% endfor %}
                             </tbody>
                           </table>
                     </div>
