@@ -71,11 +71,22 @@ def matches(request):
         if request.GET.get("match_done_row_id"):
             pass
         if request.GET.get("match_edit_row_id"):
-            pass
+            match=Match.objects.filter(id=request.GET.get("match_edit_row_id"))[0]
+            return render(request, "updateFutsalMatch.html", {'TeamRecord': match,
+            "teamNames": Team.objects.all().exclude(team_name=match.team1.team_name)})
+    
     return render(request, 'matches.html', {'TeamRecord': Match.objects.all()})
 
 def updateFutsalMatch(request):
-    return render(request,"updateFutsalMatch.html")
+    if request.method == "POST":
+        if request.POST.get("update-detail"):
+            print("edit edit edit edit **** ")
+            update_match = updateMatchBooking(request)
+            print(update_match)
+            
+            
+
+    return render(request,"updateFutsalMatch.html", {"TeamRecord": Match.objects.all()})
 
 
 
