@@ -3,10 +3,10 @@ from .models import Match, Booking, Team
 def createDailyMatchTimeTable(date):
     
     if Booking.objects.filter(booking_date=date).exists():
-        print("booking date already exist:")
+        print("booking date already exist:",date)
         return Booking.objects.filter(booking_date=date)
     else:
-        print("booking date not exist: craate new booking")
+        print("booking date not exist: craate new booking",date)
         Booking.objects.create(booking_date=date,time="12:00 to 1:00",meridiem="PM",status=False)
         Booking.objects.create(booking_date=date,time="1:00 to 2:00",meridiem="PM",status=False)
         Booking.objects.create(booking_date=date,time="2:00 to 3:00",meridiem="PM",status=False)
@@ -57,13 +57,15 @@ def addMatchBooking(request):
 
 def updateMatchBooking(request):
     try:
+        match_id=Match.objects.filter(id=request.POST.get("id"))[0]
+        Booking.objects.filter(id=match_id.booking_time.id).update(status=False)
         # team1=Team.objects.filter(team_name=request.POST.get('team_name1'))[0]
         team2=Team.objects.filter(team_name=request.POST.get('team_name2'))[0]
         booking_time=Booking.objects.filter(time=request.POST.get('book_at')[:-2],
                                             meridiem=request.POST.get('book_at')[-2:],
                                             booking_date=request.POST.get("booking_date"))[0]
-        # booking_time.status=True
-        # booking_time.save()
+        booking_time.status=True
+        booking_time.save()
         date=request.POST.get('date')
         fee=request.POST.get('fee')
         payment_status=request.POST.get('payment_status')

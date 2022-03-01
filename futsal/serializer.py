@@ -12,7 +12,13 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields='__all__'
 
+
+
+
 class MatchSerializer(serializers.ModelSerializer):
+    team1 = TeamSerializer(read_only=True)
+    team2 = TeamSerializer(read_only=True)
+    booking_time = BookingSerializer(read_only=True)
     class Meta:
         model = Match
-        fields='__all__'
+        fields = '__all__'

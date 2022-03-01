@@ -1,3 +1,4 @@
+from urllib import response
 from django.db.models import Sum
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -55,7 +56,8 @@ def futsalMatch(request):
     else:
         if request.GET.get("futsal-match"):
             return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],
-            "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match"))
+            "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match")),
+            'TeamRecords': Match.objects.all().order_by("-id")
             })
         # if request.GET.get("futsal-match"):
         #     match_id=request.GET.get("futsal-match")
@@ -69,7 +71,10 @@ def matches(request):
         pass
     else:
         if request.GET.get("match_done_row_id"):
-            pass
+            match_id=request.GET.get("match_done_row_id")
+            print(match_id)
+            Match.objects.filter(id=match_id).update(paid="Paid")
+            return render(request, "matches.html", {'TeamRecord': Match.objects.all().order_by("-id")})
         if request.GET.get("match_edit_row_id"):
             match=Match.objects.filter(id=request.GET.get("match_edit_row_id"))[0]
             return render(request, "updateFutsalMatch.html", {'TeamRecord': match,
@@ -86,7 +91,7 @@ def updateFutsalMatch(request):
             
             
 
-    return render(request,"updateFutsalMatch.html", {"TeamRecord": Match.objects.all()})
+    return render(request, 'matches.html', {'TeamRecord': Match.objects.all()})
 
 
 
@@ -181,36 +186,50 @@ def getBookings(request):
         return Response({"error":str(e)})
 
 
-# @api_view(['GET'])
-# def searchByExpenseData(request):
-#     try:
-#         print(request.GET)
-#         resultperpage=request.GET.get('resultperpage',None)
-#         searchbytype=request.GET.get('searchbytype',None)
-#         if searchbytype!='':
-#             if resultperpage!="all":
-#                 print("if resultperpage!=all:")
-#                 return Response(expensesSerializer(expensesData.objects.order_by('-id').filter(expenses_for=searchbytype)[:int(resultperpage)],many=True).data)
 
-#             else:
-#                 print("if resultperpage==all:")
-#                 return Response(expensesSerializer(expensesData.objects.order_by('-id').filter(expenses_for=searchbytype),many=True).data)
-#         else:
-            
-#             if resultperpage!="all":
-#                 print("if resultperpage!=all:  else if")
-#                 return Response(expensesSerializer(expensesData.objects.order_by('-id')[:int(resultperpage)],many=True).data)
-#             else:
-#                 print("if resultperpage==all: else else")
-#                 return Response(expensesSerializer(expensesData.objects.order_by('-id'),many=True).data)
-        
-#     except Exception as e:
-#         return Response({"error":str(e)})
+
+# Match page api
+@api_view(['GET'])
+def deleteTeamMatch(request):
+    # print(request.DELETE.get('delete_array'))
+    try:
+        delete_list=request.GET.getlist('arr[]')
+        if delete_list is not None:
+            for i in delete_list:
+                match_id=Match.objects.filter(id=int(i))[0]
+                Booking.objects.filter(id=match_id.booking_time.id).update(status=False)
+                Match.objects.filter(id=int(i)).delete()
+            return Response(MatchSerializer(Match.objects.all().order_by('-id'),many=True).data)
+        else:
+            return Response({"error":str("No data selected")})
+    except Exception as e:
+        print(e)
+        return Response({"error":str(e)})
 
 
 
-# @api_view(['GET'])
-# def searchByExpenseDate(request):
+
+@api_view(['GET'])
+def SearchByTeamMatchField(request):
+    print(request.GET)
+    field=request.GET.get("field")
+    value=request.GET.get("value")
+    print(value,field)
+    try:
+        if field=="team_name":
+            return Response(MatchSerializer(Match.objects.filter(team1__team_name__icontains=value).select_related("team1"),many=True).data)
+        elif field=="contact_number":
+            return Response(MatchSerializer(Match.objects.filter(team1__contact_number__icontains=value).order_by('-id'),many=True).data)
+    except:
+        return Response({"message":"No data found"})
+
+@api_view(['GET'])
+def SearchByTeamMatchStatus(request):
+    value=request.GET.get("status")
+    try:
+        return Response(MatchSerializer(Match.objects.filter(paid=value),many=True).data)
+    except Exception as e:
+        return Response({"error":str(e)})
 #     try:
 #         from_date=request.GET.get('fromdate',None)
 #         to_date=request.GET.get('todate',None)
