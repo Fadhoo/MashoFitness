@@ -47,7 +47,30 @@ def addMatchBooking(request):
         fee=request.POST.get('fee')
         payment_status=request.POST.get('payment_status')
         attended_by=request.POST.get('attended-by')
+
         Match.objects.create(team1=team1,team2=team2,booking_time=booking_time,
+        paid=payment_status,fee=fee,date=date)
+        return True
+    except Exception as e:
+        print("error in addMatchBooking",e)
+        return False
+
+def updateMatchBooking(request):
+    try:
+        # team1=Team.objects.filter(team_name=request.POST.get('team_name1'))[0]
+        team2=Team.objects.filter(team_name=request.POST.get('team_name2'))[0]
+        booking_time=Booking.objects.filter(time=request.POST.get('book_at')[:-2],
+                                            meridiem=request.POST.get('book_at')[-2:],
+                                            booking_date=request.POST.get("booking_date"))[0]
+        # booking_time.status=True
+        # booking_time.save()
+        date=request.POST.get('date')
+        fee=request.POST.get('fee')
+        payment_status=request.POST.get('payment_status')
+        attended_by=request.POST.get('attended-by')
+        print(team2, booking_time, date, fee,payment_status,attended_by)
+
+        Match.objects.filter(id=request.POST.get("id")).update(team2=team2,booking_time=booking_time,
         paid=payment_status,fee=fee,date=date)
         return True
     except Exception as e:

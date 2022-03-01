@@ -191,119 +191,108 @@
                             class="p-2 font-semibold text-lg text-gray-600  border-b-2 border-gray-700 border-opacity-80">
                             Update Team Details
                         </p>
-                        <form class="m-3" action="">
+                        <form class="m-3" action="/updateFutsalMatch/" method="post">
+                            {% csrf_token %}
                             <!-- Member Details-->
                             <div class="grid sm:grid-cols-1 md:grid-cols-5 font-semibold gap-3">
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.team1.team_name}}" name="team_name1" readonly>
                                 </div>
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Captain Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.team1.captain_name}}" name="captain-name">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Contact number</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.team1.contact_number}}" name="contact-number"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Date</label>
-                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" 
+                                    name="date" id="today-date">
                                 </div>
                                 
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team 2</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <select name="team_name2" id=""
+                                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <option value="">Select</option>
+                                        {% for i in teamNames %}
+                                        
+                                        <option value="{{i.team_name}}">{{i.team_name}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Fee</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.fee}}" name="fee"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Payment Status</label>
-                                    <select name="" id=""
+                                    <select name="payment_status" id="" value="{{TeamRecord.paid}}"
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="">Select</option>
-                                        <option value="">Paid</option>
-                                        <option value="">Unpaid</option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Unpaid">Unpaid</option>
 
                                     </select>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Get Bookings</label>
-                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    name="booking_date" onchange="get_Bookings(this)"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Book at</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    value="{{TeamRecord.booking_time.time}}{{TeamRecord.booking_time.meridiem}}" name="book_at" id="book-at"
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Attended By</label>
-                                    <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                    <select name="attended-by" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="" class="">select user</option>
-                                        <option value="">user 1</option>
-                                        <option value="">user 2</option>
-                                        <option value="">Other</option>
+                                        <option value="User 1">user 1</option>
+                                        <option value="User 2">user 2</option>
+                                        <!-- <option value="">Other</option> -->
                                     </select>
                                 </div>
                                 
 
                             </div>
 
-                            <div class="border-b border-teal-900 ">
-                                <h1 class="p-2">Available Time</h1>
-                                <div class="grid grid-flow-col gap-2 p-3">
-                                    <div class="flex flex-row gap-3 border p-1 border-teal-900">
-                                        <span>3:00 to 4:00</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-3 border p-1 border-teal-900">
-                                        <span>4:00 to 5:00</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-red-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-3 border p-1 border-teal-900">
-                                        <span>5:00 to 6:00</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-3 border p-1 border-teal-900">
-                                        <span>6:00 to 7:00</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-red-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-3 border p-1 border-teal-900">
-                                        <span>7:00 to 8:00</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                    </div>
-                                    <div class="flex flex-row gap-3 border p-1 border-teal-900">
-                                        <span>8:00 to 9:00</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-red-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                          </svg>
-                                    </div>
-                                </div>
+                            
+                            <h1 class="p-2">Available Time</h1>
+                            <div class="border-b border-teal-900 grid grid-cols-6 gap-1 p-2" id="booking-div-id">
+                                
+                                    
                             </div>
+                             
+
 
                             <div class="flex flex-col float-right mt-5">
-                                <button class="bg-blue-600 rounded-lg px-3 text-white shadow-md rounded-br-none py-1">
+                                <input type="number" name="id" value="{{TeamRecord.id}}" hidden>
+                                <button class="bg-blue-600 rounded-lg px-3 text-white shadow-md rounded-br-none py-1"
+                                name="update-detail" value="update-detail"
+                                >
                                     Update Details
                                 </button>
                             </div>
@@ -319,6 +308,12 @@
         </div>
 
     </div>
+    <script src="{% static 'js/futsalMatch.js'%}"></script>
+    
+    <script>
+        var today = new Date();
+        document.getElementById("today-date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+    </script>
 </body>
 
 </html>
