@@ -654,12 +654,13 @@
                                     <th class="p-1">Selling Price</th>
                                     <th class="p-1">Size</th>
                                     <th class="p-1">Expiration Date</th>
-                                    <th class="p-1">Quality</th>
+                                
                                     <th class="p-1">Status</th>
                                 </tr>
                             </thead>
 
                             <tbody>
+                                {% for product in addProducts %}
                                 <tr class="text-left hover:bg-red-200">
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
@@ -673,253 +674,18 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
+                                    <td class="p-2">{{product.product_code}}</td>
+                                    <td class="p-2">{{product.product_name}}</td>
+                                    <td class="p-2">{{product.product_unit}}</td>
+                                    <td class="p-2">{{product.selling_price}}</td>
+                                    <td class="p-2">{{product.product_size}}</td>
+                                    <td class="p-2">{{product.product_expiry}}</td>
+                                    
+                                    <td class="p-2">{{product.status}}</td>
 
 
                                 </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
-                                <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
-                                        <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
-
-
-                                </tr>
+                                {% endfor %}
 
                             </tbody>
                         </table>
@@ -1040,37 +806,37 @@
                     <div class="p-1 border border-gray-500">
                         <div class="flex flex-col">
                             <label for="">Code</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="product-code" id="product-code">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="product-name" id="product-name">
                         </div>
                         <div class="flex flex-col">
                             <label for=""  class="">Unit of Measure</label>
-                            <select name="" id="" class="h-7 p-0 px-2 text-sm rounded-md shadow-inner">
+                            <select class="h-7 p-0 px-2 text-sm rounded-md shadow-inner" name="measure-unit" id="measure-unit">
                                 <option value=""></option>
                                 <option value="">Nos</option>
                             </select>
                         </div>
                         <div class="flex flex-col">
                             <label for="">Item Category</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="product-category" id="product-category">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Item Brand</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="product-brand" id="product-brand">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Manufacturer</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="manufacturer" id="manufacturer">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Selling Price</label>
-                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0">
+                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0" name="selling-price" id="selling-price">
                         </div>
                         <div class="flex flex-row pt-1">
-                            <input type="checkbox" class="m-1 rounded-md shadow-inner">
+                            <input type="checkbox" class="m-1 rounded-md shadow-inner" name="sale-tax" id="sale-tax">
                             <label for="">Price Inclusive Sale Tax</label>
                         </div>
                         
@@ -1131,8 +897,40 @@
                                 </li>
                             </ul>
                             <div class="flex flex-col">
-                                <input type="image" class="m-2 rounded-lg outline-none border-none shadow-inner bg-gray-200 h-32 w-32">
+                                <div
+                                    class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
+                                    <img id="image" class="object-cover w-full h-32"
+                                        src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
+
+                                    <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
+                                        onClick="document.getElementById('fileInput').click()">
+                                        <button type="button"
+                                            style="background-color: rgba(255, 255, 255, 0.65)"
+                                            class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-camera" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                                                <path
+                                                    d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                                                <circle cx="12" cy="13" r="3" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
+                                    onChange="let file = this.files[0]; 
+                                    var reader = new FileReader();
+                
+                                    reader.onload = function (e) {
+                                        document.getElementById('image').src = e.target.result;
+                                        document.getElementById('image2').src = e.target.result;
+                                    };
                                 
+                                    reader.readAsDataURL(file);
+                                ">
                             </div>
                         </div>
                         <div class="flex flex-col items-center border border-gray-400">
@@ -1140,17 +938,17 @@
                             <label for="">00000000000000</label>
                         </div>
                         <div class="flex flex-col">
-                            <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
+                            <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1" name="print" id="print">
                                 Print
                             </button>
                         </div>
                         <div class="flex flex-col">
                             <label for="">Maximum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100">
+                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100" name="max-selling-qty" id="max-selling-qty">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Minimum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="1">
+                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="1" name="min-selling-price" id="min-selling-price">
                         </div>
 
                         <!-- <div class="flex flex-col">
@@ -1165,9 +963,9 @@
 
                         <div class="flex flex-col">
                             <label for=""  class="">Status</label>
-                            <select name="" id="" class="h-7 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
-                                <option value="">Active</option>
-                                <option value="">Inactive</option>
+                            <select name="status" id="status" class="h-7 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
                             </select>
                         </div>
 
@@ -1388,11 +1186,11 @@
             <footer class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
 
                 <button
-                    class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
+                    class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" id="save-button">
                     Save
                 </button>
                 <button @click="closeProductModal"
-                    class="bg-blue-400 px-6 py-1 rounded-xl text-white">
+                    class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button" id="cancel-button">
                     Cancel
                 </button>
 

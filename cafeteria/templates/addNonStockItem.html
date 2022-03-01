@@ -654,12 +654,13 @@
                                     <th class="p-1">Selling Price</th>
                                     <th class="p-1">Size</th>
                                     <th class="p-1">Expiration Date</th>
-                                    <th class="p-1">Quality</th>
+                                    
                                     <th class="p-1">Status</th>
                                 </tr>
                             </thead>
 
                             <tbody>
+                                {% for stock in products %}
                                 <tr class="text-left hover:bg-red-200">
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
@@ -673,20 +674,18 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="p-2">abc1234567</td>
-                                    <td class="p-2">Milk Shake</td>
-                                    <td class="p-2">glass</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">1000</td>
-                                    <td class="p-2">
-                                        none
-                                    </td>
-                                    <td class="p-2">33/33/3333</td>
-                                    <td class="p-2">good</td>
-                                    <td class="p-2">active</td>
+                                    <td class="p-2">{{stock.stock_code}}</td>
+                                    <td class="p-2">{{stock.stock_name}}</td>
+                                    <td class="p-2">{{stock.stock_unit}}</td>
+                                    <td class="p-2">{{stock.selling_price}}</td>
+                                    <td class="p-2">{{stock.stock_Item_size}}</td>
+                                    <td class="p-2">{{stock.stock_expiry}}</td>
+                                    
+                                    <td class="p-2">{{stock.status}}</td>
 
 
                                 </tr>
+                                {% endfor %}
                                 
 
                             </tbody>
@@ -810,55 +809,55 @@
                     <div class="p-1 border border-gray-500">
                         <div class="flex flex-col">
                             <label for="">Item Code</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-code">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Item Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-name">
                         </div>
                         <div class="flex flex-col">
                             <label for=""  class="">Unit of Measure</label>
-                            <select name="" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner">
+                            <select name="" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" name="unit-measurement" id="unit-measurement">
                                 <option value=""></option>
                                 <option value="">Nos</option>
                             </select>
                         </div>
                         <div class="flex flex-col">
                             <label for="">Item Category</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-category" id="item-category">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="">Item Brand</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-brand" id="item-brand">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="">Manufacturer</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="manufacturer" id="manufacturer">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="">Purchase Price</label>
-                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0">
+                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0" name="purchase-price" id="purchase-price">
                         </div>
                         <div class="flex flex-row pt-1">
-                            <input type="checkbox" class="m-1 rounded-md shadow-inner">
+                            <input type="checkbox" class="m-1 rounded-md shadow-inner" name="purchase-tax" id="purchase-tax">
                             <label for="">Price Inclusive Purchase Tax</label>
                         </div>
                         <div class="flex flex-col">
                             <label for="">Selling Price</label>
-                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0">
+                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0" name="selling-price" id="selling-price">
                         </div>
                         <div class="flex flex-row pt-1">
-                            <input type="checkbox" class="m-1 rounded-md shadow-inner">
+                            <input type="checkbox" class="m-1 rounded-md shadow-inner" name="sale-tax" id="sale-tax">
                             <label for="">Price Inclusive Sale Tax</label>
                         </div>
                         <div class="flex flex-col">
                             <label for=""  class="">Status</label>
-                            <select name="" id="" class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
-                                <option value="">Active</option>
-                                <option value="">Inactive</option>
+                            <select name="status" id="status" class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
                             </select>
                         </div>
 
@@ -912,10 +911,42 @@
                                         </svg>
                                     </button>
                                 </li>
-                            </ul>
+                                </ul>
                             <div class="flex flex-col">
-                                <input type="image" class="m-2 rounded-lg outline-none border-none shadow-inner bg-gray-200 h-32 w-32">
+                                <div
+                                    class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
+                                    <img id="image" class="object-cover w-full h-32"
+                                        src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
+
+                                    <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
+                                        onClick="document.getElementById('fileInput').click()">
+                                        <button type="button"
+                                            style="background-color: rgba(255, 255, 255, 0.65)"
+                                            class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-camera" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                                                <path
+                                                    d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                                                <circle cx="12" cy="13" r="3" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
+                                    onChange="let file = this.files[0]; 
+                                    var reader = new FileReader();
+                
+                                    reader.onload = function (e) {
+                                        document.getElementById('image').src = e.target.result;
+                                        document.getElementById('image2').src = e.target.result;
+                                    };
                                 
+                                    reader.readAsDataURL(file);
+                                ">
                             </div>
                         </div>
                         <div class="flex flex-col items-center border border-gray-400">
@@ -929,21 +960,21 @@
                         </div>
                         <div class="flex flex-col">
                             <label for="">Search Tags</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
+                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="search-tag" id="search-tag">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="">Description</label>
-                            <input type="text" class="rounded-md shadow-inner">
+                            <input type="text" class="rounded-md shadow-inner" name="description">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="">Maximum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100">
+                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100" name="max-selling-qty" id="max-selling-qty">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Minimum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="1">
+                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="1" name="min-selling-quantity" id="min-selling-quantity">
                         </div>
                         
 
@@ -958,11 +989,11 @@
                 
 
                 <button
-                    class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
+                    class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" id="save-button">
                     Save
                 </button>
                 <button @click="closeModal"
-                    class="bg-blue-400 px-6 py-1 rounded-xl text-white">
+                    class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button" id="cancel-button">
                     Cancel
                 </button>
 
