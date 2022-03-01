@@ -1,17 +1,25 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en" x-data="data()">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masho Fitness</title>
-    <link rel="stylesheet" href="../public/main.css">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="../js/init-alpine.js"></script>
-    <script src="js/focus-trap.js"></script>
-
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Masho Fitness</title>
+        <link rel="stylesheet" href="{% static 'public/main.css' %}">
+        <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}"/>
+        <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}"/>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="{% static 'js/init-alpine.js' %}"></script>
+        <script src="{% static 'js/focus-trap.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        {% tailwind_css %}
+    
 </head>
 
 <body>
@@ -26,7 +34,7 @@
 
                     <ul class="hidden sm:flex items-center flex-shrink-0 space-x-4">
                         <li class="relative">
-                            <a href="pos.html">
+                            <a href="/pos/">
                                 <button
                                     class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -134,7 +142,7 @@
                                             </div>
                                             <div class="flex flex-row justify-between items-center">
                                                 <span class="self-end font-bold text-lg text-yellow-500">$1.75</span>
-                                                <img src="../img/wallet.png" class="h-14 object-cover rounded-md"
+                                                <img src="{% static 'img/wallet.png' %}" class="h-14 object-cover rounded-md"
                                                     alt="">
                                             </div>
                                         </div>
@@ -147,7 +155,7 @@
                                             </div>
                                             <div class="flex flex-row justify-between items-center">
                                                 <span class="self-end font-bold text-lg text-yellow-500">$7.00</span>
-                                                <img src="../img/wallet.png" class="h-14 w-14 object-cover rounded-md"
+                                                <img src="{% static 'img/wallet.png' %}" class="h-14 w-14 object-cover rounded-md"
                                                     alt="">
                                             </div>
                                         </div>
@@ -1069,7 +1077,7 @@
                                     <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
                                         <span
                                             class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F1</span>
-                                        <img src="../img/hand.png" class="ml-6 mt-2 h-10" />
+                                        <img src="{% static 'img/hand.png'%}" class="ml-6 mt-2 h-10" />
                                         <span class="font-semibold float-right">Hold</span>
                                     </div>
     
@@ -1077,7 +1085,7 @@
                                     <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
                                         <span
                                             class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F2</span>
-                                        <img src="../img/synchronize.png" class="ml-8 mt-2 h-10" />
+                                        <img src="{% static 'img/synchronize.png' %}" class="ml-8 mt-2 h-10" />
                                         <span class="font-semibold float-right">Retrieve</span>
                                     </div>
     
@@ -1101,7 +1109,7 @@
                                     <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
                                         <span
                                             class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F5</span>
-                                        <img src="../img/save.png" class="ml-4 mt-2 h-10" />
+                                        <img src="{% static 'img/save.png' %}" class="ml-4 mt-2 h-10" />
                                         <span class="font-semibold float-right">Save</span>
                                     </div>
     
@@ -1109,7 +1117,7 @@
                                     <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
                                         <span
                                             class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F6</span>
-                                        <img src="../img/cash.png" class="ml-9 h-12" />
+                                        <img src="{% static 'img/cash.png' %}" class="ml-9 h-12" />
                                         <span class="font-semibold float-right">Cash Payment</span>
                                     </div>
     
@@ -1118,7 +1126,7 @@
                                     <div class=" bg-white p-1 pr-3 rounded-md shadow-sm rounded-br-none">
                                         <span
                                             class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F7</span>
-                                        <img src="../img/close.png" class="ml-9 h-12" />
+                                        <img src="{% static 'img/close.png' %}" class="ml-9 h-12" />
                                         <span class="font-semibold float-right">Close</span>
                                     </div>
     
@@ -1136,7 +1144,7 @@
                                             <div class=" bg-gray-200 p-1 pr-3 rounded-md shadow-inner">
                                                 <span
                                                     class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">F8</span>
-                                                <img src="../img/cancel.png" class="ml-4 mt-2 p-1 h-10" />
+                                                <img src="{% static 'img/cancel.png' %}" class="ml-4 mt-2 p-1 h-10" />
                                                 <span class="font-semibold float-right">Cancel</span>
                                             </div>
                                         </div>
@@ -1163,7 +1171,7 @@
                                                     class="float-left text-sm bg-red-400 rounded-md shadow-md px-1">CTRL
                                                     +
                                                     C</span>
-                                                <img src="../img/discuss.png" class="h-12" />
+                                                <img src="{% static '/img/discuss.png'%}" class="h-12" />
                                                 <span class="font-semibold float-right">Customer</span>
                                             </div>
                                         </div>

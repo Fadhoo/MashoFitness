@@ -25,7 +25,8 @@ urlpatterns = [
     path('',include('snooker.urls') ),
     path('', include('expenses.urls')),
     path('', include('employees.urls')),
-    path('', include('futsal.urls'))
+    path('', include('futsal.urls')),
+    path('', include('cafeteria.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
