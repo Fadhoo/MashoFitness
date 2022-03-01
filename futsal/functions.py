@@ -3,10 +3,10 @@ from .models import Match, Booking, Team
 def createDailyMatchTimeTable(date):
     
     if Booking.objects.filter(booking_date=date).exists():
-        print("booking date already exist:")
+        print("booking date already exist:",date)
         return Booking.objects.filter(booking_date=date)
     else:
-        print("booking date not exist: craate new booking")
+        print("booking date not exist: craate new booking",date)
         Booking.objects.create(booking_date=date,time="12:00 to 1:00",meridiem="PM",status=False)
         Booking.objects.create(booking_date=date,time="1:00 to 2:00",meridiem="PM",status=False)
         Booking.objects.create(booking_date=date,time="2:00 to 3:00",meridiem="PM",status=False)

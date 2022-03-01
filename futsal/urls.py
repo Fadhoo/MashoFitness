@@ -19,8 +19,10 @@ urlpatterns = [
     path('api/SearchByFutsalField/',views.SearchByFutsalField,name='SearchByFutsalField'),
     path("api/deleteTeamRecord/", views.deleteTeamRecord, name="deleteTeamRecord"),
     path("api/getBookings/", views.getBookings, name="getBookings"),
-    # path("api/searchByExpenseDate/", views.searchByExpenseDate, name="searchByExpenseDate"),
-    # path("api/searchByExpenseHeadOfAccount/", views.searchByExpenseHeadOfAccount, name="searchByExpenseHeadOfAccount"),
-    # path("api/searchByExpenseData/", views.searchByExpenseData, name="searchByExpenseData"),
-    
+
+    # Match page api
+    path("api/deleteTeamMatch/", views.deleteTeamMatch, name="deleteTeamMatch"),
+    path("api/SearchByTeamMatchField/", views.SearchByTeamMatchField, name="SearchByTeamMatchField"),
+    path("api/SearchByTeamMatchStatus/", views.SearchByTeamMatchStatus, name="SearchByTeamMatchStatus"),
+
 ]
