@@ -56,7 +56,8 @@ def futsalMatch(request):
     else:
         if request.GET.get("futsal-match"):
             return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],
-            "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match"))
+            "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match")),
+            'TeamRecords': Match.objects.all().order_by("-id")
             })
         # if request.GET.get("futsal-match"):
         #     match_id=request.GET.get("futsal-match")
@@ -90,7 +91,7 @@ def updateFutsalMatch(request):
             
             
 
-    return render(request,"updateFutsalMatch.html", {"TeamRecord": Match.objects.all()})
+    return render(request, 'matches.html', {'TeamRecord': Match.objects.all()})
 
 
 

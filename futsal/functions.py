@@ -57,13 +57,15 @@ def addMatchBooking(request):
 
 def updateMatchBooking(request):
     try:
+        match_id=Match.objects.filter(id=request.POST.get("id"))[0]
+        Booking.objects.filter(id=match_id.booking_time.id).update(status=False)
         # team1=Team.objects.filter(team_name=request.POST.get('team_name1'))[0]
         team2=Team.objects.filter(team_name=request.POST.get('team_name2'))[0]
         booking_time=Booking.objects.filter(time=request.POST.get('book_at')[:-2],
                                             meridiem=request.POST.get('book_at')[-2:],
                                             booking_date=request.POST.get("booking_date"))[0]
-        # booking_time.status=True
-        # booking_time.save()
+        booking_time.status=True
+        booking_time.save()
         date=request.POST.get('date')
         fee=request.POST.get('fee')
         payment_status=request.POST.get('payment_status')
