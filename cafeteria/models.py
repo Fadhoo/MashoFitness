@@ -15,10 +15,10 @@ class addItems(models.Model):
     item_min_selling_quantity = models.IntegerField()
     item_reorder_level = models.IntegerField()
     item_image = models.ImageField(upload_to='items_images/')
-    search_tag = models.CharField(max_length=50)
+    item_expire_date = models.IntegerField()
     item_description= models.CharField(max_length=100)
     item_status = models.CharField(max_length=20)
-    item_expiry = models.DateField()
+    item_expiry_day = models.DateField()
 
 
 

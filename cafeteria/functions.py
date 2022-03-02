@@ -18,8 +18,8 @@ def ItemsAdd(request):
                         item_manufacturer=request.POST.get("manufacturer"), item_selling_price=request.POST.get("selling-price"),
                         item_max_selling_quantity=request.POST.get("max-selling-qty"), item_min_selling_quantity=request.POST.get("min-selling-qty"),
                         item_reorder_level=request.POST.get("reorder-level"), item_iamge=filename,
-                        search_tag=request.POST.get("search-tag"), item_description=request.POST.get("item-description"),
-                        item_status=request.POST.get("status"), item_expiry=request.POST.get("item-expiry"),
+                        item_expire_date=request.POST.get("expiry-date"), item_description=request.POST.get("item-description"),
+                        item_status=request.POST.get("status"), item_expiry_day=request.POST.get("remaining-days"),
                         )
 
         return add_item

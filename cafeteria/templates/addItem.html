@@ -1051,8 +1051,10 @@
                             <div class="flex flex-col">
                                 <label for=""  class="">Unit of Measure</label>
                                 <select name="unit-measure" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner">
-                                    <option value=""></option>
-                                    <option value="">Nos</option>
+                                    <!-- <option value="Select Units">Select</option> -->
+                                    <option value="pcs">pcs</option>
+                                    <option value="Glass">Glass</option>
+                                    <option value="nos">nos </option>
                                 </select>
                             </div>
                             <div class="flex flex-col">
@@ -1075,10 +1077,7 @@
                                 <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0" 
                                 name="selling-price">
                             </div>
-                            <div class="flex flex-row pt-1">
-                                <input type="checkbox" class="m-1 rounded-md shadow-inner">
-                                <label for="">Price Inclusive Sale Tax</label>
-                            </div>
+                            
                             <div class="flex flex-col">
                                 <label for="">Maximum Selling Quantity</label>
                                 <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100" 
@@ -1100,52 +1099,7 @@
                         <div class="p-1 border border-gray-500">
 
                             <div class="flex flex-col items-center p-2 bg-white row-span-2">
-                                <ul class="hidden sm:flex items-center flex-shrink-0 space-x-6">
-                                    <!-- Menu Close Open -->
-                                    <li class="relative">
-                                        <button
-                                            class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M4 6h16M4 12h16m-7 6h7" />
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <!-- Large Screen -->
-                                    <li class="relative">
-                                        <button
-                                            class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <!-- Lock Screen -->
-                                    <li class="relative">
-                                        <button
-                                            class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <!-- Calender -->
-                                    <li class="relative">
-                                        <button
-                                            class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                        </button>
-                                    </li>
-                                </ul>
+                               
                                 <div class="flex flex-col items-center row-span-2">
                                     <label for="" class="m-1"></label>
                                     <div class="flex flex-col">
@@ -1196,9 +1150,9 @@
                                 </button>
                             </div>
                             <div class="flex flex-col">
-                                <label for="">Search Tags</label>
-                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner"
-                                name="search-tag" id="search-tag">
+                                <label for="">Expiry Date</label>
+                                <input type="date" placeholder="" class="h-7 p-0 rounded-md shadow-inner"
+                                name="expiry-date" id="expiry-date">
                             </div>
 
                             <div class="flex flex-col">
@@ -1216,8 +1170,8 @@
 
                             <div class="flex flex-col">
                                 <label for="">Warning Days Before Expiry</label>
-                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner text-right" value="0"
-                                name="item-expiry" id="item-expiry" >
+                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner text-right" value="0" 
+                                name="remaining-days" id="remaining-days" >
                             </div>
 
                         </div>
@@ -1225,21 +1179,22 @@
                     </div>
 
                 </div>
+            
+                <footer
+                    class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
+                    
+
+                    <button
+                        class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" value="save-button">
+                        Save
+                    </button>
+                    <button @click="closeModal"
+                        class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button" value="cancel-button">
+                        Cancel
+                    </button>
+
+                </footer>
             </form>
-            <footer
-                class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
-                
-
-                <button
-                    class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" value="save-button">
-                    Save
-                </button>
-                <button @click="closeModal"
-                    class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button" value="cancel-button">
-                    Cancel
-                </button>
-
-            </footer>
 
         </div>
     </div>

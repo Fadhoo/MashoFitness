@@ -7,7 +7,14 @@ from rest_framework.response import Response
 
 
 def addItem(request):
-    return render(request, "addItem.html")
+    if request.method== "POST":
+        if request.POST.get("save-button"):
+            print("save button save button save button save button ")
+            add_item = ItemsAdd(request)
+            return render(request, "addItem.html", {'addItems': add_item})
+
+    else:
+        return render(request, "addItem.html")
 
 
 def addNonStockItem(request):
