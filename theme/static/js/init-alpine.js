@@ -85,6 +85,18 @@ function data() {
       this.trapCleanup();
     },
 
+    // Modal
+    isUpdateModalOpen: false,
+    trapCleanup222: null,
+    openUpdateModal() {
+      this.isUpdateModalOpen = true;
+      this.trapCleanup222 = focusTrap(document.querySelector('#updateModal'));
+    },
+    closeUpdateModal() {
+      this.isUpdateModalOpen = false;
+      this.trapCleanup222();
+    },
+
 
     // Product Modal
     isProductModalOpen: false,

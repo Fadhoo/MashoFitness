@@ -4,21 +4,49 @@ from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .serializer import ItemSerializer, NonStockSerializer
+
+
 
 
 def addItem(request):
     if request.method== "POST":
         if request.POST.get("save-button"):
             print("save button save button save button save button ")
-            add_item = ItemsAdd(request)
-            return render(request, "addItem.html", {'addItems': add_item})
+            if ItemsAdd(request):
+                print("item added success")
+                return render(request, "addItem.html", {'addItems': Items.objects.all()})
+
+        if request.POST.get("cancel-button"):
+            return render(request, "addItem.html", {'addItems': Items.objects.all()})
+        
+        if request.POST.get("update-button"):
+            print("update update update update update update button")
+
 
     else:
-        return render(request, "addItem.html")
+        return render(request, "addItem.html", {'addItems': Items.objects.all()})
 
 
 def addNonStockItem(request):
-    return render(request, "addNonStockItem.html")
+    if request.method== "POST":
+        if request.POST.get("save-button"):
+            print("save button save button save button save button ")
+            if addNonStockItems(request):
+                print("item added success")
+                return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
+
+        if request.POST.get("cancel-button"):
+            return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
+        
+        if request.POST.get("update-button"):
+            print("update update update update update update button")
+
+
+    else:
+        return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
+
+
 
 
 def addProducts(request):
@@ -59,3 +87,34 @@ def salesTerminal(request):
 
 def supplier(request):
     return render(request, "supplier.html")
+
+
+# api work
+# api for items searching
+@api_view(['GET'])
+def SearchByItemField(request):
+    field=request.GET.get("field")
+    value=request.GET.get("value")
+    print(field,value)
+    try:
+        if field=="Name":
+            return Response(ItemSerializer(Items.objects.filter(item_name__icontains=value).order_by('-id'),many=True).data)
+        elif field=="Code":
+            return Response(ItemSerializer(Items.objects.filter(item_code__icontains=value).order_by('-id'),many=True).data)
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+
+# api for non-stock search items
+@api_view(['GET'])
+def SearchByStockField(request):
+    field=request.GET.get("field")
+    value=request.GET.get("value")
+    print(field,value)
+    try:
+        if field=="Name":
+            return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_name__icontains=value).order_by('-id'),many=True).data)
+        elif field=="Code":
+            return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_code__icontains=value).order_by('-id'),many=True).data)
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})

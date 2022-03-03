@@ -607,25 +607,25 @@
 
                                     <li class="relative">
                                         <div class="flex">
-                                            <select name="" id=""
+                                            <select name="search-by-field" id="search-by-field"
                                                 class="rounded-md bg-gray-100 text-sm h-8 outline-none border-none shadow-inner">
-                                                <option value="" class="">select search Type</option>
-                                                <option value="">Name</option>
-                                                <option value="">Code</option>
+                                                <option value="" class="" selected>select search Type</option>
+                                                <option value="Name">Name</option>
+                                                <option value="Code">Code</option>
                                             </select>
                                         </div>
                                     </li>
                                     <!-- Search Item -->
                                     <li class="relative">
                                         <div class="flex flex-col w-60">
-                                            <input type="search"
+                                            <input type="search" name="search-by-value" id="search-by-value" oninput="SearchByStockField();"
                                                 class="rounded-md bg-gray-100 h-8 outline-none border-none shadow-inner"
                                                 placeholder="search">
                                         </div>
                                     </li>
 
                                     <li class="relative">
-                                        <button
+                                        <button onclick="reloadPage();"
                                             class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -643,7 +643,7 @@
 
 
 
-                        <table class="table-auto w-full">
+                        <table class="table-auto w-full" id="myTable">
                             <thead class="text-left border-2 border-gray-500">
                                 <tr class="">
                                     <th class="p-1"></th>
@@ -653,35 +653,35 @@
                                     <th class="p-1">Purchase Price</th>
                                     <th class="p-1">Selling Price</th>
                                     <th class="p-1">Size</th>
-                                    <th class="p-1">Expiration Date</th>
+                                    <th class="p-1">Category</th>
                                     
                                     <th class="p-1">Status</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                {% for stock in products %}
+                                {% for stock in nonStock %}
                                 <tr class="text-left hover:bg-red-200">
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
-                                            <a href="/memberDetails/">
+                                            <span @click="openUpdateModal">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2"
                                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
-                                            </a>
+                                            </span>
                                         </div>
                                     </td>
-                                    <td class="p-2">{{stock.stock_code}}</td>
-                                    <td class="p-2">{{stock.stock_name}}</td>
-                                    <td class="p-2">{{stock.stock_unit}}</td>
-                                    <td class="p-2">{{stock.selling_price}}</td>
-                                    <td class="p-2">{{stock.stock_Item_size}}</td>
-                                    <td class="p-2">{{stock.stock_expiry}}</td>
-                                    
-                                    <td class="p-2">{{stock.status}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_code}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_name}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_unit}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_purchase_price}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_selling_price}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_max_selling_quantity}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_category}}</td>
+                                    <td class="p-2">{{stock.nonStock_item_status}}</td>
 
 
                                 </tr>
@@ -699,76 +699,7 @@
 
                 </div> <!-- Main Container-->
             </main>
-            <footer
-                class="sticky bottom-0 grid px-4 py-2 text-xs shadow-md rounded-b-lg font-semibold tracking-wide text-gray-500 uppercase border-t  bg-gray-300 sm:grid-cols-9  ">
-                <span class="flex items-center col-span-3">
-                    Showing 21-30 of 100
-                </span>
-                <span class="col-span-2"></span>
-                <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                    <nav aria-label="Table navigation">
-                        <ul class="inline-flex items-center">
-                            <li>
-                                <button
-                                    class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                    aria-label="Previous">
-                                    <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                        <path
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    1
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    2
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    3
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    4
-                                </button>
-                            </li>
-                            <li>
-                                <span class="px-3 py-1">...</span>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    8
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    9
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                                    aria-label="Next">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
-                </span>
-            </footer>
+            
 
         </div>
 
@@ -802,207 +733,356 @@
                 
             </header>
             <!-- Modal body -->
-            
-            <div class="bg-white p-1">
-                <div class=" grid grid-cols-2 gap-1">
-                    <!-- Left -->
-                    <div class="p-1 border border-gray-500">
-                        <div class="flex flex-col">
-                            <label for="">Item Code</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-code">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Item Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-name">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for=""  class="">Unit of Measure</label>
-                            <select name="" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" name="unit-measurement" id="unit-measurement">
-                                <option value=""></option>
-                                <option value="">Nos</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Item Category</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-category" id="item-category">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Item Brand</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-brand" id="item-brand">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Manufacturer</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="manufacturer" id="manufacturer">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Purchase Price</label>
-                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0" name="purchase-price" id="purchase-price">
-                        </div>
-                        <div class="flex flex-row pt-1">
-                            <input type="checkbox" class="m-1 rounded-md shadow-inner" name="purchase-tax" id="purchase-tax">
-                            <label for="">Price Inclusive Purchase Tax</label>
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Selling Price</label>
-                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0" name="selling-price" id="selling-price">
-                        </div>
-                        <div class="flex flex-row pt-1">
-                            <input type="checkbox" class="m-1 rounded-md shadow-inner" name="sale-tax" id="sale-tax">
-                            <label for="">Price Inclusive Sale Tax</label>
-                        </div>
-                        <div class="flex flex-col">
-                            <label for=""  class="">Status</label>
-                            <select name="status" id="status" class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <!-- Right -->
-                    <div class="p-1 border border-gray-500">
-
-                        <div class="flex flex-col items-center p-2 bg-white row-span-2">
-                            <ul class="hidden sm:flex items-center flex-shrink-0 space-x-6">
-                                <!-- Menu Close Open -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16m-7 6h7" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Large Screen -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Lock Screen -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Calender -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                </ul>
+            <form action="{% url 'addNonStockItem' %}" method="post">
+                {% csrf_token %}
+                <div class="bg-white p-1">
+                    <div class=" grid grid-cols-2 gap-1">
+                        <!-- Left -->
+                        <div class="p-1 border border-gray-500">
                             <div class="flex flex-col">
-                                <div
-                                    class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
-                                    <img id="image" class="object-cover w-full h-32"
-                                        src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
-
-                                    <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
-                                        onClick="document.getElementById('fileInput').click()">
-                                        <button type="button"
-                                            style="background-color: rgba(255, 255, 255, 0.65)"
-                                            class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-camera" width="24"
-                                                height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                stroke="currentColor" fill="none" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-                                                <path
-                                                    d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
-                                                <circle cx="12" cy="13" r="3" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
-                                    onChange="let file = this.files[0]; 
-                                    var reader = new FileReader();
-                
-                                    reader.onload = function (e) {
-                                        document.getElementById('image').src = e.target.result;
-                                        document.getElementById('image2').src = e.target.result;
-                                    };
-                                
-                                    reader.readAsDataURL(file);
-                                ">
+                                <label for="">Item Code</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" 
+                                name="item-code" >
                             </div>
-                        </div>
-                        <div class="flex flex-col items-center border border-gray-400">
-                            <label for="">||||||||||||||||||||||||||||</label>
-                            <label for="">00000000000000</label>
-                        </div>
-                        <div class="flex flex-col">
-                            <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
-                                Print
-                            </button>
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Search Tags</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="search-tag" id="search-tag">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Item Name</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-name">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for=""  class="">Unit of Measure</label>
+                                <select class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" 
+                                name="unit-measurement" id="unit-measurement">
+                                    <option value="" selected>Select Unit</option>
+                                    <option value="pcs">pcs</option>
+                                    <option value="Glass">Glass</option>
+                                    <option value="nos">nos </option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="">Item Category</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-category" id="item-category">
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Description</label>
-                            <input type="text" class="rounded-md shadow-inner" name="description">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Item Brand</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-brand" id="item-brand">
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Maximum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100" name="max-selling-qty" id="max-selling-qty">
+                            <div class="flex flex-col">
+                                <label for="">Manufacturer</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="manufacturer" id="manufacturer">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Purchase Price</label>
+                                <input type="text" class="h-7 text-right rounded-md shadow-inner" value="" 
+                                name="purchase-price" id="purchase-price">
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <label for="">Selling Price</label>
+                                <input type="text" class="h-7 text-right rounded-md shadow-inner" value="" 
+                                name="selling-price" id="selling-price">
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <label for=""  class="">Status</label>
+                                <select name="status" id="status" class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+
                         </div>
-                        <div class="flex flex-col">
-                            <label for="">Minimum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="1" name="min-selling-quantity" id="min-selling-quantity">
+                        <!-- Right -->
+                        <div class="p-1 border border-gray-500">
+
+                            <div class="flex flex-col items-center p-2 bg-white row-span-2">
+                                
+                                <div class="flex flex-col">
+                                    <div
+                                        class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
+                                        <img id="image" class="object-cover w-full h-32"
+                                            src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
+
+                                        <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
+                                            onClick="document.getElementById('fileInput').click()">
+                                            <button type="button"
+                                                style="background-color: rgba(255, 255, 255, 0.65)"
+                                                class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-camera" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                                                    <path
+                                                        d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                                                    <circle cx="12" cy="13" r="3" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
+                                        onChange="let file = this.files[0]; 
+                                        var reader = new FileReader();
+                    
+                                        reader.onload = function (e) {
+                                            document.getElementById('image').src = e.target.result;
+                                            document.getElementById('image2').src = e.target.result;
+                                        };
+                                    
+                                        reader.readAsDataURL(file);
+                                    ">
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center border border-gray-400">
+                                <label for="">||||||||||||||||||||||||||||</label>
+                                <label for="">00000000000000</label>
+                            </div>
+                            <div class="flex flex-col">
+                                <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
+                                    Print
+                                </button>
+                            </div>
+                            <!-- <div class="flex flex-col">
+                                <label for="">Expiry Date</label>
+                                <input type="date" placeholder="" class="h-7 rounded-md shadow-inner" 
+                                name="expiry-date" id="expiry-date">
+                            </div> -->
+
+                            <div class="flex flex-col">
+                                <label for="">Description</label>
+                                <input type="text" class="h-22 rounded-md shadow-inner" name="description">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Maximum Selling Quantity</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner text-right" 
+                                value="" name="max-selling-qty" id="max-selling-qty">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="">Minimum Selling Quantity</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner text-right" value="" 
+                                name="min-selling-qty" id="min-selling-qty">
+                            </div>
+                            
+
                         </div>
-                        
 
                     </div>
 
                 </div>
 
-            </div>
+                <footer
+                    class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
+                    
 
-            <footer
-                class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
-                
+                    <button
+                        class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" value="save-button">
+                        Save
+                    </button>
+                    <button @click="closeModal"
+                        class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button" value="cancel-button">
+                        Cancel
+                    </button>
 
-                <button
-                    class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" id="save-button">
-                    Save
-                </button>
-                <button @click="closeModal"
-                    class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button" id="cancel-button">
-                    Cancel
-                </button>
-
-            </footer>
-
+                </footer>
+            </form>
         </div>
     </div>
     <!-- End of modal backdrop -->
 
+    <!-- update modal backdrop -->
+    <form action="/addNonStockItem/" method="post">
+        {% csrf_token %}
+    
+        <div x-show="isUpdateModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+            <!-- Modal -->
+            <div x-show="isUpdateModalOpen" x-transition:enter="transition ease-out duration-150"
+                x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
+                @keydown.escape="closeModal"
+                class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-xl"
+                role="dialog" id="updateModal">
+                <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+                <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
+                    <span>New Item (Non Stock)</span>
+                    <button
+                        class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
+                        aria-label="close" @click="closeModal">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
+                            <path
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                    
+                </header>
+                <!-- Modal body -->
+                <form action="/addNonStockItem" method="post">
+                    {% csrf_token %}
+                
+                    <div class="bg-white p-1">
+                        <div class=" grid grid-cols-2 gap-1">
+                            <!-- Left -->
+                            <div class="p-1 border border-gray-500">
+                                <div class="flex flex-col">
+                                    <label for="">Item Code</label>
+                                    <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" value="{{nonStock.nonStock_item_code}}">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="">Item Name</label>
+                                    <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" value="{{nonStock.nonStock_item_name}}">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for=""  class="">Unit of Measure</label>
+                                    <select value="{{nonStock.nonStock_item_unit}}" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" name="unit-measurement" id="">
+                                        <option value="" selected>Select Unit</option>
+                                        <option value="pcs">pcs</option>
+                                        <option value="Glass">Glass</option>
+                                        <option value="nos">nos </option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="">Item Category</label>
+                                    <input type="text" class="h-7 rounded-md shadow-inner" value="{{nonStock.nonStock_item_category}}" 
+                                    name="item-category" id="item-category">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="">Item Brand</label>
+                                    <input type="text" class="h-7 rounded-md shadow-inner" 
+                                    value="{{nonStock.nonStock_item_brand}}" name="item-brand" id="item-brand">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="">Manufacturer</label>
+                                    <input type="text" class="h-7 rounded-md shadow-inner" value="{{nonStock.nonStock_item_manufacturer}}" name="manufacturer" id="manufacturer">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="">Purchase Price</label>
+                                    <input type="text" class="h-7 text-right rounded-md shadow-inner" value="{{nonStock.nonStock_item_purchase_price}}" name="purchase-price" id="purchase-price">
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <label for="">Selling Price</label>
+                                    <input type="text" class="h-7 text-right rounded-md shadow-inner" value="{{nonStock.nonStock_item_selling_price}}" name="selling-price" id="selling-price">
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <label for=""  class="">Status</label>
+                                    <select name="status" id="status" value="{{nonStock.nonStock_item_status}}" class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <!-- Right -->
+                            <div class="p-1 border border-gray-500">
+
+                                <div class="flex flex-col items-center p-2 bg-white row-span-2">
+                                    
+                                    <div class="flex flex-col">
+                                        <div
+                                            class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
+                                            <img id="image" class="object-cover w-full h-32"
+                                                src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
+
+                                            <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
+                                                onClick="document.getElementById('fileInput').click()">
+                                                <button type="button"
+                                                    style="background-color: rgba(255, 255, 255, 0.65)"
+                                                    class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="icon icon-tabler icon-tabler-camera" width="24"
+                                                        height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                                                        <path
+                                                            d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                                                        <circle cx="12" cy="13" r="3" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
+                                            onChange="let file = this.files[0]; 
+                                            var reader = new FileReader();
+                        
+                                            reader.onload = function (e) {
+                                                document.getElementById('image').src = e.target.result;
+                                                document.getElementById('image2').src = e.target.result;
+                                            };
+                                        
+                                            reader.readAsDataURL(file);
+                                        ">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center border border-gray-400">
+                                    <label for="">||||||||||||||||||||||||||||</label>
+                                    <label for="">00000000000000</label>
+                                </div>
+                                <div class="flex flex-col">
+                                    <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
+                                        Print
+                                    </button>
+                                </div>
+                                <!-- <div class="flex flex-col">
+                                    <label for="">Expiry Date</label>
+                                    <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" 
+                                    value="{{nonStock.nonStock_item_expire_date|date:'Y-m-d'}}" name="expiry-date" id="expiry-date">
+                                </div> -->
+
+                                <div class="flex flex-col">
+                                    <label for="">Description</label>
+                                    <input type="text" class="rounded-md shadow-inner" name="description" value="{{nonStock.nonStock_item_description}}">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for="">Maximum Selling Quantity</label>
+                                    <input type="text" class="h-7 rounded-md shadow-inner text-right" value="{{nonStock.nonStock_item_max_selling_quantity}}" 
+                                    name="max-selling-qty" id="max-selling-qty">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="">Minimum Selling Quantity</label>
+                                    <input type="text" class="h-7 rounded-md shadow-inner text-right" value="{{nonStock.nonStock_item_min_selling_quantity}}" 
+                                    name="min-selling-qty" id="min-selling-qty">
+                                </div>
+                                
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <footer
+                        class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
+                        
+                        <input type="number" name="id" value="{{stock.id}}" >
+                        <button
+                            class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="update-button" value="update-button">
+                            Update
+                        </button>
+                        <button @click="closeUpdateModal"
+                            class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button" value="cancel-button">
+                            Cancel
+                        </button>
+
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </form>
+    <script src="{% static 'js/nonStockItems.js'%}"></script>
 </body>
 
 </html>
