@@ -8,6 +8,7 @@ from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentS
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .functions import *
+from django.db.models import Sum
 
 def fetchAllData(dbmodel):
     data=dbmodel.objects.all()
@@ -107,13 +108,20 @@ def memberDetails(request):
                                     member_target=request.POST.get("target"), )
                                     # expiry_date=request.POST.get("expiry")
                 print(data)
-                return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id'),})
+                return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
+        if request.POST.get("pay-installment"):
+            m_id=request.POST.get("cid")
+            payment=Payment.objects.filter(member_id=Member.objects.filter(id=m_id))[0]
     else:
         print("memberDetails",request.GET.get('data'))
+        member=Member.objects.all().filter(id=request.GET.get('data')).select_related("member_membership_id").select_related("active_fee_id")[0]
+        payment=Payment.objects.filter(fee_id=member.active_fee_id).aggregate(Sum('payment_amount'))
+        
         return render(request,"memberDetails.html",
-            {'all_data': Member.objects.raw(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where theme_member.id={request.GET.get('data')} ;")[0]
+            {'all_data': member,
+            "payment":payment['payment_amount__sum']
             })
-
+            
 
 def login(request):
     return render(request,"login.html")
@@ -157,7 +165,8 @@ def editGymSetting(request):
 def gymManagement(request):
     
     return render(request,"gymManagement.html",{
-        'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
+        "zipdata":Member.objects.all().select_related('member_membership_id')
+        # 'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
     })
 
 
@@ -169,24 +178,22 @@ def addMember(request):
             try:
                 if request.POST.get("paidamount") and request.POST.get("remainingamount"):
                     addMemberRecord(request,False)
-                    join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
+                    # join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
 
                     return render(request,"addMember.html", 
                     {
-                        'member_data': fetchAllData(Member),
                         'category':fetchUniqueCategoryName(MembershipCategory),
-                        'zipdata':join,
+                        'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
                     })                 
 
                 else:
                     addMemberRecord(request,True)
-                    join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
+                    # join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
 
                     return render(request,"addMember.html", 
                     {
-                        'member_data': fetchAllData(Member),
                         'category':fetchUniqueCategoryName(MembershipCategory),
-                        'zipdata':join,
+                        'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
                     })
 
             except Exception as e:
@@ -200,12 +207,11 @@ def addMember(request):
             
     else:
         # print(Member.objects.all().select_related("membershp_id")[0].payment_status)
-        join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
+        # join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
         return render(request, "addMember.html",
              {
-                        'member_data': fetchAllData(Member),
                         'category':fetchUniqueCategoryName(MembershipCategory),
-                        'zipdata':join,
+                        'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),
                     })   
 
 
@@ -213,17 +219,18 @@ def addMember(request):
 def viewMembers(request):
     if request.method=="POST":
         if request.POST.get("edit-member"):
-            
+            # Member.objects.raw(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where theme_member.id={request.POST.get('cid')} ;")
             return render(request,"memberDetails.html",
-            {'all_data': Member.objects.raw(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where theme_member.id={request.POST.get('cid')} ;")
+            {'all_data': Member.objects.all().filter(id=request.POST.get("cid"))[0]
             })
             # form_data = Member.objects.all().filter(id=request.POST.get("cid"))[0]
             # print(form_data)
             # return render(request, "MemberDetails.html", {'all_data': form_data})
         
     else:
+        # Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
         return render(request, 'viewMembers.html',{
-            'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
+            'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
         })
 
 
@@ -256,7 +263,7 @@ def deleteMember(request):
             for i in delete_list:
                 print(i)
                 Member.objects.filter(id=int(i)).delete()
-            return Response(CustomizeSerializer("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id;"))
+            return Response(MemberSerializer(Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),many=True).data)
         else:
             messages.info(request,"No data found")
             return Response({"error":str("No data selected")})
@@ -276,20 +283,21 @@ def searchbydata(request):
         if searchbytype!='':
             if resultperpage!="all":
                 print("if resultperpage!=all:")
-                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype}' order by theme_member.id DESC LIMIT {int(resultperpage)};"))
-
+                # CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype}' order by theme_member.id DESC LIMIT {int(resultperpage)};")
+                return Response(MemberSerializer(Member.objects.all().select_related('member_membership_id').select_related("active_fee_id").filter(active_fee_id__status=searchbytype).order_by('-id')[:int(resultperpage)],many=True).data)
             else:
                 print("if resultperpage==all:")
-                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype}' order by theme_member.id DESC;"))
+                # CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_payment.payment_status='{searchbytype}' order by theme_member.id DESC;")
+                return Response(MemberSerializer(Member.objects.all().select_related('member_membership_id').select_related("active_fee_id").filter(active_fee_id__status=searchbytype).order_by('-id'),many=True).data)
         else:
-            
             if resultperpage!="all":
                 print("if resultperpage!=all:  else if")
-                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC LIMIT {int(resultperpage)};"))
+                # CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC LIMIT {int(resultperpage)};")
+                return Response(MemberSerializer(Member.objects.all().select_related('member_membership_id').select_related("active_fee_id").order_by('-id')[:int(resultperpage)],many=True).data)
             else:
                 print("if resultperpage==all: else else")
-                return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"))
-        
+                # CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
+                return Response(MemberSerializer(Member.objects.all().select_related('member_membership_id').select_related("active_fee_id").order_by('-id'),many=True).data)
     except Exception as e:
         return Response({"error":str(e)})
 
@@ -300,7 +308,8 @@ def searchbydate(request):
         from_date=request.GET.get('fromdate',None)
         to_date=request.GET.get('todate',None)
         if from_date is not None and to_date is not None:
-            return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_member.member_created_at between '{from_date}' and '{to_date}' order by theme_member.id DESC;"))
+            # CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_member.member_created_at between '{from_date}' and '{to_date}' order by theme_member.id DESC;")
+            return Response(MemberSerializer(Member.objects.all().select_related("member_membership_id").select_related("active_fee_id").order_by('-id').filter(member_created_at__range=[from_date,to_date]),many=True).data)
         else:
             return Response({"error":str("Please select date")})
     except Exception as e:
@@ -311,7 +320,8 @@ def searchbyname(request):
     try:
         name=request.GET.get('searchbyname',None)
         if name is not None:
-            return Response(CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_member.member_name like '%{name}%' order by theme_member.id DESC;"))
+            # CustomizeSerializer(f"SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id where  theme_member.member_name like '%{name}%' order by theme_member.id DESC;")
+            return Response(MemberSerializer(Member.objects.all().select_related("member_membership_id").select_related("active_fee_id").order_by('-id').filter(member_name__icontains=name),many=True).data)
         else:
             return Response({"error":str("Please select name")})
     except Exception as e:

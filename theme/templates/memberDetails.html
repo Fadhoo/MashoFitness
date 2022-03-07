@@ -343,7 +343,7 @@
 
                   <div class="flex flex-col">
                     <a href="/bodyAssesments/?data={{all_data.id}}" text-align="center"
-                      class="flex items-center bg-blue-400 mt-4 rounded-lg text-white shadow-md rounded-br-none py-2">
+                      class="flex bg-blue-400 mt-4 rounded-lg text-white shadow-md rounded-br-none py-2 px-4">
                       Body Assesments
                     </a>
                   </div>
@@ -416,13 +416,13 @@
 
                   <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
                     <div class="flex flex-col">
-                      <label for="" class="m-1">DOB {{all_data.member_dob}}</label>
-                      <input type="date" value="{{all_data.member_dob}}" name="dob"
+                      <label for="" class="m-1">DOB</label>
+                      <input type="date" value='{{all_data.member_dob|date:"Y-m-d"}}' name="dob" id="dateofbirth"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Age</label>
-                      <input type="text" value="{{all_data.member_age}}" name="age"
+                      <input type="text" value="{{all_data.member_age}}" name="age" id='age'
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
                     <div class="flex flex-col">
@@ -449,7 +449,7 @@
                       <label for="" class="m-1 text-sm">Membership Category</label>
                       <select name="category" id="" value=""
                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                        <option value="{{all_data.member_membership_id.name}}" selected>{{all_data.category_name}}
+                        <option value="{{all_data.member_membership_id.name}}" selected>{{all_data.member_membership_id.category_name}}</option>
                         </option>
 
                       </select>
@@ -459,29 +459,29 @@
                       <label for="" class="m-1">Membership</label>
                       <select name="month" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                         <option value="{{all_data.category_months}}" selected>
-                          {{all_data.category_months}}
+                          {{all_data.member_membership_id.category_months}}
                         </option>
                       </select>
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Amount</label>
-                      <input type="text" name="amount" value="{{all_data.payment_amount}}"
+                      <input type="text" name="amount" value="{{all_data.active_fee_id.total}}"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Discount</label>
-                      <input type="text" value="{{all_data.payment_discount}}"
+                      <input type="text" value="{{all_data.active_fee_id.discount}}" name="discount"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Amount Paid</label>
-                      <input type="text" value="{{all_data.payment_payable}}"
+                      <input type="text" value="{{payment}}"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
 
                     <div class="flex flex-col">
                       <label for="" class="m-1"> Remaining Amount </label>
-                      <input type="text" value="{{all_data.payment_remaining}}"
+                      <input type="text" value="{{all_data.active_fee_id.remaining}}"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
 
@@ -502,65 +502,48 @@
                     <div class="border col-span-4 border-blue-400"></div>
                   </div>
 
-                  <!-- <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
-                      <div class="flex flex-col">
-                        <label for="" class="m-1">Addmission Date</label>
-                        <input
-                          type="text"
-                          value="{{all_data.member_created_at}}"
-                          name="admissiondate"
-                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                        />
-                      </div> -->
-
-                  <!-- <div class="flex flex-col">
-                        <label for="" class="m-1">MemberShip Expire</label>
-                        <input
-                          type="text"
-                          value="{{all_data.member_membership_expiry_date}}"
-                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                        />
-                      </div>
-                     
-                      <div class="border col-span-4 border-blue-400"></div>
+                  <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Membership Start Date</label>
+                      <input type="date" value="{{all_data.member_created_at|date:'Y-m-d'}}" name="admissiondate" readonly
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
 
-                    <h1
-                      class="text-center text-lg p-2 border-2 border-gray-400 rounded-lg m-1"
-                    > -->
-                  <!-- Installments -->
-                  </h1>
-                  <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
-                    <!-- <div class="flex flex-col">
-                        <label for="" class="m-1">Pending Amount</label>
-                        <input 
-                          type="text" readonly name="pending-amount" id="pending-amount" value="{{all_data.payment_remaining}}"
-                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                        />
-                      </div> -->
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">MemberShip Expire</label>
+                      <input type="date" value="{{all_data.member_membership_expiry_date|date:'Y-m-d'}}" readonly
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
+                    </div>
 
-                    <!-- <div class="flex flex-col">
-                        <label for="" class="m-1">Pay Amonut</label>
-                        <input
-                          type="text" name="pay-amount" id="pay-amount"
-                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                        />
-                      </div> -->
-                    <!-- <div class="flex flex-col">
-                        <label for="" class="m-1">New Pending Amonut</label>
-                        <input
-                          type="text" readonly name="new-pending-amount" id="new-pending-amount"
-                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                        />
-                      </div> -->
-                    <!-- <div class="flex flex-col">
-                        <label for="" class="m-1">Installment Pay Date</label>
-                        <input
-                          type="date"
-                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                        />
-                      </div> -->
+                    <div class="border col-span-4 border-blue-400"></div>
                   </div>
+                  {% if all_data.active_fee_id.remaining > 0 %}
+                  <h1 class="text-center text-lg p-2 border-2 border-gray-400 rounded-lg m-1">
+                    Installments
+                  </h1>
+
+
+                  <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Pending Amount</label>
+                      <input type="text" readonly name="installment-pending-amount" id="pending-amount"
+                        value="{{all_data.active_fee_id.remaining}}"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
+                    </div>
+
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Pay Amonut</label>
+                      <input type="text" name="installment-pay-amount" id="pay-amount"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
+                    </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">New Pending Amonut</label>
+                      <input type="text" readonly name="istallment-new-pending-amount" id="new-pending-amount"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
+                    </div>
+                   
+                  </div>
+                  {% endif %}
                 </div>
 
                 <!-- Print Template -->
@@ -575,8 +558,9 @@
                       <h1 class="text-3xl text-center font-serif font-extrabold p-3">MASHO FITNESS GYM</h1>
                       <div class="grid grid-cols-2 grid-rows-2 m-5 gap-y-5">
                         <div class="flex gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 p-1 bg-white border-2 border-black rounded-full" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 p-1 bg-white border-2 border-black rounded-full" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -590,17 +574,24 @@
                           <span class="text-sm font-semibold">MASHO SPORTS COMPLEX</span>
                         </div>
 
-                        <div class="flex gap-2"> 
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 p-1 bg-white border-2 border-black rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
+                        <div class="flex gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 p-1 bg-white border-2 border-black rounded-full" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
                           </svg>
                           <span class="text-sm font-semibold">0312-9384272</span>
                         </div>
 
                         <div class="flex gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 p-1 bg-white border-2 border-black rounded-full" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                            <path d="M16.707 3.293a1 1 0 010 1.414L15.414 6l1.293 1.293a1 1 0 01-1.414 1.414L14 7.414l-1.293 1.293a1 1 0 11-1.414-1.414L12.586 6l-1.293-1.293a1 1 0 011.414-1.414L14 4.586l1.293-1.293a1 1 0 011.414 0z" />
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 p-1 bg-white border-2 border-black rounded-full" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path
+                              d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                            <path
+                              d="M16.707 3.293a1 1 0 010 1.414L15.414 6l1.293 1.293a1 1 0 01-1.414 1.414L14 7.414l-1.293 1.293a1 1 0 11-1.414-1.414L12.586 6l-1.293-1.293a1 1 0 011.414-1.414L14 4.586l1.293-1.293a1 1 0 011.414 0z" />
                           </svg>
                           <span class="text-sm font-semibold">081-2661045</span>
                         </div>
@@ -642,25 +633,32 @@
                   <div class="mx-3">
                     <h2 class="text-xl font-bold underline">Terms and Conditions</h2>
                     <p class="italic">
-                      To help the Masho fitness provide a satisfactory service to all its users, it has been necessary to draw up rules and regulations. Use of the gym is therefore conditional upon the rules being obeyed.
+                      To help the Masho fitness provide a satisfactory service to all its users, it has been necessary
+                      to draw up rules and regulations. Use of the gym is therefore conditional upon the rules being
+                      obeyed.
                     </p>
                     <ul class="list-disc p-5">
                       <li>All membership is non-transferable and non-refundable.</li>
                       <li>Sustainable gym outfits are suggested for workout; casual clothes are not allowed.</li>
                       <li>Guests are not allowed however they can sit in cafeteria.</li>
                       <li>Registered members are issued a gym membership identity card.</li>
-                      <li>Members should use their own card, if anyone found using anyone else's card the membership will be canceled.</li>
-                      <li>In case of loss of the card there is a replacement charge of <span class="font-bold underline">RS.1000/-</span></li>
+                      <li>Members should use their own card, if anyone found using anyone else's card the membership
+                        will be canceled.</li>
+                      <li>In case of loss of the card there is a replacement charge of <span
+                          class="font-bold underline">RS.1000/-</span></li>
                     </ul>
 
                     <h2 class="text-xl font-bold underline">GYM FACILITIES</h2>
                     <ul class="list-disc p-5">
-                      <li>We provide <span class="font-bold italic">SPIRIT</span> series equipment for cardio as well as strength, professional trainer, personal cupboard, massage sessions and healthy environment for workout </li>
+                      <li>We provide <span class="font-bold italic">SPIRIT</span> series equipment for cardio as well as
+                        strength, professional trainer, personal cupboard, massage sessions and healthy environment for
+                        workout </li>
                       <li>We provide cafeteria for refershment</li>
                       <li>We provide only bike parking facility</li>
                     </ul>
 
-                    <h2 class="text-lg underline font-bold">I agree to MASHO fitness's Rules while using gym service</h2>
+                    <h2 class="text-lg underline font-bold">I agree to MASHO fitness's Rules while using gym service
+                    </h2>
 
                     <div class="m-5">
                       <p class="float-right italic">Members's signature</p>
@@ -815,7 +813,14 @@
                     class="bg-green-400 rounded-lg w-36 text-white shadow-md rounded-br-none text-center py-2">View
                     Record</a>
                 </div>
-
+                {% if all_data.active_fee_id.remaining > 0 %}
+                <div class="flex flex-col">
+                  <button class="bg-blue-400 rounded-lg w-36 text-white shadow-md rounded-br-none py-2"
+                    name="pay-installment" value="pay-installment">
+                    Pay Installment
+                  </button>
+                </div>
+                {% endif %}
               </div>
             </form>
 
@@ -1025,9 +1030,14 @@
       let paidamount = document.getElementById("pending-amount").value;
       let remainingamount = paidamount - payableamount
       document.getElementById("new-pending-amount").value = remainingamount;
-      alert(remainingamount)
     };
+    document.getElementById("dateofbirth").onchange = function () {
+    var Bdate = this.value;
+    var Bday = +new Date(Bdate);
+    document.getElementById('age').value = ~~((Date.now() - Bday) / (31557600000));
+}
   </script>
+  
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+from ast import Subscript
 from django.db import models
 from datetime import datetime
 
@@ -28,24 +29,33 @@ class Member(models.Model):
     member_height = models.CharField(max_length=5)
     member_weight = models.IntegerField()
     member_card_id = models.CharField(max_length=20)
-    member_target = models.CharField(max_length=100)    
-    member_membership_expiry_date = models.DateField(default=datetime.now())
+    member_target = models.CharField(max_length=100)
     member_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     member_created_at = models.DateField(default=datetime.now())
     member_updated_at = models.DateField(auto_now=True)
-    member_membership_id = models.ForeignKey(MembershipCategory, on_delete=models.CASCADE)
+    member_membership_start_date = models.DateField()
+    member_membership_expiry_date = models.DateField()
+    active_fee_id=models.ForeignKey('Fee', on_delete=models.CASCADE, null=True, blank=True,related_name='active_fee')    
+    member_membership_id = models.ForeignKey(MembershipCategory, on_delete=models.CASCADE,related_name='member_membership_id')
 
+class Fee(models.Model):
+    total=models.IntegerField()
+    discount=models.IntegerField()
+    payable=models.IntegerField()
+    remaining=models.IntegerField()
+    status=models.CharField(max_length=10)
+    installment=models.BooleanField()
+    created_at = models.DateField(default=datetime.now())
+    updated_at = models.DateField(auto_now=True)
+    member_id=models.ForeignKey(Member,on_delete=models.CASCADE,related_name="member_id")
 
 class Payment(models.Model):
     payment_amount = models.FloatField()
-    payment_discount = models.FloatField()
-    payment_payable = models.FloatField()
-    payment_paid = models.FloatField()
-    payment_remaining = models.FloatField()
-    payment_status = models.CharField(max_length=100)
     payment_created_at = models.DateField(default=datetime.now())
     payment_updated_at = models.DateField(auto_now=True)
-    member_id = models.ForeignKey(Member, on_delete=models.CASCADE)
+    fee_id = models.ForeignKey(Fee, on_delete=models.CASCADE,related_name="fee_id")
+
+
 
 
 class BodyAssesments(models.Model):
