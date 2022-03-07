@@ -18,4 +18,8 @@ urlpatterns = [
     path("salesTerminal/", views.salesTerminal, name="salesTerminal"),
     path("supplier/", views.supplier, name="supplier"),
     
+
+    # api path
+    path("api/SearchByItemField/", views.SearchByItemField, name='SearchByItemField'),
+    path("api/SearchByStockField/", views.SearchByStockField, name='SearchByStockField'),
 ]
