@@ -812,210 +812,170 @@
                 </button>
             </header>
             <!-- Modal body -->
-            <div class="bg-white p-1">
-                <div class=" grid grid-cols-2 gap-1">
-                    <!-- Left -->
-                    <div class="p-1 border border-gray-500">
-                        <div class="flex flex-col">
-                            <label for="">Item Code</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Item Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for=""  class="">Unit of Measure</label>
-                            <select name="" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner">
-                                <option value=""></option>
-                                <option value="">Nos</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Unit Price</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
-                        <div class="flex flex-row pt-1">
-                            <input type="checkbox" class="m-1 rounded-md shadow-inner">
-                            <label for="">Price Inclusive Sale Tax</label>
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Unit Tax</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Unit Net Price</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Purchased Quantity</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Sub Total</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Tax Total</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Item Total</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
-
-                    </div>
-                    <!-- Right -->
-                    <div class="p-1 border border-gray-500">
-
-                        <div class="flex flex-col items-center p-2 bg-white row-span-2">
-                            <ul class="hidden sm:flex items-center flex-shrink-0 space-x-6">
-                                <!-- Menu Close Open -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16m-7 6h7" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Large Screen -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Lock Screen -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Calender -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                    </button>
-                                </li>
-                            </ul>
+            <form action="/inventory/" method="post">
+                {% csrf_token %}
+            
+                <div class="bg-white p-1">
+                    <div class=" grid grid-cols-2 gap-1">
+                        <!-- Left -->
+                        <div class="p-1 border border-gray-500">
                             <div class="flex flex-col">
-                                <div
-                                    class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
-                                    <img id="image" class="object-cover w-full h-32"
-                                        src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
+                                <label for="">Item Code</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" value="" id="item-code">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="">Item Name</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" value="" id="item-name">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for=""  class="">Unit of Measure</label>
+                                <select name="item-unit" id="item-unit" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner">
+                                    <option value="pcs">pcs</option>
+                                    <option value="Glass">Glass</option>
+                                    <option value="nos">nos </option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="">Unit Price</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0" 
+                                name="unit-price" id="unit-price">
+                            </div>
+                            
 
-                                    <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
-                                        onClick="document.getElementById('fileInput').click()">
-                                        <button type="button"
-                                            style="background-color: rgba(255, 255, 255, 0.65)"
-                                            class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-camera" width="24"
-                                                height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                stroke="currentColor" fill="none" stroke-linecap="round"
-                                                stroke-linejoin="round">
-                                                <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-                                                <path
-                                                    d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
-                                                <circle cx="12" cy="13" r="3" />
-                                            </svg>
-                                        </button>
+                            <div class="flex flex-col">
+                                <label for="">Unit Tax</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" 
+                                value="0" name="unit-tax" id="unit-tax">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Unit Net Price</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
+                                name="unit-net-price" id="net-price">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Purchased Quantity</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" name="purchased-qty" id="purchased-qty">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Sub Total</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
+                                name="sub-total" id="sub-total">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Tax Total</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0" name="tax-total" id="tax-total">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Item Total</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0" name="item-total" id="item-total">
+                            </div>
+
+                        </div>
+                        <!-- Right -->
+                        <div class="p-1 border border-gray-500">
+
+                            <div class="flex flex-col items-center p-2 bg-white row-span-2">
+                                
+                                <div class="flex flex-col">
+                                    <div
+                                        class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
+                                        <img id="image" class="object-cover w-full h-32"
+                                            src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
+
+                                        <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
+                                            onClick="document.getElementById('fileInput').click()">
+                                            <button type="button"
+                                                style="background-color: rgba(255, 255, 255, 0.65)"
+                                                class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-camera" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                                                    <path
+                                                        d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
+                                                    <circle cx="12" cy="13" r="3" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
+                                        onChange="let file = this.files[0]; 
+                                        var reader = new FileReader();
+                    
+                                        reader.onload = function (e) {
+                                            document.getElementById('image').src = e.target.result;
+                                            document.getElementById('image2').src = e.target.result;
+                                        };
+                                    
+                                        reader.readAsDataURL(file);
+                                    ">
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <label for="">Order Number</label>
+                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="order-number" id="order-number">
+                            </div>
+
+                            
+                            <div class="flex flex-col">
+                                <label for="">Reference Number</label>
+                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="reference-number" id="reference-number">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Supplier</label>
+                                <div class="inline-flex w-full">
+                                    <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="supplier" id="supplier">
+                                    <div class="border border-slate-700 rounded-md">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                        </svg>
                                     </div>
                                 </div>
-                                <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
-                                    onChange="let file = this.files[0]; 
-                                    var reader = new FileReader();
-                
-                                    reader.onload = function (e) {
-                                        document.getElementById('image').src = e.target.result;
-                                        document.getElementById('image2').src = e.target.result;
-                                    };
-                                
-                                    reader.readAsDataURL(file);
-                                ">
                             </div>
-                        </div>
-                        
-                        <div class="flex flex-col">
-                            <label for="">Order Number</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
-                        </div>
 
-                        
-                        <div class="flex flex-col">
-                            <label for="">Reference Number</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Expiry Date</label>
+                                <input type="date" placeholder="" class="h-7 rounded-md shadow-inner p-0">
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Supplier</label>
-                            <div class="inline-flex w-full">
+                            <div class="flex flex-col">
+                                <label for="">Stock in Shop</label>
                                 <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
-                                <div class="border border-slate-700 rounded-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                                      </svg>
-                                </div>
                             </div>
-                        </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Expiry Date</label>
-                            <input type="date" placeholder="" class="h-7 rounded-md shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Stock In Storeroom</label>
+                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Stock in Shop</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label for="">Stock In Storeroom</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
                         </div>
 
                     </div>
 
                 </div>
-
-            </div>
-
-            <footer
-                class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
                 
+                <footer
+                    class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
+                    
 
-                <button
-                    class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
-                    Complete
-                </button>
-                <button @click="closeModal"
-                    class="bg-blue-400 px-6 py-1 rounded-xl text-white">
-                    Close
-                </button>
-
+                    <button
+                        class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
+                        Complete
+                    </button>
+                    <button @click="closeModal"
+                        class="bg-blue-400 px-6 py-1 rounded-xl text-white">
+                        Close
+                    </button>
+            </form>
             </footer>
 
         </div>

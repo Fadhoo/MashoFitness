@@ -18,7 +18,7 @@
         <script src="{% static 'js/focus-trap.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script src="{% static 'JsBarcode.all.min.js' %}"></script>
+        <!-- <script src="{% static 'JsBarcode.all.min.js' %}"></script> -->
         {% tailwind_css %}
     
 </head>
@@ -664,9 +664,10 @@
                                 <tr class="text-left hover:bg-red-200">
                                     
                                     <td class="p-2">
-
                                         <div class="float-left hover:text-red-600">
-                                            <span  @click="openUpdateModal">
+                                            
+                                        <!-- <input type="text" value="{{item.id}}" id="row_id"> -->
+                                            <span  @click="openUpdateModal({{item.id}}, 'stock')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -916,11 +917,7 @@
                             </div>
                             <div class="flex flex-col items-center border border-gray-400">
                                 <label for="">||| ||| |||| ||||</label>
-                                <!-- <svg id="barcode"></svg> -->
-                                <!-- <script >
-                                    document.getElementById("code").value
-                                    JsBarcode("#barcode", "Hi!");
-                                </script> -->
+                                
                                 <label for="">00000000000000</label>
                             </div>
                             <div class="flex flex-col">
@@ -950,7 +947,7 @@
                             <div class="flex flex-col">
                                 <label for="">Warning Days Before Expiry</label>
                                 <input type="text" placeholder="" class="h-8 rounded-md shadow-inner text-right"
-                                name="remaining-days" id="remaining-days" >
+                                name="remaining-days" id="" >
                             </div>
 
                         </div>
@@ -1016,6 +1013,7 @@
         </header>
         <form action="/addItem/" method="post">
             {% csrf_token %}
+            <input type="text" id="update-row-id" hidden>
         <!-- Modal body -->
             <div class="bg-white p-1">
                 <div class=" grid grid-cols-2 gap-1">
@@ -1023,15 +1021,16 @@
                     <div class="p-1 border border-gray-500">
                         <div class="flex flex-col">
                             <label for="">Item Code</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" value="{{item.item_code}}" >
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" 
+                            value="" id="item-code" >
                         </div>
                         <div class="flex flex-col">
                             <label for="">Item Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" value="{{item.item_name}}">
+                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" value="" id="item-name">
                         </div>
                         <div class="flex flex-col">
                             <label for=""  class="">Unit of Measure</label>
-                            <select name="unit-measure" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="{{item_item_unit}}">
+                            <select name="unit-measure" id="item-unit" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
                                 <!-- <option value="Select Units">Select</option> -->
                                 <option value="pcs">pcs</option>
                                 <option value="Glass">Glass</option>
@@ -1039,40 +1038,46 @@
                             </select>
                         </div>
                         <div class="flex flex-col">
-                            <label for="">Item Category</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" 
-                            name="item-category" value="{{item.item_category}}">
+                            <label for=""  class="">Item Category</label>
+                            <select name="item-category" id="item-category" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
+                                <!-- <option value="Select Units">Select</option> -->
+                                <option value="Food">Food</option>
+                                <option value="Cold Drinks">Cold Drinks</option>
+                                <option value="Hot Drinks">Hot Drinks</option>
+                            </select>
                         </div>
+
+
                         <div class="flex flex-col">
                             <label for="">Item Brand</label>
                             <input type="text" class="h-7 rounded-md shadow-inner" 
-                            name="item-brand" value="{{item.item_brand}}">
+                            name="item-brand" value="" id="item-brand">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Manufacturer</label>
                             <input type="text" class="h-7 rounded-md shadow-inner" 
-                            name="manufacturer" value="{{item.item_manufacturer}}">
+                            name="manufacturer" value="" id="item-manufacturer">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Selling Price</label>
-                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0" 
-                            name="selling-price" value="{{item.item_selling_price}}">
+                            <input type="text" class="h-7 text-right rounded-md shadow-inner" value="" 
+                            name="selling-price" value="" id="item-selling-price">
                         </div>
                         
                         <div class="flex flex-col">
                             <label for="">Maximum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100" 
-                            name="max-selling-qty" value="{{item.item_max_selling_quantity}}">
+                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="" 
+                            name="max-selling-qty" value="" id="item-max-selling-qty">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Minimum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="1"
-                            name="min-selling-qty" value="{{item.item_min_selling_quantity}}">
+                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value=""
+                            name="min-selling-qty" id="item-min-selling-qty">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Re Order Level</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="10"
-                            name="reorder-level" value="{{item.item_reorder_level}}">
+                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value=""
+                            name="reorder-level" value="" id="item-reorder-level">
                         </div>
 
                     </div>
@@ -1123,12 +1128,12 @@
                         </div>
                         <div class="flex flex-col items-center border border-gray-400">
                             <label for="">||| ||| |||| ||||</label>
-                            <svg id="barcode"></svg>
+                            <!-- <svg id="barcode"></svg>
                             <script >
                                 document.getElementById("code").value
                                 let text = document.getElementById('text').value
                                 JsBarcode("#barcode", "Hi!");
-                            </script>
+                            </script> -->
                             <label for="">00000000000000</label>
                         </div>
                         <div class="flex flex-col">
@@ -1140,12 +1145,12 @@
 
                         <div class="flex flex-col">
                             <label for="">Description</label>
-                            <input type="text" class="rounded-md shadow-inner" name="item-description" value="{{addItems.item_description}}">
+                            <input type="text" class="rounded-md shadow-inner" name="item-description" id="update-item-description">
                         </div>
 
                         <div class="flex flex-col">
                             <label for=""  class="">Status</label>
-                            <select name="status" id="" value="{{item.item_status}}" class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
+                            <select name="status" id="update-status" value="" class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
                             </select>
@@ -1153,8 +1158,8 @@
 
                         <div class="flex flex-col">
                             <label for="">Warning Days Before Expiry</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner text-right" value="0" 
-                            name="remaining-days" id="remaining-days" value="{{item.item_expiry_day|date:'Y-m-d'}}">
+                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner text-right" 
+                            name="remaining-days" id="update-remaining-days" value="">
                         </div>
 
                     </div>
@@ -1166,8 +1171,8 @@
             <footer
                 class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
                 
-                <input type="number" name="id" value="{{item.id}}"> 
-                <button
+                <input type="number" name="update-id" id="update-id" value="{{item.id}}" hidden> 
+                <button 
                     class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="update-button" value="update-button">
                     Update
                 </button>

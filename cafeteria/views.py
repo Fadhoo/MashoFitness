@@ -22,6 +22,8 @@ def addItem(request):
         
         if request.POST.get("update-button"):
             print("update update update update update update button")
+            UpdateItem(request)
+            return render(request, "addItem.html", {'addItems': Items.objects.all()})
 
 
     else:
@@ -41,6 +43,8 @@ def addNonStockItem(request):
         
         if request.POST.get("update-button"):
             print("update update update update update update button")
+            updateNonStockItems(request)
+            return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
 
 
     else:
@@ -116,5 +120,23 @@ def SearchByStockField(request):
             return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_name__icontains=value).order_by('-id'),many=True).data)
         elif field=="Code":
             return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_code__icontains=value).order_by('-id'),many=True).data)
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+
+@api_view(['GET'])
+def UpdateItemQueryCall(request):
+    value=request.GET.get("id")
+    try:
+        return Response(ItemSerializer(Items.objects.filter(id=value),many=True).data)
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+
+@api_view(['GET'])
+def UpdateNonStockItemQueryCall(request):
+    value=request.GET.get("nonStock-id")
+    try:
+        return Response(NonStockSerializer(NonStock.objects.filter(id=value),many=True).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
