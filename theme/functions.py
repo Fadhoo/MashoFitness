@@ -1,5 +1,7 @@
 import collections
-from .models import MembershipCategory, Member,Payment
+from datetime import datetime
+from operator import truediv
+from .models import MembershipCategory, Member,Payment,Fee
 from django.core.files.storage import FileSystemStorage
 def fetchUniqueCategoryName(model):
     try:
@@ -44,68 +46,85 @@ def addMemberRecord(request,status):
                     member_card_id=request.POST.get("cardnumber"),
                     member_target=request.POST.get("target"),
                     member_image=filename,
-                    member_membership_id=membership_id
+                    member_membership_id=membership_id,
+                    member_membership_expiry_date=request.POST.get("membership-expire"),
+                    member_membership_start_date=datetime.now(),
                     )
     member_data.save()
-    if status:
-        payment=Payment.objects.create(member_id=member_data,
-                                payment_amount=request.POST.get("amount"),
-                                payment_discount=request.POST.get("discount"),
-                                payment_payable=request.POST.get("payableamount"),
-                                payment_status=request.POST.get("paymentstatus"),
-                                payment_paid=0,
-                                payment_remaining=0)
-        payment.save()
-    else:
-        payment=Payment.objects.create(member_id=member_data,
-                                payment_amount=request.POST.get("amount"),
-                                payment_discount=request.POST.get("discount"),
-                                payment_payable=request.POST.get("payableamount"),
-                                payment_status=request.POST.get("paymentstatus"),
-                                payment_paid=request.POST.get("paidamount"),
-                                payment_remaining=request.POST.get("remainingamount"),)
-        payment.save()
-
-
-
-
-def CustomizeSerializer(query):
-    join=Member.objects.raw(query)
-    ls=[]
-    for i in join:
-        ship = [("name", i.member_name),
-        ("father_name", i.member_father_name),
-        ("cnic", i.member_cnic),
-        ("contact", i.member_contact),
-        ("emergency_contact", i.member_emergency_contact),
-        ("email", i.member_email),
-        ("occupation", i.member_occupation),
-        ("address", i.member_address),
-        ("gender",i.member_gender),
-        ('DOB',i.member_dob),
-        ("age", i.member_age),
-        ("id",i.id),
-        ("blood_group", i.member_blood_group),
-        ("height", i.member_height),
-        ("weight", i.member_weight),
-        ("card_id",i.member_card_id),
-        ("target",i.member_target),
-        ("image",i.member_image.url),
-        ("membershp_id",i.member_membership_id.id),
-        ("membershp_name",i.member_membership_id.category_name),
-        ("membershp_months",i.member_membership_id.category_months),
-        ("membershp_gender",i.member_membership_id.category_gender),
-        ("membershp_monthly_fee",i.member_membership_id.category_fee),
-        ("amount",i.payment_amount),
-        ("discount",i.payment_discount),
-        ("payable",i.payment_payable),
-        ("paid",i.payment_paid),
-        ("remaining",i.payment_remaining),
-        ("payment_status",i.payment_status),
-        ("expiry_date",i.member_membership_expiry_date),
-        ("created_at",i.member_created_at)
-        ]
+    print("member data",member_data)
+    if status: # for payment
+        fee=Fee.objects.create(total=membership_id.category_fee,
+                    discount=request.POST.get("discount"),
+                    payable=request.POST.get("payableamount"),
+                    remaining=0,
+                    status=request.POST.get("paymentstatus"),
+                    installment=False,
+                    member_id=member_data
+                    )
+        fee.save()
+        Payment.objects.create(
+                        payment_amount=request.POST.get("payableamount"),
+                        fee_id=fee
+                        ).save()
         
-        ls.append(collections.OrderedDict(ship))
-    # print(ls)
-    return ls
+    else: # for installment
+        fee=Fee.objects.create(total=membership_id.category_fee,
+                    discount=request.POST.get("discount"),
+                    payable=request.POST.get("payableamount"),
+                    remaining=request.POST.get("remainingamount"),
+                    status=request.POST.get("paymentstatus"),
+                    installment=True,
+                    member_id=member_data
+                    )
+        fee.save()
+        
+        Payment.objects.create(
+                        payment_amount=request.POST.get("paidamount"),
+                        fee_id=fee
+                        ).save()
+    Member.objects.filter(id=member_data.id).update(
+                    active_fee_id=fee
+                    )
+
+
+
+# def CustomizeSerializer(query):
+#     join=Member.objects.raw(query)
+#     ls=[]
+#     for i in join:
+#         ship = [("name", i.member_name),
+#         ("father_name", i.member_father_name),
+#         ("cnic", i.member_cnic),
+#         ("contact", i.member_contact),
+#         ("emergency_contact", i.member_emergency_contact),
+#         ("email", i.member_email),
+#         ("occupation", i.member_occupation),
+#         ("address", i.member_address),
+#         ("gender",i.member_gender),
+#         ('DOB',i.member_dob),
+#         ("age", i.member_age),
+#         ("id",i.id),
+#         ("blood_group", i.member_blood_group),
+#         ("height", i.member_height),
+#         ("weight", i.member_weight),
+#         ("card_id",i.member_card_id),
+#         ("target",i.member_target),
+#         ("image",i.member_image.url),
+#         ("membershp_id",i.member_membership_id.id),
+#         ("membershp_name",i.member_membership_id.category_name),
+#         ("membershp_months",i.member_membership_id.category_months),
+#         ("membershp_gender",i.member_membership_id.category_gender),
+#         ("membershp_monthly_fee",i.member_membership_id.category_fee),
+#         ("amount",i.payment_amount),
+#         ("discount",i.payment_discount),
+#         ("payable",i.payment_payable),
+#         ("paid",i.payment_paid),
+#         ("remaining",i.payment_remaining),
+#         ("payment_status",i.payment_status),
+#         ("expiry_date",i.member_membership_expiry_date),
+#         ("created_at",i.member_created_at)
+#         ]
+        
+#         ls.append(collections.OrderedDict(ship))
+#     # print(ls)
+#     return ls

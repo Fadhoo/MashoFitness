@@ -505,7 +505,7 @@
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Discount</label>
-                                        <input type="text" id="discount" value=""
+                                        <input type="text" id="discount" value="0"
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
                                             name="discount">
                                     </div>
@@ -521,7 +521,7 @@
                                         <label for="" class="m-1">MemberShip Expire</label>
                                         <input type="text" readonly id="expiry"
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                                            name="membershipexpire">
+                                            name="membership-expire">
                                     </div>
 
                                     <!-- <div class="flex flex-col">
@@ -754,13 +754,13 @@
                                             </div>
                                             <div>
                                                 <p class="font-semibold">{{data.member_name}}</p>
-                                                <p class="text-sm text-gray-600 ">{{data.category_name}}</p>
+                                                <p class="text-sm text-gray-600 ">{{data.member_membership_id.category_name}}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="p-2">{{data.member_card_id}}</td>
                                     <td class="p-2">{{data.member_contact}}</td>
-                                    <td class="p-2">{{data.category_months}}</td>
+                                    <td class="p-2">{{data.member_membership_id.category_months}}</td>
                                     <td class="p-2">Masho</td>
                                     <td class="p-2">
                                         {{data.member_created_at}}
@@ -771,7 +771,7 @@
                                     <td class="p-2">
                                         <span
                                             class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
-                                            {{data.payment_status}}
+                                            {{data.active_fee_id.status}}
                                         </span>
                                     </td>
                                     <!-- <td class="p-2">

@@ -255,7 +255,7 @@ function update_table(data) {
 
     Object.keys(data).forEach(key => {
         elem = data[key];
-        console.log(elem)
+        console.log(elem['member_name']);
         row =
 
             '<tr class="border-2 hover:bg-slate-300">' +
@@ -266,25 +266,25 @@ function update_table(data) {
                 '<td class="p-2"><div class="flex items-center text-sm">'+
                         '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
                             '<img class="object-cover w-full h-full rounded-full"'+ 
-                               ' src="'+ elem['image'] +'"'+
+                               ' src="'+ elem['member_image'] +'"'+
                                 'alt="" loading="lazy" />'+
                             '<div class="absolute inset-0 rounded-full shadow-inner"'+
                                 'aria-hidden="true"></div>'+
                         '</div>'+
                         '<div>'+
-                            '<p class="font-semibold">'+ elem['name'] +'</p>'+
-                            '<p class="text-sm text-gray-600 ">'+elem['membershp_name']+'</p>'+
+                            '<p class="font-semibold">'+ elem['member_name'] +'</p>'+
+                            '<p class="text-sm text-gray-600 ">'+elem['member_membership_id']['category_name']+'</p>'+
                         '</div>'+
                     '</div>'+
                 '</td>'+
-                '<td class="p-2">'+elem['card_id']+'</td>'+
-                '<td class="p-2">'+elem['contact']+'</td>'+
-                '<td class="p-2">'+elem['membershp_months']+'</td>'+
+                '<td class="p-2">'+elem['member_card_id']+'</td>'+
+                '<td class="p-2">'+elem['member_contact']+'</td>'+
+                '<td class="p-2">'+elem['member_membership_id']['category_months']+'</td>'+
                 '<td class="p-2">'+'Masho'+'</td>'+
-                '<td class="p-2">'+ elem['created_at'] +'</td>'+
-                '<td class="p-2">'+elem['expiry_date']+'</td>'+
+                '<td class="p-2">'+ elem['member_membership_start_date'] +'</td>'+
+                '<td class="p-2">'+elem['member_membership_expiry_date']+'</td>'+
                 '<td class="p-2">'+
-                    '<span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">'+ elem['payment_status']+ '</span>'+
+                    '<span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">'+ elem['active_fee_id']['status']+ '</span>'+
                 '</td>'+
                 
                 '<td class="p-2" >'+
