@@ -311,3 +311,5 @@ function update_table(data) {
 
     $('#myTable tbody').html(all_rows);
 }
+
+

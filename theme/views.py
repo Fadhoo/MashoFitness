@@ -116,6 +116,7 @@ def memberDetails(request):
         print("memberDetails",request.GET.get('data'))
         member=Member.objects.all().filter(id=request.GET.get('data')).select_related("member_membership_id").select_related("active_fee_id")[0]
         payment=Payment.objects.filter(fee_id=member.active_fee_id).aggregate(Sum('payment_amount'))
+        print(payment)
         
         return render(request,"memberDetails.html",
             {'all_data': member,
@@ -324,5 +325,12 @@ def searchbyname(request):
             return Response(MemberSerializer(Member.objects.all().select_related("member_membership_id").select_related("active_fee_id").order_by('-id').filter(member_name__icontains=name),many=True).data)
         else:
             return Response({"error":str("Please select name")})
+    except Exception as e:
+        return Response({"error":str(e)})
+
+@api_view(['GET'])
+def fetchAllCategory(request):
+    try:
+        return Response(fetchUniqueCategoryName(MembershipCategory))
     except Exception as e:
         return Response({"error":str(e)})

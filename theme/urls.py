@@ -29,7 +29,7 @@ urlpatterns = [
     path("api/searchbydata/", views.searchbydata, name="searchbydata"),
     path("api/searchbydate/", views.searchbydate, name="searchbydate"),
     path("api/searchbyname/", views.searchbyname, name="searchbyname"),
-    # path("delete_record/", views.delete_record, name="delete_record"),
+    path("/api/fetchAllCategory", views.fetchAllCategory, name="fetchAllCategory"),
 
     # ex: /polls/
     # path('', views.home, name='home'),
