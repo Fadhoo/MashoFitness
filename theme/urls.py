@@ -29,6 +29,7 @@ urlpatterns = [
     path("api/searchbydata/", views.searchbydata, name="searchbydata"),
     path("api/searchbydate/", views.searchbydate, name="searchbydate"),
     path("api/searchbyname/", views.searchbyname, name="searchbyname"),
+    path("api/testing/", views.testing, name="testing"),
     # path("delete_record/", views.delete_record, name="delete_record"),
 
     # ex: /polls/

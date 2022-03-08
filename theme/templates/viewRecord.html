@@ -11,9 +11,13 @@
     <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}"/>
     <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}"/>
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{% static 'js/init-alpine.js' %}"></script>
     <script src="{% static 'js/focus-trap.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% tailwind_css %}
 
 </head>
@@ -307,7 +311,7 @@
 
                         <h2 class="ml-96 text-2xl font-semibold text-blue-900 ">
 
-                            <span class="text-red-600">Name</span> - Member Bill Record
+                            <span class="text-red-600">{{member_name}}</span> - Member Bill Record
                         </h2>
                     </div>
 
@@ -330,7 +334,7 @@
 
                             <div class="flex flex-row justify-between border-b-2 border-gray-700 border-opacity-80">
                                 <p class="p-2 text-lg text-gray-600   ">
-                                    <span class="text-red-700 font-semibold italic">Name</span> - Bill Record
+                                    <span class="text-red-700 font-semibold italic">{{member_name}}</span> - Bill Record
                                 </p>
                                 <span class="p-2 cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -361,18 +365,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in bill %}
                                     <tr class="text-left text-md border-2 hover:bg-slate-300">
 
-                                        <td class="p-2">001</td>
-                                        <td class="p-2">1 month</td>
-                                        <td class="p-2">22/22/2222</td>
-                                        <td class="p-2">33/33/3333</td>
-                                        <td class="p-2">4,000.00</td>
-                                        <td class="p-2">0</td>
-                                        <td class="p-2">0</td>
-                                        <td class="p-2">11/11/1111</td>
-                                        <td class="p-2">4,000.00</td>
-                                        <td class="p-2">0</td>
+                                        <td class="p-2">{{i.id}}</td>
+                                        <td class="p-2">{{i.subscription_id.category_months}}</td>
+                                        <td class="p-2">{{i.start_date}}</td>
+                                        <td class="p-2">{{i.end_date}}</td>
+                                        <td class="p-2">{{i.amount}}</td>
+                                        <td class="p-2">{{i.discount}}</td>
+                                        <td class="p-2">{{i.payable}}</td>
+                                        <td class="p-2">{{i.bill_created_at}}</td>
+                                        <td class="p-2">{{i.paid}}</td>
+                                        <td class="p-2">{{i.remaining}}</td>
                                         <td class="p-2">
                                             <span
                                                 class="px-4 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full  ">
@@ -392,7 +397,7 @@
                                         </td>
 
                                     </tr>
-
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </form>

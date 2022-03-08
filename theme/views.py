@@ -1,10 +1,9 @@
-
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib import messages
 from theme.functions import fetchUniqueCategoryName
 from .models import MembershipCategory, Member, BodyAssesments
-from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentSerializer
+from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentSerializer, feeSerializer,BillSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .functions import *
@@ -19,115 +18,17 @@ def fetchAllData(dbmodel):
 
 def index(request):
     return render(request, 'index.html')
-
-
-
-
-
+def login(request):
+    return render(request,"login.html")
 
 def viewRecord(request):
     return render(request, 'viewRecord.html')
 
-
-
-
-def bodyAssesments(request):
-    print("requset data **** ", request.method)
-    if request.method == "POST":
-        if request.POST.get("add-button"):
-            print(Member.objects.filter(id=request.POST.get("member_id")))
-            items_add = BodyAssesments.objects.create(neck=request.POST.get("neck"),
-                        shoulder=request.POST.get("shoulder"), chest_extended=request.POST.get("chest-extended"),
-                        chest_normal=request.POST.get("chest-normal"), forearms=request.POST.get("forearms"),
-                        biceps=request.POST.get("biceps"), wrist=request.POST.get("wrist"),
-                        upper_abs=request.POST.get("upper-abs"), lower_abs=request.POST.get("lower-abs"),
-                        waist=request.POST.get("waist"), hip=request.POST.get("hip"),
-                        thigh=request.POST.get("thigh"), calves=request.POST.get("calves"),
-                        ankles=request.POST.get("ankles"), body_fat=request.POST.get("body-fat"),
-                        vascular=request.POST.get("vascular"), medical_issue=request.POST.get("medical-issue"),
-                        body_target=request.POST.get("body-target"), assesment_date=request.POST.get("assesment-date"),
-                        member_id=Member.objects.filter(id=request.POST.get("member_id"))[0])
-        print("items data ********  ",items_add)
-        items_add.save()
-        return render(request, 'bodyAssesments.html',  {'zipdata':Member.objects.raw(f'select * from theme_member JOIN theme_bodyassesments on theme_member.id=theme_bodyassesments.member_id_id where theme_bodyassesments.member_id_id={request.POST.get("member_id")};'),
-        "all_data":Member.objects.filter(id=request.POST.get('member_id')[0])
-        })
-
-    else:
-        if request.GET.get("data"):
-            print(Member.objects.filter(id=request.GET.get('data')))
-            return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=request.GET.get('data'))[0],
-                                    'zipdata': Member.objects.raw(f'select * from theme_member JOIN theme_bodyassesments on theme_member.id=theme_bodyassesments.member_id_id where theme_bodyassesments.member_id_id={request.GET.get("data")};'), })
-        else:
-            return render(request, 'viewMembers.html',{
-            'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
-            })
-
-
-
-
-
-
 def smshistory(request):
     return render(request, 'smshistory.html')
 
-# def reports(request):
-#     return render(request,"reports.html")
-
 def printform(request):
     return render(request,"printform.html")
-
-def memberDetails(request):
-    if request.method == "POST":
-        # if request.POST.get("body-assesment"):
-        #     print(request.POST.get("body-assesment"))
-        #     return render(request, "bodyAssesments.html", {'zipdata':Member.objects.all().select_related('member_id'),})
-
-        if request.POST.get("edit-member"):
-            
-        # print(Member.objects.all().filter(id=cid).select_related("membershp_id")[0])
-            return render(request,"memberDetails.html",
-            {'all_data': Member.objects.all().filter(id=request.POST.get("cid")).select_related("member_membership_id")[0]
-            })
-        
-        if request.POST.get("update-button"):
-                print("**************************")
-                print(request.POST.get("cid"))
-                data = Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
-                                    member_father_name=request.POST.get("father_name"), 
-                                    member_cnic=request.POST.get("cnic"), 
-                                    member_occupation=request.POST.get("occupation"), 
-                                    member_gender=request.POST.get("gender"), 
-                                    member_address=request.POST.get("address"),
-                                    member_contact=request.POST.get("contact"), 
-                                    member_emergency_contact=request.POST.get("alternative-number"),
-                                    member_dob=request.POST.get("dob"), 
-                                    member_age=request.POST.get("age"), 
-                                    member_blood_group=request.POST.get("blood_group"), 
-                                    # category=request.POST.get("category"), 
-                                    member_target=request.POST.get("target"), )
-                                    # expiry_date=request.POST.get("expiry")
-                print(data)
-                return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
-        if request.POST.get("pay-installment"):
-            m_id=request.POST.get("cid")
-            payment=Payment.objects.filter(member_id=Member.objects.filter(id=m_id))[0]
-    else:
-        print("memberDetails",request.GET.get('data'))
-        member=Member.objects.all().filter(id=request.GET.get('data')).select_related("member_membership_id").select_related("active_fee_id")[0]
-        payment=Payment.objects.filter(fee_id=member.active_fee_id).aggregate(Sum('payment_amount'))
-        
-        return render(request,"memberDetails.html",
-            {'all_data': member,
-            "payment":payment['payment_amount__sum']
-            })
-            
-
-def login(request):
-    return render(request,"login.html")
-
-# def income(request):
-#     return render(request,"income.html")
 
 def gymSetting(request):
     if request.method == "POST":
@@ -169,7 +70,51 @@ def gymManagement(request):
         # 'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
     })
 
-
+def memberDetails(request):
+    if request.method == "POST":
+        if request.POST.get("edit-member"):
+            return render(request,"memberDetails.html",
+            {'all_data': Member.objects.all().filter(id=request.POST.get("cid")).select_related("member_membership_id")[0]
+            })
+        
+        if request.POST.get("update-button"):
+                print("**************************")
+                print(request.POST.get("cid"))
+                data = Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
+                                    member_father_name=request.POST.get("father_name"), 
+                                    member_cnic=request.POST.get("cnic"), 
+                                    member_occupation=request.POST.get("occupation"), 
+                                    member_gender=request.POST.get("gender"), 
+                                    member_address=request.POST.get("address"),
+                                    member_contact=request.POST.get("contact"), 
+                                    member_emergency_contact=request.POST.get("alternative-number"),
+                                    member_dob=request.POST.get("dob"), 
+                                    member_age=request.POST.get("age"), 
+                                    member_blood_group=request.POST.get("blood_group"), 
+                                    # category=request.POST.get("category"), 
+                                    member_target=request.POST.get("target"), )
+                                    # expiry_date=request.POST.get("expiry")
+                print(data)
+                return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
+        if request.POST.get("pay-installment"):
+            if update_payment_installment(request):
+                bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
+                print()
+                return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
+                    'bill': bill,})
+                # return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
+            else:
+                print("error  in update intallment" )
+                # return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
+    else:
+        print("memberDetails",request.GET.get('data'))
+        member=Member.objects.all().filter(id=request.GET.get('data')).select_related("member_membership_id").select_related("active_fee_id")[0]
+        payment=Payment.objects.filter(fee_id=member.active_fee_id).aggregate(Sum('payment_amount'))
+        
+        return render(request,"memberDetails.html",
+            {'all_data': member,
+            "payment":payment['payment_amount__sum']
+            })
 
 def addMember(request):
     if request.method=="POST":
@@ -233,7 +178,37 @@ def viewMembers(request):
             'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
         })
 
+def bodyAssesments(request):
+    print("requset data **** ", request.method)
+    if request.method == "POST":
+        if request.POST.get("add-button"):
+            print(Member.objects.filter(id=request.POST.get("member_id")))
+            items_add = BodyAssesments.objects.create(neck=request.POST.get("neck"),
+                        shoulder=request.POST.get("shoulder"), chest_extended=request.POST.get("chest-extended"),
+                        chest_normal=request.POST.get("chest-normal"), forearms=request.POST.get("forearms"),
+                        biceps=request.POST.get("biceps"), wrist=request.POST.get("wrist"),
+                        upper_abs=request.POST.get("upper-abs"), lower_abs=request.POST.get("lower-abs"),
+                        waist=request.POST.get("waist"), hip=request.POST.get("hip"),
+                        thigh=request.POST.get("thigh"), calves=request.POST.get("calves"),
+                        ankles=request.POST.get("ankles"), body_fat=request.POST.get("body-fat"),
+                        vascular=request.POST.get("vascular"), medical_issue=request.POST.get("medical-issue"),
+                        body_target=request.POST.get("body-target"), assesment_date=request.POST.get("assesment-date"),
+                        member_id=Member.objects.filter(id=request.POST.get("member_id"))[0])
+        print("items data ********  ",items_add)
+        items_add.save()
+        return render(request, 'bodyAssesments.html',  {'zipdata':Member.objects.raw(f'select * from theme_member JOIN theme_bodyassesments on theme_member.id=theme_bodyassesments.member_id_id where theme_bodyassesments.member_id_id={request.POST.get("member_id")};'),
+        "all_data":Member.objects.filter(id=request.POST.get('member_id')[0])
+        })
 
+    else:
+        if request.GET.get("data"):
+            print(Member.objects.filter(id=request.GET.get('data')))
+            return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=request.GET.get('data'))[0],
+                                    'zipdata': Member.objects.raw(f'select * from theme_member JOIN theme_bodyassesments on theme_member.id=theme_bodyassesments.member_id_id where theme_bodyassesments.member_id_id={request.GET.get("data")};'), })
+        else:
+            return render(request, 'viewMembers.html',{
+            'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
+            })
 
 # """"
 # API WORK 
@@ -324,5 +299,12 @@ def searchbyname(request):
             return Response(MemberSerializer(Member.objects.all().select_related("member_membership_id").select_related("active_fee_id").order_by('-id').filter(member_name__icontains=name),many=True).data)
         else:
             return Response({"error":str("Please select name")})
+    except Exception as e:
+        return Response({"error":str(e)})
+
+@api_view(['GET'])
+def testing(request):
+    try:
+        return Response(PaymentSerializer(Payment.objects.all().filter(fee_id__member_id=28),many=True).data)
     except Exception as e:
         return Response({"error":str(e)})

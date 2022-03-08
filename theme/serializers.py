@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MembershipCategory, Member,Payment,Fee,BodyAssesments
+from .models import MembershipCategory, Member,Payment,Fee,BodyAssesments,Bill
 
 
 class MembershipCategorySerializer(serializers.ModelSerializer):
@@ -27,4 +27,12 @@ class PaymentSerializer(serializers.ModelSerializer):
     fee_id=feeSerializer(many=False, read_only=True)
     class Meta:
         model = Payment
+        fields = '__all__'
+
+class BillSerializer(serializers.ModelSerializer):
+    member_id=MemberSerializer(many=False, read_only=True)
+    fee_id=feeSerializer(many=False, read_only=True)
+    subscription_id=MembershipCategorySerializer(many=False, read_only=True)
+    class Meta:
+        model = Bill
         fields = '__all__'
