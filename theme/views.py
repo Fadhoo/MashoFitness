@@ -308,3 +308,8 @@ def testing(request):
         return Response(PaymentSerializer(Payment.objects.all().filter(fee_id__member_id=28),many=True).data)
     except Exception as e:
         return Response({"error":str(e)})
+def fetchAllCategory(request):
+    try:
+        return Response(fetchUniqueCategoryName(MembershipCategory))
+    except Exception as e:
+        return Response({"error":str(e)})

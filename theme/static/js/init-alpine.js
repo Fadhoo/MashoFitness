@@ -88,9 +88,15 @@ function data() {
     // Modal
     isUpdateModalOpen: false,
     trapCleanup222: null,
-    openUpdateModal() {
+    openUpdateModal(id,call) {
       this.isUpdateModalOpen = true;
       this.trapCleanup222 = focusTrap(document.querySelector('#updateModal'));
+      if (call=="non_stock"){
+        update_query_call_nonstock(id)
+      }
+      else if (call=="stock"){
+      update_query_call(id)}
+      
     },
     closeUpdateModal() {
       this.isUpdateModalOpen = false;
@@ -147,4 +153,8 @@ function data() {
     },
     
   }
+}
+
+function ajax_call(id){
+  console.log("row id fetch ",id)
 }

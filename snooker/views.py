@@ -62,7 +62,6 @@ def updateSnooker(request):
             return render(request,"editSnooker.html",{'record':snookerTableIncome.objects.filter(id=request.POST.get("table-id"))[0]})
 
         if request.POST.get("update-income"):
-            print("buraaaaaaaaaaaaaaaaaaaaa updated")
             
             snookerIncome.objects.filter(id=request.POST.get("income-id")).update(
                 description=request.POST.get("description"), attened_by=request.POST.get("attended-by"), date=request.POST.get("date")

@@ -61,5 +61,76 @@ function update_table(data){
     $('#myTable tbody').html(all_rows);
 }
 
+function update_query_call(id){
+    $.ajax({
+        method: "GET",
+        url: "/api/UpdateItemQueryCall/",
+        data: { "id": id},
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+            elem = data[key];
+            console.log(elem)
+            
+            document.getElementById("update-id").value=elem['id'];
+            document.getElementById("item-code").value=elem['item_code'];
+            document.getElementById("item-name").value=elem['item_name'];
+            document.getElementById("item-unit").value=elem['item_unit'];
+            document.getElementById("item-brand").value=elem['item_brand'];
+            document.getElementById("item-category").value=elem['item_category'];
+            document.getElementById("item-manufacturer").value=elem['item_manufacturer'];
+            document.getElementById("item-selling-price").value=elem['item_selling_price'];
+            document.getElementById("item-max-selling-qty").value=elem['item_max_selling_quantity'];
+            document.getElementById("item-min-selling-qty").value=elem['item_min_selling_quantity'];
+            document.getElementById("item-reorder-level").value=elem['item_reorder_level'];
+            document.getElementById("image").src=elem['item_image'];
+            // document.getElementById("item-barcode").value=elem['item_code'];
+            document.getElementById("update-item-description").value=elem['item_description'];
 
+            document.getElementById("update-status").value=elem['item_status'];
+            document.getElementById("update-remaining-days").value=elem['item_expiry_day'];
+            });
+            
+        },
+        error: function () {
+            console.log('error');
+        }
 
+    })
+}
+
+function update_query_call_nonstock(id){
+    $.ajax({
+        method: "GET",
+        url: "/api/UpdateNonStockItemQueryCall/",
+        data: { "nonStock-id": id},
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+            elem = data[key];
+            console.log(elem)
+            
+            document.getElementById("update-id").value=elem['id'];
+
+            document.getElementById("item-code").value=elem['nonStock_item_code'];
+            document.getElementById("item-name").value=elem['nonStock_item_name'];
+            document.getElementById("item-unit").value=elem['nonStock_item_unit'];
+            document.getElementById("item-category").value=elem['nonStock_item_category'];
+            document.getElementById("item-brand").value=elem['nonStock_item_brand'];
+            document.getElementById("item-manufacturer").value=elem['nonStock_item_manufacturer'];
+            document.getElementById("purchase-price").value=elem['nonStock_item_purchase_price'];
+            document.getElementById("item-selling-price").value=elem['nonStock_item_selling_price'];
+            document.getElementById("update-status").value=elem['nonStock_item_status'];
+            document.getElementById("image").src=elem['nonStock_item_image'];
+            document.getElementById("item-description").value=elem['nonStock_item_description'];
+            document.getElementById("max-selling-qty").value=elem['nonStock_item_max_selling_quantity'];
+            document.getElementById("min-selling-qty").value=elem['nonStock_item_min_selling_quantity'];
+            // document.getElementById("item-barcode").value=elem['item_code'];
+
+            });
+            
+        },
+        error: function () {
+            console.log('error');
+        }
+
+    })
+}

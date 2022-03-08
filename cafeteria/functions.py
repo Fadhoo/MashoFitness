@@ -52,8 +52,8 @@ def UpdateItem(request):
             uploaded_file_url = fs.url(filename)
         else:
             filename="default.png"
-
-        update_item = Items.objects.filter(id=request.POST.get("id")).update(item_code=request.POST.get("item-code"),
+        print("update id recieved:",request.POST.get("update-id"))
+        update_item = Items.objects.filter(id=request.POST.get("update-id")).update(item_code=request.POST.get("item-code"),
                         item_name=request.POST.get("item-name"), item_unit=request.POST.get("unit-measure"),
                         item_category=request.POST.get("item-category"), item_brand=request.POST.get("item-brand"),
                         item_manufacturer=request.POST.get("manufacturer"), item_selling_price=request.POST.get("selling-price"),
@@ -62,7 +62,6 @@ def UpdateItem(request):
                         item_description=request.POST.get("item-description"),
                         item_status=request.POST.get("status"), item_expiry_day=request.POST.get("remaining-days"),
                         )
-        update_item.save()
 
         return update_item
     except Exception as e:
@@ -137,8 +136,8 @@ def updateNonStockItems(request):
             uploaded_file_url = fs.url(filename)
         else:
             filename="default.png"
-
-        update_nonStock_item = NonStock.objects.filter(id=request.POST.get("id")).update(nonStock_item_code=request.POST.get("item-code"),
+        print(request.POST.get("update-id"))
+        update_nonStock_item = NonStock.objects.filter(id=request.POST.get("update-id")).update(nonStock_item_code=request.POST.get("item-code"),
                         nonStock_item_name=request.POST.get("item-name"), 
                         nonStock_item_unit=request.POST.get("unit-measurement"),
                         nonStock_item_category=request.POST.get("item-category"), 
@@ -146,12 +145,12 @@ def updateNonStockItems(request):
                         nonStock_item_manufacturer=request.POST.get("manufacturer"),
                         nonStock_item_purchase_price=request.POST.get("purchase-price"),
                         nonStock_item_selling_price=request.POST.get("selling-price"),
-                        nonStock_item_max_selling_quantity=request.POST.get("max-selling-qty"), 
-                        nonStock_item_min_selling_quantity=request.POST.get("min-selling-qty"),nonStock_item_image=filename,  
+                        nonStock_item_status=request.POST.get("status"),
+                        nonStock_item_image=filename,  
                         nonStock_item_description=request.POST.get("description"),
-                        nonStock_item_status=request.POST.get("status")
+                        nonStock_item_max_selling_quantity=request.POST.get("max-selling-qty"), 
+                        nonStock_item_min_selling_quantity=request.POST.get("min-selling-qty"),
                         )
-        update_nonStock_item.save()
 
         return update_nonStock_item
     except Exception as e:

@@ -2,19 +2,23 @@
 <!DOCTYPE html>
 <html lang="en" x-data="data()">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Masho Fitness</title>
-  <link rel="stylesheet" href="{% static 'public/main.css' %}" />
-  <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}" />
-  <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}" />
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masho Fitness</title>
+    <link rel="stylesheet" href="{% static 'public/main.css' %}">
+    <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}"/>
+    <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="{% static 'js/init-alpine.js' %}"></script>
-  <script src="{% static 'js/focus-trap.js' %}"></script>
-  {% tailwind_css %}
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="{% static 'js/init-alpine.js' %}"></script>
+    <script src="{% static 'js/focus-trap.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    {% tailwind_css %}
+
 </head>
 
 <body>
@@ -845,20 +849,97 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </div>
-                  <div class="grid p-3">
-                    <div class="flex flex-col">
-                      <label for="" class="m-1">Select Month</label>
-                      <input type="date" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300">
-                    </div>
-                    <div class="flex flex-col">
-                      <label for="" class="m-1">Payable Amount</label>
-                      <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300">
-                    </div>
+                  <form action="/memberDetails/" method="post">
+                    {% csrf_token %}
+                  
+                    <div class="grid p-3">
+                      
+                      <div class="flex flex-col">
+                        <label for="" class="m-1 text-sm">Membership Category</label>
+                        <select name="membershipcategory" id="membershipcategory" onclick="fetchUniqueCategory();"
+                            class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                            <option value="">Select Membership</option>
 
-                    <button
-                      class="bg-blue-600 m-10 mb-0 rounded-lg text-white shadow-md rounded-br-none py-2">Submit</button>
+                        </select>
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1 text-sm">Membership Class</label>
+                        <select name="membership-class" id="membership-class" onchange="categoryClassChange()"
+                            class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                            <option value="">Select Membership</option>
+                            <option value="Platinium">Platinium</option>
+                            <option value="Gold">Gold</option>
+                            <option value="Silver">Silver</option>
+                            <option value="Bronze">Bronze</option>
+                            
+                        </select>
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Membership Duration</label>
+                        <input type="text" id="category-months" name="category-months"
+                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                        >
+                      </div>
+                      <div class="flex flex-col">
+                          <label for="" class="m-1">Amount</label>
+                          <input type="number" readonly  id="amount"
+                              class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                              name="amount">
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Discount</label>
+                        <input type="text" id="discount" value="0"
+                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                            name="discount">
+                      </div>
 
-                  </div>
+                      <div class="flex flex-col">
+                          <label for="" class="m-1">Payable Amount</label>
+                          <input type="number" readonly  id="payableamount"
+                              class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                              name="payableamount">
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">MemberShip Expire</label>
+                        <input type="text" readonly id="expiry"
+                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                            name="membership-expire">
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Instalment ?</label>
+                        <div class="flex flex-row">
+
+                            <input type="checkbox"
+                                class="rounded-md mt-2 mr-3 shadow-inner p-2 bg-gray-200"
+                                name="instalment" id="instalment"
+                                onclick="instalmentValueChanged(this)">
+                            <label for="" class="m-1">Installment</label>
+                        </div>
+                      </div>
+
+                      <div class="inline-flex" style="display: None;" id="paidamount">
+                          <div class="flex flex-col">
+                              <label for="" class="m-1">Paid Amount</label>
+                              <input type="text" id="paidamounts"
+                                  class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                  name="paidamount">
+                          </div>
+
+                          <div class="flex flex-col">
+                              <label for="" class="m-1">Remaining Amount</label>
+                              <input type="nuumber" id="remaining-amount" readonly
+                                  class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                  name="remainingamount">
+                          </div>
+                      </div>
+
+
+                      <button
+                        class="bg-blue-600 m-10 mb-0 rounded-lg text-white shadow-md rounded-br-none py-2"
+                        name="submit-button" value="submit-button">Submit</button>
+
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -1035,6 +1116,22 @@
     var Bdate = this.value;
     var Bday = +new Date(Bdate);
     document.getElementById('age').value = ~~((Date.now() - Bday) / (31557600000));
+}
+function fetchUniqueCategory(){
+    var category = document.getElementById('membershipcategory')
+    $.ajax({
+        method:"GET",
+        url: "/api/fetchAllCategory",
+        success: function (data) {
+            console.log(data);
+
+        },
+        error: function () {
+            console.log("error in fetch category")
+        }
+
+
+    });
 }
   </script>
   
