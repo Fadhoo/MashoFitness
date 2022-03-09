@@ -335,7 +335,7 @@
                   </div>
                   <div class="flex flex-col">
                     <label for="" class="m-1">Membership ID</label>
-                    <input type="text" value="{{all_data.member_membership_id.id}}"
+                    <input type="text" value="{{all_data.member_membership_id.id}}" readonly
                       class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200" />
                   </div>
 
@@ -401,15 +401,20 @@
                       </select>
                     </div>
                     <div class="flex flex-col">
+                      <label for="" class="m-1">Occupation</label>
+                      <input type="text" value="{{all_data.member_gender}}" readonly name="gender" id="member-gender"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
+                    </div>
+                    <!-- <div class="flex flex-col">
                       <label for="" class="m-1">Gender</label>
-                      <select name="gender" id="" value="{{all_data.member_gender}}"
+                      <select name="gender" id="member-gender" value="{{all_data.member_gender}}"
                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                         <option value="{{all_data.member_gender}}" class="">{{all_data.member_gender}}</option>
 
                         <option value="">Male</option>
                         <option value="">Female</option>
                       </select>
-                    </div>
+                    </div> -->
                     <div class="flex flex-col col-span-3">
                       <label for="" class="m-1">Address</label>
                       <input type="text" value="{{all_data.member_address}}" name="address"
@@ -426,7 +431,7 @@
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Age</label>
-                      <input type="text" value="{{all_data.member_age}}" name="age" id='age'
+                      <input type="text" value="{{all_data.member_age}}" name="age" id='age' readonly
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
                     <div class="flex flex-col">
@@ -451,41 +456,45 @@
 
                     <div class="flex flex-col">
                       <label for="" class="m-1 text-sm">Membership Category</label>
-                      <select name="category" id="" value=""
+                      <select name="category" id="" value="" 
                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                         <option value="{{all_data.member_membership_id.name}}" selected>{{all_data.member_membership_id.category_name}}</option>
                         </option>
 
                       </select>
                     </div>
-
                     <div class="flex flex-col">
+                      <label for="" class="m-1">Membership</label>
+                      <input class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" 
+                       type="text" name="month" id="" value="{{all_data.member_membership_id.category_months}}" readonly>
+                    </div>
+                    <!-- <div class="flex flex-col">
                       <label for="" class="m-1">Membership</label>
                       <select name="month" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                         <option value="{{all_data.category_months}}" selected>
                           {{all_data.member_membership_id.category_months}}
                         </option>
                       </select>
-                    </div>
+                    </div> -->
                     <div class="flex flex-col">
                       <label for="" class="m-1">Amount</label>
-                      <input type="text" name="amount" value="{{all_data.active_fee_id.total}}"
+                      <input type="text" name="amount" value="{{all_data.active_fee_id.total}}" readonly
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Discount</label>
-                      <input type="text" value="{{all_data.active_fee_id.discount}}" name="discount"
+                      <input type="text" value="{{all_data.active_fee_id.discount}}" name="discount" readonly
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Amount Paid</label>
-                      <input type="text" value="{{payment}}"
+                      <input type="text" value="{{payment}}" readonly
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
 
                     <div class="flex flex-col">
                       <label for="" class="m-1"> Remaining Amount </label>
-                      <input type="text" value="{{all_data.active_fee_id.remaining}}"
+                      <input type="text" value="{{all_data.active_fee_id.remaining}}" readonly
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
 
@@ -813,7 +822,7 @@
                   </button>
                 </div>
                 <div class="flex flex-col">
-                  <a href="{% url 'viewRecord' %}"
+                  <a href="/viewRecord/?cid={{all_data.id}}"
                     class="bg-green-400 rounded-lg w-36 text-white shadow-md rounded-br-none text-center py-2">View
                     Record</a>
                 </div>
@@ -824,6 +833,14 @@
                     Pay Installment
                   </button>
                 </div>
+                <script>
+                  document.getElementById("pay-amount").onchange = function () {
+                  let payableamount = document.getElementById("pay-amount").value;
+                  let paidamount = document.getElementById("pending-amount").value;
+                  let remainingamount = paidamount - payableamount
+                  document.getElementById("new-pending-amount").value = remainingamount;
+                };
+                </script>
                 {% endif %}
               </div>
             </form>
@@ -834,14 +851,14 @@
                 x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
-              <div x-show="isRenewModalOpen" class="w-96 rounded-3xl bg-blue-100 shadow-xl overflow-hidden z-10"
+              <div x-show="isRenewModalOpen" class=" w-96 rounded-3xl bg-blue-100 shadow-xl overflow-hidden z-10"
                 x-transition:enter="transition ease-out duration-100"
                 x-transition:enter-start="opacity-0 transform scale-90"
                 x-transition:enter-end="opacity-100 transform scale-100"
                 x-transition:leave="transition ease-in duration-100"
                 x-transition:leave-start="opacity-100 transform scale-100"
                 x-transition:leave-end="opacity-0 transform scale-90">
-                <div class="p-3">
+                <div class="p-3 ">
                   <div class="float-right">
                     <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeRenewModal()"
                       class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
@@ -851,20 +868,23 @@
                   </div>
                   <form action="/memberDetails/" method="post">
                     {% csrf_token %}
-                  
-                    <div class="grid p-3">
+                    <input type="text"  name="cid" hidden value="{{all_data.id}}" />
+                    <div class="grid p-3 overflow-y-auto ">
                       
                       <div class="flex flex-col">
                         <label for="" class="m-1 text-sm">Membership Category</label>
-                        <select name="membershipcategory" id="membershipcategory" onclick="fetchUniqueCategory();"
+                        <select name="model-membershipcategory" id="model-membershipcategory" 
                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                             <option value="">Select Membership</option>
+                            {% for i in category %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
 
                         </select>
                       </div>
                       <div class="flex flex-col">
                         <label for="" class="m-1 text-sm">Membership Class</label>
-                        <select name="membership-class" id="membership-class" onchange="categoryClassChange()"
+                        <select name="model-membership-class" id="model-membership-class" onchange="categoryClassChange()"
                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                             <option value="">Select Membership</option>
                             <option value="Platinium">Platinium</option>
@@ -874,36 +894,37 @@
                             
                         </select>
                       </div>
+                      <input type="text" name="rew-model-gender" hidden  value="{{all_data.member_gender}}">
                       <div class="flex flex-col">
                         <label for="" class="m-1">Membership Duration</label>
-                        <input type="text" id="category-months" name="category-months"
+                        <input type="text" id="model-category-months" name="model-category-months"
                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
                         >
                       </div>
                       <div class="flex flex-col">
                           <label for="" class="m-1">Amount</label>
-                          <input type="number" readonly  id="amount"
+                          <input type="number" readonly  id="model-amount"
                               class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                              name="amount">
+                              name="model-amount">
                       </div>
                       <div class="flex flex-col">
                         <label for="" class="m-1">Discount</label>
-                        <input type="text" id="discount" value="0"
+                        <input type="text" id="model-discount" value="0"
                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                            name="discount">
+                            name="model-discount">
                       </div>
 
                       <div class="flex flex-col">
                           <label for="" class="m-1">Payable Amount</label>
-                          <input type="number" readonly  id="payableamount"
+                          <input type="number" readonly  id="model-payableamount"
                               class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                              name="payableamount">
+                              name="model-payableamount">
                       </div>
                       <div class="flex flex-col">
                         <label for="" class="m-1">MemberShip Expire</label>
-                        <input type="text" readonly id="expiry"
+                        <input type="text" readonly id="model-expiry"
                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                            name="membership-expire">
+                            name="model-membership-expire">
                       </div>
                       <div class="flex flex-col">
                         <label for="" class="m-1">Instalment ?</label>
@@ -936,7 +957,7 @@
 
                       <button
                         class="bg-blue-600 m-10 mb-0 rounded-lg text-white shadow-md rounded-br-none py-2"
-                        name="submit-button" value="submit-button">Submit</button>
+                        name="submit-button" value="submit-button">Renew Subscription</button>
 
                     </div>
                   </form>
@@ -1103,37 +1124,73 @@
           document.body.innerHTML = originalContents;
         },
       };
-    }
-  </script>
-  <script>
-    document.getElementById("pay-amount").onchange = function () {
-      let payableamount = document.getElementById("pay-amount").value;
-      let paidamount = document.getElementById("pending-amount").value;
-      let remainingamount = paidamount - payableamount
-      document.getElementById("new-pending-amount").value = remainingamount;
     };
+    
     document.getElementById("dateofbirth").onchange = function () {
     var Bdate = this.value;
     var Bday = +new Date(Bdate);
     document.getElementById('age').value = ~~((Date.now() - Bday) / (31557600000));
-}
-function fetchUniqueCategory(){
-    var category = document.getElementById('membershipcategory')
-    $.ajax({
-        method:"GET",
-        url: "/api/fetchAllCategory",
-        success: function (data) {
-            console.log(data);
+};
+function categoryClassChange(){
+    let category_name=document.getElementById("model-membershipcategory").value
+    let category_class=document.getElementById("model-membership-class").value
+    let category_gender=document.getElementById("member-gender").value
 
+
+    $.ajax({
+        method: "GET",
+        url: "/api/get_membershipCategory/",
+        data:{
+            "category_name":category_name,
+            "category_class":category_class,
+            "category_gender":category_gender
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                document.getElementById("model-category-months").value=value['category_months'];
+                document.getElementById("model-amount").value=value["category_fee"];
+                document.getElementById("model-payableamount").value=value["category_fee"];
+                getExpiry(value['category_months']);
+
+            });
         },
         error: function () {
-            console.log("error in fetch category")
+            console.log("error on get Membership Category months");
         }
-
-
     });
-}
+};
+document.getElementById("model-discount").onchange = function () {
+  
+    var amount = document.getElementById('model-amount').value;
+    var discount = document.getElementById('model-discount').value;
+    var total = amount - discount;
+    console.log(total);
+    document.getElementById('model-payableamount').value = total;
+};
+function getExpiry(data) {
+    var expiry = new Date();
+    var getmonth = data 
+    
+    getmonth = parseInt(getmonth.replace(/[^\d.]/g, ''));
+    expiry.setMonth(expiry.getMonth() + getmonth);
+    document.getElementById('model-expiry').value = expiry.toISOString().slice(0, 10);
+};
+function instalmentValueChanged(instalment) {
+    var paidamount = document.getElementById("paidamount");
+    // var remainingamount = document.getElementById("remainingamount");
+    paidamount.style.display = instalment.checked ? "block" : "none";
+    // remainingamount.style.display = instalment.checked ? "block" : "none";
+
+};
+document.getElementById("paidamounts").onchange = function () {
+      let payableamount = document.getElementById("model-payableamount").value;
+      let paidamount = document.getElementById("paidamounts").value;
+      let remainingamount = payableamount - paidamount
+      document.getElementById("remaining-amount").value = remainingamount;
+    };
   </script>
+ 
   
 </body>
 

@@ -22,7 +22,11 @@ def login(request):
     return render(request,"login.html")
 
 def viewRecord(request):
-    return render(request, 'viewRecord.html')
+    if request.method=="GET":
+        bill=Bill.objects.filter(member_id=request.GET.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
+        print(bill)
+        return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
+                        'bill': bill,})
 
 def smshistory(request):
     return render(request, 'smshistory.html')
@@ -32,7 +36,6 @@ def printform(request):
 
 def gymSetting(request):
     if request.method == "POST":
-        print("post accepted")
         if request.POST.get("addcategory"):
             category = request.POST.get("membershipcategory")
             duration = request.POST.get("membershipduration")
@@ -48,7 +51,6 @@ def gymSetting(request):
             form = MembershipCategory.objects.all().filter(id=request.POST.get("cid"))[0]
             return render(request,"GymSetting/editGymSetting.html", {'all_data': form})
 
-        
     else:
         return render(request,"GymSetting/gymSetting.html", {'all_data': fetchAllData(MembershipCategory)})
 
@@ -78,8 +80,6 @@ def memberDetails(request):
             })
         
         if request.POST.get("update-button"):
-                print("**************************")
-                print(request.POST.get("cid"))
                 data = Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
                                     member_father_name=request.POST.get("father_name"), 
                                     member_cnic=request.POST.get("cnic"), 
@@ -99,26 +99,37 @@ def memberDetails(request):
         if request.POST.get("pay-installment"):
             if update_payment_installment(request):
                 bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
-                print()
                 return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
                     'bill': bill,})
                 # return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
             else:
-                print("error  in update intallment" )
+                return HttpResponse(request,"error  in update intallment")
                 # return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
+        if request.POST.get("submit-button"):
+            print(request.POST.get("paidamount"))
+            print(request.POST.get("remainingamount"))
+            if request.POST.get("paidamount") and request.POST.get("remainingamount"):
+                renewSubscription(request,False)
+                bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
+                return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
+                    'bill': bill,})
+            else:
+                renewSubscription(request,True)
+                bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
+                return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
+                    'bill': bill,})
     else:
-        print("memberDetails",request.GET.get('data'))
         member=Member.objects.all().filter(id=request.GET.get('data')).select_related("member_membership_id").select_related("active_fee_id")[0]
         payment=Payment.objects.filter(fee_id=member.active_fee_id).aggregate(Sum('payment_amount'))
         
         return render(request,"memberDetails.html",
             {'all_data': member,
-            "payment":payment['payment_amount__sum']
+            "payment":payment['payment_amount__sum'],
+            "category":fetchUniqueCategoryName(MembershipCategory),
             })
 
 def addMember(request):
     if request.method=="POST":
-        print("post called add member")
         if request.POST.get("addmembersubmit"):
             try:
                 if request.POST.get("paidamount") and request.POST.get("remainingamount"):
@@ -183,32 +194,29 @@ def bodyAssesments(request):
     if request.method == "POST":
         if request.POST.get("add-button"):
             print(Member.objects.filter(id=request.POST.get("member_id")))
-            items_add = BodyAssesments.objects.create(neck=request.POST.get("neck"),
-                        shoulder=request.POST.get("shoulder"), chest_extended=request.POST.get("chest-extended"),
-                        chest_normal=request.POST.get("chest-normal"), forearms=request.POST.get("forearms"),
-                        biceps=request.POST.get("biceps"), wrist=request.POST.get("wrist"),
-                        upper_abs=request.POST.get("upper-abs"), lower_abs=request.POST.get("lower-abs"),
-                        waist=request.POST.get("waist"), hip=request.POST.get("hip"),
-                        thigh=request.POST.get("thigh"), calves=request.POST.get("calves"),
-                        ankles=request.POST.get("ankles"), body_fat=request.POST.get("body-fat"),
-                        vascular=request.POST.get("vascular"), medical_issue=request.POST.get("medical-issue"),
-                        body_target=request.POST.get("body-target"), assesment_date=request.POST.get("assesment-date"),
-                        member_id=Member.objects.filter(id=request.POST.get("member_id"))[0])
-        print("items data ********  ",items_add)
-        items_add.save()
-        return render(request, 'bodyAssesments.html',  {'zipdata':Member.objects.raw(f'select * from theme_member JOIN theme_bodyassesments on theme_member.id=theme_bodyassesments.member_id_id where theme_bodyassesments.member_id_id={request.POST.get("member_id")};'),
-        "all_data":Member.objects.filter(id=request.POST.get('member_id')[0])
-        })
+            addBodyAssesment(request) 
+            return render(request, 'bodyAssesments.html',  {'zipdata':BodyAssesments.objects.filter(member_id=request.POST.get("member_id")).select_related('member_id').order_by('-id'),
+            "all_data":Member.objects.filter(id=request.POST.get('member_id'))[0]
+            })
 
     else:
-        if request.GET.get("data"):
-            print(Member.objects.filter(id=request.GET.get('data')))
-            return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=request.GET.get('data'))[0],
-                                    'zipdata': Member.objects.raw(f'select * from theme_member JOIN theme_bodyassesments on theme_member.id=theme_bodyassesments.member_id_id where theme_bodyassesments.member_id_id={request.GET.get("data")};'), })
-        else:
-            return render(request, 'viewMembers.html',{
-            'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
-            })
+        try:
+            if request.GET.get("data"):
+                print(Member.objects.filter(id=request.GET.get('data')))
+                return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=request.GET.get('data'))[0],
+                                        'zipdata': BodyAssesments.objects.filter(member_id=request.GET.get("data")).select_related("member_id").order_by("-id"), })
+            elif request.GET.get("delete_id"):
+                member_id=BodyAssesments.objects.filter(id=request.GET.get("delete_id"))[0].member_id.id
+                BodyAssesments.objects.filter(id=request.GET.get("delete_id")).delete()
+                print(BodyAssesments.objects.filter(member_id=member_id).select_related("member_id").order_by("-id"))
+                return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=member_id)[0],
+                                        'zipdata': BodyAssesments.objects.filter(member_id=member_id).select_related("member_id").order_by("-id"), })
+        except:
+            return render(request, "addMember.html",
+             {
+                        'category':fetchUniqueCategoryName(MembershipCategory),
+                        'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),
+                    })
 
 # """"
 # API WORK 
@@ -308,8 +316,4 @@ def testing(request):
         return Response(PaymentSerializer(Payment.objects.all().filter(fee_id__member_id=28),many=True).data)
     except Exception as e:
         return Response({"error":str(e)})
-def fetchAllCategory(request):
-    try:
-        return Response(fetchUniqueCategoryName(MembershipCategory))
-    except Exception as e:
-        return Response({"error":str(e)})
+
