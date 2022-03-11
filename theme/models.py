@@ -55,6 +55,20 @@ class Payment(models.Model):
     payment_updated_at = models.DateField(auto_now=True)
     fee_id = models.ForeignKey(Fee, on_delete=models.CASCADE,related_name="fee_id")
 
+class Bill(models.Model):
+    
+    start_date=models.DateField()
+    end_date=models.DateField()
+    amount=models.FloatField()
+    discount=models.FloatField()
+    payable=models.FloatField()
+    remaining=models.FloatField()
+    paid=models.FloatField()
+    bill_created_at = models.DateField(default=datetime.now())
+    bill_updated_at = models.DateField(auto_now=True)
+    subscription_id = models.ForeignKey(MembershipCategory, on_delete=models.CASCADE,related_name="subscription")
+    member_id = models.ForeignKey(Member, on_delete=models.CASCADE,related_name="bill_member_id")
+    fee_id=models.ForeignKey(Fee,on_delete=models.CASCADE,related_name="bill_fee_id")
 
 
 

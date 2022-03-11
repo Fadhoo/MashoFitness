@@ -349,78 +349,78 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for data in zipdata %}
-                    <tr class="border-2 hover:bg-slate-300">
-                        <td class="p-2">
-                            <input  onclick="requestDelete(this)" data-id="{{data.id}}" type="checkbox" class="cursor-pointer rounded-md">
-                        </td>
-                        <td class="p-2">{{data.id}}</td>
-                        <td class="p-2">
-                            <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
-                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full"
-                                        src="{{ MEDIA_URL }}/{{data.member_image}}"
-                                        alt="" loading="lazy" />
-                                    <div class="absolute inset-0 rounded-full shadow-inner"
-                                        aria-hidden="true"></div>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">{{data.member_name}}</p>
-                                    <p class="text-sm text-gray-600 ">{{data.category_name}}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="p-2">{{data.member_card_id}}</td>
-                        <td class="p-2">{{data.member_contact}}</td>
-                        <td class="p-2">{{data.category_months}}</td>
-                        <td class="p-2">Masho</td>
-                        <td class="p-2">
-                            {{data.member_created_at}}
-                            
-                        </td>
-                        <td class="p-2">{{data.member_membership_expiry_date}}</td>
-                        
-                        <td class="p-2">
-                            <span
-                                class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
-                                {{data.payment_status}}
-                            </span>
-                        </td>
-                        <!-- <td class="p-2">
-                        <div class="relative pt-1">
-                            <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-300">
-                              <div style="width:60%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"></div>
-                            </div>
+                  {% for data in zipdata %}
+                  <tr class="border-2 hover:bg-slate-300">
+                      <td class="p-2">
+                          <input  onclick="requestDelete(this)" data-id="{{data.id}}" type="checkbox" class="cursor-pointer rounded-md">
+                      </td>
+                      <td class="p-2">{{data.id}}</td>
+                      <td class="p-2">
+                          <div class="flex items-center text-sm">
+                              <!-- Avatar with inset shadow -->
+                              <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                  <img class="object-cover w-full h-full rounded-full"
+                                      src="{{ MEDIA_URL }}/{{data.member_image}}"
+                                      alt="" loading="lazy" />
+                                  <div class="absolute inset-0 rounded-full shadow-inner"
+                                      aria-hidden="true"></div>
+                              </div>
+                              <div>
+                                  <p class="font-semibold">{{data.member_name}}</p>
+                                  <p class="text-sm text-gray-600 ">{{data.member_membership_id.category_name}}</p>
+                              </div>
                           </div>
-                    </td> -->
-                        <form action="/memberDetails/" method="post">
-                            {% csrf_token %}
+                      </td>
+                      <td class="p-2">{{data.member_card_id}}</td>
+                      <td class="p-2">{{data.member_contact}}</td>
+                      <td class="p-2">{{data.member_membership_id.category_months}}</td>
+                      <td class="p-2">Masho</td>
+                      <td class="p-2">
+                          {{data.member_created_at}}
+                          
+                      </td>
+                      <td class="p-2">{{data.member_membership_expiry_date}}</td>
+                      
+                      <td class="p-2">
+                          <span
+                              class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
+                              {{data.active_fee_id.status}}
+                          </span>
+                      </td>
+                      <!-- <td class="p-2">
+                      <div class="relative pt-1">
+                          <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-300">
+                            <div style="width:60%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"></div>
+                          </div>
+                        </div>
+                  </td> -->
+                      <form action="/memberDetails/" method="post">
+                          {% csrf_token %}
 
 
-                            <input type="text" hidden name="cid" value="{{data.id}}">
-                            <td class="p-2" >
-                                
-                                <div class="float-right mr-5">
-                                    <a href="/memberDetails/?data={{data.id}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" >
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </a>
-                                    
-                                </div>
-                            </td>
-                        </form>
-                        <td class="p-2">
-                            <button x-on:click="openSMSModel();"
-                                class="bg-red-400 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                          <input type="text" hidden name="cid" value="{{data.id}}">
+                          <td class="p-2" >
+                              
+                              <div class="float-right mr-5">
+                                  <a href="/memberDetails/?data={{data.id}}">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
+                                          fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+                                          <path stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                      </svg>
+                                  </a>
+                                  
+                              </div>
+                          </td>
+                      </form>
+                      <td class="p-2">
+                          <button x-on:click="openSMSModel();"
+                              class="bg-red-400 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
             </table>
           </div>
           </div>

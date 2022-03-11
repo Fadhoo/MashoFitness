@@ -372,12 +372,12 @@
                                         <div class="grid shadow-inner p-1 border border-red-900 sm:grid-cols-1 gap-y-1 md:grid-cols-5 mt-1 font-semibold gap-x-1">
                                             <div class="flex flex-row border-2 hover:bg-neutral-200">
                                                 <label for="" class="m-1 italic">Height : </label>
-                                                <p class="m-1 font-normal">{{data.member_height}}</p>
+                                                <p class="m-1 font-normal">{{data.member_id.member_height}}</p>
                                             </div>
                 
                                             <div class="flex flex-row border-2 hover:bg-neutral-200">
                                                 <label for="" class="m-1 italic">Weight : </label>
-                                                <p class="m-1 font-normal">{{data.member_weight}}</p>
+                                                <p class="m-1 font-normal">{{data.member_id.member_weight}}</p>
                                             </div>
                 
                                             <div class="flex flex-row border-2 hover:bg-neutral-200">
@@ -477,12 +477,13 @@
                                     </div>
                                     <div class="mt-1 border border-red-900">
                                         <div class="flex flex-col py-16">
-                                            
-                                            <span class="p-1 cursor-pointer rounded-md border border-red-900 m-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                  </svg>
-                                            </span>
+                                            <a href="/bodyAssesments/?delete_id={{data.id}}">
+                                                <span class="p-1 cursor-pointer rounded-md border border-red-900 m-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                      </svg>
+                                                </span>
+                                            </a>
                                         </div>
                                     </div>         
                                 </div>

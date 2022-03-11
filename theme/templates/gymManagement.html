@@ -555,13 +555,13 @@
                                             </div>
                                             <div>
                                                 <p class="font-semibold">{{data.member_name}}</p>
-                                                <p class="text-sm text-gray-600 ">{{data.category_name}}</p>
+                                                <p class="text-sm text-gray-600 ">{{data.member_membership_id.category_name}}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="p-2">{{data.member_card_id}}</td>
                                     <td class="p-2">{{data.member_contact}}</td>
-                                    <td class="p-2">{{data.category_months}}</td>
+                                    <td class="p-2">{{data.member_membership_id.category_months}}</td>
                                     <td class="p-2">Masho</td>
                                     <td class="p-2">
                                         {{data.member_created_at}}
@@ -572,7 +572,7 @@
                                     <td class="p-2">
                                         <span
                                             class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
-                                            {{data.payment_status}}
+                                            {{data.active_fee_id.status}}
                                         </span>
                                     </td>
                                     <!-- <td class="p-2">
