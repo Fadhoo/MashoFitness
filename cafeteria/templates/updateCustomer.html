@@ -46,13 +46,12 @@
                     </li>
                       
                     <!-- POS -->
-                    <li class="relative px-6 py-2 text-red-900">
+                    <li class="relative px-6 py-2">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="/pos/">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                               </svg>
-                            <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"></span>
                             <span class="ml-4 text-lg">Cafeteria</span>
                         </a>
                     </li>
@@ -252,13 +251,14 @@
                     </li>
 
                     <!-- Customers -->
-                    <li class="relative px-6 py-2">
+                    <li class="relative px-6 py-2 text-red-900">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="/customer/">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                               </svg>
-                            <span class="ml-4">Customers</span>
+                              <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"></span>
+                              <span class="ml-4 text-lg">Customers</span>
                         </a>
                     </li>
 
@@ -477,166 +477,95 @@
             </header>
             <!-- Main Inner Complete Page -->
             <main class="h-full overflow-y-auto">
-                <div class="container px-6 mx-auto grid">
+                <div class="container px-3 mx-auto grid">
                     <h2 class="my-2 text-xl font-semibold text-gray-700 ">
-                        Cafeteria Statistics
+                        Cafeteria Customer
                     </h2>
-                    
-                    <!-- Cards -->
-                    <div class="grid rounded-md border-orange-500 border gap-x-6 gap-y-1 mb-2 md:grid-cols-2 xl:grid-cols-4">
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full  ">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Total GYM Members
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    0
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-green-500 bg-green-100 rounded-full  ">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Account balance
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    0
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full  ">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    New sales
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    376
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full  ">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Pending contacts
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    35
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full  ">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Male GYM Members
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    0
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-green-500 bg-green-100 rounded-full  ">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                                  </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Female GYM Members
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    0
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full  ">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    New sales
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    376
-                                </p>
-                            </div>
-                        </div>
-                        <!-- Card -->
-                        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs ">
-                            <div
-                                class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full  ">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Pending contacts
-                                </p>
-                                <p class="text-lg font-semibold text-gray-700 ">
-                                    35
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="px-1 py-1 mb-5 bg-white rounded-lg shadow-md ">
+                        <p
+                            class="p-2 font-semibold text-lg text-gray-600  border-b-2 border-gray-700 border-opacity-80">
+                            Update Customer
+                        </p>
+                        <form class="m-2" method="">
+                        
+                            <!-- Member Details-->
+                                <div class="grid sm:grid-cols-2 font-semibold md:grid-cols-5 gap-x-2">
+                                    <!-- supplier account -->
+                                    <div class="flex flex-col ">
+                                        <label for="" class="m-1">Account No.</label>
+                                        <input type="text" id=""
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            name="">
+                                    </div>
+                                    <!-- supplier name -->
+                                    <div class="flex flex-col ">
+                                        <label for="" class="m-1">Name</label>
+                                        <input type="text" id=""
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            name="">
+                                    </div>
+                                    <!-- supplier name -->
+                                    <div class="flex flex-col ">
+                                        <label for="" class="m-1">Contact No.</label>
+                                        <input type="text" id=""
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            name="">
+                                    </div>
+                                    <!-- supplier name -->
+                                    <div class="flex flex-col ">
+                                        <label for="" class="m-1">Email</label>
+                                        <input type="text" id=""
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            name="">
+                                    </div>
+                                    <!-- supplier name -->
+                                    <div class="flex flex-col ">
+                                        <label for="" class="m-1">Status</label>
+                                        <select name="gender" id="gender"
+                                            class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                            <option value="">Active</option>
+                                            <option value="">In-Active</option>
+                                        </select>
+                                    </div>
+                                    <!-- supplier name -->
+                                    <div class="flex flex-col col-span-2">
+                                        <label for="" class="m-1">Address</label>
+                                        <input type="text" id=""
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            name="">
+                                    </div>
+                                    <!-- supplier name -->
+                                    <div class="flex flex-col ">
+                                        <label for="" class="m-1">City</label>
+                                        <input type="text" id=""
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            name="">
+                                    </div>
+                                    <!-- supplier name -->
+                                    <div class="flex flex-col ">
+                                        <label for="" class="m-1">Country</label>
+                                        <input type="text" id=""
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            name="">
+                                    </div>
+                                </div>
 
-                    
+                            <p class="border-b-2 mt-3 border-gray-500"></p>
+
+                            <div class="flex flex-row justify-end mt-3">
+
+                                <div class="flex flex-col">
+                                    <button
+                                        class="bg-blue-500 rounded-lg px-20 text-white shadow-md rounded-br-none py-2"
+                                        name="" value="">
+                                        Update
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
             </main>
 
