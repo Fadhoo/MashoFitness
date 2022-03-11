@@ -25,7 +25,7 @@ def viewRecord(request):
     if request.method=="GET":
         bill=Bill.objects.filter(member_id=request.GET.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
         print(bill)
-        return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
+        return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,"memberID":bill[0].member_id.id,
                         'bill': bill,})
 
 def smshistory(request):
@@ -317,3 +317,15 @@ def testing(request):
     except Exception as e:
         return Response({"error":str(e)})
 
+@api_view(['GET'])
+def searchBillDate(request):
+    try:
+        from_date=request.GET.get('fromdate',None)
+        to_date=request.GET.get('todate',None)
+        id=request.GET.get('id',None)
+        if from_date is not None and to_date is not None:
+            return Response(BillSerializer(Bill.objects.filter(member_id=id).filter(bill_created_at__range=[from_date,to_date]),many=True).data)
+        else:
+            return Response({"error":str("Please select date")})
+    except Exception as e:
+        return Response({"error":str(e)})
