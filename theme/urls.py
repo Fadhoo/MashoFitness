@@ -30,6 +30,7 @@ urlpatterns = [
     path("api/searchbydate/", views.searchbydate, name="searchbydate"),
     path("api/searchbyname/", views.searchbyname, name="searchbyname"),
     path("api/testing/", views.testing, name="testing"),
+    path("api/searchBillDate/", views.searchBillDate, name="searchBillDate"),
     
     # ex: /polls/
     # path('', views.home, name='home'),
