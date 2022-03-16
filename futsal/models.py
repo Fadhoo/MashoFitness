@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from django.utils import timezone
 # Create your models here.
 
 class Team(models.Model):
@@ -7,7 +7,7 @@ class Team(models.Model):
     captain_name=models.CharField(max_length=25)
     contact_number=models.IntegerField()
     team_attended_by=models.CharField(max_length=25)
-    member_created_at = models.DateField(default=datetime.now())
+    member_created_at = models.DateField(default=timezone.now)
     member_updated_at = models.DateField(auto_now=True)
 
 
@@ -20,7 +20,7 @@ class Booking(models.Model):
 
 class Match(models.Model):
     
-    date = models.DateField(default=datetime.now())
+    date = models.DateField(default=timezone.now)
     fee = models.IntegerField()
     paid= models.CharField(max_length=10, default="Unpaid")
     team1 = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team1')

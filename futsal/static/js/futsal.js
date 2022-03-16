@@ -38,7 +38,7 @@ function sendDeleteRequest() {
                 data: { "arr[]": delete_array },
                 success: function (data) {
                     console.log("success on delete" + data);
-                    update_table(data)
+                    update_futsal_table(data)
                 },
                 error: function () {
                     console.log('error');
@@ -79,7 +79,7 @@ function SearchByFields() {
             data: { "field": field, "value": value },
             success: function (data) {
                 // console.log("success on search" + data);
-                update_table(data)
+                update_futsal_table(data)
             },
             error: function () {
                 console.log('error');
@@ -138,7 +138,7 @@ function SearchByFields() {
 
 
 
-function update_table(data) {
+function update_futsal_table(data) {
     // console.log(data);
     let row;
     let all_rows = '';
@@ -173,9 +173,9 @@ function update_table(data) {
                 'class="bg-blue-600 drop-shadow-md px-1 py-1 rounded-lg inline-flex items-center rounded-br-none">'+
                 '<span>Edit</span>'+
                 '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 ml-2 w-4" fill="none"'+
-                'viewBox="0 0 24 24" stroke="currentColor">'
-                '<path stroke-linecap="round" stroke-linejoin="round"'
-                'stroke-width="2"'
+                'viewBox="0 0 24 24" stroke="currentColor">'+
+                '<path stroke-linecap="round" stroke-linejoin="round"'+
+                'stroke-width="2"'+
                     ' d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />'+
                     '</svg>'+
                 '</button>'+
@@ -183,10 +183,8 @@ function update_table(data) {
             '</div>'+
         '</td>'+
     '</tr>' 
+    all_rows += row;
 
-    
-
-        all_rows = all_rows + row;
     });
 
     $('#myTable tbody').html(all_rows);

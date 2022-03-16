@@ -228,6 +228,19 @@
         </div>
       </header>
       <!-- Main Inner Complete Page -->
+      {% for message in messages %}
+                {% if message.tags == "success" %}
+                <div class="message bg-green-500 m-3 rounded-lg p-1">
+                    {{ message }}
+                    <a href="#" class="del-msg">&times;</a>
+                </div>
+                {% elif message.tags == "error" %}
+                <div class="message bg-red-500 m-3 rounded-lg p-1">
+                    {{ message }}
+                    <a href="#" class="del-msg">&times;</a>
+                </div>
+                {% endif %}
+            {% endfor %}
       <main class="h-full overflow-y-auto">
         <div class="px-2 mx-auto grid">
           <h2 class="my-3 text-center text-2xl font-semibold text-blue-900">
@@ -431,6 +444,7 @@
     </div>
   </div>
   <script src="{% static 'js/addmember.js' %}"></script>
+  
 </body>
 
 </html>

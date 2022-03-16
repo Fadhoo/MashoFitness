@@ -1,14 +1,12 @@
-from ast import Subscript
 from django.db import models
-from datetime import datetime
-
+from django.utils import timezone
 class MembershipCategory(models.Model):
     category_name = models.CharField(max_length=25)
     category_class = models.CharField(max_length=20)
     category_months = models.CharField(max_length=15)
     category_fee = models.IntegerField()
     category_gender=models.CharField(max_length=15)
-    category_created_at = models.DateField(default=datetime.now())
+    category_created_at = models.DateField(default=timezone.now)
     category_updated_at = models.DateField(auto_now=True)
 
 
@@ -17,10 +15,10 @@ class Member(models.Model):
     member_name = models.CharField(max_length=25)
     member_father_name = models.CharField(max_length=25)
     member_cnic = models.CharField(max_length=13)
-    member_contact = models.IntegerField(max_length=11)
-    member_emergency_contact = models.IntegerField(max_length=11)
+    member_contact = models.IntegerField()
+    member_emergency_contact = models.IntegerField(null=True)
     member_email = models.EmailField()
-    member_occupation = models.CharField(max_length=25)
+    member_occupation = models.CharField(max_length=25,null=True)
     member_address = models.CharField(max_length=255)
     member_gender = models.CharField(max_length=10)
     member_dob = models.DateField()
@@ -31,7 +29,7 @@ class Member(models.Model):
     member_card_id = models.CharField(max_length=20)
     member_target = models.CharField(max_length=100)
     member_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
-    member_created_at = models.DateField(default=datetime.now())
+    member_created_at = models.DateField(default=timezone.now)
     member_updated_at = models.DateField(auto_now=True)
     member_membership_start_date = models.DateField()
     member_membership_expiry_date = models.DateField()
@@ -45,13 +43,13 @@ class Fee(models.Model):
     remaining=models.IntegerField()
     status=models.CharField(max_length=10)
     installment=models.BooleanField()
-    created_at = models.DateField(default=datetime.now())
+    created_at = models.DateField(default=timezone.now)
     updated_at = models.DateField(auto_now=True)
     member_id=models.ForeignKey(Member,on_delete=models.CASCADE,related_name="member_id")
 
 class Payment(models.Model):
     payment_amount = models.FloatField()
-    payment_created_at = models.DateField(default=datetime.now())
+    payment_created_at = models.DateField(default=timezone.now)
     payment_updated_at = models.DateField(auto_now=True)
     fee_id = models.ForeignKey(Fee, on_delete=models.CASCADE,related_name="fee_id")
 
@@ -64,7 +62,7 @@ class Bill(models.Model):
     payable=models.FloatField()
     remaining=models.FloatField()
     paid=models.FloatField()
-    bill_created_at = models.DateField(default=datetime.now())
+    bill_created_at = models.DateField(default=timezone.now)
     bill_updated_at = models.DateField(auto_now=True)
     subscription_id = models.ForeignKey(MembershipCategory, on_delete=models.CASCADE,related_name="subscription")
     member_id = models.ForeignKey(Member, on_delete=models.CASCADE,related_name="bill_member_id")

@@ -1,7 +1,10 @@
 from .models import expensesData
 
 def addExpense(request):
-    try:
+        if request.POST.get('comment'):
+            comment=request.POST.get('comment')
+        else:
+            comment=''
         add_data = expensesData.objects.create(
                 date=request.POST.get('date'),
                 account_head=request.POST.get('account-head'),
@@ -10,12 +13,7 @@ def addExpense(request):
                 expenses_for=request.POST.get('expense-for'),
                 receipent_name=request.POST.get('receipent'),
                 description=request.POST.get('description'),
-                comments=request.POST.get('comment'),)
+                comments=comment,)
 
         add_data.save()
-        print("Added expense")
-        return add_data
-    except Exception as e:
-        print("expense error", e)
-        return False
 

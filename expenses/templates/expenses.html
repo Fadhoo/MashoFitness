@@ -286,6 +286,19 @@
                     </ul>
                 </div>
             </header>
+            {% for message in messages %}
+                {% if message.tags == "success" %}
+                <div class="message bg-green-500 m-3 rounded-lg p-1">
+                    {{ message }}
+                    <a href="#" class="del-msg">&times;</a>
+                </div>
+                {% elif message.tags == "error" %}
+                <div class="message bg-red-500 m-3 rounded-lg p-1">
+                    {{ message }}
+                    <a href="#" class="del-msg">&times;</a>
+                </div>
+                {% endif %}
+            {% endfor %}
             <!-- Main Inner Complete Page -->
             <main class="h-full overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-red-700 scrollbar-track-red-300">
                 <div class="container px-6 mx-auto grid">
@@ -310,7 +323,7 @@
                                     Total Expenses
                                 </p>
                                 <p class="text-lg font-semibold text-gray-700 ">
-                                    0
+                                    {{total_expenses}}
                                 </p>
                             </div>
                         </div>
@@ -355,7 +368,7 @@
                                     Total Expense
                                 </p>
                                 <p class="text-lg font-semibold text-gray-700 ">
-                                    376
+                                    {{total_expenses_for_today}}
                                 </p>
                             </div>
                         </div>
@@ -381,15 +394,15 @@
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Head of Account</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" name="account-head">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required name="account-head">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Amount Paid</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" name="amount-paid">
+                                    <input type="number" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required name="amount-paid">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Mode of Payment</label>
-                                    <select name="payment-mode" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" >
+                                    <select name="payment-mode" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" required>
                                         <option value="" class="">select payment mode</option>
                                         <option value="Cash">Cash</option>
                                         <option value="Bank">Bank Transaction</option>
@@ -399,7 +412,7 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Expenses for</label>
-                                    <select name="expense-for" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" >
+                                    <select name="expense-for" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" required>
                                         <option value="" class="">select type</option>
                                         <option value="Gym">Gym</option>
                                         <option value="Cafeteria">Cafeteria</option>
@@ -411,12 +424,12 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Recipient Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" name="receipent">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required name="receipent">
                                 </div>
 
                                 <div class="flex flex-col col-span-4">
                                     <label for="" class="m-1">Description</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required
                                     placeholder="description here" name="description">
                                 </div>
                                 <div class="flex flex-col col-span-5">
@@ -585,6 +598,17 @@
 
     </div>
     <script>
+        $(document).ready(function() {
+    // messages timeout for 10 sec 
+    setTimeout(function() {
+        $('.message').fadeOut('slow');
+    }, 1000); // <-- time in milliseconds, 1000 =  1 sec
+
+    // delete message
+    $('.del-msg').live('click',function(){
+        $('.del-msg').parent().attr('style', 'display:none;');
+    })
+});
         var today = new Date();
         document.getElementById("today-date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
     </script>

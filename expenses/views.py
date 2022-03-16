@@ -1,49 +1,52 @@
+from datetime import datetime
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import *
+from django.db.models import Sum
 
 def expenses(request):
     if request.method == "POST":
-        print("post request ******")
         if request.POST.get("add-expense"):
-            total_expense = addExpense(request)
-            print("*********** ",total_expense)
-            return render(request, 'expenses.html', {'all_expenses': expensesData.objects.order_by('-id')})
-
+            try:
+                addExpense(request)
+                messages.success(request, "Expense added successfully")
+                return HttpResponseRedirect(reverse('expenses'))
+            except Exception as e:
+                messages.error(request, "Expense added failed")
+                return HttpResponseRedirect(reverse('expenses'))
     else:
-
-        return render(request, 'expenses.html', {'all_expenses': expensesData.objects.order_by('-id')})
+        return render(request, 'expenses.html',
+         {'all_expenses': expensesData.objects.order_by('-id'),
+         'total_expenses':expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'],
+         'total_expenses_for_today':expensesData.objects.filter(date=datetime.today()).aggregate(Sum('paid_amount'))['paid_amount__sum'],
+         
+         })
 
 def updateExpense(request):
     if request.method == "POST":
-        print("post request ******")
         if request.POST.get("update-expenses"):
-            print("update expense")
-            date=request.POST.get("date")
-            account_head=request.POST.get("account-head")
-            paid_amount=request.POST.get("amount-paid")
-            payment_mode=request.POST.get("payment-mode")
-            expenses_for=request.POST.get("expenses-for")
-            receipent_name=request.POST.get("recipient-name")
-            description=request.POST.get("description")
-            comments=request.POST.get("comments")
-            id=request.POST.get("id")
-            print("id",id,account_head,paid_amount,payment_mode,expenses_for,receipent_name,description,comments)
-            expensesData.objects.filter(id=id).update(
-                date=date,
-                account_head=account_head,
-                paid_amount=paid_amount,
-                payment_mode=payment_mode,
-                expenses_for=expenses_for,
-                receipent_name=receipent_name,
-                description=description,
+            if request.POST.get("comments"):
+                comments=request.POST.get("comments")
+            else:
+                comments=''
+            expensesData.objects.filter(id=request.POST.get("id")).update(
+                date=request.POST.get("date"),
+                account_head=request.POST.get("account-head"),
+                paid_amount=request.POST.get("amount-paid"),
+                payment_mode=request.POST.get("payment-mode"),
+                expenses_for=request.POST.get("expenses-for"),
+                receipent_name=request.POST.get("recipient-name"),
+                description=request.POST.get("description"),
                 comments=comments
 
             )
-            return render(request, 'expenses.html', {'all_expenses': expensesData.objects.order_by('-id')})
+            return HttpResponseRedirect(reverse('expenses'))
     else:
         print(request.GET.get("data"))
         return render(request, 'updateExpense.html',{

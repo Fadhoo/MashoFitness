@@ -9,8 +9,8 @@ order by s.id desc
 def addSnookerIncome():
     try:
         add=snookerIncome.objects.create(
-        description="desctiption of income",
-        attened_by="User 1",
+        description="",
+        attened_by="",
         date=datetime.now()
         )
         add.save()
@@ -36,8 +36,12 @@ def addTableIncome(request,id):
         
 def updateSnookerIncome(request,obj):
     try:
+        if request.POST.get("description"):
+            des=request.POST.get("description")
+        else:
+            des=''
         snookerIncome.objects.filter(id=obj.id).update(
-        description=request.POST.get("description"),
+        description=des,
         attened_by=request.POST.get("Attended-by"),
         date=request.POST.get("date")
         )

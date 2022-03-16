@@ -215,6 +215,20 @@
                 </div>
             </header>
             <!-- Main Inner Complete Page -->
+            {% for message in messages %}
+                {% if message.tags == "success" %}
+                <div class="message bg-green-500 m-3 rounded-lg p-1">
+                    {{ message }}
+                    <a href="#" class="del-msg">&times;</a>
+                </div>
+                {% elif message.tags == "error" %}
+                <div class="message bg-red-500 m-3 rounded-lg p-1">
+                    {{ message }}
+                    <a href="#" class="del-msg">&times;</a>
+                </div>
+                {% endif %}
+            {% endfor %}
+            
             <main
                 class="h-full overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-red-700 scrollbar-track-red-300">
                 <div class="container px-6 mx-auto grid">
@@ -339,6 +353,19 @@
 
     </div>
     <script src="{% static 'js/metches.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+    // messages timeout for 10 sec 
+    setTimeout(function() {
+        $('.message').fadeOut('slow');
+    }, 1000); // <-- time in milliseconds, 1000 =  1 sec
+
+    // delete message
+    $('.del-msg').live('click',function(){
+        $('.del-msg').parent().attr('style', 'display:none;');
+    })
+});
+    </script>
 </body>
 
 </html>

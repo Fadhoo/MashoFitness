@@ -15,7 +15,14 @@ def fetchUniqueCategoryName(model):
         return None
 
 def addMemberRecord(request,status):
-    try:
+        if request.POST.get("alternatenumber")=="":
+            alternative_number=None
+        else:
+            alternative_number=request.POST.get("alternatenumber")
+        if request.POST.get("occupation")=="":
+            occupation=None
+        else:
+            occupation=request.POST.get("occupation")
         # if request.POST.get("photo"):
         if request.FILES:
             f=request.FILES["photo"]
@@ -34,9 +41,9 @@ def addMemberRecord(request,status):
                         member_father_name=request.POST.get("fathername"),
                         member_cnic=request.POST.get("cnicnumber"),
                         member_contact=request.POST.get("contactnumber"),
-                        member_emergency_contact=request.POST.get("alternatenumber"),
+                        member_emergency_contact=alternative_number,
                         member_email=request.POST.get("email"),
-                        member_occupation=request.POST.get("occupation"),
+                        member_occupation=occupation,
                         member_address=request.POST.get("address"),
                         member_gender=request.POST.get("gender"),
                         member_dob=request.POST.get("dateofbirth"),
@@ -111,8 +118,7 @@ def addMemberRecord(request,status):
                             member=member_data,
                             fee=fee
                             )
-    except Exception as e:
-        print("add member function ",e)
+    
 
 def update_payment_installment(request):
     try:
