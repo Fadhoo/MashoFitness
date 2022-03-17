@@ -1,13 +1,19 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
+from django.urls import reverse
+from futsal.models import Match, Team
 from theme.functions import fetchUniqueCategoryName
+from snooker.models import snookerTableIncome
 from .models import MembershipCategory, Member, BodyAssesments
-from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentSerializer, feeSerializer,BillSerializer
+from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentSerializer,BillSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .functions import *
 from django.db.models import Sum
+from django.utils import timezone
+from django.http import HttpResponseRedirect
+from expenses.models import  expensesData
 
 def fetchAllData(dbmodel):
     data=dbmodel.objects.all()
@@ -17,7 +23,26 @@ def fetchAllData(dbmodel):
     return ls
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html',
+    {
+        "total_member":Member.objects.all().count(),
+        "total_male":Member.objects.filter(member_gender="Male").count(),
+        "total_female":Member.objects.filter(member_gender="Female").count(),
+        'member_dues':Fee.objects.filter(status="Unpaid").count(),
+        'member_income':Payment.objects.all().aggregate(Sum('payment_amount'))['payment_amount__sum'],
+        'member_expense':expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+        'gym_total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
+        'futsal_total_team': Team.objects.all().count(),
+        'futsal_income':Match.objects.filter(paid="Paid").aggregate(Sum('fee'))['fee__sum'], 
+        'futsal_expense': expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+        'total_expenses':expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'],
+        'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
+        'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+            
+    }
+    
+    )
+
 def login(request):
     return render(request,"login.html")
 
@@ -43,10 +68,7 @@ def gymSetting(request):
             gender = request.POST.get("membershipgender") 
             add_date = MembershipCategory.objects.create(category_name=category ,category_class=request.POST.get("membership-class"), category_months=duration, category_fee=fee, category_gender=gender)
             add_date.save()
-            return render(request, "GymSetting/gymSetting.html",
-            {
-                'all_data': fetchAllData(MembershipCategory)
-            })
+            return HttpResponseRedirect(reverse("gymSetting"))
         if request.POST.get("editcall"):
             form = MembershipCategory.objects.all().filter(id=request.POST.get("cid"))[0]
             return render(request,"GymSetting/editGymSetting.html", {'all_data': form})
@@ -68,7 +90,16 @@ def editGymSetting(request):
 def gymManagement(request):
     
     return render(request,"gymManagement.html",{
-        "zipdata":Member.objects.all().select_related('member_membership_id')
+        "zipdata":Member.objects.all().select_related('member_membership_id').order_by("-id")[:10],
+        "total_member":Member.objects.all().count(),
+        "total_male":Member.objects.filter(member_gender="Male").count(),
+        "total_female":Member.objects.filter(member_gender="Female").count(),
+        'member_dues':Fee.objects.filter(status="Unpaid").count(),
+        'income':Payment.objects.filter(payment_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('payment_amount'))['payment_amount__sum'],
+        'expense':expensesData.objects.filter(expenses_for='Gym').filter(date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('paid_amount'))['paid_amount__sum'],
+        'total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
+        
+        
         # 'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
     })
 
@@ -80,22 +111,30 @@ def memberDetails(request):
             })
         
         if request.POST.get("update-button"):
-                data = Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
-                                    member_father_name=request.POST.get("father_name"), 
-                                    member_cnic=request.POST.get("cnic"), 
-                                    member_occupation=request.POST.get("occupation"), 
-                                    member_gender=request.POST.get("gender"), 
-                                    member_address=request.POST.get("address"),
-                                    member_contact=request.POST.get("contact"), 
-                                    member_emergency_contact=request.POST.get("alternative-number"),
-                                    member_dob=request.POST.get("dob"), 
-                                    member_age=request.POST.get("age"), 
-                                    member_blood_group=request.POST.get("blood_group"), 
-                                    # category=request.POST.get("category"), 
-                                    member_target=request.POST.get("target"), )
-                                    # expiry_date=request.POST.get("expiry")
-                print(data)
-                return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
+            if request.POST.get("occupation")=="None":
+                occupation=None
+            else:
+                occupation=request.POST.get("occupation")
+            if request.POST.get("alternative-number")=="None":
+                alternative_number=None
+            else:
+                alternative_number=request.POST.get("alternative-number")
+            data = Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
+                member_father_name=request.POST.get("father_name"), 
+                member_cnic=request.POST.get("cnic"), 
+                member_occupation=occupation, 
+                member_gender=request.POST.get("gender"), 
+                member_address=request.POST.get("address"),
+                member_contact=request.POST.get("contact"), 
+                member_emergency_contact=alternative_number,
+                member_dob=request.POST.get("dob"), 
+                member_age=request.POST.get("age"), 
+                member_blood_group=request.POST.get("blood_group"), 
+                # category=request.POST.get("category"), 
+                member_target=request.POST.get("target"), )
+                # expiry_date=request.POST.get("expiry")
+            print(data)
+            return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
         if request.POST.get("pay-installment"):
             if update_payment_installment(request):
                 bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
@@ -135,25 +174,33 @@ def addMember(request):
                 if request.POST.get("paidamount") and request.POST.get("remainingamount"):
                     addMemberRecord(request,False)
                     # join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
-
-                    return render(request,"addMember.html", 
-                    {
-                        'category':fetchUniqueCategoryName(MembershipCategory),
-                        'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
-                    })                 
+                    messages.success(request, 'User Added Successful') # Any message you wish
+                    # return render(request,"addMember.html", 
+                    # {
+                    #     'category':fetchUniqueCategoryName(MembershipCategory),
+                    #     'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
+                    # })    
+                    return HttpResponseRedirect(reverse('addMember'))               
 
                 else:
                     addMemberRecord(request,True)
                     # join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
-
-                    return render(request,"addMember.html", 
-                    {
-                        'category':fetchUniqueCategoryName(MembershipCategory),
-                        'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
-                    })
+                    messages.success(request, 'User Added Successful') # Any message you wish
+                    # return render(request,"addMember.html", 
+                    # {
+                    #     'category':fetchUniqueCategoryName(MembershipCategory),
+                    #     'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
+                    # })
+                    return HttpResponseRedirect(reverse('addMember'))
 
             except Exception as e:
-                return HttpResponse(f"error in add member {e}")
+                    messages.error(request, f'Add member error {e}') # Any message you wish
+                    # return render(request,"addMember.html", 
+                    # {
+                    #     'category':fetchUniqueCategoryName(MembershipCategory),
+                    #     'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
+                    # })
+                    return HttpResponseRedirect(reverse('addMember')) 
 
         if request.POST.get("edit"):
             form_data = Member.objects.all().filter(id=request.POST.get("id"))[0]
@@ -169,8 +216,6 @@ def addMember(request):
                         'category':fetchUniqueCategoryName(MembershipCategory),
                         'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),
                     })   
-
-
 
 def viewMembers(request):
     if request.method=="POST":

@@ -179,10 +179,10 @@
                             </div>
                             <div>
                                 <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Account balance
+                                    Income
                                 </p>
                                 <p class="text-lg font-semibold text-gray-700 ">
-                                    0
+                                    {{today_snooker_income}}
                                 </p>
                             </div>
                         </div>
@@ -198,10 +198,10 @@
                             </div>
                             <div>
                                 <p class="mb-2 text-sm font-medium text-gray-600 ">
-                                    Total Expense
+                                    Expense
                                 </p>
                                 <p class="text-lg font-semibold text-gray-700 ">
-                                    376
+                                    {{snooker_expenses}}
                                 </p>
                             </div>
                         </div>
@@ -220,7 +220,7 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Amount</label>
-                                    <input type="text"
+                                    <input type="number"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         name="amount" required>
                                 </div>
@@ -272,7 +272,7 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Attended By</label>
-                                    <select name="Attended-by" id="Attended-by"
+                                    <select name="Attended-by" id="Attended-by" required
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="">Select user</option>
                                         <option value="User 1">User 1</option>

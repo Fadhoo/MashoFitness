@@ -205,13 +205,13 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Captain Name</label>
                                     <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                    value="{{TeamRecord.team1.captain_name}}" name="captain-name">
+                                    value="{{TeamRecord.team1.captain_name}}" name="captain-name" readonly>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Contact number</label>
                                     <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                    value="{{TeamRecord.team1.contact_number}}" name="contact-number"
+                                    value="{{TeamRecord.team1.contact_number}}" name="contact-number" readonly
                                     >
                                 </div>
 
@@ -226,7 +226,7 @@
                                     <label for="" class="m-1 italic">Team 2</label>
                                     <select name="team_name2" id=""
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                        <option value="">Select</option>
+                                        <option value="{{TeamRecord.team2.team_name}}">{{TeamRecord.team2.team_name}}</option>
                                         {% for i in teamNames %}
                                         
                                         <option value="{{i.team_name}}">{{i.team_name}}</option>
@@ -245,7 +245,7 @@
                                     <label for="" class="m-1">Payment Status</label>
                                     <select name="payment_status" id="" value="{{TeamRecord.paid}}"
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                        <option value="">Select</option>
+                                        <option value="{{TeamRecord.paid}}">{{TeamRecord.paid}}</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Unpaid">Unpaid</option>
 
@@ -255,7 +255,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Get Bookings</label>
                                     <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                    name="booking_date" onchange="get_Bookings(this)"
+                                    name="booking_date" onchange="get_Bookings(this)" value="{{TeamRecord.booking_time.booking_date|date:'Y-m-d'}}"
                                     >
                                 </div>
 

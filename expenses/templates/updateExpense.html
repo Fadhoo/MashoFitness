@@ -306,22 +306,22 @@
                             <div class="grid sm:grid-cols-1 md:grid-cols-5 font-semibold gap-4">
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1">{{record.date}}</label>
-                                    <input type="date" value="{{record.date}}" name="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    <label for="" class="m-1">Date</label>
+                                    <input type="date" value="{{record.date|date:'Y-m-d'}}" required name="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Head of Account</label>
-                                    <input type="text" value="{{record.account_head}}" name="account-head"
+                                    <input type="text" value="{{record.account_head}}" name="account-head" required
                                     class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Amount Paid</label>
-                                    <input type="text" name="amount-paid" value="{{record.paid_amount}}"
+                                    <input type="text" name="amount-paid" value="{{record.paid_amount}}" required
                                     class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Mode of Payment</label>
-                                    <select name="payment-mode" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                    <select name="payment-mode" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" required>
                                         <option value="{{record.payment_mode}}" selected>{{record.payment_mode}}</option>
                                         <option value="Cash">Cash</option>
                                         <option value="Bank Transaction">Bank Transaction</option>
@@ -331,7 +331,7 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Expenses for</label>
-                                    <select name="expenses-for" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                    <select name="expenses-for" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" required>
                                         <option value="{{record.expenses_for}}" selected>{{record.expenses_for}}</option>
                                         <option value="Gym">Gym</option>
                                         <option value="Cafeteria">Cafeteria</option>
@@ -343,14 +343,14 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Recipient Name</label>
-                                    <input type="text" name="recipient-name" value="{{record.receipent_name}}"
+                                    <input type="text" name="recipient-name" value="{{record.receipent_name}}" required
                                      class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
 
                                 <div class="flex flex-col col-span-4">
                                     <label for="" class="m-1">Description</label>
                                     <input type="text" name="description" value="{{record.description}}"
-                                     class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                     class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required
                                     placeholder="description here">
                                 </div>
                                 <div class="flex flex-col col-span-5">

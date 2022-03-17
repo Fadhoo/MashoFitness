@@ -1,10 +1,14 @@
 from django.db.models import Sum
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
+from expenses.models import expensesData
 from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.utils import timezone
 
 snooker_id=addSnookerIncome()
 total_income=0
@@ -15,10 +19,7 @@ def snooker(request):
             total_income+=int(request.POST.get("amount"))
             print(total_income)
             if addTableIncome(request,snooker_id):
-                return render(request, 'snooker.html', {
-                    'totalIncome': total_income,
-                    'record':snookerIncome.objects.raw(record),
-                    })
+                return HttpResponseRedirect(reverse('snooker'))
             else:
                 return HttpResponse("add income error")
         
@@ -26,18 +27,15 @@ def snooker(request):
             if updateSnookerIncome(request,snooker_id):
                 total_income=0
                 snooker_id=addSnookerIncome()
-                
-                return render(request, 'snooker.html', {
-                    'totalIncome': total_income,
-                    'record':snookerIncome.objects.raw(record),
-                    })
+                return HttpResponseRedirect(reverse('snooker'))
             else:
                 return HttpResponse("update snooker income error")
     else:
-        print(total_income)
         return render(request, 'snooker.html', {
             'totalIncome': total_income,
             'record':snookerIncome.objects.raw(record),
+            'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
+            'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
             })
 
 def updateSnooker(request):
@@ -46,52 +44,39 @@ def updateSnooker(request):
         print(request.method)
         if request.POST.get("delete-button"):
             try:
-                print("delete")
                 snookerTableIncome.objects.filter(id=request.POST.get("table-id")).delete()
                 return render(request, 'updateSnooker.html' ,{
                 'record':snookerTableIncome.objects.filter(snooker_id=request.POST.get("snooker-id")).select_related('snooker_id'),
                 "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(request.POST.get('snooker-id'))} GROUP by t.snooker_id_id order by s.id desc;")[0],
                 })
             except IndexError as e:
-                return render(request, 'snooker.html', {
-                    'totalIncome': total_income,
-                    'record':snookerIncome.objects.raw(record),
-            })
+                return HttpResponseRedirect(reverse('snooker'))
         if request.POST.get("update-button"):
-            print(request.POST.get("table-id"))
-            return render(request,"editSnooker.html",{'record':snookerTableIncome.objects.filter(id=request.POST.get("table-id"))[0]})
+            return render(request,"editSnooker.html",
+            {'record':snookerTableIncome.objects.filter(id=request.POST.get("table-id"))[0]})
 
         if request.POST.get("update-income"):
-            
             snookerIncome.objects.filter(id=request.POST.get("income-id")).update(
                 description=request.POST.get("description"), attened_by=request.POST.get("attended-by"), date=request.POST.get("date")
             )
-            print("update income $$$*$*$*$*$*$ ")
-            return render(request, 'snooker.html', {
-            'totalIncome': total_income,
-            'record':snookerIncome.objects.raw(record),
-            })
+            return HttpResponseRedirect(reverse('snooker'))
     else:
         
         return render(request, 'updateSnooker.html' ,{
             'record':snookerTableIncome.objects.filter(snooker_id=request.GET.get("data")).select_related('snooker_id'),
             "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(request.GET.get('data'))} GROUP by t.snooker_id_id order by s.id desc;")[0],
-
-
         })
 
 
 def editSnooker(request):
     if request.method == "POST":
         if request.POST.get("edit-table-income"):
-            
             row_id=request.POST.get("row-id")
             s_id=request.POST.get("snooker-id")
             snookerTableIncome.objects.filter(id=row_id).update(
                     amount=request.POST.get("amount"), table_number=request.POST.get("table-number"),
                     minutes_per_table=request.POST.get("minutes-per-table")
             )
-            
             return render(request, 'updateSnooker.html' ,{
             'record':snookerTableIncome.objects.filter(snooker_id=s_id).select_related('snooker_id'),
             "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(s_id)} GROUP by t.snooker_id_id order by s.id desc;")[0],

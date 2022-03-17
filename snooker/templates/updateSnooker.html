@@ -157,9 +157,9 @@
                             <div class="grid m-1 border-b border-blue-900 pb-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 font-semibold gap-2">
 
                                 <div class="flex flex-col">
-                                    <label for=""  class="m-1">{{day_details.date}}</label>
+                                    <label for=""  class="m-1">Date</label>
                                     <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                    value="{{day_details.date}}" name="date"
+                                    value="{{day_details.date|date:'Y-m-d'}}" name="date"
                                     >
                                 </div>
 

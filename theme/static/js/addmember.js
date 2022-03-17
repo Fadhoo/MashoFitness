@@ -3,8 +3,21 @@ var delete_array = [];
 function instalmentValueChanged(instalment) {
     var paidamount = document.getElementById("paidamount");
     // var remainingamount = document.getElementById("remainingamount");
-    paidamount.style.display = instalment.checked ? "block" : "none";
+    if (instalment.checked){
+    paidamount.style.display = "block";
     // remainingamount.style.display = instalment.checked ? "block" : "none";
+    let paidamounts=document.getElementById("paidamounts");
+    paidamounts.setAttribute("required", "true");
+    let remainingamount=document.getElementById("remaining-amount");
+    remainingamount.setAttribute("required", "true");
+    }
+    else{
+        paidamount.style.display = "none";
+        let paidamounts=document.getElementById("paidamounts");
+        paidamounts.removeAttribute("required")
+        let remainingamount=document.getElementById("remaining-amount");
+        remainingamount.removeAttribute("required")
+    }
 
 };
 
@@ -41,33 +54,6 @@ function categoryClassChange(){
 
 }
 
-
-// document.getElementById('membership').onchange = function () {
-
-
-//     $.ajax({
-//         method: "GET",
-//         url: "/api/get_membershipCategory/",
-//         data: {
-//             category_name: document.getElementById('membershipcategory').value,
-//             months: String(this.value)
-//         },
-
-//         success: function (data) {
-//             console.log("success on get Membership Category months" + data);
-//             Object.keys(data).forEach(key => {
-//                 var value = data[key];
-//                 document.getElementById('amount').value = value["monthly_fee"];
-//             });
-//             getExpiry(this.value);
-
-
-//         },
-//         error: function () {
-//             console.log("error on get Membership Category months");
-//         }
-//     });
-// };
 
 
 document.getElementById("discount").onchange = function () {
@@ -110,7 +96,6 @@ document.getElementById("paidamounts").onchange = function(){
 
 
 function requestDelete(e) {
-    console.log(delete_array);
     if (e.checked) {
         delete_array.push(parseInt(e.dataset.id));
     } else {
@@ -121,6 +106,9 @@ function requestDelete(e) {
 
 
 function sendDeleteRequest() {
+    if (delete_array.length > 0) {
+        
+    
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -139,7 +127,11 @@ function sendDeleteRequest() {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            
+            swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
             $.ajax({
                 method: "GET",
                 url: "/api/deleteMember/",
@@ -153,6 +145,7 @@ function sendDeleteRequest() {
                   }
 
             })
+            
         } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel
@@ -165,12 +158,14 @@ function sendDeleteRequest() {
         }
     })
 
-
+}
+else{
+    alert('Please select atleast one member to delete')
+}
 }
 
 function reloadPage() {
     window.location.reload();
-    console.log("reload");
 };
 
 
@@ -313,3 +308,14 @@ function update_table(data) {
 }
 
 
+$(document).ready(function() {
+    // messages timeout for 10 sec 
+    setTimeout(function() {
+        $('.message').fadeOut('slow');
+    }, 1000); // <-- time in milliseconds, 1000 =  1 sec
+
+    // delete message
+    $('.del-msg').live('click',function(){
+        $('.del-msg').parent().attr('style', 'display:none;');
+    })
+});
