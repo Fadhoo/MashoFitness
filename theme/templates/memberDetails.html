@@ -328,11 +328,7 @@
                                             reader.readAsDataURL(file);
                                         " />
                   </div>
-                  <div class="flex flex-col">
-                    <label for="" class="m-1">Invoice No.</label>
-                    <input type="text" readonly
-                      class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200" />
-                  </div>
+                  
                   <div class="flex flex-col">
                     <label for="" class="m-1">Membership ID</label>
                     <input type="text" value="{{all_data.member_membership_id.id}}" readonly
@@ -371,11 +367,19 @@
                       <input type="text" value="{{all_data.member_contact}}" name="contact"
                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" />
                     </div>
+                    {% if all_data.member_emergency_contact is none %}
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Alternative Number</label>
+                      <input type="text" value="" name="alternative-number"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
+                    </div>
+                    {% else %}
                     <div class="flex flex-col">
                       <label for="" class="m-1">Alternative Number</label>
                       <input type="text" value="{{all_data.member_emergency_contact}}" name="alternative-number"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
+                    {% endif %}
                     <div class="flex flex-col">
                       <label for="" class="m-1">Email</label>
                       <input type="email" value="{{all_data.member_email}}" name="email"
@@ -387,11 +391,20 @@
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     <div class="border col-span-3 border-blue-400"></div>
+                    {% if all_data.member_occupation is none %}
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Occupation</label>
+                      <input type="text" value="" name="occupation"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
+                    </div>
+                    {% else %}
                     <div class="flex flex-col">
                       <label for="" class="m-1">Occupation</label>
                       <input type="text" value="{{all_data.member_occupation}}" name="occupation"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
+                    {% endif %}
+                    
                     <div class="flex flex-col">
                       <label for="" class="m-1">Attended By</label>
                       <select name="" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
@@ -511,6 +524,16 @@
                       <input type="text" value="{{all_data.member_target}}" name="target"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Payment Status</label>
+                      <select name="paymentstatus" id="" required
+                          class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                          <option value="{{all_data.active_fee_id.status}}">{{all_data.active_fee_id.status}}</option>
+                          <option value="Paid">Paid</option>
+                          <option value="Unpaid">Unpaid</option>
+
+                      </select>
+                  </div>
 
                     <div class="border col-span-4 border-blue-400"></div>
                   </div>
@@ -518,7 +541,7 @@
                   <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
                     <div class="flex flex-col">
                       <label for="" class="m-1">Membership Start Date</label>
-                      <input type="date" value="{{all_data.member_created_at|date:'Y-m-d'}}" name="admissiondate" readonly
+                      <input type="date" value="{{all_data.member_membership_start_date|date:'Y-m-d'}}" name="admissiondate" readonly
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
 
