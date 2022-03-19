@@ -70,8 +70,8 @@ def gymSetting(request):
             add_date.save()
             return HttpResponseRedirect(reverse("gymSetting"))
         if request.POST.get("editcall"):
-            form = MembershipCategory.objects.all().filter(id=request.POST.get("cid"))[0]
-            return render(request,"GymSetting/editGymSetting.html", {'all_data': form})
+            return render(request,"GymSetting/editGymSetting.html",
+             {'all_data': MembershipCategory.objects.all().filter(id=request.POST.get("cid"))[0]})
 
     else:
         return render(request,"GymSetting/gymSetting.html", {'all_data': fetchAllData(MembershipCategory)})
@@ -83,9 +83,9 @@ def editGymSetting(request):
                 category_name=request.POST.get("membershipcategory"), category_class=request.POST.get("membership-class"),
                 category_months=request.POST.get("membershipduration"),
                 category_fee=request.POST.get("membershipfee"), category_gender=request.POST.get("membershipgender"))
-            return render(request,"GymSetting/gymSetting.html", {'all_data': fetchAllData(MembershipCategory)})
+            return HttpResponseRedirect(reverse('gymSetting'))
     else:
-        return render(request,"GymSetting/gymSetting.html", {'all_data': fetchAllData(MembershipCategory)})
+        return HttpResponseRedirect(reverse('gymSetting'))
 
 def gymManagement(request):
     
@@ -137,18 +137,14 @@ def memberDetails(request):
                 return HttpResponse(request,"error  in update intallment")
                 # return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
         if request.POST.get("submit-button"):
-            print(request.POST.get("paidamount"))
-            print(request.POST.get("remainingamount"))
             if request.POST.get("paidamount") and request.POST.get("remainingamount"):
                 renewSubscription(request,False)
                 bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
-                return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
-                    'bill': bill,})
+                return HttpResponseRedirect(reverse("viewRecord")+"?cid="+request.POST.get("cid"))
             else:
                 renewSubscription(request,True)
                 bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
-                return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,
-                    'bill': bill,})
+                return HttpResponseRedirect(reverse("viewRecord")+"?cid="+request.POST.get("cid"))
     else:
         member=Member.objects.all().filter(id=request.GET.get('data')).select_related("member_membership_id").select_related("active_fee_id")[0]
         payment=Payment.objects.filter(fee_id=member.active_fee_id).aggregate(Sum('payment_amount'))

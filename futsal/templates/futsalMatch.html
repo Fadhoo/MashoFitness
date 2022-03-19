@@ -254,28 +254,28 @@
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Captain Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" readonly
                                     value="{{TeamRecord.captain_name}}"
                                     >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Contact number</label>
-                                    <input type="number" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    <input type="number" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" readonly
                                     value="{{TeamRecord.contact_number}}"
                                     >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Date</label>
-                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required
                                     name="date" id="today-date">
                                 </div>
                                 
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Team 2</label>
-                                    <select name="team_name2" id=""
+                                    <select name="team_name2" id="" required
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="">Select</option>
                                         {% for i in teamNames %}
@@ -287,13 +287,13 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Fee</label>
-                                    <input type="number" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    <input type="number" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required
                                     name="fee">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Payment Status</label>
-                                    <select name="payment_status" id=""
+                                    <select name="payment_status" id="" required
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="">Select</option>
                                         <option value="Paid">Paid</option>
@@ -304,18 +304,18 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic">Get Bookings</label>
-                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required
                                     name="booking_date" onchange="get_Bookings(this)">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 italic" readonly>Book at</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" id="book-at" name="book_at" readonly>
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" id="book-at" name="book_at"  required readonly>
                                 </div>
                                 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Attended By</label>
-                                    <select name="attended-by" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                    <select name="attended-by" id="" required class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="" class="">select user</option>
                                         <option value="User 1">user 1</option>
                                         <option value="User 2">user 2</option>
