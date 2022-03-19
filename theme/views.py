@@ -355,3 +355,15 @@ def searchBillDate(request):
             return Response({"error":str("Please select date")})
     except Exception as e:
         return Response({"error":str(e)})
+
+@api_view(['GET'])
+def ViewBillCall(request):
+    try:
+        id=request.GET.get('id',None)
+        print("bill id",id)
+        if id is not None:
+            return Response(BillSerializer(Bill.objects.filter(id=id)[0],many=False).data)
+        else:
+            return Response({"error":str("Please select bill id")})
+    except Exception as e:
+        return Response({"error":str(e)})

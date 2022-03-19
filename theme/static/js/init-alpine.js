@@ -143,9 +143,12 @@ function data() {
     // View Bill Modal
     isViewBillModalOpen: false,
     trapCleanupViewBill: null,
-    openViewBillModal() {
+    openViewBillModal(id) {
+      
       this.isViewBillModalOpen = true
       this.trapCleanupViewBill = focusTrap(document.querySelector('#ViewBillModal'))
+      console.log(id)
+      ViewBillCall(id)
     },
     closeViewBillModal() {
       this.isViewBillModalOpen = false

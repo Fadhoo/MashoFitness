@@ -398,7 +398,7 @@
                                         <td class="p-1">
                                             <div class="grid grid-rows-1 gap-1">
                                                 <div class="flex flex-row w-20">
-                                                    <button x-on:click.prevent="openViewBillModal()"
+                                                    <button x-on:click.prevent="openViewBillModal({{i.id}})"
                                                         class="bg-red-400 drop-shadow-md px-1 rounded-lg rounded-br-none">View
                                                         Bill</button>
 
@@ -463,43 +463,43 @@
                        </div>
                        <div>
                         <label for=""  class="font-semibold">Inv No. </label>
-                        <label for="" class="text-sm"> </label>
+                        <label for="" id="b-inv" class="text-sm"> </label>
                        </div>
                      </div>
                      <div class="px-10 py-2 gap-3 flex flex-row justify-between">
                         <div>
                             <label for=""  class="font-semibold">Name </label>
-                        <label for="">sami </label>
+                        <label for="">{{member_name}} </label>
                         </div>
                         <div>
                             <label for=""  class="font-semibold">Contact </label>
-                        <label for="">03333344334433 </label>
+                        <label for="" id="b-contact"> </label>
                         </div>
                      </div>
                     <div class="px-10">
                        <div>
                         <label for=""  class="font-semibold">Category </label>
-                        <label for="" class="float-right">elite </label>
+                        <label for="" id="b-category" class="float-right"> </label>
                        </div>
                         <div>
                             <label for=""  class="font-semibold">Membership Type </label>
-                            <label for="" class="float-right">3 month </label>
+                            <label for="" id="b-membership-type" class="float-right"> </label>
                         </div>
                         <div>
                             <label for=""  class="font-semibold">Amount Paid Date </label>
-                            <label for="" class="float-right">3 month </label>
+                            <label for="" id="b-paid-date" class="float-right"> </label>
                         </div>
                         <div>
                             <label for=""  class="font-semibold">Total Fee </label>
-                            <label for="" class="float-right">10000 </labe>
+                            <label for="" id="b-total" class="float-right"> </labe>
                         </div>
                         <div>
                             <label for=""  class="font-semibold">Received </label>
-                        <label for="" class="float-right">00000 </label
+                        <label for="" id="b-recieved" class="float-right"> </label
                         </div>                      
                        <div>
                         <label for=""  class="font-semibold">Remaining Amount </label>                      
-                        <label for="" class="float-right">00000 </label> 
+                        <label for="" id="b-remaining" class="float-right"> </label> 
                        </div>
                      
                     </div>         
@@ -550,6 +550,31 @@ function reloadPage() {
     console.log("reload");
 };
 
+function ViewBillCall(id){
+        $.ajax({
+            method: "GET",
+            url: "/api/ViewBillCall/",
+            data: { "id": id},
+            success: function (data) {
+                console.log("success on bill record");
+                document.getElementById("b-inv").innerHTML = data['id'];
+                document.getElementById("b-contact").innerHTML = data['fee_id']['member_id']['member_contact'];
+                document.getElementById("b-category").innerHTML = data['subscription_id']['category_name'];
+                document.getElementById("b-membership-type").innerHTML = data['subscription_id']['category_class'];
+                document.getElementById("b-paid-date").innerHTML = data['bill_created_at'];
+                document.getElementById("b-total").innerHTML = data['payable'];
+                document.getElementById("b-recieved").innerHTML = data['paid'];
+                document.getElementById("b-remaining").innerHTML = data['remaining'];
+            },
+            error: function () {
+                console.log("error on get bill record");
+            }
+        });
+    
+
+};
+
+
 function update_table(data) {
     console.log(data);
     let row;
@@ -573,7 +598,7 @@ function update_table(data) {
         '<td class="p-1">'+
             '<div class="grid grid-rows-1 gap-1">'+
                 '<div class="flex flex-row w-20">'+
-                    '<button x-on:click.prevent="openViewBillModal()"'+
+                    '<button x-on:click.prevent="openViewBillModal(elem["id"])"'+
                         'class="bg-red-400 drop-shadow-md px-1 rounded-lg rounded-br-none">View Bill</button>'+
                 '</div>'+
             '</div>'+

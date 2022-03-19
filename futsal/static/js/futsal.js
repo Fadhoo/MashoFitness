@@ -13,6 +13,8 @@ function requestDelete(e) {
 
 
 function sendDeleteRequest() {
+    if (delete_array.length > 0) {
+        
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -56,7 +58,10 @@ function sendDeleteRequest() {
             )
         }
     })
-
+    }
+    else{
+        alert('Please select atleast one member to delete')
+    }
 
 }
 
