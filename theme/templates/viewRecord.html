@@ -29,7 +29,7 @@
         <aside
             class="z-20 hidden w-60 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
             <div class="py-4 text-gray-600 ">
-                <a href="" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
@@ -432,77 +432,94 @@
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"></div>
-        <div x-show="isViewBillModalOpen" class="w-96 rounded-3xl bg-gray-200 shadow-xl overflow-hidden z-10"
+        <div x-show="isViewBillModalOpen" class="w-96 bg-gray-200 z-10"
             x-transition:enter="transition ease-out duration-100"
             x-transition:enter-start="opacity-0 transform scale-90"
             x-transition:enter-end="opacity-100 transform scale-100"
             x-transition:leave="transition ease-in duration-100"
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-90">
-            <div>
-                asd
+            <div class="p-2">
+                <div class="float-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeViewBillModal()"
+                      class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                  <div class="mt-5" >
+                      <img src="" alt="">
+                      <h1 class="underline font-bold text-xl text-center">MASHO SPORTS COMPLEX</h1>
+                      <p class="text-center font-semibold">Office Tel No: <span class="font-normal">081-2661045</span></p>
+
+                     <div class="px-3 mt-3 gap-3 flex flex-row">
+                       <div>
+                        <label for="" class="font-semibold">Date </label>
+                        <label for="" id="today-date" class="text-sm"></label>
+                       </div>
+                       <div>
+                        <label for=""  class="font-semibold">Reg No. </label>
+                        <label for="" class="text-sm">{{memberID}} </label>
+                       </div>
+                       <div>
+                        <label for=""  class="font-semibold">Inv No. </label>
+                        <label for="" class="text-sm"> </label>
+                       </div>
+                     </div>
+                     <div class="px-10 py-2 gap-3 flex flex-row justify-between">
+                        <div>
+                            <label for=""  class="font-semibold">Name </label>
+                        <label for="">sami </label>
+                        </div>
+                        <div>
+                            <label for=""  class="font-semibold">Contact </label>
+                        <label for="">03333344334433 </label>
+                        </div>
+                     </div>
+                    <div class="px-10">
+                       <div>
+                        <label for=""  class="font-semibold">Category </label>
+                        <label for="" class="float-right">elite </label>
+                       </div>
+                        <div>
+                            <label for=""  class="font-semibold">Membership Type </label>
+                            <label for="" class="float-right">3 month </label>
+                        </div>
+                        <div>
+                            <label for=""  class="font-semibold">Amount Paid Date </label>
+                            <label for="" class="float-right">3 month </label>
+                        </div>
+                        <div>
+                            <label for=""  class="font-semibold">Total Fee </label>
+                            <label for="" class="float-right">10000 </labe>
+                        </div>
+                        <div>
+                            <label for=""  class="font-semibold">Received </label>
+                        <label for="" class="float-right">00000 </label
+                        </div>                      
+                       <div>
+                        <label for=""  class="font-semibold">Remaining Amount </label>                      
+                        <label for="" class="float-right">00000 </label> 
+                       </div>
+                     
+                    </div>         
+                    <div class="mt-5">
+                        <label for=""  class="font-semibold">Signature </label>                      
+                        <label for="" class="float-right">_____________________________</label> 
+                       </div>            
+                    <div class="p-4 w-full">
+                        <button class="bg-cyan-500 text-white text-lg py-1 rounded-xl w-full focus:outline-none"
+                            x-on:click="printAndProceed()">Print</button>
+                    </div>
+                  </div>
             </div>
-            <!-- <div id="receipt-content" class="text-left w-full text-sm p-6 overflow-auto">
-                <div class="text-center">
-                    <img src="" alt="" class="mb-3 w-8 h-8 inline-block">
-                    <h2 class="text-xl font-semibold">Masho Fitness</h2>
-                    <p>Mariaabad Quetta</p>
-                </div>
-                <div class="flex mt-4 text-xs">
-                    <div class="flex-grow">No: <span x-text="receiptNo"></span></div>
-                    <div x-text="receiptDate"></div>
-                </div>
-                <hr class="my-2">
-                <div>
-                    <table class="w-full text-xs">
-                        <thead>
-                            <tr>
-                                <th class="py-1 w-1/12 text-center">#</th>
-                                <th class="py-1 text-left">Item</th>
-                                <th class="py-1 w-2/12 text-center">Qty</th>
-                                <th class="py-1 w-3/12 text-right">Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template x-for="(item, index) in cart" :key="item">
-                                <tr>
-                                    <td class="py-2 text-center" x-text="index+1"></td>
-                                    <td class="py-2 text-left">
-                                        <span x-text="item.name"></span>
-                                        <br />
-                                        <small x-text="priceFormat(item.price)"></small>
-                                    </td>
-                                    <td class="py-2 text-center" x-text="item.qty"></td>
-                                    <td class="py-2 text-right" x-text="priceFormat(item.qty * item.price)"></td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-                </div>
-                <hr class="my-2">
-                <div>
-                    <div class="flex font-semibold">
-                        <div class="flex-grow">TOTAL</div>
-                        <div x-text="priceFormat(getTotalPrice())"></div>
-                    </div>
-                    <div class="flex text-xs font-semibold">
-                        <div class="flex-grow">PAY AMOUNT</div>
-                        <div x-text="priceFormat(cash)"></div>
-                    </div>
-                    <hr class="my-2">
-                    <div class="flex text-xs font-semibold">
-                        <div class="flex-grow">CHANGE</div>
-                        <div x-text="priceFormat(change)"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 w-full">
-                <button class="bg-cyan-500 text-white text-lg py-1 rounded-xl w-full focus:outline-none"
-                    x-on:click="printAndProceed()">Print</button>
-            </div> -->
+        
         </div>
     </div>
 <script>
+    var today = new Date();
+
+document.getElementById("today-date").innerHTML = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
     function searchClick(){
     let fromdate = document.getElementById('fromdate').value;
     let todate = document.getElementById('todate').value;
@@ -566,8 +583,10 @@ function update_table(data) {
     });
 
     $('#myTable tbody').html(all_rows);
-}
+};
+  
 </script>
+
 </body>
 
 </html>
