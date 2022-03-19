@@ -14,16 +14,15 @@ def fetchUniqueCategoryName(model):
     except model.DoesNotExist:
         return None
 
+def null_check(value):
+    if value=="":
+        return None
+    else:
+        return value
+
 def addMemberRecord(request,status):
-        if request.POST.get("alternatenumber")=="":
-            alternative_number=None
-        else:
-            alternative_number=request.POST.get("alternatenumber")
-        if request.POST.get("occupation")=="":
-            occupation=None
-        else:
-            occupation=request.POST.get("occupation")
         # if request.POST.get("photo"):
+        print(request.POST.get("membership-start-date"))
         if request.FILES:
             f=request.FILES["photo"]
             fs = FileSystemStorage()
@@ -41,22 +40,22 @@ def addMemberRecord(request,status):
                         member_father_name=request.POST.get("fathername"),
                         member_cnic=request.POST.get("cnicnumber"),
                         member_contact=request.POST.get("contactnumber"),
-                        member_emergency_contact=alternative_number,
+                        member_emergency_contact=null_check(request.POST.get("alternatenumber")),
                         member_email=request.POST.get("email"),
-                        member_occupation=occupation,
+                        member_occupation=null_check(request.POST.get("occupation")),
                         member_address=request.POST.get("address"),
                         member_gender=request.POST.get("gender"),
                         member_dob=request.POST.get("dateofbirth"),
                         member_age=request.POST.get("age"),
                         member_blood_group=request.POST.get("bloodgroup"),
-                        member_height=request.POST.get("height"),
-                        member_weight=request.POST.get("weight"),
+                        member_height=null_check(request.POST.get("height")),
+                        member_weight=null_check(request.POST.get("weight")),
                         member_card_id=request.POST.get("cardnumber"),
                         member_target=request.POST.get("target"),
                         member_image=filename,
                         member_membership_id=membership_id,
                         member_membership_expiry_date=request.POST.get("membership-expire"),
-                        member_membership_start_date=datetime.now(),
+                        member_membership_start_date=request.POST.get("membership-start-date"),
                         )
         member_data.save()
         print("member data",member_data)
@@ -269,7 +268,14 @@ def renewSubscription(request,status):
 
 def addBodyAssesment(request):
     try:
-        BodyAssesments.objects.create(neck=request.POST.get("neck"),
+        Member.objects.filter(id=request.POST.get("member_id")).update(
+            member_height=null_check(request.POST.get("height")),
+            member_weight=null_check(request.POST.get("weight")),
+        )
+        BodyAssesments.objects.create(
+            height=request.POST.get("height"),
+            weight=request.POST.get("weight"),
+            neck=request.POST.get("neck"),
                             shoulder=request.POST.get("shoulder"), chest_extended=request.POST.get("chest-extended"),
                             chest_normal=request.POST.get("chest-normal"), forearms=request.POST.get("forearms"),
                             biceps=request.POST.get("biceps"), wrist=request.POST.get("wrist"),

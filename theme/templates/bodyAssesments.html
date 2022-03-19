@@ -238,16 +238,34 @@
     
                             
                                 <div class="grid border-b-2 pb-2 border-blue-900 sm:grid-cols-1 md:grid-cols-6 font-semibold gap-x-2">
+                                    {% if all_data.member_height is none %}
+                                    <div class="flex flex-col">
+                                        <label for="" class="m-1">Height</label>
+                                        <input type="text" name="height" id="height" value=""
+                                            class="rounded-md rounded-br-none focus:bg-white p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    </div>
+                                    {% else %}
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Height</label>
                                         <input type="text" name="height" id="height" value="{{all_data.member_height}}"
                                             class="rounded-md rounded-br-none focus:bg-white p-2 outline-none border-none shadow-inner bg-gray-200">
                                     </div>
+                                    {% endif %}
+                                    {% if all_data.member_weight is none %}
+                                    <div class="flex flex-col">
+                                        <label for="" class="m-1">Weight</label>
+                                        <input type="text" name="weight" id="weight" value=""
+                                            class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
+                                    </div>
+                                    {% else %}
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Weight</label>
                                         <input type="text" name="weight" id="weight" value="{{all_data.member_weight}}"
                                             class="rounded-md rounded-br-none p-2 outline-none border-none shadow-inner bg-gray-200">
                                     </div>
+                                    {% endif %}
+
+
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Neck</label>
                                         <input type="text" name="neck" id="neck"
@@ -372,12 +390,12 @@
                                         <div class="grid shadow-inner p-1 border border-red-900 sm:grid-cols-1 gap-y-1 md:grid-cols-5 mt-1 font-semibold gap-x-1">
                                             <div class="flex flex-row border-2 hover:bg-neutral-200">
                                                 <label for="" class="m-1 italic">Height : </label>
-                                                <p class="m-1 font-normal">{{data.member_id.member_height}}</p>
+                                                <p class="m-1 font-normal">{{data.height}}</p>
                                             </div>
                 
                                             <div class="flex flex-row border-2 hover:bg-neutral-200">
                                                 <label for="" class="m-1 italic">Weight : </label>
-                                                <p class="m-1 font-normal">{{data.member_id.member_weight}}</p>
+                                                <p class="m-1 font-normal">{{data.weight}}</p>
                                             </div>
                 
                                             <div class="flex flex-row border-2 hover:bg-neutral-200">

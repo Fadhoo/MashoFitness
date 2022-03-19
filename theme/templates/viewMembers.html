@@ -394,12 +394,25 @@
                       </td>
                       <td class="p-2">{{data.member_membership_expiry_date}}</td>
                       
-                      <td class="p-2">
-                          <span
-                              class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full">
-                              {{data.active_fee_id.status}}
-                          </span>
-                      </td>
+                      {% if data.active_fee_id.status == 'Paid' %}
+                                    <td class="p-2">
+                                        <span
+                                            class="px-2 py-1 font-semibold leading-tight text-black bg-blue-400 rounded-full">
+                                            {{data.active_fee_id.status}}
+                                        </span>
+                                    </td>
+
+
+                                    {% else %}
+                                    <td class="p-2">
+                                        <span
+                                            class="px-2 py-1 font-semibold leading-tight text-black bg-red-400 rounded-full">
+                                            {{data.active_fee_id.status}}
+                                        </span>
+                                    </td>
+
+
+                                    {% endif %}
                       <!-- <td class="p-2">
                       <div class="relative pt-1">
                           <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-300">
@@ -429,7 +442,7 @@
                       </form>
                       <td class="p-2">
                           <button x-on:click="openSMSModel();"
-                              class="bg-red-400 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>
+                              class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>
                       </td>
                   </tr>
                   {% endfor %}

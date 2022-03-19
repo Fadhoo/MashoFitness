@@ -111,29 +111,21 @@ def memberDetails(request):
             })
         
         if request.POST.get("update-button"):
-            if request.POST.get("occupation")=="None":
-                occupation=None
-            else:
-                occupation=request.POST.get("occupation")
-            if request.POST.get("alternative-number")=="None":
-                alternative_number=None
-            else:
-                alternative_number=request.POST.get("alternative-number")
             data = Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
                 member_father_name=request.POST.get("father_name"), 
                 member_cnic=request.POST.get("cnic"), 
-                member_occupation=occupation, 
+                member_occupation=null_check(request.POST.get("occupation")), 
                 member_gender=request.POST.get("gender"), 
                 member_address=request.POST.get("address"),
                 member_contact=request.POST.get("contact"), 
-                member_emergency_contact=alternative_number,
+                member_emergency_contact=null_check(request.POST.get("alternative-number")),
                 member_dob=request.POST.get("dob"), 
                 member_age=request.POST.get("age"), 
                 member_blood_group=request.POST.get("blood_group"), 
                 # category=request.POST.get("category"), 
                 member_target=request.POST.get("target"), )
                 # expiry_date=request.POST.get("expiry")
-            print(data)
+            Fee.objects.filter(member_id=request.POST.get("cid")).update(status=request.POST.get("paymentstatus"))
             return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
         if request.POST.get("pay-installment"):
             if update_payment_installment(request):
@@ -240,28 +232,22 @@ def bodyAssesments(request):
         if request.POST.get("add-button"):
             print(Member.objects.filter(id=request.POST.get("member_id")))
             addBodyAssesment(request) 
-            return render(request, 'bodyAssesments.html',  {'zipdata':BodyAssesments.objects.filter(member_id=request.POST.get("member_id")).select_related('member_id').order_by('-id'),
-            "all_data":Member.objects.filter(id=request.POST.get('member_id'))[0]
-            })
+            return HttpResponseRedirect(reverse('bodyAssesments')+"?data="+request.POST.get("member_id"))
 
     else:
         try:
-            if request.GET.get("data"):
-                print(Member.objects.filter(id=request.GET.get('data')))
-                return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=request.GET.get('data'))[0],
-                                        'zipdata': BodyAssesments.objects.filter(member_id=request.GET.get("data")).select_related("member_id").order_by("-id"), })
-            elif request.GET.get("delete_id"):
+            if request.GET.get("delete_id"):
                 member_id=BodyAssesments.objects.filter(id=request.GET.get("delete_id"))[0].member_id.id
                 BodyAssesments.objects.filter(id=request.GET.get("delete_id")).delete()
                 print(BodyAssesments.objects.filter(member_id=member_id).select_related("member_id").order_by("-id"))
-                return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=member_id)[0],
-                                        'zipdata': BodyAssesments.objects.filter(member_id=member_id).select_related("member_id").order_by("-id"), })
-        except:
-            return render(request, "addMember.html",
-             {
-                        'category':fetchUniqueCategoryName(MembershipCategory),
-                        'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),
-                    })
+                return HttpResponseRedirect(reverse('bodyAssesments')+"?data="+str(member_id))
+            else:
+                print(Member.objects.filter(id=request.GET.get('data')))
+                return render(request, "bodyAssesments.html", {"all_data": Member.objects.all().filter(id=request.GET.get('data'))[0],
+                                        'zipdata': BodyAssesments.objects.filter(member_id=request.GET.get("data")).select_related("member_id").order_by("-id"), })
+        except Exception as e:
+            print(e)
+
 
 # """"
 # API WORK 

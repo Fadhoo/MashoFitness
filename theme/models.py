@@ -24,8 +24,8 @@ class Member(models.Model):
     member_dob = models.DateField()
     member_age = models.IntegerField()
     member_blood_group = models.CharField(max_length=4)
-    member_height = models.CharField(max_length=5)
-    member_weight = models.IntegerField()
+    member_height = models.CharField(max_length=5,null=True)
+    member_weight = models.IntegerField(null=True)
     member_card_id = models.CharField(max_length=20)
     member_target = models.CharField(max_length=100)
     member_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
@@ -71,6 +71,8 @@ class Bill(models.Model):
 
 
 class BodyAssesments(models.Model):
+    height=models.CharField(max_length=20,default=0)
+    weight=models.CharField(max_length=20,default=0)
     neck = models.CharField(max_length=20)
     shoulder = models.CharField(max_length=20)
     chest_extended = models.CharField(max_length=20)
