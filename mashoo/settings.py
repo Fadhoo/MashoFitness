@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'employees',
     'futsal',
     'cafeteria',
+    'accounting',
 ]
 
 TAILWIND_APP_NAME = 'theme'

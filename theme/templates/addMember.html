@@ -843,7 +843,7 @@
     </div>
 
     <!-- Model - SMS -->
-    <div x-show="isSMSModalOpen" id="SMSModal"
+    {% comment %} <div x-show="isSMSModalOpen" id="SMSModal"
         class="fixed w-full h-screen left-0 top-0 z-10 flex flex-wrap justify-center content-center p-24">
         <div x-show="isSMSModalOpen" class="fixed glass w-full h-screen left-0 top-0 z-0"
             x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0"
@@ -857,10 +857,10 @@
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-90">
             <div>
-                SMS
+                sms
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
     <script src="{% static 'js/addmember.js' %}"></script>
     
     <script>
