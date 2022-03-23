@@ -10,6 +10,7 @@ function data() {
     isNotificationsMenuOpen: false,
     toggleNotificationsMenu() {
       this.isNotificationsMenuOpen = !this.isNotificationsMenuOpen
+      get_all_member_remaining_expiredays()
     },
     closeNotificationsMenu() {
       this.isNotificationsMenuOpen = false;

@@ -14,6 +14,7 @@ from django.db.models import Sum
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from expenses.models import  expensesData
+import datetime as dt
 
 def fetchAllData(dbmodel):
     data=dbmodel.objects.all()
@@ -388,5 +389,19 @@ def ViewBillCall(request):
             return Response(BillSerializer(Bill.objects.filter(id=id)[0],many=False).data)
         else:
             return Response({"error":str("Please select bill id")})
+    except Exception as e:
+        return Response({"error":str(e)})
+
+@api_view(['GET'])
+def getExpireRemainingDays(request):
+    try:
+        if id is not None:
+            date = dt.date.today()
+            start_week = date - dt.timedelta(date.weekday())
+            end_week = start_week + dt.timedelta(5)
+            entries = Member.objects.filter(member_membership_expiry_date__range=[start_week, end_week])
+            return Response(MemberSerializer(entries,many=True).data)
+        else:
+            return Response({"error":str("Please select member id")})
     except Exception as e:
         return Response({"error":str(e)})
