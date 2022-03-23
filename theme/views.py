@@ -110,22 +110,45 @@ def memberDetails(request):
             })
         
         if request.POST.get("update-button"):
-            data = Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
-                member_father_name=request.POST.get("father_name"), 
-                member_cnic=request.POST.get("cnic"), 
-                member_occupation=null_check(request.POST.get("occupation")), 
-                member_gender=request.POST.get("gender"), 
-                member_address=request.POST.get("address"),
-                member_contact=request.POST.get("contact"), 
-                member_emergency_contact=null_check(request.POST.get("alternative-number")),
-                member_dob=request.POST.get("dob"), 
-                member_age=request.POST.get("age"), 
-                member_blood_group=request.POST.get("blood_group"), 
-                # category=request.POST.get("category"), 
-                member_target=request.POST.get("target"), )
-                # expiry_date=request.POST.get("expiry")
+            if request.FILES:
+                f=request.FILES["photo"]
+                fs = FileSystemStorage()
+                filename = fs.save(f.name, f)
+                uploaded_file_url = fs.url(filename)
+            
+                Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
+                    member_father_name=request.POST.get("father_name"), 
+                    member_cnic=null_check(request.POST.get("cnic")), 
+                    member_occupation=null_check(request.POST.get("occupation")), 
+                    member_gender=request.POST.get("gender"), 
+                    member_address=null_check(request.POST.get("address")),
+                    member_contact=request.POST.get("contact"), 
+                    member_emergency_contact=null_check(request.POST.get("alternative-number")),
+                    member_dob=null_check(request.POST.get("dob")), 
+                    member_age=null_check(request.POST.get("age")), 
+                    member_blood_group=null_check(request.POST.get("blood_group")), 
+                    member_card_id=request.POST.get("card_id"),
+                    member_serial_no=request.POST.get("serial-no"), 
+                    member_target=null_check(request.POST.get("target")),
+                    member_image=filename )
+            else:
+                    Member.objects.all().filter(id=request.POST.get("cid")).update(
+                    member_name=request.POST.get("name"), 
+                    member_father_name=request.POST.get("father_name"), 
+                    member_cnic=null_check(request.POST.get("cnic")), 
+                    member_occupation=null_check(request.POST.get("occupation")), 
+                    member_gender=request.POST.get("gender"), 
+                    member_address=null_check(request.POST.get("address")),
+                    member_contact=request.POST.get("contact"), 
+                    member_emergency_contact=null_check(request.POST.get("alternative-number")),
+                    member_dob=null_check(request.POST.get("dob")), 
+                    member_age=null_check(request.POST.get("age")), 
+                    member_blood_group=null_check(request.POST.get("blood_group")), 
+                    member_card_id=request.POST.get("card_id"),
+                    member_serial_no=request.POST.get("serial-no"), 
+                    member_target=null_check(request.POST.get("target")))
             Fee.objects.filter(member_id=request.POST.get("cid")).update(status=request.POST.get("paymentstatus"))
-            return render(request, "viewMembers.html", {'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id') ,})
+            return HttpResponseRedirect(reverse('viewMembers'))
         if request.POST.get("pay-installment"):
             if update_payment_installment(request):
                 bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")

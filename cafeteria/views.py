@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import ItemSerializer, NonStockSerializer
-
+from django.urls import reverse
 
 
 
@@ -15,16 +15,15 @@ def addItem(request):
             print("save button save button save button save button ")
             if ItemsAdd(request):
                 print("item added success")
-                return render(request, "addItem.html", {'addItems': Items.objects.all()})
+                return HttpResponseRedirect(reverse("addItem"))
 
         if request.POST.get("cancel-button"):
-            return render(request, "addItem.html", {'addItems': Items.objects.all()})
+            return HttpResponseRedirect(reverse("addItem"))
         
         if request.POST.get("update-button"):
             print("update update update update update update button")
             UpdateItem(request)
-            return render(request, "addItem.html", {'addItems': Items.objects.all()})
-
+            return HttpResponseRedirect(reverse("addItem"))
 
     else:
         return render(request, "addItem.html", {'addItems': Items.objects.all()})
@@ -36,15 +35,15 @@ def addNonStockItem(request):
             print("save button save button save button save button ")
             if addNonStockItems(request):
                 print("item added success")
-                return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
+                return HttpResponseRedirect(reverse("addNonStockItem"))
 
         if request.POST.get("cancel-button"):
-            return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
+           return HttpResponseRedirect(reverse("addNonStockItem"))
         
         if request.POST.get("update-button"):
             print("update update update update update update button")
             updateNonStockItems(request)
-            return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
+            return HttpResponseRedirect(reverse("addNonStockItem"))
 
 
     else:

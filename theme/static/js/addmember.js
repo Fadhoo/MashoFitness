@@ -259,7 +259,7 @@ function update_table(data) {
             '<td class="p-2">' +
                 '<input onclick="requestDelete(this)" data-id="' + elem['id'] +'" type="checkbox" class="cursor-pointer rounded-md" onc>' +
             '</td>' +
-            '<td class="p-2">'+ elem['id'] +'</td>'+
+            '<td class="p-2">'+ elem['member_serial_no'] +'</td>'+
             '<td class="p-2"><div class="flex items-center text-sm">'+
                     '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
                         '<img class="object-cover w-full h-full rounded-full"'+ 
@@ -311,7 +311,7 @@ function update_table(data) {
             '<td class="p-2">' +
                 '<input onclick="requestDelete(this)" data-id="' + elem['id'] +'" type="checkbox" class="cursor-pointer rounded-md" onc>' +
             '</td>' +
-            '<td class="p-2">'+ elem['id'] +'</td>'+
+            '<td class="p-2">'+ elem['member_serial_no'] +'</td>'+
             '<td class="p-2"><div class="flex items-center text-sm">'+
                     '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
                         '<img class="object-cover w-full h-full rounded-full"'+ 
