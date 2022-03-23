@@ -408,8 +408,8 @@
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     {% endif %}
-                    
-                    
+
+
                     <div class="border col-span-3 border-blue-400"></div>
                     {% if all_data.member_occupation is none %}
                     <div class="flex flex-col">
@@ -433,7 +433,7 @@
                         <option value="">User 2</option>
                       </select>
                     </div>
-                    
+
                     <div class="flex flex-col">
                       <label for="" class="m-1">Gender</label>
                       <input type="text" value="{{all_data.member_gender}}" readonly name="gender" id="member-gender"
@@ -463,7 +463,7 @@
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     {% endif %}
-                    
+
                     <div class="border col-span-3 border-blue-400"></div>
                   </div>
 
@@ -481,7 +481,7 @@
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     {% endif %}
-                    
+
                     {% if all_data.member_age is none %}
                     <div class="flex flex-col">
                       <label for="" class="m-1">Age</label>
@@ -495,7 +495,7 @@
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
                     {% endif %}
-                    
+
                     {% if all_data.member_blood_group is none %}
                     <div class="flex flex-col">
                       <label for="" class="m-1">Blood Group</label>
@@ -533,7 +533,7 @@
                       </select>
                     </div>
                     {% endif %}
-                    
+
 
 
                     <div class="flex flex-col">
@@ -594,7 +594,7 @@
                     </div>
                     {% endif %}
 
-                    
+
                     <div class="flex flex-col">
                       <label for="" class="m-1">Payment Status</label>
                       <select name="paymentstatus" id="" required
@@ -836,7 +836,7 @@
               <div class="grid col-span-7 grid-flow-col m-3 gap-2">
                 <input type="text" hidden name="cid" value="{{all_data.id}}" />
                 <div class="flex flex-col">
-                  <button class="bg-blue-600 rounded-lg w-36 text-white shadow-md rounded-br-none py-2"
+                  <button class="bg-blue-400 rounded-lg w-36 text-white shadow-md rounded-br-none py-2"
                     name="update-button" value="update-button">
                     Update
                   </button>
@@ -844,7 +844,7 @@
 
                 <div class="flex flex-col">
                   <button x-on:click.prevent="openRenewModal()"
-                    class="bg-cyan-800 rounded-lg w-36 text-white shadow-md rounded-br-none py-2">
+                    class="bg-blue-600 rounded-lg w-36 text-white shadow-md rounded-br-none py-2">
                     Renew
                   </button>
                 </div>
@@ -881,8 +881,128 @@
               </div>
             </form>
 
-      </main>
+            <div x-show="isRenewModalOpen" id="RenewModal"
+              class="fixed w-full h-screen left-0 top-0 z-10 flex flex-wrap justify-center content-center p-24">
+              <div x-show="isRenewModalOpen" class="fixed glass w-full h-screen left-0 top-0 z-0"
+                x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100"
+                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+              <div x-show="isRenewModalOpen" class=" w-2/5 bg-blue-100 z-10"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="opacity-0 transform scale-90"
+                x-transition:enter-end="opacity-100 transform scale-100"
+                x-transition:leave="transition ease-in duration-100"
+                x-transition:leave-start="opacity-100 transform scale-100"
+                x-transition:leave-end="opacity-0 transform scale-90">
+                <div class="p-2">
+                  <div class="float-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeRenewModal()"
+                      class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                  <form action="/memberDetails/" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="cid" hidden value="{{all_data.id}}" />
+                    <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
+
+                      <div class="flex flex-col">
+                        <label for="" class="m-1 text-sm">Membership Category</label>
+                        <select name="model-membershipcategory" id="model-membershipcategory"
+                          class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                          <option value="">Select Membership</option>
+                          {% for i in category %}
+                          <option value="{{i}}">{{i}}</option>
+                          {% endfor %}
+
+                        </select>
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1 text-sm">Membership Class</label>
+                        <select name="model-membership-class" id="model-membership-class"
+                          onchange="categoryClassChange()"
+                          class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                          <option value="">Select Membership</option>
+                          <option value="Platinium">Platinium</option>
+                          <option value="Gold">Gold</option>
+                          <option value="Silver">Silver</option>
+                          <option value="Bronze">Bronze</option>
+
+                        </select>
+                      </div>
+                      <input type="text" name="rew-model-gender" hidden value="{{all_data.member_gender}}">
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Membership Duration</label>
+                        <input type="text" id="model-category-months" name="model-category-months"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Amount</label>
+                        <input type="number" readonly id="model-amount"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" name="model-amount">
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Discount</label>
+                        <input type="text" id="model-discount" value="0"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                          name="model-discount">
+                      </div>
+
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Payable Amount</label>
+                        <input type="number" readonly id="model-payableamount"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                          name="model-payableamount">
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">MemberShip Expire</label>
+                        <input type="text" readonly id="model-expiry"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                          name="model-membership-expire">
+                      </div>
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Instalment ?</label>
+                        <div class="flex flex-row">
+
+                          <input type="checkbox" class="rounded-md mt-2 mr-3 shadow-inner p-2 bg-gray-200"
+                            name="instalment" id="instalment" onclick="instalmentValueChanged(this)">
+                          <label for="" class="m-1">Installment</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="flex flex-row col-span-2" style="display: None;" id="paidamount">
+                      <div class="flex flex-row gap-x-3">
+                        <div class="flex flex-col">
+                          <label for="" class="m-1">Paid Amount</label>
+                          <input type="text" id="paidamounts"
+                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="paidamount">
+                        </div>
+
+                        <div class="flex flex-col">
+                          <label for="" class="m-1">Remaining Amount</label>
+                          <input type="nuumber" id="remaining-amount" readonly
+                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                            name="remainingamount">
+                        </div>
+                      </div>
+                    </div>
+
+                    <button class="bg-blue-600 px-10 rounded-lg mt-5 text-white ml-32 shadow-md rounded-br-none py-1"
+                      name="submit-button" value="submit-button">Renew Subscription</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
+  </div>
+
+  </div>
+  </main>
+  </div>
   </div>
 
   <script>
