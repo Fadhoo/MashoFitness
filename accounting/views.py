@@ -6,3 +6,6 @@ def income(request):
 
 def reports(request):
     return render(request,"reports.html")
+
+def rental(request):
+    return render(request, "rental.html")

@@ -659,8 +659,7 @@
         <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
             x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
-            @keydown.escape="closeModal"
+            x-transition:leave-end="opacity-0  transform translate-y-1/2"
             class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-xl"
             role="dialog" id="modal">
             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->

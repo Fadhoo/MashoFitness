@@ -17,6 +17,9 @@ urlpatterns = [
     path("salesReturn/", views.salesReturn, name="salesReturn"),
     path("salesTerminal/", views.salesTerminal, name="salesTerminal"),
     path("supplier/", views.supplier, name="supplier"),
+    path("cafeteriaExpenses/", views.cafeteriaExpenses, name="cafeteriaExpenses"),
+    path("updateCafeteriaExpenses/", views.updateCafeteriaExpenses, name="updateCafeteriaExpenses"),
+    path("barcodeLabel/", views.barcodeLabel, name="barcodeLabel"),
     
 
     # api path

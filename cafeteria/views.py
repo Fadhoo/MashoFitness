@@ -92,6 +92,14 @@ def salesTerminal(request):
 def supplier(request):
     return render(request, "supplier.html")
 
+def cafeteriaExpenses(request):
+    return render(request, "cafeteriaExpenses.html")
+
+def updateCafeteriaExpenses(request):
+    return render(request, "updateCafeteriaExpenses.html")
+
+def barcodeLabel(request):
+    return render(request, "barcodeLabel.html")
 
 # api work
 # api for items searching
