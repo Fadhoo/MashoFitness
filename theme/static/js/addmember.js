@@ -376,3 +376,55 @@ $(document).ready(function() {
         $('.del-msg').parent().attr('style', 'display:none;');
     })
 });
+function getNumberOfDays(end) {
+    const date1 = new Date();
+    const date2 = new Date(end);
+
+    // One day in milliseconds
+    const oneDay = 1000 * 60 * 60 * 24;
+
+    // Calculating the time difference between two dates
+    const diffInTime = date2.getTime() - date1.getTime();
+
+    // Calculating the no. of days between two dates
+    const diffInDays = Math.round(diffInTime / oneDay);
+
+    return diffInDays;
+}
+
+
+function get_all_member_remaining_expiredays(){
+    $.ajax({
+        method: "GET",
+        url: "/api/getExpireRemainingDays/",
+        success: function (data) {
+            
+            Object.keys(data).forEach(key => {
+                elem = data[key];
+                console.log(elem);
+                day=getNumberOfDays(elem['member_membership_expiry_date']);
+                row=
+                '<li class="flex">'+
+                '<a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800  "'+
+                    'href="#">'+
+                    '<span>'+elem['member_name']+'</span>'+
+                    '<span'+
+                        'class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full ">'+
+                        day
+                    '</span>'+
+                '</a>'+
+                '</li>'
+                // all_rows = all_rows + row;
+                $('#notifications-menu-expiry-days').append(row);
+            });
+            // $('#myTable tbody').html(all_rows);
+        
+        },
+        error: function () {
+            console.log("error on get search by name");
+        }
+    });
+
+
+
+};
