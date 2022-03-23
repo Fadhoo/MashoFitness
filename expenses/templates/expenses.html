@@ -340,15 +340,15 @@
                             <div>
                                 <div class="flex-row flex space-x-2">
                                     <label for="">Select Module</label>
-                                    <select name="" id="" class="rounded-md w-32 px-2 text-sm p-0">
+                                    <select name="search-by-module" id="search-by-module" class="rounded-md w-32 px-2 text-sm p-0">
                                         <option value="">please select</option>
-                                        <option value="">GYM</option>
-                                        <option value="">Futsal</option>
-                                        <option value="">Snooker</option>
-                                        <option value="">Shops</option>
+                                        <option value="GYM">GYM</option>
+                                        <option value="Futsal">Futsal</option>
+                                        <option value="Snooker">Snooker</option>
+                                        <option value="Shops">Shops</option>
                                     </select>
                                 </div>
-                                <p class="text-lg font-semibold text-gray-700 ">
+                                <p class="text-lg font-semibold text-gray-700 " id="search-by-module-value">
                                     0
                                 </p>
                             </div>
@@ -440,7 +440,7 @@
                             </div>
 
                             <div class="flex flex-col float-right m-5">
-                                <button class="bg-blue-400 rounded-lg w-36 text-white shadow-md rounded-br-none py-2" name="add-expense" value="add-expense">
+                                <button class="bg-blue-400 rounded-lg w-36 text-white shadow-md rounded-br-none py-2" name="add-expenses" value="add-expenses">
                                     Add Expense
                                 </button>
                             </div>
@@ -598,7 +598,10 @@
 
     </div>
     <script>
-        $(document).ready(function() {
+        var today = new Date();
+        document.getElementById("today-date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+        
+    $(document).ready(function() {
     // messages timeout for 10 sec 
     setTimeout(function() {
         $('.message').fadeOut('slow');
@@ -608,9 +611,23 @@
     $('.del-msg').live('click',function(){
         $('.del-msg').parent().attr('style', 'display:none;');
     })
+    });
+        
+    document.getElementById("search-by-module").onchange = function () {
+    $.ajax({
+        url: '/api/searchByModule',
+        type: 'GET',
+        data: {
+            'module': $('#search-by-module').val()
+        },
+        success: function (data) {
+            $('#search-by-module-value').html(data['amount_module']);
+        
+    }
 });
-        var today = new Date();
-        document.getElementById("today-date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+}
+    
+    
     </script>
     <script src="{% static 'js/expenses.js'%}"></script>
 </body>

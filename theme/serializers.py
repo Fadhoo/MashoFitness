@@ -32,7 +32,7 @@ class PaymentSerializer(serializers.ModelSerializer):
 class BillSerializer(serializers.ModelSerializer):
     bill_member_id=MemberSerializer(many=False, read_only=True)
     fee_id=feeSerializer(many=False, read_only=True)
-    subscription=MembershipCategorySerializer(many=False, read_only=True)
+    subscription_id=MembershipCategorySerializer(many=False, read_only=True)
     class Meta:
         model = Bill
         fields = '__all__'

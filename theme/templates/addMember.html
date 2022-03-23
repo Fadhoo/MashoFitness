@@ -18,6 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
     {% tailwind_css %}
 
 </head>
@@ -306,13 +309,13 @@
                             <div class="grid sm:grid-cols-1 md:grid-cols-3 font-semibold gap-x-4 gap-y-1">
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1">Full Name</label>
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Full Name</label>
                                     <input type="text"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="fullname">
                                 </div>
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1">Father / Husband Name</label>
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Father / Husband Name</label>
                                     <input type="text"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="fathername">
@@ -343,7 +346,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file"
+                                        <input name="photos" id="fileInput" accept="image/*" class="hidden" type="file"
                                             enctype="multipart/form-data" onChange="let file = this.files[0]; 
                                             var reader = new FileReader();
                         
@@ -359,28 +362,28 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">CNIC Number</label>
-                                    <input type="number"
-                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                        required name="cnicnumber">
+                                    <input type="text"
+                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" data-inputmask="'mask': '99999-9999999-9'" id="cnic-number" maxlength="15"
+                                         name="cnicnumber">
                                 </div>
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1">Contact Number</label>
-                                    <input type="Number"
-                                        class="rounded-md outlxttexte-none border-none shadow-inner p-2 bg-gray-200"
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Contact Number</label>
+                                    <input type="text"
+                                        class="rounded-md outlxttexte-none border-none shadow-inner p-2 bg-gray-200" data-inputmask="'mask': '0399-9999999'"
                                         required name="contactnumber">
 
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Alternate Number</label>
-                                    <input type="number"
-                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                    <input type="text"
+                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" data-inputmask="'mask': '0399-9999999'"
                                         name="alternatenumber">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Email</label>
                                     <input type="email"
                                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                        required name="email">
+                                         name="email">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Occupation</label>
@@ -392,10 +395,10 @@
                                     <label for="" class="m-1">Address</label>
                                     <input type="text"
                                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                        required name="address">
+                                         name="address">
                                 </div>
                                 <div class="flex flex-col ">
-                                    <label for="" class="m-1">MemberShip start Date</label>
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">MemberShip start Date</label>
                                     <input type="date" id="membership-start-date"
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
                                             required name="membership-start-date">
@@ -404,7 +407,7 @@
                                 <div class="grid sm:grid-cols-2 col-span-3 md:grid-cols-6 gap-3">
 
                                     <div class="flex flex-col ">
-                                        <label for="" class="m-1">Gender</label>
+                                        <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Gender</label>
                                         <select name="gender" id="gender" required
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="" class="">select gender</option>
@@ -416,17 +419,17 @@
                                         <label for="" class="m-1">Date of Birth</label>
                                         <input type="date" id="dateofbirth"
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            required name="dateofbirth">
+                                             name="dateofbirth">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Age</label>
-                                        <input type="number" readonly value="18" id='age'
+                                        <input type="number" readonly  id='age'
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
-                                            required name="age">
+                                            name="age">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Blood Group</label>
-                                        <select name="bloodgroup" id="" required
+                                        <select name="bloodgroup" id=""
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="">Select Blood Group</option>
                                             <option value="A+">A+</option>
@@ -458,7 +461,7 @@
                                     
 
                                     <div class="flex flex-col">
-                                        <label for="" class="m-1 text-sm">Membership Category</label>
+                                        <label for="" class="m-1 text-sm after:content-['*'] after:ml-0.5 after:text-red-600">Membership Category</label>
                                         <select name="membershipcategory" id="membershipcategory" required
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="">Select Membership</option>
@@ -469,7 +472,7 @@
                                     </div>
 
                                     <div class="flex flex-col">
-                                        <label for="" class="m-1 text-sm">Membership Class</label>
+                                        <label for="" class="m-1 text-sm after:content-['*'] after:ml-0.5 after:text-red-600">Membership Class</label>
                                         <select name="membership-class" id="membership-class"
                                             onchange="categoryClassChange()" required
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
@@ -532,7 +535,7 @@
                                     </div> -->
 
                                     <div class="flex flex-col">
-                                        <label for="" class="m-1">Card No.</label>
+                                        <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Card No</label>
                                         <input type="text" id="cardno"
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
                                             required name="cardnumber">
@@ -552,11 +555,11 @@
                                         <label for="" class="m-1">Target</label>
                                         <input type="text"
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            required name="target">
+                                             name="target">
                                     </div>
 
                                     <div class="flex flex-col">
-                                        <label for="" class="m-1">Payment Status</label>
+                                        <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Payment Status</label>
                                         <select name="paymentstatus" id="" required
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="">Select</option>
@@ -564,6 +567,12 @@
                                             <option value="Unpaid">Unpaid</option>
 
                                         </select>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Serial No</label>
+                                        <input type="text"
+                                            class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                            required name="serial-no">
                                     </div>
 
                                     <div class="flex flex-col">
@@ -580,7 +589,7 @@
 
                                     <div class="inline-flex" style="display: None;" id="paidamount">
                                         <div class="flex flex-col">
-                                            <label for="" class="m-1">Paid Amount</label>
+                                            <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Paid Amount</label>
                                             <input type="text" id="paidamounts"
                                                 class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
                                                 name="paidamount">
@@ -739,7 +748,7 @@
                                         <input onclick="requestDelete(this)" data-id="{{data.id}}" type="checkbox"
                                             class="cursor-pointer rounded-md">
                                     </td>
-                                    <td class="p-2">{{data.id}}</td>
+                                    <td class="p-2">{{data.member_serial_no}}</td>
                                     <td class="p-2">
                                         <div class="flex items-center text-sm">
                                             <!-- Avatar with inset shadow -->
@@ -853,8 +862,19 @@
         </div>
     </div>
     <script src="{% static 'js/addmember.js' %}"></script>
+    
     <script>
-
+//         $('#cnic-number').keyup(function() {
+//   var foo = $(this); // remove hyphens
+//   if (foo.length==5) {
+//     foo = foo.match(new RegExp('.{1,5}', 'g')).join("-");
+//   }
+//   else if (foo.length ==14){
+//     foo = foo.match(new RegExp('.{1,14}', 'g')).join("-");
+//   }
+//   $(this).val(foo);
+// });
+$(":input").inputmask();
     </script>
 
 </body>

@@ -13,5 +13,5 @@ urlpatterns = [
     path("api/searchByExpenseDate/", views.searchByExpenseDate, name="searchByExpenseDate"),
     path("api/searchByExpenseHeadOfAccount/", views.searchByExpenseHeadOfAccount, name="searchByExpenseHeadOfAccount"),
     path("api/searchByExpenseData/", views.searchByExpenseData, name="searchByExpenseData"),
-    # path("api/searchbyname/", views.searchbyname, name="searchbyname"),
+    path("api/searchByModule/", views.searchByModule, name="searchByModule"),
 ]

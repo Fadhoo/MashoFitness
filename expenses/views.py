@@ -12,12 +12,14 @@ from django.db.models import Sum
 
 def expenses(request):
     if request.method == "POST":
-        if request.POST.get("add-expense"):
+        if request.POST.get("add-expenses"):
             try:
+                print("add expense")
                 addExpense(request)
                 messages.success(request, "Expense added successfully")
                 return HttpResponseRedirect(reverse('expenses'))
             except Exception as e:
+                print("add expense",e)
                 messages.error(request, "Expense added failed")
                 return HttpResponseRedirect(reverse('expenses'))
     else:
@@ -137,5 +139,16 @@ def searchByExpenseHeadOfAccount(request):
             return Response(expensesSerializer(expensesData.objects.filter(account_head__icontains=name).order_by('-id'),many=True).data)
         else:
             return Response({"error":str("Please select name")})
+    except Exception as e:
+        return Response({"error":str(e)})
+
+@api_view(['GET'])
+def searchByModule(request):
+    try:
+        module=request.GET.get('module',None)
+        if module is not None:
+            return Response({'amount_module':expensesData.objects.filter(expenses_for__icontains=module).aggregate(Sum('paid_amount'))['paid_amount__sum']})
+        else:
+            return Response({"error":str("Please select module")})
     except Exception as e:
         return Response({"error":str(e)})

@@ -847,17 +847,14 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
-                                            onChange="let file = this.files[0]; 
+                                        <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file"
+                                            enctype="multipart/form-data" onChange="let files = this.files[0]; 
                                             var reader = new FileReader();
-                        
                                             reader.onload = function (e) {
                                                 document.getElementById('image').src = e.target.result;
                                                 document.getElementById('image2').src = e.target.result;
                                             };
-                                        
-                                            reader.readAsDataURL(file);
-                                        ">
+                                            reader.readAsDataURL(file);">
                                     </div>
                                 </div>
                             </div>
@@ -905,7 +902,7 @@
                 <footer
                     class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
                     
-                    <input type="number" id="id" value="{{item.id}}">
+                    <input type="number" id="id" value="{{item.id}}" hidden>
                     <button
                         class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" value="save-button">
                         Save
