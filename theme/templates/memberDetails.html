@@ -638,19 +638,19 @@
                   <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
                     <div class="flex flex-col">
                       <label for="" class="m-1">Pending Amount</label>
-                      <input type="text" readonly name="installment-pending-amount" id="pending-amount"
+                      <input type="text" readonly name="installment-pending-amount" id="pending-amount" required
                         value="{{all_data.active_fee_id.remaining}}"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
 
                     <div class="flex flex-col">
                       <label for="" class="m-1">Pay Amonut</label>
-                      <input type="text" name="installment-pay-amount" id="pay-amount"
+                      <input type="text" name="installment-pay-amount" id="pay-amount" required
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     <div class="flex flex-col">
-                      <label for="" class="m-1">New Pending Amonut</label>
-                      <input type="text" readonly name="istallment-new-pending-amount" id="new-pending-amount"
+                      <label for="" class="m-1">New Pending Amonut</label> 
+                      <input type="text" readonly name="istallment-new-pending-amount" id="new-pending-amount" required
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
 
@@ -814,13 +814,13 @@
                       <div>
                         <div class="flex flex-row gap-3">
                           <label for="">Category:</label>
-                          <label for="" class="underline">{{all_data.category_name}}</label>
+                          <label for="" class="underline">{{all_data.member_membership_id.category_name}}</label>
                         </div>
                       </div>
                       <div class="col-span-2">
                         <div class="flex flex-row gap-3">
                           <label for="">Membership type:</label>
-                          <label for="" class="underline">{{all_data.category_class}}</label>
+                          <label for="" class="underline">{{all_data.member_membership_id.category_class}}</label>
                         </div>
                       </div>
                     </div>
