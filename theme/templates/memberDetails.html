@@ -841,15 +841,14 @@
                     Update
                   </button>
                 </div>
-
+                {% if all_data.active_fee_id.remaining <= 0 %}
                 <div class="flex flex-col">
                   <button x-on:click.prevent="openRenewModal()"
                     class="bg-blue-600 rounded-lg w-36 text-white shadow-md rounded-br-none py-2">
                     Renew
                   </button>
                 </div>
-
-
+                {% endif %}
                 <div class="flex flex-col">
                   <button @click="printInvoice()"
                     class="bg-gray-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2">
@@ -906,6 +905,11 @@
                     {% csrf_token %}
                     <input type="text" name="cid" hidden value="{{all_data.id}}" />
                     <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Membership Start Date</label>
+                        <input type="date" id="model-start-date" name="model-start-date"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                      </div>
 
                       <div class="flex flex-col">
                         <label for="" class="m-1 text-sm">Membership Category</label>
@@ -1167,7 +1171,7 @@
       document.getElementById('model-payableamount').value = total;
     };
     function getExpiry(data) {
-      var expiry = new Date();
+      var expiry = new Date(document.getElementById("model-start-date").value);
       var getmonth = data
 
       getmonth = parseInt(getmonth.replace(/[^\d.]/g, ''));

@@ -24,7 +24,7 @@ def addMemberRecord(request,status):
         # if request.POST.get("photo"):
         print(request.POST.get("membership-start-date"))
         if request.FILES:
-            f=request.FILES["photo"]
+            f=request.FILES["photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
             uploaded_file_url = fs.url(filename)
@@ -186,7 +186,7 @@ def add_bill_record(subscription,
 def renewSubscription(request,status):
     print(status)
     try:
-        print("renew subscription",request.POST.get("model-membership-expire"))
+        print("renew subscription",request.POST.get("model-start-date"))
         print(request.POST.get("model-membershipcategory"))
         print(request.POST.get("model-membership-class"))
         print(request.POST.get("model-payableamount"))
@@ -213,14 +213,14 @@ def renewSubscription(request,status):
                             fee_id=fee
                             ).save()
             Member.objects.filter(id=member_data.id).update(
-                        member_membership_start_date=datetime.now(),
+                        member_membership_start_date=request.POST.get("model-start-date"),
                         member_membership_expiry_date=request.POST.get("model-membership-expire"),
                         active_fee_id=fee,
                         member_membership_id=membership_id
                         )
         
             add_bill_record(subscription=membership_id,
-                        start_date=datetime.now(),
+                        start_date=request.POST.get("model-start-date"),
                         end_date=request.POST.get("model-membership-expire"),
                         amount=membership_id.category_fee,
                         discount=request.POST.get("model-discount"),
@@ -247,14 +247,14 @@ def renewSubscription(request,status):
                             fee_id=fee
                             ).save()
             Member.objects.filter(id=member_data.id).update(
-                            member_membership_start_date=datetime.now(),
+                            member_membership_start_date=request.POST.get("model-start-date"),
                             member_membership_expiry_date=request.POST.get("model-membership-expire"),
                             active_fee_id=fee,
                             member_membership_id=membership_id
                             )
             
             add_bill_record(subscription=membership_id,
-                            start_date=datetime.now(),
+                            start_date=request.POST.get("model-start-date"),
                             end_date=request.POST.get("model-membership-expire"),
                             amount=membership_id.category_fee,
                             discount=request.POST.get("model-discount"),

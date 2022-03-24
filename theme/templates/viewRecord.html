@@ -301,13 +301,7 @@
                 class="h-full overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-orange-600 scrollbar-track-orange-200">
                 <div class="px-2 mx-auto grid">
                     <div class="inline-flex my-3">
-                        <a href="{% url 'memberDetails' %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class=" m-1 h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                        </a>
+                       
 
                         <h2 class="ml-96 text-2xl font-semibold text-blue-900 ">
 
@@ -391,7 +385,7 @@
                                         <td class="p-2">{{i.amount}}</td>
                                         <td class="p-2">{{i.discount}}</td>
                                         <td class="p-2">{{i.payable}}</td>
-                                        <td class="p-2">{{i.bill_created_at}}</td>
+                                        <td class="p-2">{{i.start_date}}</td>
                                         <td class="p-2">{{i.paid}}</td>
                                         <td class="p-2">{{i.remaining}}</td>
                                         
@@ -561,7 +555,7 @@ function ViewBillCall(id){
                 document.getElementById("b-contact").innerHTML = data['fee_id']['member_id']['member_contact'];
                 document.getElementById("b-category").innerHTML = data['subscription_id']['category_name'];
                 document.getElementById("b-membership-type").innerHTML = data['subscription_id']['category_class'];
-                document.getElementById("b-paid-date").innerHTML = data['bill_created_at'];
+                document.getElementById("b-paid-date").innerHTML = data['start_date'];
                 document.getElementById("b-total").innerHTML = data['payable'];
                 document.getElementById("b-recieved").innerHTML = data['paid'];
                 document.getElementById("b-remaining").innerHTML = data['remaining'];
