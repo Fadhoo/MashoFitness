@@ -288,8 +288,7 @@
             </h2>
           </div>
 
-          <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md" x-data="invoices()"
-            x-init="generateInvoiceNumber(111111, 999999);" x-cloak>
+          <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md" x-data="invoices()">
             <form action="{% url 'memberDetails' %}" method="post" enctype="multipart/form-data">
               {%csrf_token%}
               <div class="grid sm:grid-cols-1 grid-flow-col md:grid-cols-4 font-semibold gap-x-4">

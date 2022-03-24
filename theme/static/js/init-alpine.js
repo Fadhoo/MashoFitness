@@ -103,8 +103,7 @@ function data() {
       this.isUpdateModalOpen = false;
       this.trapCleanup222();
     },
-
-
+    
     // Product Modal
     isProductModalOpen: false,
     trapCleanup1: null,

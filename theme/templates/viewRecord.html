@@ -24,7 +24,7 @@
 
 <body>
 
-    <div class="flex h-screen bg-gray-50 " :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <div class="flex h-screen bg-gray-50 print:hidden" :class="{ 'overflow-hidden': isSideMenuOpen }" >
         <!-- Desktop Sidebar ye side navigation ha -->
         <aside
             class="z-20 hidden w-60 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
@@ -442,13 +442,13 @@
             <div class="p-2">
                 <div class="float-right">
                     <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeViewBillModal()"
-                      class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                      class="h-5 w-5 text-blue-800 cursor-pointer print:hidden" fill="none" viewBox="0 0 24 24"
                       stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </div>
                   <div class="mt-5" >
-                      <img src="" alt="">
+                      <img src="{% static 'img/masho_logo.jpg'%}" alt="" class="w-10 rounded-full">
                       <h1 class="underline font-bold text-xl text-center">MASHO SPORTS COMPLEX</h1>
                       <p class="text-center font-semibold">Office Tel No: <span class="font-normal">081-2661045</span></p>
 
@@ -491,11 +491,11 @@
                         </div>
                         <div>
                             <label for=""  class="font-semibold">Total Fee </label>
-                            <label for="" id="b-total" class="float-right"> </labe>
+                            <label for="" id="b-total" class="float-right"> </label>
                         </div>
                         <div>
                             <label for=""  class="font-semibold">Received </label>
-                        <label for="" id="b-recieved" class="float-right"> </label
+                        <label for="" id="b-recieved" class="float-right"> </label>
                         </div>                      
                        <div>
                         <label for=""  class="font-semibold">Remaining Amount </label>                      
@@ -508,8 +508,8 @@
                         <label for="" class="float-right">_____________________________</label> 
                        </div>            
                     <div class="p-4 w-full">
-                        <button class="bg-cyan-500 text-white text-lg py-1 rounded-xl w-full focus:outline-none"
-                            x-on:click="printAndProceed()">Print</button>
+                        <button class="bg-cyan-500 text-white text-lg py-1 rounded-xl w-full focus:outline-none print:hidden"
+                            x-on:click="printPaymentBill()" id="printPaymentBill">Print</button>
                     </div>
                   </div>
             </div>
@@ -610,6 +610,11 @@ function update_table(data) {
     $('#myTable tbody').html(all_rows);
 };
   
+const $printPaymentBill = document.querySelector("#printPaymentBill");
+$printPaymentBill.addEventListener("click", () => {
+    window.print();
+});
+
 </script>
 
 </body>
