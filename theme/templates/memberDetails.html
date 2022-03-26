@@ -638,19 +638,19 @@
                   <div class="grid grid-cols-4 mt-2 font-semibold gap-3">
                     <div class="flex flex-col">
                       <label for="" class="m-1">Pending Amount</label>
-                      <input type="text" readonly name="installment-pending-amount" id="pending-amount"
+                      <input type="text" readonly name="installment-pending-amount" id="pending-amount" required
                         value="{{all_data.active_fee_id.remaining}}"
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
 
                     <div class="flex flex-col">
                       <label for="" class="m-1">Pay Amonut</label>
-                      <input type="text" name="installment-pay-amount" id="pay-amount"
+                      <input type="text" name="installment-pay-amount" id="pay-amount" required
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
                     <div class="flex flex-col">
-                      <label for="" class="m-1">New Pending Amonut</label>
-                      <input type="text" readonly name="istallment-new-pending-amount" id="new-pending-amount"
+                      <label for="" class="m-1">New Pending Amonut</label> 
+                      <input type="text" readonly name="istallment-new-pending-amount" id="new-pending-amount" required
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" />
                     </div>
 
@@ -814,13 +814,13 @@
                       <div>
                         <div class="flex flex-row gap-3">
                           <label for="">Category:</label>
-                          <label for="" class="underline">{{all_data.category_name}}</label>
+                          <label for="" class="underline">{{all_data.member_membership_id.category_name}}</label>
                         </div>
                       </div>
                       <div class="col-span-2">
                         <div class="flex flex-row gap-3">
                           <label for="">Membership type:</label>
-                          <label for="" class="underline">{{all_data.category_class}}</label>
+                          <label for="" class="underline">{{all_data.member_membership_id.category_class}}</label>
                         </div>
                       </div>
                     </div>
@@ -840,15 +840,14 @@
                     Update
                   </button>
                 </div>
-
+                {% if all_data.active_fee_id.remaining <= 0 %}
                 <div class="flex flex-col">
                   <button x-on:click.prevent="openRenewModal()"
                     class="bg-blue-600 rounded-lg w-36 text-white shadow-md rounded-br-none py-2">
                     Renew
                   </button>
                 </div>
-
-
+                {% endif %}
                 <div class="flex flex-col">
                   <button @click="printInvoice()"
                     class="bg-gray-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2">
@@ -905,6 +904,11 @@
                     {% csrf_token %}
                     <input type="text" name="cid" hidden value="{{all_data.id}}" />
                     <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Membership Start Date</label>
+                        <input type="date" id="model-start-date" name="model-start-date"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                      </div>
 
                       <div class="flex flex-col">
                         <label for="" class="m-1 text-sm">Membership Category</label>
@@ -1166,7 +1170,7 @@
       document.getElementById('model-payableamount').value = total;
     };
     function getExpiry(data) {
-      var expiry = new Date();
+      var expiry = new Date(document.getElementById("model-start-date").value);
       var getmonth = data
 
       getmonth = parseInt(getmonth.replace(/[^\d.]/g, ''));

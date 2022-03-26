@@ -50,8 +50,8 @@ def login(request):
 def viewRecord(request):
     if request.method=="GET":
         bill=Bill.objects.filter(member_id=request.GET.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
-        return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,"memberID":bill[0].member_id.id,
-                        'bill': bill,})
+        return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,"memberID":bill[0].member_id.id,'member_serial':bill[0].member_id.member_serial_no,"bill":bill})
+                        
 
 def smshistory(request):
     return render(request, 'smshistory.html')
@@ -162,11 +162,11 @@ def memberDetails(request):
         if request.POST.get("submit-button"):
             if request.POST.get("paidamount") and request.POST.get("remainingamount"):
                 renewSubscription(request,False)
-                bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
+                # bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
                 return HttpResponseRedirect(reverse("viewRecord")+"?cid="+request.POST.get("cid"))
             else:
                 renewSubscription(request,True)
-                bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
+                # bill=Bill.objects.filter(member_id=request.POST.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
                 return HttpResponseRedirect(reverse("viewRecord")+"?cid="+request.POST.get("cid"))
     else:
         member=Member.objects.all().filter(id=request.GET.get('data')).select_related("member_membership_id").select_related("active_fee_id")[0]
@@ -205,6 +205,7 @@ def addMember(request):
                     return HttpResponseRedirect(reverse('addMember'))
 
             except Exception as e:
+                    print("add member call",e)
                     messages.error(request, f'Add member error {e}') # Any message you wish
                     # return render(request,"addMember.html", 
                     # {
