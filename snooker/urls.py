@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib import admin
 from . import views
-from theme.views import index
+from employees.views import index
 
 
 urlpatterns = [

@@ -16,6 +16,9 @@
   <script src="{% static 'js/init-alpine.js' %}"></script>
   <script src="{% static 'js/focus-trap.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   {% tailwind_css %}
 
@@ -363,7 +366,7 @@
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Contact No.</label>
-                      <input type="text" value="{{all_data.member_contact}}" name="contact"
+                      <input type="text" value="{{all_data.member_contact}}" name="contact" maxlength="12"
                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" />
                     </div>
                     {% if all_data.member_emergency_contact is none %}
@@ -606,7 +609,7 @@
                     </div>
                     <div class="flex flex-col">
                       <label for="" class="m-1">Serial No</label>
-                      <input type="text" value="{{all_data.member_serial_no}}" name="serial-no" required
+                      <input type="text" value="{{all_data.member_serial_no}}" id="serial-no" onkeyup="serialNoCheck(this)" name="serial-no" required
                         class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" />
                     </div>
 
@@ -1177,6 +1180,7 @@
       expiry.setMonth(expiry.getMonth() + getmonth);
       document.getElementById('model-expiry').value = expiry.toISOString().slice(0, 10);
     };
+
     function instalmentValueChanged(instalment) {
       var paidamount = document.getElementById("paidamount");
       // var remainingamount = document.getElementById("remainingamount");
@@ -1184,18 +1188,39 @@
       // remainingamount.style.display = instalment.checked ? "block" : "none";
 
     };
+
     document.getElementById("paidamounts").onchange = function () {
       let payableamount = document.getElementById("model-payableamount").value;
       let paidamount = document.getElementById("paidamounts").value;
       let remainingamount = payableamount - paidamount
       document.getElementById("remaining-amount").value = remainingamount;
     };
-  </script>
 
-  <script>
     var today = new Date();
     document.getElementById("today-date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+    
+    function serialNoCheck(data){
+    data=data.value
+    $.ajax({
+        method: "GET",
+        data: {'serial_no':data},
+        url: "/api/checkSerialNo/",
+        success: function (data) {
+            if(data['status']=='success'){
+                $('#serial-no').removeClass('text-red-500');
+                $('#serial-no').addClass('text-green-500');
+                $('#serial-no').text('Available');
+            }else{
+                $('#serial-no').removeClass('text-green-500');
+                $('#serial-no').addClass('text-red-500');
+                $('#serial-no').text('Not Available');
+            }
+        }
+    })
+};
+$(":input").inputmask();
   </script>
+
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 import collections
-from datetime import datetime
+import datetime as dt
 from operator import truediv
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
@@ -19,6 +19,13 @@ def null_check(value):
         return None
     else:
         return value
+
+def checkMemberStarus():
+    member=Member.objects.all()
+    for i in member:
+        if (i.member_membership_expiry_date-dt.date.today()).days<0:
+            id=Member.objects.filter(id=i.id)[0].active_fee_id.id
+            Fee.objects.filter(id=id).update(status="Expired")
 
 def addMemberRecord(request,status):
         # if request.POST.get("photo"):

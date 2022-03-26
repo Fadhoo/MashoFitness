@@ -304,6 +304,59 @@ function update_table(data) {
         '</tr>';
 
        }
+       else if (elem['active_fee_id']['status'] == 'Unpaid')  {
+        row =
+
+        '<tr class="border-2 hover:bg-slate-300">' +
+            '<td class="p-2">' +
+                '<input onclick="requestDelete(this)" data-id="' + elem['id'] +'" type="checkbox" class="cursor-pointer rounded-md" onc>' +
+            '</td>' +
+            '<td class="p-2">'+ elem['member_serial_no'] +'</td>'+
+            '<td class="p-2"><div class="flex items-center text-sm">'+
+                    '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
+                        '<img class="object-cover w-full h-full rounded-full"'+ 
+                           ' src="'+ elem['member_image'] +'"'+
+                            'alt="" loading="lazy" />'+
+                        '<div class="absolute inset-0 rounded-full shadow-inner"'+
+                            'aria-hidden="true"></div>'+
+                    '</div>'+
+                    '<div>'+
+                        '<p class="font-semibold">'+ elem['member_name'] +'</p>'+
+                        '<p class="text-sm text-gray-600 ">'+elem['member_membership_id']['category_name']+'</p>'+
+                    '</div>'+
+                '</div>'+
+            '</td>'+
+            '<td class="p-2">'+elem['member_card_id']+'</td>'+
+            '<td class="p-2">'+elem['member_contact']+'</td>'+
+            '<td class="p-2">'+elem['member_membership_id']['category_months']+'</td>'+
+            '<td class="p-2">'+'Masho'+'</td>'+
+            '<td class="p-2">'+ elem['member_membership_start_date'] +'</td>'+
+            '<td class="p-2">'+elem['member_membership_expiry_date']+'</td>'+
+            '<td class="p-2">'+
+                '<span class="px-2 py-1 font-semibold leading-tight text-black bg-yellow-300 rounded-full">'+ elem['active_fee_id']['status']+ '</span>'+
+            '</td>'+
+            
+            '<td class="p-2" >'+
+                '<div class="float-right mr-5">'+
+                    '<a href="/memberDetails/?data='+elem['id']+'">'+
+                        '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"'+
+                            'fill="none" viewBox="0 0 24 24" stroke="currentColor" >'+
+                            '<path stroke-linecap="round" stroke-linejoin="round"'+
+                                'stroke-width="2"'+
+                                'd="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />'+
+                        '</svg>'+
+                    '</a>'+
+                '</div>'+
+            '</td>'+
+            
+            '<td class="p-2">'+
+                '<button x-on:click="openSMSModel();"'+
+                    'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
+            '</td>'+
+        '</tr>';
+
+
+       }
        else{
         row =
 
@@ -357,7 +410,6 @@ function update_table(data) {
 
 
        }
-
         all_rows = all_rows + row;
     });
 
@@ -388,8 +440,14 @@ function getNumberOfDays(end) {
 
     // Calculating the no. of days between two dates
     const diffInDays = Math.round(diffInTime / oneDay);
+    if (diffInDays+1 > -1) {
+        return diffInDays+1;
+    }
+    else{
+        return 'Expired';
+    }
+    // return diffInDays;
 
-    return diffInDays;
 }
 
 
@@ -428,3 +486,27 @@ function get_all_member_remaining_expiredays(){
 
 
 };
+
+function serialNoCheck(data){
+    data=data.value
+    $.ajax({
+        method: "GET",
+        data: {'serial_no':data},
+        url: "/api/checkSerialNo/",
+        success: function (data) {
+            if(data['status']=='success'){
+                $('#serial-no').removeClass('text-red-500');
+                $('#serial-no').addClass('text-green-500');
+                $('#serial-no').text('Available');
+            }else{
+                $('#serial-no').removeClass('text-green-500');
+                $('#serial-no').addClass('text-red-500');
+                $('#serial-no').text('Not Available');
+            }
+        }
+
+
+
+
+    })
+}

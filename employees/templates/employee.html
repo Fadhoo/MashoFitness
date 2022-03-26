@@ -14,6 +14,9 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{% static 'js/init-alpine.js' %}"></script>
     <script src="{% static 'js/focus-trap.js' %}"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
     {% tailwind_css %}
 </head>
 
@@ -41,7 +44,7 @@
                     <!-- GRM Management -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            href="/gymManagement/">
+                            href="{% url 'gymManagement'%}">
                             <img src="{% static 'img/gym.png'%}" class="h-6"/>
                             <span class="ml-4 text-md font-semibold">GYM Member</span>
                         </a>
@@ -102,7 +105,7 @@
                     <!-- Snooker Club -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            href="/snooker/">
+                            href="{% url 'snooker'%}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                               </svg>
@@ -162,27 +165,27 @@
                                 aria-label="submenu">
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="/gymSetting/">GYM Settings</a>
+                                    <a class="w-full" href="{% url 'gymSetting'%}">GYM Settings</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">
+                                    <a class="w-full" href="#">
                                         Trainers
                                     </a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors font-bold text-red-900 duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">
+                                    <a class="w-full" href="#">
                                         Employee
                                     </a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">Deleted Client</a>
+                                    <a class="w-full" href="#">Deleted Client</a>
                                 </li>
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">SMS History</a>
+                                    <a class="w-full" href="#">SMS History</a>
                                 </li>
                             </ul>
                         </template>
@@ -357,12 +360,14 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Full Name</label>
-                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" name="emp-name">
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required name="emp-name">
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Contact No.</label>
-                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-contact">
+                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                    data-inputmask="'mask': '0399-9999999'" required
+                                     name="emp-contact">
                                     
                                 </div>
 
@@ -401,12 +406,12 @@
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">CNIC Number</label>
-                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-cnic">
+                                    <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"  name="emp-cnic">
                                 </div>
                                 
                                 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1">eMail</label>
+                                    <label for="" class="m-1">EMail</label>
                                     <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-email">
                                 </div>
                                 
@@ -419,7 +424,7 @@
 
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Gender</label>
-                                        <select name="emp-gender" class=""id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <select name="emp-gender" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" required>
                                             <option value="" class="" selected>select gender</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -450,26 +455,24 @@
                                         </select>
                                     </div>
 
-                                    <div class="flex flex-col">
+                                    <!-- <div class="flex flex-col">
                                         <label for="" class="m-1">Type of Employee</label>
                                         <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-type">
+                                    </div> -->
+                                    <div class="flex flex-col">
+                                        <label for=""  class="m-1">Type of Employee</label>
+                                        <select name="emp-type" id="emp-type" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" onchange="EmployeeTypeChecker(this)">
+                                            <option value="">Select Blood Group</option>
+                                            <option value="Technical">Technical</option>
+                                            <option value="Other">Other</option>
+                                        </select>
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Pay</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-pay">
+                                        <input type="number" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-pay">
                                     </div>
                                     
-                                    <div class="flex flex-col">
-                                        <label for="" class="m-1">User Name</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-username">
-                                    </div>
-
-                                    <div class="flex flex-col">
-                                        <label for="" class="m-1">Password</label>
-                                        <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-password">
-                                    </div>
-
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Status</label>
                                         <select name="emp-status" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
@@ -478,6 +481,25 @@
                                             <option value="Inactive">Inactive</option>
                                         </select>
                                     </div>
+
+                                    <div class="col-span-2" id="User-name-div">
+                                        <div class="flex flex-row gap-2" >
+                                            <div class="flex flex-col" >
+                                                <label for="" class="m-1">User Name</label>
+                                                <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" required
+                                                id="emp-username" name="emp-username">
+                                            </div>
+        
+                                            <div class="flex flex-col" >
+                                                <label for="" class="m-1">Password</label>
+                                                <input type="text" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" required
+                                                 id="emp-password" name="emp-password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+
+                                    
 
                                 </div>
                             </div>
@@ -575,8 +597,10 @@
         </div>
 
     </div>
-    <script src="{% static 'js/employee.js' %}"> 
-
+    <script src="{% static 'js/employee.js' %}"></script>
+    <script>
+        
+    $(":input").inputmask();
     </script>
 </body>
 
