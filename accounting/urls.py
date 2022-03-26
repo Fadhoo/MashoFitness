@@ -4,7 +4,10 @@ from theme.views import index
 
 urlpatterns = [
     path('index/', index, name='index'),
-    path('income/', views.income, name='income'),
+    path('expensesReport/', views.expensesReport, name='expensesReport'),
     path('reports/', views.reports, name='reports'),
-    path('rental/', views.rental, name="rental")
+    path('rental/', views.rental, name="rental"),
+    path('revenue/', views.revenue, name="revenue"),
+    path('updateRental/', views.updateRental, name="updateRental"),
 ]
+
