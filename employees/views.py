@@ -85,6 +85,7 @@ def Userlogin(request):
                 print("login error ",e)
                 return HttpResponseRedirect(reverse('login'))
         else:
+            check_admin()
             return render(request, 'login.html')
 
 def employee(request):

@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect
 from expenses.models import  expensesData
 import datetime as dt
 
-checkMemberStarus()
+
 
 def fetchAllData(dbmodel):
     data=dbmodel.objects.all()
@@ -53,6 +53,7 @@ def gymSetting(request):
              {'all_data': MembershipCategory.objects.all().filter(id=request.POST.get("cid"))[0]})
 
     else:
+        
         return render(request,"GymSetting/gymSetting.html", {'all_data': fetchAllData(MembershipCategory)})
 
 def editGymSetting(request):
@@ -67,7 +68,7 @@ def editGymSetting(request):
         return HttpResponseRedirect(reverse('gymSetting'))
 
 def gymManagement(request):
-    
+    checkMemberStarus()
     return render(request,"gymManagement.html",{
         "zipdata":Member.objects.all().select_related('member_membership_id').order_by("-id")[:10],
         "total_member":Member.objects.all().count(),
