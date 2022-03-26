@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.urls import reverse
 from theme.functions import fetchUniqueCategoryName
-from snooker.models import snookerTableIncome
 from .models import MembershipCategory, Member, BodyAssesments
 from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentSerializer,BillSerializer
 from rest_framework.decorators import api_view

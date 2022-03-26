@@ -30,12 +30,12 @@ def index(request,id=None):
     user=EmployeeRecord.objects.filter(id=id).first()
     if user.super_user==True:
         # user.set_password(user.employee_password)
-        user.save()
+        # user.save()
         print(user.employee_password)
         print(user.employee_username," is super user")
-        user=authenticate(username=user.employee_username,password=user.employee_password)
-        print("check user ",user)
-        login(request,user)
+        # user=authenticate(username=user.employee_username,password=user.employee_password)
+        # print("check user ",user)
+        # login(request,user)
         print("super user")
         return render(request, 'index.html',
         {
@@ -55,8 +55,8 @@ def index(request,id=None):
             'employee':EmployeeRecord.objects.filter(id=id).first(),
         })
     elif user.super_user==False:
-        user=authenticate(request,username=user.employee_username,password=user.employee_password)
-        login(request,user)
+        # user=authenticate(request,username=user.employee_username,password=user.employee_password)
+        # login(request,user)
         print("employee user")
         return render(request, 'index.html',
         {
