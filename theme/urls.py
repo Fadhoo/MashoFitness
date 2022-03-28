@@ -1,16 +1,14 @@
 from django.urls import path
-from django.contrib import admin
 from . import views
-
+from employees.views import index
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('index/', index, name='index'),
     path('addMember/', views.addMember, name='addMember'),
     path("bodyAssesments/", views.bodyAssesments, name="bodyAssesments"),
     path("gymManagement", views.gymManagement, name="gymManagement"),
     path("GymSetting/gymSetting/", views.gymSetting, name="gymSetting"),
     path("GymSetting/editGymSetting/", views.editGymSetting, name="editGymSetting"),
-    path("login/", views.login, name="login"),
     path("memberDetails/", views.memberDetails, name="memberDetails"),
     path("printform/", views.printform, name="printform"),
     path("smshistory/", views.smshistory, name="smshistory"),
@@ -33,7 +31,7 @@ urlpatterns = [
     path("api/searchBillDate/", views.searchBillDate, name="searchBillDate"),
     path("api/ViewBillCall/", views.ViewBillCall, name="ViewBillCall"),
     path("api/getExpireRemainingDays/", views.getExpireRemainingDays, name="getExpireRemainingDays"),
-    
+    path("api/checkSerialNo/", views.checkSerialNo, name="checkSerialNo"),
     # ex: /polls/
     # path('', views.home, name='home'),
     # path('login', views.login, name='login'),

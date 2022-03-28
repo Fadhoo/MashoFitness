@@ -2,9 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
 from django.urls import reverse
-from futsal.models import Match, Team
 from theme.functions import fetchUniqueCategoryName
-from snooker.models import snookerTableIncome
 from .models import MembershipCategory, Member, BodyAssesments
 from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentSerializer,BillSerializer
 from rest_framework.decorators import api_view
@@ -16,6 +14,8 @@ from django.http import HttpResponseRedirect
 from expenses.models import  expensesData
 import datetime as dt
 
+
+
 def fetchAllData(dbmodel):
     data=dbmodel.objects.all()
     ls=[]
@@ -23,29 +23,8 @@ def fetchAllData(dbmodel):
         ls.append(i)
     return ls
 
-def index(request):
-    return render(request, 'index.html',
-    {
-        "total_member":Member.objects.all().count(),
-        "total_male":Member.objects.filter(member_gender="Male").count(),
-        "total_female":Member.objects.filter(member_gender="Female").count(),
-        'member_dues':Fee.objects.filter(status="Unpaid").count(),
-        'member_income':Payment.objects.all().aggregate(Sum('payment_amount'))['payment_amount__sum'],
-        'member_expense':expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'gym_total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
-        'futsal_total_team': Team.objects.all().count(),
-        'futsal_income':Match.objects.filter(paid="Paid").aggregate(Sum('fee'))['fee__sum'], 
-        'futsal_expense': expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'total_expenses':expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
-        'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            
-    }
-    
-    )
 
-def login(request):
-    return render(request,"login.html")
+
 
 def viewRecord(request):
     if request.method=="GET":
@@ -74,6 +53,7 @@ def gymSetting(request):
              {'all_data': MembershipCategory.objects.all().filter(id=request.POST.get("cid"))[0]})
 
     else:
+        
         return render(request,"GymSetting/gymSetting.html", {'all_data': fetchAllData(MembershipCategory)})
 
 def editGymSetting(request):
@@ -88,7 +68,7 @@ def editGymSetting(request):
         return HttpResponseRedirect(reverse('gymSetting'))
 
 def gymManagement(request):
-    
+    checkMemberStarus()
     return render(request,"gymManagement.html",{
         "zipdata":Member.objects.all().select_related('member_membership_id').order_by("-id")[:10],
         "total_member":Member.objects.all().count(),
@@ -399,10 +379,24 @@ def getExpireRemainingDays(request):
         if id is not None:
             date = dt.date.today()
             start_week = date - dt.timedelta(date.weekday())
-            end_week = start_week + dt.timedelta(5)
+            end_week = start_week + dt.timedelta(6)
             entries = Member.objects.filter(member_membership_expiry_date__range=[start_week, end_week])
             return Response(MemberSerializer(entries,many=True).data)
         else:
             return Response({"error":str("Please select member id")})
+    except Exception as e:
+        return Response({"error":str(e)})
+
+@api_view(['GET'])
+def checkSerialNo(request):
+    try:
+        serial_no=request.GET.get('serial_no',None)
+        if serial_no is not None:
+            if Member.objects.filter(member_serial_no=serial_no).exists():
+                return Response({"status":"Serial no already exists"})
+            else:
+                return Response({"status":str("success")})
+        else:
+            return Response({"error":str("Please select serial no")})
     except Exception as e:
         return Response({"error":str(e)})

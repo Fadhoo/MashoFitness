@@ -24,9 +24,8 @@
             <img src="" alt="">
             <p class="text-orange-700 text-2xl font-mono font-extrabold">Masho Fitness</p>
         </div>
-        <form action="">
-
-            
+        <form action="{% url 'login'%}" method="post">
+            {% csrf_token %}
             <div class="flex bg-gray-200 rounded-md my-10 mx-auto flex-col w-1/4 shadow-lg p-5 gap-4">
                 <div class="mx-auto">
                     <span class="font-serif text-xl font-semibold text-zinc-600">Login Here</span>
@@ -34,17 +33,17 @@
 
                 <div class="flex flex-col">
                     <Label class="p-1 text-neutral-800 font-semibold">User Name</Label>
-                    <input type="text" class="rounded-md shadow-inner bg-white outline-none border-none">
+                    <input type="text" name="user-name" class="rounded-md shadow-inner bg-white outline-none border-none">
                 </div>
 
                 <div class="flex flex-col">
                     <Label class="p-1 text-neutral-800 font-semibold">Password</Label>
-                    <input type="password" class="rounded-md shadow-inner bg-white outline-none border-none">
+                    <input type="password" name="password" class="rounded-md shadow-inner bg-white outline-none border-none">
                 </div>
 
                 <div class="space-x-4 float-right">
-                    <a href="createUser.html"><span class="font-semibold">Create Account ?</span></a>
-                    <button class="bg-blue-600 px-6 rounded-xl text-white font-semibold font-mono text-lg py-1">
+                    <!-- <a href="{% url 'createUser'%}"><span class="font-semibold">Create Account ?</span></a> -->
+                    <button class="bg-blue-600 px-6 rounded-xl text-white font-semibold font-mono text-lg py-1" name="login-button" value="login-button">
                         Login
                     </button>
                 </div>
