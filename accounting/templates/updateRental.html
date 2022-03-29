@@ -304,37 +304,38 @@
                         <p class="p-2 font-semibold text-lg text-gray-600  border-b border-gray-700 border-opacity-80">
                             Person Details
                         </p>
-                        <form class="m-2" method="post">
+                        <form class="m-2" method="post" action="{% url 'updateRental'%}">
+                            {% csrf_token %}
                             <!-- User Details-->
                             <div class="grid sm:grid-cols-1 md:grid-cols-4 font-semibold gap-2">
                                 <div class="flex flex-col">
                                     <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Full
                                         Name</label>
-                                    <input type="text"
+                                    <input type="text" value="{{rentalData.Full_name}}" name="full-name"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="account-head">
+                                        required >
                                 </div>
                                 <div class="flex flex-col">
                                     <label for=""
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Contact
                                         No.</label>
-                                    <input type="number"
+                                    <input type="number" name="contact-no" value="{{rentalData.contact_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="amount-paid">
+                                        required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">CNIC No.</label>
-                                    <input type="number"
+                                    <input type="text" name="cnic-no" value="{{rentalData.cnic_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        name="amount-paid">
+                                        >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Reference</label>
-                                    <input type="number"
+                                    <input type="text" name="reference" value="{{rentalData.reference}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="amount-paid">
+                                        required>
                                 </div>
                             </div>
 
@@ -349,37 +350,37 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Shop
                                         / Flat No.</label>
-                                    <input type="text"
+                                    <input type="text" name="shop-flat-no" value="{{rentalData.shop_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="account-head">
+                                        required >
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Electricity Bill No.</label>
-                                    <input type="number"
+                                    <input type="number" name="electric-bill-no" value="{{rentalData.electric_bill}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="amount-paid">
+                                        required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Gas Bill No.</label>
-                                    <input type="number"
+                                    <input type="number" name="gas-bill" value="{{rentalData.gas_bill}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="amount-paid">
+                                        required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for=""
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Rent</label>
-                                    <input type="number"
+                                    <input type="number" name="rent-amount" value="{{rentalData.rent_amount}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="amount-paid">
+                                        required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Mode of Payment</label>
-                                    <select name="payment-mode" id=""
+                                    <select name="payment-mode" id="" 
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner" required>
-                                        <option value="" class="">select payment mode</option>
+                                        <option value="{{rentalData.payment_mode}}" class="">{{rentalData.payment_mode}}</option>
                                         <option value="Cash">Cash</option>
                                         <option value="Bank">Bank Transaction</option>
                                     </select>
@@ -388,31 +389,31 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay Date</label>
-                                    <input type="date"
+                                    <input type="date" name="rent-pay-date" value="{{rentalData.rent_pay_date|date:'Y-m-d'}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="receipent">
+                                        required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Duration</label>
-                                    <input type="text"
+                                    <input type="text" name="rent-duration" value="{{rentalData.rent_duration}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="receipent">
+                                        required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Total
                                         Rent</label>
-                                    <input type="text"
+                                    <input type="number" name="total-rent" value="{{rentalData.total_rent}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
-                                        required name="receipent">
+                                        required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         End Date</label>
-                                    <input type="date"
+                                    <input type="date" name="rent-end-date" value="{{rentalData.rent_end_date|date:'Y-m-d'}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
                                         required name="receipent">
                                 </div>
@@ -421,9 +422,9 @@
                                     <label for=""
                                         class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Payment
                                         Status</label>
-                                    <select name="paymentstatus" id="" required
+                                    <select name="payment-status" id="" required
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                        <option value="">Select</option>
+                                        <option value="{{rentalData.payment_status}}">{{rentalData.payment_status}}</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Unpaid">Unpaid</option>
 
@@ -433,7 +434,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay to ?</label>
-                                    <input type="text"
+                                    <input type="text" name="rent-pay-to" value="{{rentalData.rent_pay_to}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
                                 </div>
@@ -441,22 +442,22 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay From ?</label>
-                                    <input type="text"
+                                    <input type="text" name="rent-pay-from" value="{{rentalData.rent_pay_by}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
                                 </div>
 
                                 <div class="flex flex-col col-span-3">
                                     <label for="" class="m-1">Description</label>
-                                    <input type="text"
+                                    <input type="text" name="description" value="{{rentalData.description}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required placeholder="description here" name="description">
+                                        required placeholder="description here">
                                 </div>
                             </div>
-
+                            <input type="number" name="rental-id" value="{{rentalData.id}}" hidden>
                             <div class="flex flex-col float-right m-5">
                                 <button class="bg-blue-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2"
-                                    name="add-expenses" value="add-expenses">
+                                    name="update-rental" value="update-rental">
                                     Update
                                 </button>
                             </div>

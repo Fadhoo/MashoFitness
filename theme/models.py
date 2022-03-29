@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+
+
 class MembershipCategory(models.Model):
     category_name = models.CharField(max_length=25)
     category_class = models.CharField(max_length=20)

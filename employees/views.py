@@ -4,13 +4,11 @@ from django.shortcuts import render
 from django.urls import reverse
 from .models import *
 from .functions import *
-from django.contrib import messages
 from django.shortcuts import render
 from django.contrib import messages
 from django.urls import reverse
 from futsal.models import Match, Team
 from snooker.models import snookerTableIncome
-from .functions import *
 from django.db.models import Sum
 from django.utils import timezone
 from django.http import HttpResponseRedirect

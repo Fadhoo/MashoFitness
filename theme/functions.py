@@ -3,6 +3,8 @@ import datetime as dt
 from operator import truediv
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
+
+
 def fetchUniqueCategoryName(model):
     try:
         obj = model.objects.all()
