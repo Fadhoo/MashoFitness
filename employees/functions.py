@@ -4,29 +4,32 @@ from theme.functions import null_check
 from django.core.files.storage import FileSystemStorage
 
 def check_admin():
-    if EmployeeRecord.objects.filter(super_user=True).exists():
-        print("admin exists")
-        return False
-    else:
-        print("super user not exists")
-        EmployeeRecord.objects.create(
-            employee_name="Admin",
-            employee_contact="1234567890",
-            employee_image="default.png",
-            employee_cnic=None,
-            employee_email=None,
-            employee_address=None,
-            employee_gender="Male",
-            employee_dob=None,
-            employee_age=None,
-            employee_blood_group="",
-            employee_type="Active",
-            employee_username="Admin",
-            employee_password="Admin123",
-            employee_pay=0,
-            super_user=True,
-        ).save()
-        return True
+    try:
+        if EmployeeRecord.objects.filter(super_user=True).exists():
+            print("admin exists")
+            return False
+        else:
+            print("super user not exists")
+            EmployeeRecord.objects.create(
+                employee_name="Admin",
+                employee_contact="1234567890",
+                employee_image="default.png",
+                employee_cnic=None,
+                employee_email=None,
+                employee_address=None,
+                employee_gender="Male",
+                employee_dob=None,
+                employee_age=None,
+                employee_blood_group="",
+                employee_type="Active",
+                employee_username="Admin",
+                employee_password="Admin123",
+                employee_pay=0,
+                super_user=True,
+            ).save()
+            return True
+    except Exception as e:
+        print("Admin error ", e)
 def addEmployee(request):
     try:
         if request.FILES:

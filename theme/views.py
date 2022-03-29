@@ -400,3 +400,4 @@ def checkSerialNo(request):
             return Response({"error":str("Please select serial no")})
     except Exception as e:
         return Response({"error":str(e)})
+

@@ -26,46 +26,43 @@ from django.contrib.auth.hashers import make_password
 #     for i in data:
 #         ls.append(i)
 #     return ls
-def index(request,id=None):
-    user=EmployeeRecord.objects.filter(id=id).first()
-    if user.super_user==True:
-        # user.set_password(user.employee_password)
-        # user.save()
-        print(user.employee_password)
-        print(user.employee_username," is super user")
-        # user=authenticate(username=user.employee_username,password=user.employee_password)
-        # print("check user ",user)
-        # login(request,user)
-        print("super user")
-        return render(request, 'index.html',
-        {
-            "total_member":Member.objects.all().count(),
-            "total_male":Member.objects.filter(member_gender="Male").count(),
-            "total_female":Member.objects.filter(member_gender="Female").count(),
-            'member_dues':Fee.objects.filter(status="Unpaid").count(),
-            'member_income':Payment.objects.all().aggregate(Sum('payment_amount'))['payment_amount__sum'],
-            'member_expense':expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            'gym_total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
-            'futsal_total_team': Team.objects.all().count(),
-            'futsal_income':Match.objects.filter(paid="Paid").aggregate(Sum('fee'))['fee__sum'], 
-            'futsal_expense': expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            'total_expenses':expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
-            'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            'employee':EmployeeRecord.objects.filter(id=id).first(),
-        })
-    elif user.super_user==False:
-        # user=authenticate(request,username=user.employee_username,password=user.employee_password)
-        # login(request,user)
-        print("employee user")
-        return render(request, 'index.html',
-        {
-            'employee':EmployeeRecord.objects.filter(id=id).first()}
-        )
+
+User_credentials={}
+def index(request):
+    global User_credentials
+    print(User_credentials)
+    if bool(User_credentials):
+        if User_credentials['super_user']==True:
+            print("super user")
+            return render(request, 'index.html',
+            {
+                "total_member":Member.objects.all().count(),
+                "total_male":Member.objects.filter(member_gender="Male").count(),
+                "total_female":Member.objects.filter(member_gender="Female").count(),
+                'member_dues':Fee.objects.filter(status="Unpaid").count(),
+                'member_income':Payment.objects.all().aggregate(Sum('payment_amount'))['payment_amount__sum'],
+                'member_expense':expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                'gym_total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
+                'futsal_total_team': Team.objects.all().count(),
+                'futsal_income':Match.objects.filter(paid="Paid").aggregate(Sum('fee'))['fee__sum'], 
+                'futsal_expense': expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                'total_expenses':expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
+                'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                'employee':EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
+            })
+        elif User_credentials['super_user']==False:
+            print("employee user")
+            return render(request, 'index.html',
+            {
+                'employee':EmployeeRecord.objects.filter(id=User_credentials['id']).first()}
+            )
+            
     else:
-        return render(request, 'index.html')
+        return render(request, 'login.html')
 
 def Userlogin(request):
+        global User_credentials
         if request.method=="POST":
             try:
                 if request.POST.get('login-button'):
@@ -74,12 +71,15 @@ def Userlogin(request):
                     password=request.POST.get('password')
                     
                     if EmployeeRecord.objects.filter(employee_username=username,employee_password=password).exists():
-                        print("user login success as Admin")
-                        messages.success(request,"Login Successful")
-                        return index(request,id=EmployeeRecord.objects.filter(employee_username=username,employee_password=password).first().id)
+                        user=EmployeeRecord.objects.filter(employee_username=username,employee_password=password).first()
+                        User_credentials['username']=user.employee_username
+                        User_credentials['password']=user.employee_password
+                        User_credentials['id']=user.id
+                        User_credentials['super_user']=user.super_user
+                        return index(request)
                     else:
                         print("user login failed")
-                        messages.error(request,"Login Failed")
+                        messages.error(request,"Invalid username or password")
                         return HttpResponseRedirect(reverse('login'))
             except Exception as e:
                 print("login error ",e)
@@ -100,5 +100,9 @@ def employee(request):
         return render(request, 'employee.html', {'employees': EmployeeRecord.objects.all().order_by("-id")})
 
 
-def createUser(request):
-    return render(request,"createUser.html")
+def logout(request):
+    global User_credentials
+    User_credentials={}
+    return render(request,"login.html")
+
+

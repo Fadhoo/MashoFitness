@@ -19,6 +19,20 @@
 </head>
 
 <body>
+    {% for message in messages %}
+            {% if message.tags == "success" %}
+            <div class="message bg-green-500 m-3 rounded-lg p-1">
+                {{ message }}
+                <a href="#" class="del-msg">&times;</a>
+            </div>
+            {% elif message.tags == "error" %}
+            <div class="message bg-red-500 m-3 rounded-lg p-1">
+                {{ message }}
+                <a href="#" class="del-msg">&times;</a>
+            </div>
+            {% endif %}
+            {% endfor %}
+    
     <div class="h-screen ">
         <div class="py-3 px-10 drop-shadow-sm flex-row flex cursor-no-drop w-full bg-slate-100">
             <img src="" alt="">
@@ -42,7 +56,6 @@
                 </div>
 
                 <div class="space-x-4 float-right">
-                    <!-- <a href="{% url 'createUser'%}"><span class="font-semibold">Create Account ?</span></a> -->
                     <button class="bg-blue-600 px-6 rounded-xl text-white font-semibold font-mono text-lg py-1" name="login-button" value="login-button">
                         Login
                     </button>
@@ -51,6 +64,19 @@
 
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+    // messages timeout for 10 sec 
+    setTimeout(function() {
+        $('.message').fadeOut('slow');
+    }, 1000); // <-- time in milliseconds, 1000 =  1 sec
+
+    // delete message
+    $('.del-msg').live('click',function(){
+        $('.del-msg').parent().attr('style', 'display:none;');
+    })
+});
+    </script>
 </body>
 
 </html>
