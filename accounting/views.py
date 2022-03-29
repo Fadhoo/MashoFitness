@@ -3,7 +3,7 @@ from expenses.models import expensesData
 from django.db.models import Sum
 from .models import RentalData
 from django.http import HttpResponseRedirect
-from .functions import addRental, updateRental
+from .functions import addRental, editRental
 from django.urls import reverse
 # Create your views here.
 def reports(request):
@@ -35,7 +35,7 @@ def updateRental(request):
     if request.method == 'POST':
         if request.POST.get('update-rental'):
             print("update rental button......")
-            updateRental(request)
+            editRental(request)
             return HttpResponseRedirect(reverse('rental'))
     else:
         return render(request, "updateRental.html", {'rentalData':RentalData.objects.filter(id=request.GET.get('rent')).first()})

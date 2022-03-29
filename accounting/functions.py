@@ -24,9 +24,10 @@ def addRental(request):
         print("Error In Add Rental: ", e)
 
 
-def updateRental(request):
+def editRental(request):
     try:
-        RentalData.objects.filter(id=request.GET.get('rental-id')).update(Full_name=request.POST.get('full-name'), contact_no=request.POST.get('contact-no'), 
+        print(request.POST.get('rental-id'))
+        RentalData.objects.filter(id=request.POST.get('rental-id')).update(Full_name=request.POST.get('full-name'), contact_no=request.POST.get('contact-no'), 
                     cnic_no=null_check(request.POST.get('cnic-no')), reference=null_check(request.POST.get('reference')), 
                     shop_no=request.POST.get('shop-flat-no'), electric_bill=null_check(request.POST.get('electric-bill')),
                     gas_bill=null_check(request.POST.get('gas-bill')), rent_amount=request.POST.get('rent-amount'),
