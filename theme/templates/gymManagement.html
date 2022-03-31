@@ -430,12 +430,21 @@
                                     <option value="Expired">Expired</option>
                                 </select>
                             </div>
-                            <div class="flex flex-col col-span-2">
-                                <label for="" class="m-1">Search Member by Name</label>
+                            <div class="flex flex-col ">
+                                <label for="" class="m-1">Search by Name</label>
                                 <input type="search" name="searchbyname" id="searchbyname"
                                     oninput="searchbymembername();"
                                     class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                     placeholder="search by number">
+                            </div>
+                            <div class="flex flex-col ">
+                                <label for="" class="m-1">Gender</label>
+                                <select name="searchbygender" id="searchbygender" onchange="SearchByGender(this)"
+                                    class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                    <option value="" class="">select Type</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                             </div>
 
                             <!-- from to To search -->
