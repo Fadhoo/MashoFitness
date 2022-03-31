@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 class RentalData(models.Model):
     Full_name = models.CharField(max_length=100)
@@ -6,8 +7,8 @@ class RentalData(models.Model):
     cnic_no = models.CharField(max_length=15, null=True)
     reference = models.CharField(max_length=100, null=True)
     shop_no = models.CharField(max_length=20)
-    electric_bill = models.IntegerField(null=True)
-    gas_bill = models.IntegerField(null=True)
+    electric_bill = models.CharField(max_length=30, null=True)
+    gas_bill = models.CharField(max_length=30, null=True)
     rent_amount = models.IntegerField()
     payment_mode = models.CharField(max_length=25)
     rent_pay_date = models.DateField()
@@ -18,3 +19,4 @@ class RentalData(models.Model):
     rent_pay_to = models.CharField(max_length=50)
     rent_pay_by = models.CharField(max_length=50)
     description = models.CharField(max_length=500, null=True)
+    created_at = models.DateField(default=datetime.now)

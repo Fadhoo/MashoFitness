@@ -258,28 +258,31 @@
                                 <tbody class="flex flex-col gap-2">
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">GYM</td>
-                                        <td class="p-1 float-right">{{gym_revenue}}</td>
+                                            <td class="p-1 float-right">{{gym_revenue}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Futsal</td>
-                                        <td class="p-1 float-right"></td>
+                                        
+                                            <td class="p-1 float-right">{{futsal_revenue}}</td>
+                                        
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Snooker</td>
-                                        <td class="p-1 float-right">100000</td>
+                                        
+                                            <td class="p-1 float-right">{{snooker_revenue}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Cafeteria</td>
-                                        <td class="p-1 float-right">100000</td>
+                                            <td class="p-1 float-right">{{cafeteria_revenue}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Rental</td>
-                                        <td class="p-1 float-right">100000</td>
+                                            <td class="p-1 float-right">{{rental_revenue}}</td>
+                                        
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left text-lg font-semibold">Total</td>
-                                        <td class="p-1 float-right font-semibold text-lg">100000</td>
-                                    </tr>
+                                            <td class="p-1 float-right text-lg font-semibold">{{total_revenue}}</td>
                                 </tbody>
                             </table>
 
@@ -293,43 +296,23 @@
                                 <tbody class="flex flex-col gap-2">
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">GYM</td>
-                                        {% if gym_expense == None %}
-                                            <td class="p-1 float-right">0</td>
-                                        {% else %}
                                             <td class="p-1 float-right">{{gym_expense}}</td>
-                                        {% endif %}
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Futsal</td>
-                                        {% if futsal_expense == None %}
-                                            <td class="p-1 float-right">0</td>
-                                        {% else %}
                                             <td class="p-1 float-right">{{futsal_expense}}</td>
-                                        {% endif %}
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Snooker</td>
-                                        {% if snooker_expense == None %}
-                                            <td class="p-1 float-right">0</td>
-                                        {% else %}
                                             <td class="p-1 float-right">{{snooker_expense}}</td>
-                                        {% endif %}
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Cafeteria</td>
-                                        {% if cafeteria_expense == None %}
-                                            <td class="p-1 float-right">0</td>
-                                        {% else %}
                                             <td class="p-1 float-right">{{cafeteria_expense}}</td>
-                                        {% endif %}
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Rental</td>
-                                        {% if rental_expense == None %}
-                                            <td class="p-1 float-right">0</td>
-                                        {% else %}
                                             <td class="p-1 float-right">{{rental_expense}}</td>
-                                        {% endif %}
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left text-lg font-semibold">Total</td>

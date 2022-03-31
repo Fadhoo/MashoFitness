@@ -9,5 +9,11 @@ urlpatterns = [
     path('rental/', views.rental, name="rental"),
     path('revenue/', views.revenue, name="revenue"),
     path('updateRental/', views.updateRental, name="updateRental"),
+
+
+    # api paths
+    path('api/deleteRentalRecord/', views.deleteRentalRecord, name='deleteRentalRecord'),
+    path('api/SearchByRentalField/', views.SearchByRentalField, name='SearchByRentalField'),
+    path('api/searchByRentalDate/', views.searchByRentalDate, name='searchByRentalDate'),
 ]
 
