@@ -9,21 +9,34 @@ from theme.models import Bill
 from futsal.models import Match
 from snooker.models import snookerTableIncome
 # Create your views here.
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializer import RentalSerializer
+from django.contrib import messages
 
-def null_check(data):
-    if data==None:
+
+def checkNone(data):
+    if data == None:
         return 0
     else:
         return data
 
 def reports(request):
     return render(request,"reports.html", {
-        'gym_expense':expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'futsal_expense': expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'snooker_expense': expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'cafeteria_expense': expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'rental_expense': expensesData.objects.filter(expenses_for='Rental').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'total_expenses': expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum']
+        # Expenses
+        'gym_expense':checkNone(expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        'futsal_expense': checkNone(expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        'snooker_expense': checkNone(expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        'cafeteria_expense': checkNone(expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        'rental_expense': checkNone(expensesData.objects.filter(expenses_for='Rental').aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        'total_expenses': checkNone(expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        # Revenues
+        'gym_revenue':checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']),
+        'futsal_revenue': checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']),
+        'snooker_revenue': checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']),
+        'rental_revenue': checkNone(RentalData.objects.aggregate(Sum('total_rent'))['total_rent__sum']),
+        # 'cafeteria_revenue': expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+        'total_revenue': checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']) + checkNone(RentalData.objects.aggregate(Sum('total_rent'))['total_rent__sum'])
     })
 
 def rental(request):
@@ -55,9 +68,9 @@ def revenue(request):
                         "snooker_revenue_total":snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related("snooker_id").aggregate(Sum('amount'))['amount__sum'],
                         "SnookerData":snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related("snooker_id"),
 
-                        "All_total":null_check(snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related("snooker_id").aggregate(Sum('amount'))['amount__sum'])+
-                        null_check(Bill.objects.filter(bill_created_at__range=[from_date,to_date]).aggregate(Sum('paid'))['paid__sum'])+
-                        null_check(Match.objects.filter(date__range=[from_date,to_date]).aggregate(Sum('fee'))['fee__sum'])
+                        "All_total":checkNone(snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related("snooker_id").aggregate(Sum('amount'))['amount__sum'])+
+                        checkNone(Bill.objects.filter(bill_created_at__range=[from_date,to_date]).aggregate(Sum('paid'))['paid__sum'])+
+                        checkNone(Match.objects.filter(date__range=[from_date,to_date]).aggregate(Sum('fee'))['fee__sum'])
                         
                     })
                     # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
@@ -105,3 +118,47 @@ def updateRental(request):
 
 def expensesReport(request):
     return render(request,"expensesReport.html")
+
+
+@api_view(['GET'])
+def deleteRentalRecord(request):
+    try:
+        delete_list=request.GET.getlist('arr[]')
+        print(delete_list)
+        if delete_list is not None:
+            for i in delete_list:
+                print(i)
+                RentalData.objects.filter(id=int(i)).delete()
+            return Response(RentalSerializer(RentalData.objects.all().order_by("-id"),many=True).data)
+        else:
+            return Response({"error":str("No data selected")})
+    except Exception as e:
+        print(e)
+        return Response({"error":str(e)})
+
+@api_view(['GET'])
+def SearchByRentalField(request):
+    field=request.GET.get('field')
+    value=request.GET.get('value')
+    try:
+        if field=="Name":
+            return Response(RentalSerializer(RentalData.objects.filter(Full_name__icontains=value).order_by('-id'),many=True).data)
+
+        elif field=="Contact":
+            return Response(RentalSerializer(RentalData.objects.filter(contact_no__icontains=value).order_by('-id'),many=True).data) 
+        
+        elif field=="Shop":
+            return Response(RentalSerializer(RentalData.objects.filter(shop_no__icontains=value).order_by('-id'),many=True).data)
+
+    except:
+        return Response({'message':"No data found"})
+
+@api_view(['GET'])
+def searchByRentalDate(request):
+    try:
+        from_date=request.GET.get('fromdate',None)
+        to_date=request.GET.get('todate',None)
+        if from_date is not None and to_date is not None:
+            return Response(RentalSerializer(RentalData.objects.filter(created_at__range=[from_date,to_date]).order_by('-id'),many=True).data)
+    except:
+        return Response({'message':"No data found"})
