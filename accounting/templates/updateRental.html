@@ -311,7 +311,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Full
                                         Name</label>
-                                    <input type="text" value="{{rentalData.Full_name}}" name="full-name"
+                                    <input type="text" value="{{rentalData.rental_id.Full_name}}" name="full-name"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
@@ -319,21 +319,21 @@
                                     <label for=""
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Contact
                                         No.</label>
-                                    <input type="number" name="contact-no" value="{{rentalData.contact_no}}"
+                                    <input type="number" name="contact-no" value="{{rentalData.rental_id.contact_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">CNIC No.</label>
-                                    <input type="text" name="cnic-no" value="{{rentalData.cnic_no}}"
+                                    <input type="text" name="cnic-no" value="{{rentalData.rental_id.cnic_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Reference</label>
-                                    <input type="text" name="reference" value="{{rentalData.reference}}"
+                                    <input type="text" name="reference" value="{{rentalData.rental_id.reference}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required>
                                 </div>
@@ -350,20 +350,20 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Shop
                                         / Flat No.</label>
-                                    <input type="text" name="shop-flat-no" value="{{rentalData.shop_no}}"
+                                    <input type="text" name="shop-flat-no" value="{{rentalData.rental_id.shop_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Electricity Bill No.</label>
-                                    <input type="number" name="electric-bill-no" value="{{rentalData.electric_bill}}"
+                                    <input type="number" name="electric-bill-no" value="{{rentalData.rental_id.electric_bill}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Gas Bill No.</label>
-                                    <input type="number" name="gas-bill" value="{{rentalData.gas_bill}}"
+                                    <input type="number" name="gas-bill" value="{{rentalData.rental_id.gas_bill}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
@@ -434,7 +434,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay to ?</label>
-                                    <input type="text" name="rent-pay-to" value="{{rentalData.rent_pay_to}}"
+                                    <input type="text" name="rent-pay-to" value="{{rentalData.rental_id.rent_pay_to}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
                                 </div>
@@ -442,14 +442,14 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay From ?</label>
-                                    <input type="text" name="rent-pay-from" value="{{rentalData.rent_pay_by}}"
+                                    <input type="text" name="rent-pay-from" value="{{rentalData.rental_id.rent_pay_by}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
                                 </div>
 
                                 <div class="flex flex-col col-span-3">
                                     <label for="" class="m-1">Description</label>
-                                    <input type="text" name="description" value="{{rentalData.description}}"
+                                    <input type="text" name="description" value="{{rentalData.rental_id.description}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required placeholder="description here">
                                 </div>

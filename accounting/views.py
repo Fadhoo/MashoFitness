@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from expenses.models import expensesData
 from django.db.models import Sum
-from .models import RentalData
+from .models import RentalData, rentalPayment
 from django.http import HttpResponseRedirect
 from .functions import addRental, editRental
 from django.urls import reverse
@@ -33,9 +33,9 @@ def reports(request):
         'gym_revenue':checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']),
         'futsal_revenue': checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']),
         'snooker_revenue': checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']),
-        'rental_revenue': checkNone(RentalData.objects.aggregate(Sum('total_rent'))['total_rent__sum']),
+        'rental_revenue': checkNone(rentalPayment.objects.aggregate(Sum('total_rent'))['total_rent__sum']),
         # 'cafeteria_revenue': expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'total_revenue': checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']) + checkNone(RentalData.objects.aggregate(Sum('total_rent'))['total_rent__sum'])
+        'total_revenue': checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']) + checkNone(rentalPayment.objects.aggregate(Sum('total_rent'))['total_rent__sum'])
     })
 
 def rental(request):
@@ -44,11 +44,12 @@ def rental(request):
         if request.POST.get('rental-button'):
             print("rental button......")
             addRental(request)
+
             print(RentalData.objects.all())
             return HttpResponseRedirect(reverse('rental'))
     
     else:
-        return render(request, "rental.html", {'rentalData':RentalData.objects.all()})
+        return render(request, "rental.html", {'rentalData':rentalPayment.objects.all().select_related('rental_id')})
 
 def revenue(request):
     return render(request, "revenue.html")
@@ -60,7 +61,7 @@ def updateRental(request):
             editRental(request)
             return HttpResponseRedirect(reverse('rental'))
     else:
-        return render(request, "updateRental.html", {'rentalData':RentalData.objects.filter(id=request.GET.get('rent')).first()})
+        return render(request, "updateRental.html", {'rentalData':rentalPayment.objects.filter(id=request.GET.get('rent')).first()})
     # return render(request, "updateRental.html",)
 
 def expensesReport(request):
