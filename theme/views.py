@@ -401,3 +401,14 @@ def checkSerialNo(request):
     except Exception as e:
         return Response({"error":str(e)})
 
+@api_view(['GET'])
+def searchbygender(request):
+    try:
+        gender=request.GET.get('searchbygender',None)
+        if gender is not None:
+            return Response(MemberSerializer(Member.objects.filter(member_gender=gender).order_by('-id'),many=True).data)
+        else:
+            return Response(MemberSerializer(Member.objects.all().order_by('-id'),many=True).data)
+
+    except Exception as e:
+        return Response({"error":str(e)})

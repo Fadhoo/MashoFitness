@@ -241,6 +241,22 @@ function searchbymembername(){
 
 };
 
+function SearchByGender(data){
+    $.ajax({
+        method: "GET",
+        url: "/api/searchbygender/",
+        data: { "searchbygender": data.value },
+        success: function (data) {
+            update_table(data)
+        
+        },
+        error: function () {
+            console.log("error on get search by ")
+
+
+}   });
+};
+
 
 
 
@@ -251,7 +267,6 @@ function update_table(data) {
 
     Object.keys(data).forEach(key => {
         elem = data[key];
-        console.log(elem['member_name']);
        if (elem['active_fee_id']['status'] == 'Paid'){
         row =
 

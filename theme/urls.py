@@ -31,7 +31,7 @@ urlpatterns = [
     path("api/searchBillDate/", views.searchBillDate, name="searchBillDate"),
     path("api/ViewBillCall/", views.ViewBillCall, name="ViewBillCall"),
     path("api/getExpireRemainingDays/", views.getExpireRemainingDays, name="getExpireRemainingDays"),
-    path("api/checkSerialNo/", views.checkSerialNo, name="checkSerialNo"),
+    path("api/searchbygender/", views.searchbygender, name="searchbygender"),
     # ex: /polls/
     # path('', views.home, name='home'),
     # path('login', views.login, name='login'),
