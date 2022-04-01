@@ -22,6 +22,8 @@ def checkNone(data):
         return data
 
 def reports(request):
+    revenue=checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']) + checkNone(RentalData.objects.aggregate(Sum('total_rent'))['total_rent__sum'])
+    expense=checkNone(expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'])
     return render(request,"reports.html", {
         # Expenses
         'gym_expense':checkNone(expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum']),
@@ -29,14 +31,15 @@ def reports(request):
         'snooker_expense': checkNone(expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum']),
         'cafeteria_expense': checkNone(expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum']),
         'rental_expense': checkNone(expensesData.objects.filter(expenses_for='Rental').aggregate(Sum('paid_amount'))['paid_amount__sum']),
-        'total_expenses': checkNone(expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        'total_expenses': expense,
         # Revenues
         'gym_revenue':checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']),
-        'futsal_revenue': checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']),
+        'futsal_revenue': checkNone(Match.objects.aggregate(Sum('fee'))['fee__sum']),
         'snooker_revenue': checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']),
         'rental_revenue': checkNone(RentalData.objects.aggregate(Sum('total_rent'))['total_rent__sum']),
-        # 'cafeteria_revenue': expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'total_revenue': checkNone(Bill.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(Match.objects.aggregate(Sum('paid'))['paid__sum']) + checkNone(snookerTableIncome.objects.aggregate(Sum('amount'))['amount__sum']) + checkNone(RentalData.objects.aggregate(Sum('total_rent'))['total_rent__sum'])
+        'cafeteria_revenue': checkNone(expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum']),
+        'total_revenue': revenue,
+        "profit": revenue-expense,
     })
 
 def rental(request):
@@ -117,6 +120,60 @@ def updateRental(request):
     # return render(request, "updateRental.html",)
 
 def expensesReport(request):
+    if request.method=="POST":
+        if request.POST.get("revenue-generate"):
+            from_date = request.POST.get("from-date")
+            to_date = request.POST.get("to-date")
+            if request.POST.get("check"):
+                value=request.POST.get("check")
+                if value=="all-check":
+                    print("all check")
+                    return render(request,"expensesReport.html",{
+                        "snooker_expense_total":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                        "SnookerData":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Snooker'),
+                        "futsal_expense_total":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                        "FutsalData":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Futsal'),
+                        'MemberData':expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym'),
+                        "gym_expense_total":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+
+
+                        "All_total":checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'])+
+                        checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'])+
+                        checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'])
+                        
+                    })
+                    # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
+                elif value=="gym-check":
+                    print("gym check")
+                    return render(request, "expensesReport.html", {'MemberData':expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym'),
+                                            "gym_expense_total":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                    })
+                elif value=="futsal-check":
+                    print("futsal check")
+                    return render(request,"expensesReport.html",{
+                        "futsal_expense_total":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                        "FutsalData":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Futsal'),
+
+                    })
+                    # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
+                elif value=="snooker-check":
+                    print("snooker check")
+                    return render(request, "expensesReport.html",
+                     {
+                        "snooker_expense_total":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+                        "SnookerData":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Snooker'),
+                     })
+                    # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
+                elif value=="cafeteria-check":
+                    print("cafeteria check")
+                    # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
+                elif value=="rental-check":
+                    print("rental check")
+                    # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
+            else:
+                print("no check")
+                return render(request, "expensesReport.html")
+    # return render(request, "revenue.html")
     return render(request,"expensesReport.html")
 
 
