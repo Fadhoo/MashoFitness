@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from employees.models import EmployeeRecord
 
 
 class MembershipCategory(models.Model):
@@ -36,6 +37,7 @@ class Member(models.Model):
     member_updated_at = models.DateField(auto_now=True)
     member_membership_start_date = models.DateField()
     member_membership_expiry_date = models.DateField()
+    attended_by = models.ForeignKey(EmployeeRecord, on_delete=models.SET_NULL, related_name='attended_by', null=True)
     active_fee_id=models.ForeignKey('Fee', on_delete=models.CASCADE, null=True, blank=True,related_name='active_fee')    
     member_membership_id = models.ForeignKey(MembershipCategory, on_delete=models.CASCADE,related_name='member_membership_id')
 

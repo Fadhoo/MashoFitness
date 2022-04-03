@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import TeamSerializer, MatchSerializer, BookingSerializer
 from django.contrib import messages
+from employees.views import User_credentials
+from employees.models import EmployeeRecord
 
 
 
@@ -34,7 +36,8 @@ def addTeam(request):
         # code here
         if request.POST.get("edit-team"):
             print(request.POST.get("edit-team"))
-        return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
+        return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id"),
+                                            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first() })
 
 
 def viewTeam(request):
@@ -71,7 +74,8 @@ def futsalMatch(request):
         if request.GET.get("futsal-match"):
             return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],
             "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match")),
-            'TeamRecords': Match.objects.all().order_by("-id")
+            'TeamRecords': Match.objects.all().order_by("-id"),
+            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
             })
         
         return render(request, 'futsalMatch.html', {'TeamRecord': Match.objects.all()})

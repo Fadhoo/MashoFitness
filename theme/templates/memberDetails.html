@@ -903,7 +903,7 @@
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </div>
-                  <form action="/memberDetails/" method="post">
+                  <form action="{% url 'memberDetails' %}" method="post">
                     {% csrf_token %}
                     <input type="text" name="cid" hidden value="{{all_data.id}}" />
                     <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
@@ -968,6 +968,12 @@
                           name="model-membership-expire">
                       </div>
                       <div class="flex flex-col">
+                        <label for="" class="m-1">Attended By</label>
+                        <input type="text" id="attended-by" value="{{user.employee_username}}"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                          name="attended-by">
+                      </div>
+                      <div class="flex flex-col">
                         <label for="" class="m-1">Instalment ?</label>
                         <div class="flex flex-row">
 
@@ -992,6 +998,7 @@
                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
                             name="remainingamount">
                         </div>
+
                       </div>
                     </div>
 

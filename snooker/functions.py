@@ -1,5 +1,7 @@
 from datetime import datetime
 from .models import snookerIncome,snookerTableIncome
+from employees.models import EmployeeRecord
+
 record="""
 select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income
 from snooker_snookerincome s
@@ -10,7 +12,7 @@ def addSnookerIncome():
     try:
         add=snookerIncome.objects.create(
         description="",
-        attened_by="",
+        attened_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
         date=datetime.now()
         )
         add.save()
@@ -42,7 +44,7 @@ def updateSnookerIncome(request,obj):
             des=''
         snookerIncome.objects.filter(id=obj.id).update(
         description=des,
-        attened_by=request.POST.get("Attended-by"),
+        # attened_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(),
         date=request.POST.get("date")
         )
         return True
