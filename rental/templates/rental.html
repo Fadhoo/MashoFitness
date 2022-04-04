@@ -427,12 +427,7 @@
                                     </select>
                                 </div>
 
-                                <div class="flex flex-col">
-                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent Pay to ?</label>
-                                    <input type="text" name="rent-pay-to"
-                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="receipent">
-                                </div>
+                                
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent Pay From ?</label>
@@ -447,9 +442,15 @@
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         placeholder="description here" name="description">
                                 </div>
+                                <div class="flex flex-col ">
+                                    <label for="" class="m-1">Attended By</label>
+                                    <input type="text" name="attended-by" value="{{user.employee_username}}"
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                         name="attended-by" readonly>
+                                </div>
                             </div>
 
-                            <div class="flex flex-col float-right m-5">
+                            <div class="flex flex-col float-right mr-5">
                                 <button class="bg-blue-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2"
                                     name="rental-button" value="rental-button">
                                     Submit
@@ -575,16 +576,16 @@
                                     <td class="p-2">
                                         <input  onclick="requestDelete(this)" data-id="{{rent.id}}" type="checkbox" class="cursor-pointer rounded-md">
                                     </td>
-                                    <td class="p-1">{{rent.rental_id.created_at}}</td>
-                                    <td class="p-1">{{rent.rental_id.Full_name}}</td>
-                                    <td class="p-1">{{rent.rental_id.contact_no}}</td>
-                                    <td class="p-1">{{rent.rental_id.shop_no}}</td>
-                                    <td class="p-1">{{rent.rent_amount}}</td>
-                                    <td class="p-1">{{rent.rent_pay_date}}</td>
-                                    <td class="p-1">{{rent.rent_duration}}</td>
-                                    <td class="p-1">{{rent.rent_end_date}}</td>
-                                    <td class="p-1">{{rent.rental_id.rent_pay_by}}</td>
-                                    <td class="p-1">{{rent.rental_id.rent_pay_to}}</td>
+                                    <td class="p-1">{{rent.created_at}}</td>
+                                    <td class="p-1">{{rent.Full_name}}</td>
+                                    <td class="p-1">{{rent.contact_no}}</td>
+                                    <td class="p-1">{{rent.shop_no}}</td>
+                                    <td class="p-1">{{rent.active_rent_id.rent_amount}}</td>
+                                    <td class="p-1">{{rent.active_rent_id.rent_pay_date}}</td>
+                                    <td class="p-1">{{rent.active_rent_id.rent_duration}}</td>
+                                    <td class="p-1">{{rent.active_rent_id.rent_end_date}}</td>
+                                    <td class="p-1">{{rent.active_rent_id.rent_pay_by}}</td>
+                                    <td class="p-1">{{rent.rent_attended_by.employee_username}}</td>
                                     
 
                                     <td class="p-1">

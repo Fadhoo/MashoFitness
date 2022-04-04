@@ -14,14 +14,7 @@ function getEndDate(data) {
     document.getElementById('total-rent').value = rent * getmonth;
 }
 
-function getTotalRent(data){
-    var rent = new Number(document.getElementById("rent-amount").value);
-    console.log(rent);
-    var getmonth = data.value
-    getmonth = parseInt(getmonth.replace(/[^\d.]/g, ''));
-    var total = rent * getmonth;
-    
-}
+
 
 
 function reloadPage() {
@@ -157,16 +150,16 @@ function update_rental_table(data){
         '<td class="p-1">'+elem['Full_name']+'</td>'+
         '<td class="p-1">'+elem['contact_no']+'</td>'+
         '<td class="p-1">'+elem['shop_no']+'</td>'+
-        '<td class="p-1">'+elem['rent_amount']+'</td>'+
-        '<td class="p-1">'+elem['rent_pay_date']+'</td>'+
-        '<td class="p-1">'+elem['rent_duration']+'</td>'+
-        '<td class="p-1">'+elem['rent_end_date']+'</td>'+
+        '<td class="p-1">'+elem['active_rent_id']['rent_amount']+'</td>'+
+        '<td class="p-1">'+elem['active_rent_id']['rent_pay_date']+'</td>'+
+        '<td class="p-1">'+elem['active_rent_id']['rent_duration']+'</td>'+
+        '<td class="p-1">'+elem['active_rent_id']['rent_end_date']+'</td>'+
         '<td class="p-1">'+elem['rent_pay_by']+'</td>'+
-        '<td class="p-1">'+elem['rent_pay_to']+'</td>'+
+        '<td class="p-1">'+elem['rent_attended_by']['employee_username']+'</td>'+
         '<td class="p-1">'+
             '<a href="/updateRental/?rent='+elem['id']+'">'+
                 '<button'+
-                    'class="bg-blue-600 drop-shadow-md px-1 py-[.5] rounded-lg inline-flex items-center rounded-br-none" name="edit-expense" value="edit-expense">'
+                    'class="bg-blue-600 drop-shadow-md px-1 py-[.5] rounded-lg inline-flex items-center rounded-br-none" name="edit-expense" value="edit-expense">'+
                     '<span>Edit</span>'+
                     '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 ml-2 w-5" fill="none"'+
                         'viewBox="0 0 24 24" stroke="currentColor">'+

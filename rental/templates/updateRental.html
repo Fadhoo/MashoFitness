@@ -311,7 +311,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Full
                                         Name</label>
-                                    <input type="text" value="{{rentalData.rental_id.Full_name}}" name="full-name"
+                                    <input type="text" value="{{rentalData.Full_name}}" name="full-name"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
@@ -319,24 +319,41 @@
                                     <label for=""
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Contact
                                         No.</label>
-                                    <input type="number" name="contact-no" value="{{rentalData.rental_id.contact_no}}"
+                                    <input type="number" name="contact-no" value="{{rentalData.contact_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
-
+                                {% if rentalData.cnic_no %}
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">CNIC No.</label>
-                                    <input type="text" name="cnic-no" value="{{rentalData.rental_id.cnic_no}}"
+                                    <input type="text" name="cnic-no" value="{{rentalData.cnic_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         >
                                 </div>
-
+                                {%else%}
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1">CNIC No.</label>
+                                    <input type="text" name="cnic-no" value=""
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                        >
+                                </div>
+                                {%endif%}
+                                {% if rentalData.reference  %}
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Reference</label>
-                                    <input type="text" name="reference" value="{{rentalData.rental_id.reference}}"
+                                    <input type="text" name="reference" value="{{rentalData.reference}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required>
+                                        >
                                 </div>
+                                {%else%}
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1">Reference</label>
+                                    <input type="text" name="reference" value=""
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                        >
+                                </div>
+                                {%endif%}
+
                             </div>
 
                             <p
@@ -350,37 +367,57 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Shop
                                         / Flat No.</label>
-                                    <input type="text" name="shop-flat-no" value="{{rentalData.rental_id.shop_no}}"
+                                    <input type="text" name="shop-flat-no" value="{{rentalData.shop_no}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
+                                {% if rentalData.electric_bill %}
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Electricity Bill No.</label>
-                                    <input type="number" name="electric-bill-no" value="{{rentalData.rental_id.electric_bill}}"
+                                    <input type="number" name="electric-bill-no" value="{{rentalData.electric_bill}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required >
+                                         >
                                 </div>
+                                {%else%}
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1">Electricity Bill No.</label>
+                                    <input type="number" name="electric-bill-no" value=""
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                         >
+                                </div>
+                                {%endif%}
 
+                                {% if rentalData.gas_bill %}
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Gas Bill No.</label>
-                                    <input type="number" name="gas-bill" value="{{rentalData.rental_id.gas_bill}}"
+                                    <input type="number" name="gas-bill" value="{{rentalData.gas_bill}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required >
+                                         >
                                 </div>
+                                {%else%}
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1">Gas Bill No.</label>
+                                    <input type="number" name="gas-bill" value=""
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                         >
+                                </div>
+                                {%endif%}
+
 
                                 <div class="flex flex-col">
                                     <label for=""
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Rent</label>
-                                    <input type="number" name="rent-amount" value="{{rentalData.rent_amount}}"
+                                    <input type="number" name="rent-amount" id="rent-amount" value="{{rentalData.active_rent_id.rent_amount}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
+
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Mode of Payment</label>
                                     <select name="payment-mode" id="" 
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner" required>
-                                        <option value="{{rentalData.payment_mode}}" class="">{{rentalData.payment_mode}}</option>
+                                        <option value="{{rentalData.active_rent_id.payment_mode}}" class="">{{rentalData.active_rent_id.payment_mode}}</option>
                                         <option value="Cash">Cash</option>
                                         <option value="Bank">Bank Transaction</option>
                                     </select>
@@ -389,7 +426,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay Date</label>
-                                    <input type="date" name="rent-pay-date" value="{{rentalData.rent_pay_date|date:'Y-m-d'}}"
+                                    <input type="date" name="rent-pay-date" id="rent-pay-date" value="{{rentalData.active_rent_id.rent_pay_date|date:'Y-m-d'}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required >
                                 </div>
@@ -397,15 +434,15 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Duration</label>
-                                    <input type="text" name="rent-duration" value="{{rentalData.rent_duration}}"
-                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                    <input type="text" name="rent-duration" value="{{rentalData.active_rent_id.rent_duration}}"
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" onchange="getUpdateChagne(this)"
                                         required >
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Total
                                         Rent</label>
-                                    <input type="number" name="total-rent" value="{{rentalData.total_rent}}"
+                                    <input type="number" name="total-rent" id="total-rent" value="{{rentalData.active_rent_id.total_rent}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
                                         required >
                                 </div>
@@ -413,7 +450,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         End Date</label>
-                                    <input type="date" name="rent-end-date" value="{{rentalData.rent_end_date|date:'Y-m-d'}}"
+                                    <input type="date" name="rent-end-date" id="rent-end-date" value="{{rentalData.active_rent_id.rent_end_date|date:'Y-m-d'}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
                                         required name="receipent">
                                 </div>
@@ -424,7 +461,7 @@
                                         Status</label>
                                     <select name="payment-status" id="" required
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                        <option value="{{rentalData.payment_status}}">{{rentalData.payment_status}}</option>
+                                        <option value="{{rentalData.active_rent_id.payment_status}}">{{rentalData.active_rent_id.payment_status}}</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Unpaid">Unpaid</option>
 
@@ -434,26 +471,35 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay to ?</label>
-                                    <input type="text" name="rent-pay-to" value="{{rentalData.rental_id.rent_pay_to}}"
+                                    <input type="text" name="rent-pay-to" value="{{rentalData.active_rent_id.rent_payment_attended_by.employee_username}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="receipent">
+                                        required name="receipent" readonly>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Pay From ?</label>
-                                    <input type="text" name="rent-pay-from" value="{{rentalData.rental_id.rent_pay_by}}"
+                                    <input type="text" name="rent-pay-from" value="{{rentalData.active_rent_id.rent_pay_by}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
                                 </div>
-
+                                {% if rentalData.description %}
                                 <div class="flex flex-col col-span-3">
                                     <label for="" class="m-1">Description</label>
                                     <input type="text" name="description" value="{{rentalData.rental_id.description}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required placeholder="description here">
+                                        placeholder="description here">
                                 </div>
+                                {% else %}
+                                <div class="flex flex-col col-span-3">
+                                    <label for="" class="m-1">Description</label>
+                                    <input type="text" name="description" value=""
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                        placeholder="description here">
+                                </div>
+                                {% endif %}
                             </div>
+                            <input type="number" hidden name="active-fee-id" value="{{rentalData.active_rent_id.id}}">
                             <input type="number" name="rental-id" value="{{rentalData.id}}" hidden>
                             <div class="flex flex-col float-right m-5">
                                 <button class="bg-blue-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2"
@@ -467,7 +513,8 @@
 
                     <div class="px-3 py-3 mb-5 mt-5 bg-white rounded-lg border-b-2 border-blue-400 shadow-md ">
 
-                        <form action="">
+                        <form action="{% url 'updateRental'%}" method="post">
+                            {% csrf_token %}
 
                             <div class="flex flex-row justify-between border-b border-gray-700 border-opacity-80">
                                 <p class="p-2 text-lg text-gray-600   ">
@@ -481,7 +528,7 @@
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Renew Date</label>
                                     <input type="date"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="account-head">
+                                        required name="renew-start-date" id="renew-start-date">
                                 </div>
 
                                 <div class="flex flex-col">
@@ -489,7 +536,7 @@
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Pay From</label>
                                     <input type="text"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="account-head">
+                                        required name="renew-pay-from" id="renew-pay-from">
                                 </div>
 
                                 <div class="flex flex-col">
@@ -497,14 +544,14 @@
                                         class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Rent</label>
                                     <input type="text"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
-                                        required name="account-head">
+                                        required name="renew-rent" id="renew-rent">
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
                                         Duration</label>
                                     <input type="text"
-                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        required name="receipent">
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" onchange="getRenewChagne(this)"
+                                        required name="renew-duration" id="renew-duration">
                                 </div>
 
                                 <div class="flex flex-col">
@@ -512,7 +559,7 @@
                                         Rent</label>
                                     <input type="text"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
-                                        required name="receipent">
+                                        required name="renew-total" id="renew-total">
                                 </div>
 
                                 <div class="flex flex-col">
@@ -520,7 +567,7 @@
                                         End Date</label>
                                     <input type="date"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
-                                        required name="receipent">
+                                        required name="renew-end-date" id="renew-end-date">
                                 </div>
 
                                 <div class="flex flex-col">
@@ -539,17 +586,20 @@
                                 <div class="flex flex-col col-span-2">
                                     <label for="" class="m-1">Utility Bills</label>
                                     <div class="gap-3 items-center p-1 flex flex-row">
-                                        <input type="checkbox" class="cursor-pointer rounded-md">
+                                        <input type="checkbox" name="renew-gas-bill" id="renew-gas-bill" class="cursor-pointer rounded-md">
                                         <label for="" class="font-semibold">Electricity Bill</label>
 
-                                        <input type="checkbox" class="cursor-pointer rounded-md">
+                                        <input type="checkbox" name="renew-ele-bill" id="renew-ele-bill" class="cursor-pointer rounded-md">
                                         <label for="" class="font-semibold">Gass Bill</label>
                                     </div>
                                 </div>
 
                             </div>
-
-                            <button class="bg-blue-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2 float-right">Renew</button>
+                            <input type="number" name="rent-id" id="" hidden value="{{rentalData.id}}">
+                            <button 
+                            class="bg-blue-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2 float-right"
+                            name="rental-renew" value="rental-renew"
+                            >Renew</button>
 
                         </form>
                     </div>
@@ -581,23 +631,41 @@
                                         <th class="p-2">Rent Duration</th>
                                         <th class="p-2">Total Rent</th>
                                         <th class="p-2">Rent End Date</th>
-                                        <th class="p-2">Utility Bills</th>
+                                        <th class="p-2">Gas bill</th>
+                                        <th class="p-2">Electricity bill</th>
                                         <th class="p-2">Payment Status</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for bill in payment %}
                                     <tr class="text-left text-md border-2 hover:bg-slate-300">
-                                        <td class="p-2">1</td>
-                                        <td class="p-2">1/1/11111</td>
-                                        <td class="p-2">sami</td>
-                                        <td class="p-2">10000</td>
-                                        <td class="p-2">2</td>
-                                        <td class="p-2">20000</td>
-                                        <td class="p-2">2/2/2222</td>
-                                        <td class="p-2">Electricity/Gass</td>
-                                        <td class="p-2">paid</td>
+                                        <td class="p-2">{{bill.id}}</td>
+                                        <td class="p-2">{{bill.rent_pay_date}}</td>
+                                        <td class="p-2">{{bill.rent_pay_by}}</td>
+                                        <td class="p-2">{{bill.rent_amount}}</td>
+                                        <td class="p-2">{{bill.rent_duration}}</td>
+                                        <td class="p-2">{{bill.total_rent}}</td>
+                                        <td class="p-2">{{bill.rent_end_date}}</td>
+                                        {% if bill.payment_gas_bill %}
+                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-green-500  rounded-full" >Gas</td>
+                                        {% else %}
+                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-red-500  rounded-full" >Gas</td>
+                                        {% endif %}
+                                        {% if bill.payment_electric_bill %}
+                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-green-500  rounded-full" >Electricity</td>
+                                        {% else %}
+                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-red-500  rounded-full" >Electricity</td>
+                                        {% endif %}
+                                        {% if bill.payment_status == 'Paid' %}
+                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-green-400 rounded-full">{{bill.payment_status}}</td>
+                                        {% elif bill.payment_status == 'Unpaid' %}
+                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-yellow-400 rounded-full">{{bill.payment_status}}</td>
+                                        {% else %}
+                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-red-400 rounded-full">{{bill.payment_status}}</td>
+                                        {% endif %}
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </form>
@@ -608,7 +676,7 @@
             </main>
         </div>
     </div>
-    
+    <script src="{% static 'js/renewRental.js' %}"></script>
 </body>
 
 </html>
