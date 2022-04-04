@@ -3,6 +3,7 @@ import datetime as dt
 from operator import truediv
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
+from employees.models import EmployeeRecord
 
 
 def fetchUniqueCategoryName(model):
@@ -30,7 +31,7 @@ def checkMemberStarus():
             Fee.objects.filter(id=id).update(status="Expired")
 
 def addMemberRecord(request,status):
-        # if request.POST.get("photo"):
+        print("atted by ****** ", request.POST.get("attended-by"))
         print(request.POST.get("membership-start-date"))
         if request.FILES:
             f=request.FILES["photos"]
@@ -66,6 +67,7 @@ def addMemberRecord(request,status):
                         member_membership_id=membership_id,
                         member_membership_expiry_date=request.POST.get("membership-expire"),
                         member_membership_start_date=request.POST.get("membership-start-date"),
+                        attended_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(),
                         )
         member_data.save()
         print("member data",member_data)

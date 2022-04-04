@@ -1,9 +1,10 @@
 from django.db import models
+from employees.models import EmployeeRecord
 
 
 class snookerIncome(models.Model):
     description = models.CharField(max_length=300)
-    attened_by = models.CharField(max_length=100)
+    attened_by = models.ForeignKey(EmployeeRecord, on_delete=models.SET_NULL, related_name='attened_by', null=True)
     date = models.DateField(auto_now_add=True)
     
 

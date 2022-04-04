@@ -314,13 +314,9 @@
                                 </div>
                                 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1">Attended By</label>
-                                    <select name="attended-by" id="" required class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                        <option value="" class="">select user</option>
-                                        <option value="User 1">user 1</option>
-                                        <option value="User 2">user 2</option>
-                                        <!-- <option value="">Other</option> -->
-                                    </select>
+                                    <label for="" class="m-1 italic">Attended By</label>
+                                    <input type="text" name="attended-by" value="{{user.employee_username}}" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required
+                                    name="fee">
                                 </div>
 
                                 <!-- <div class="flex flex-col col-span-4">

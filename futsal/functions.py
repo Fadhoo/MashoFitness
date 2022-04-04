@@ -1,4 +1,5 @@
 from .models import Match, Booking, Team
+from employees.models import EmployeeRecord
 
 def createDailyMatchTimeTable(date):
     
@@ -46,7 +47,7 @@ def addMatchBooking(request):
         date=request.POST.get('date')
         fee=request.POST.get('fee')
         payment_status=request.POST.get('payment_status')
-        attended_by=request.POST.get('attended-by')
+        team_attended_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
 
         Match.objects.create(team1=team1,team2=team2,booking_time=booking_time,
         paid=payment_status,fee=fee,date=date)
@@ -69,7 +70,7 @@ def updateMatchBooking(request):
         date=request.POST.get('date')
         fee=request.POST.get('fee')
         payment_status=request.POST.get('payment_status')
-        attended_by=request.POST.get('attended-by')
+        # attended_by=request.POST.get('attended-by')
         print(team2, booking_time, date, fee,payment_status,attended_by)
 
         Match.objects.filter(id=request.POST.get("id")).update(team2=team2,booking_time=booking_time,

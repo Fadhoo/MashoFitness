@@ -13,6 +13,8 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from expenses.models import  expensesData
 import datetime as dt
+from employees.views import User_credentials
+from employees.models import EmployeeRecord
 
 
 
@@ -156,6 +158,7 @@ def memberDetails(request):
             {'all_data': member,
             "payment":payment['payment_amount__sum'],
             "category":fetchUniqueCategoryName(MembershipCategory),
+            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
             })
 
 def addMember(request):
@@ -201,10 +204,12 @@ def addMember(request):
       
             
     else:
+        print("user login",User_credentials)
         # print(Member.objects.all().select_related("membershp_id")[0].payment_status)
         # join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
         return render(request, "addMember.html",
              {
+                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
                         'category':fetchUniqueCategoryName(MembershipCategory),
                         'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),
                     })   
