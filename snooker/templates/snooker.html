@@ -301,7 +301,7 @@
                     <div class="px-3 py-3 mb-8 bg-white rounded-lg shadow-md ">
 
                         <div class="grid grid-cols-7 gap-2">
-                            <div class="flex flex-col ">
+                            <!-- <div class="flex flex-col ">
                                 <label for="" class="m-1">Result per Page</label>
                                 <select name="resultperpage" id="resultperpage" onchange="resultperpageValueChanged()"
                                     class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
@@ -321,7 +321,7 @@
                                     <option value="User 1">User 1</option>
                                     <option value="User 2">User 2</option>
                                 </select>
-                            </div>
+                            </div> -->
                             
 
                             <!-- from to To search -->
@@ -399,7 +399,7 @@
                                     <td class="p-1">
                                         {{data.description}}
                                     </td>
-                                    <td class="p-1">{{user.employee_username}}</td>
+                                    <td class="p-1">{{data.snooker_attened_by.employee_username}}</td>
 
                                     <td class="p-1">
                                         <a href="/updateSnooker/?data={{data.id}}">

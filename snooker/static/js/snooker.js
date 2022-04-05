@@ -161,7 +161,7 @@ function update_table(data) {
         '<td class="p-1">'+
             elem['description']+
         '</td>'+
-        '<td class="p-1">'+elem['attened_by']+'</td>'+
+        '<td class="p-1">'+elem['snooker_attened_by']['employee_username']+'</td>'+
 
        ' <td class="p-1">'+
             '<a href="/updateSnooker/?data='+elem['id']+'">'+
