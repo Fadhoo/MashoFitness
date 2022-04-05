@@ -395,7 +395,7 @@
                         </div>
                         {% endif %}
                         <!-- Rental -->
-                        {% if RentalData %}
+                        {% if rentalData %}
                         <table class="table-auto border-gray-200 w-full" id="myTable">
                             <thead class="border-b-2 text-left border-gray-400">
                                 <tr class="">
@@ -411,24 +411,26 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for rent in rentalData %}
                                 <tr class="border-2 hover:bg-slate-300">
-                                    <td class="p-1">1</td>
-                                    <td class="p-1">11/11/111</td>
+                                    <td class="p-1">{{rent.rental_id.created_at}}</td>
+                                    <td class="p-1">{{rent.rental_id.active_rent_id.rent_pay_date}}</td>
                                     <td class="p-1 font-semibold">Rental</td>
-                                    <td class="p-1">Ali</td>
-                                    <td class="p-1">A-2-3</td>
-                                    <td class="p-1">10000</td>
-                                    <td class="p-1">2</td>
-                                    <td class="p-1">admin</td>
-                                    <td class="p-1">20000</td>
+                                    <td class="p-1">{{rent.rental_id.Full_name}}</td>
+                                    <td class="p-1">{{rent.rental_id.shop_no}}</td>
+                                    <td class="p-1">{{rent.rental_id.active_rent_id.rent_amount}}</td>
+                                    <td class="p-1">{{rent.rental_id.active_rent_id.rent_duration}}</td>
+                                    <td class="p-1">{{rent.rental_id.rent_attended_by.employee_username}}</td>
+                                    <td class="p-1">{{rent.rental_id.active_rent_id.total_rent}}</td>
 
                                 </tr>
                             </tbody>
                         </table>
                         <div class="text-right p-1 border-2 mt-1">
                             <span class="font-bold">Rental Total Amount:</span>
-                            <span class="font-semibold">10000000</span>
+                            <span class="font-semibold">{{rental_revenue}}</span>
                         </div>
+                            {% endfor %}
                         {% endif %}
                         <!-- Others -->
                         {% if All_total %}
