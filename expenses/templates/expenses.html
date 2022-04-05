@@ -116,6 +116,7 @@
                     </li>
 
                     <!-- Accounting -->
+                    {% if user.super_user %}
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
                             href="{% url 'reports' %}">
@@ -128,6 +129,7 @@
                     </li>
                     
                     <!-- Options & Setting -->
+                    
                     <li class="relative px-6 py-3">
                         <button
                             class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
@@ -184,9 +186,9 @@
                             </ul>
                         </template>
                     </li>
+                    {% endif %}
 
                 </ul>
-
             </div>
         </aside>
         <!-- Yahan Desktop Sidebar khatam -->

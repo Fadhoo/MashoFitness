@@ -53,8 +53,8 @@ def revenue(request):
                         "FutsalData":Match.objects.filter(date__range=[from_date,to_date]).select_related('booking_time').select_related('team1').select_related('team2'),
                         "snooker_revenue_total":snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related("snooker_id").aggregate(Sum('amount'))['amount__sum'],
                         "SnookerData":snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related("snooker_id"),
-                        "rentalData":rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).select_related("rental_id"),
-                        'rental_revenue': rentalPayment.objects.aggregate(Sum('total_rent'))['total_rent__sum'],
+                        'rentalData': rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).select_related('rental_id'),
+                        'rental_revenue': rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).aggregate(Sum('total_rent'))['total_rent__sum'],
                         "All_total":checkNone(snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related("snooker_id").aggregate(Sum('amount'))['amount__sum'])+
                         checkNone(Bill.objects.filter(bill_created_at__range=[from_date,to_date]).aggregate(Sum('paid'))['paid__sum'])+
                         checkNone(Match.objects.filter(date__range=[from_date,to_date]).aggregate(Sum('fee'))['fee__sum'])
@@ -90,7 +90,7 @@ def revenue(request):
                     print("rental check")
                     return render(request, "revenue.html", 
                     {   'rentalData': rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).select_related('rental_id'),
-                        'rental_revenue': rentalPayment.objects.aggregate(Sum('total_rent'))['total_rent__sum']
+                        'rental_revenue': rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).aggregate(Sum('total_rent'))['total_rent__sum']
                      })
                     # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
             else:
@@ -117,7 +117,7 @@ def expensesReport(request):
                         'MemberData':expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym'),
                         "gym_expense_total":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
                         "rental_expense":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Rental').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-                        'rentalData':rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).select_related("rental_id"),
+                        'rentalData':expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Rental'),
                         "All_total":checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'])+
                         checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'])+
                         checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'])
@@ -152,7 +152,7 @@ def expensesReport(request):
                     print("rental check")
                     return render(request, "expensesReport.html",
                     {   "rental_expense":expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Rental').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-                        'rentalData':rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).select_related("rental_id")})
+                        'rentalData':expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Rental')})
                     # return render(request, "revenue.html", {'revenueData':RentalData.objects.filter(rent_date__range=[from_date,to_date])})
             else:
                 print("no check")

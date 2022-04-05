@@ -265,7 +265,7 @@
                         <!-- this div for all tables -->
                         <div>
                             <!-- GYM -->
-                            {% if MemberData is not None %}
+                            {% if MemberData  %}
                             <table class="table-auto border-gray-200 w-full" id="myTable">
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
@@ -301,7 +301,7 @@
                             </div>
                             {% endif %}
                             <!-- Futsal -->
-                            {% if FutsalData is not None %}
+                            {% if FutsalData %}
                             <table class="table-auto border-gray-200 w-full" id="myTable">
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
@@ -339,7 +339,7 @@
                             {% endif %}
 
                             <!-- Snooker -->
-                            {% if SnookerData is not None %}
+                            {% if SnookerData %}
                             <table class="table-auto border-gray-200 w-full" id="myTable">
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
@@ -426,18 +426,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for rent in rentalData %}
+                                    {% for gym in rentalData %}
                                     <tr class="border-2 hover:bg-slate-300">
-                                        <td class="p-1">{{rent.rental_id.id}}</td>
-                                        <td class="p-1">{{rent.rental_id.active_rent_id.rent_pay_date}}</td>
-                                        <td class="p-1 font-semibold">Rental</td>
-                                        <td class="p-1">{{rent.rental_id.Full_name}}</td>
-                                        <td class="p-1">{{rent.rental_id.shop_no}}</td>
-                                        <td class="p-1">{{rent.rental_id.active_rent_id.rent_amount}}</td>
-                                        <td class="p-1">{{rent.rental_id.active_rent_id.rent_duration}}</td>
-                                        <td class="p-1">{{rent.rental_id.active_rent_id.total_rent}}</td>
-    
+                                        <td class="p-1">{{gym.id}}</td>
+                                        <td class="p-1">{{gym.date}}</td>
+                                        <td class="p-1 font-semibold">Snooker</td>
+                                        <td class="p-1">{{gym.account_head}}</td>
+                                        <td class="p-1">{{gym.receipent_name}}</td>
+                                        <td class="p-1">{{gym.description}}</td>
+                                        <td class="p-1">admin</td>
+                                        <td class="p-1">{{gym.paid_amount}}</td>
+
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
 
@@ -445,7 +446,7 @@
                                 <span class="font-bold">Rental Total Expense:</span>
                                 <span class="font-semibold">{{rental_expense}}</span>
                             </div>
-                                {% endfor %}
+                                
                             {% endif %}
                             <!-- Others -->
                             {% if All_total %}
