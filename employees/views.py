@@ -3,21 +3,16 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .models import *
-from .functions import *
+from .functions import CreateAdminUserFirst,addEmployee
 from django.shortcuts import render
 from django.contrib import messages
-from django.urls import reverse
 from futsal.models import Match, Team
 from snooker.models import snookerTableIncome
 from django.db.models import Sum
 from django.utils import timezone
-from django.http import HttpResponseRedirect
 from expenses.models import  expensesData
 import datetime as dt
 from theme.models import *
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import make_password
-
 # def fetchAllData(dbmodel):
 #     data=dbmodel.objects.all()
 #     ls=[]
@@ -83,7 +78,7 @@ def Userlogin(request):
                 print("login error ",e)
                 return HttpResponseRedirect(reverse('login'))
         else:
-            check_admin()
+            CreateAdminUserFirst()
             return render(request, 'login.html')
 
 def employee(request):

@@ -72,6 +72,7 @@ class Bill(models.Model):
     subscription_id = models.ForeignKey(MembershipCategory, on_delete=models.CASCADE,related_name="subscription")
     member_id = models.ForeignKey(Member, on_delete=models.CASCADE,related_name="bill_member_id")
     fee_id=models.ForeignKey(Fee,on_delete=models.CASCADE,related_name="bill_fee_id")
+    bill_attended_by=models.ForeignKey(EmployeeRecord, on_delete=models.SET_NULL, related_name='bill_attended_by', null=True)
 
 
 

@@ -11,7 +11,7 @@ from .serializer import RentalSerializer,RentalUpdateSerializer
 from django.contrib import messages
 from employees.models import EmployeeRecord
 from employees.views import User_credentials
-
+import datetime as dt
 
 def checkNone(data):
     if data == None:
@@ -19,6 +19,11 @@ def checkNone(data):
     else:
         return data
 
+def checkMemberStarus():
+    rent=RentalData.objects.all().select_related('active_rent_id')
+    for i in rent:
+        if (i.active_rent_id.rent_end_date-dt.date.today()).days<0:
+            RentalData.objects.filter(id=i.id).update(payment_status="Expired")
 
 def rental(request):
     print(User_credentials)
@@ -32,6 +37,7 @@ def rental(request):
             return HttpResponseRedirect(reverse('rental'))
     
     else:
+        checkMemberStarus()
         return render(request, "rental.html",
          {'rentalData':RentalData.objects.all().select_related('active_rent_id').select_related("rent_attended_by"),
         "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first(),

@@ -1,9 +1,13 @@
-from optparse import check_choice
 from .models import EmployeeRecord
-from theme.functions import null_check
+# from theme.functions import NoneValue
 from django.core.files.storage import FileSystemStorage
+def NoneValue(value):
+    if value=="":
+        return None
+    else:
+        return value
 
-def check_admin():
+def CreateAdminUserFirst():
     try:
         if EmployeeRecord.objects.filter(super_user=True).exists():
             print("admin exists")
@@ -43,16 +47,16 @@ def addEmployee(request):
         employee_data = EmployeeRecord.objects.create(employee_name=request.POST.get('emp-name'),
                     employee_contact=request.POST.get('emp-contact'),
                     employee_image=filename,
-                    employee_cnic=null_check(request.POST.get('emp-cnic')),
-                    employee_email=null_check(request.POST.get('emp-email')),
-                    employee_address=null_check(request.POST.get('emp-address')),
+                    employee_cnic=NoneValue(request.POST.get('emp-cnic')),
+                    employee_email=NoneValue(request.POST.get('emp-email')),
+                    employee_address=NoneValue(request.POST.get('emp-address')),
                     employee_gender=request.POST.get('emp-gender'),
-                    employee_dob=null_check(request.POST.get('emp-dob')),
-                    employee_age=null_check(request.POST.get('emp-age')),
-                    employee_blood_group=null_check(request.POST.get('emp-blood-group')),
+                    employee_dob=NoneValue(request.POST.get('emp-dob')),
+                    employee_age=NoneValue(request.POST.get('emp-age')),
+                    employee_blood_group=NoneValue(request.POST.get('emp-blood-group')),
                     employee_type=request.POST.get('emp-type'),
-                    employee_username=null_check(request.POST.get('emp-username')),
-                    employee_password=null_check(request.POST.get('emp-password')),
+                    employee_username=NoneValue(request.POST.get('emp-username')),
+                    employee_password=NoneValue(request.POST.get('emp-password')),
                     employee_pay= request.POST.get('emp-pay'),
                     employee_status=request.POST.get('emp-status'))
 

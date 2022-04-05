@@ -4,6 +4,7 @@ from operator import truediv
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
 from employees.models import EmployeeRecord
+from employees.views import User_credentials
 
 
 def fetchUniqueCategoryName(model):
@@ -17,7 +18,7 @@ def fetchUniqueCategoryName(model):
     except model.DoesNotExist:
         return None
 
-def null_check(value):
+def NoneValue(value):
     if value=="":
         return None
     else:
@@ -48,20 +49,20 @@ def addMemberRecord(request,status):
         print(membership_id)
         member_data =Member.objects.create(member_name=request.POST.get("fullname"),
                         member_father_name=request.POST.get("fathername"),
-                        member_cnic=null_check(request.POST.get("cnicnumber")),
+                        member_cnic=NoneValue(request.POST.get("cnicnumber")),
                         member_contact=request.POST.get("contactnumber"),
-                        member_emergency_contact=null_check(request.POST.get("alternatenumber")),
-                        member_email=null_check(request.POST.get("email")),
-                        member_occupation=null_check(request.POST.get("occupation")),
-                        member_address=null_check(request.POST.get("address")),
+                        member_emergency_contact=NoneValue(request.POST.get("alternatenumber")),
+                        member_email=NoneValue(request.POST.get("email")),
+                        member_occupation=NoneValue(request.POST.get("occupation")),
+                        member_address=NoneValue(request.POST.get("address")),
                         member_gender=request.POST.get("gender"),
-                        member_dob=null_check(request.POST.get("dateofbirth")),
-                        member_age=null_check(request.POST.get("age")),
-                        member_blood_group=null_check(request.POST.get("bloodgroup")),
-                        member_height=null_check(request.POST.get("height")),
-                        member_weight=null_check(request.POST.get("weight")),
+                        member_dob=NoneValue(request.POST.get("dateofbirth")),
+                        member_age=NoneValue(request.POST.get("age")),
+                        member_blood_group=NoneValue(request.POST.get("bloodgroup")),
+                        member_height=NoneValue(request.POST.get("height")),
+                        member_weight=NoneValue(request.POST.get("weight")),
                         member_card_id=request.POST.get("cardnumber"),
-                        member_target=null_check(request.POST.get("target")),
+                        member_target=NoneValue(request.POST.get("target")),
                         member_serial_no=request.POST.get("serial-no"),
                         member_image=filename,
                         member_membership_id=membership_id,
@@ -183,7 +184,8 @@ def add_bill_record(subscription,
                         remaining=remaining,
                         paid=paid,
                         member_id=member,
-                        fee_id=fee
+                        fee_id=fee,
+                        bill_attended_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first()
                         ).save()
         return True
 
@@ -281,8 +283,8 @@ def renewSubscription(request,status):
 def addBodyAssesment(request):
     try:
         Member.objects.filter(id=request.POST.get("member_id")).update(
-            member_height=null_check(request.POST.get("height")),
-            member_weight=null_check(request.POST.get("weight")),
+            member_height=NoneValue(request.POST.get("height")),
+            member_weight=NoneValue(request.POST.get("weight")),
         )
         BodyAssesments.objects.create(
             height=request.POST.get("height"),

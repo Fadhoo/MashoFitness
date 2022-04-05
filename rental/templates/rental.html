@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masho Fitness</title>
     <link rel="stylesheet" href="{% static 'public/main.css' %}">
-    <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}"/>
-    <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}"/>
-    
+    <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}" />
+    <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -32,20 +32,20 @@
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
-                          href="{% url 'index' %}">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                          </svg>
-                          <span class="ml-4 text-md">Dashboard</span>
+                            href="{% url 'index' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <span class="ml-4 text-md">Dashboard</span>
                         </a>
-                      </li>
+                    </li>
                     <!-- GRM Management -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
                             href="{% url 'gymManagement' %}">
-                            <img src="{% static 'img/gym.png'%}" class="h-6"/>
+                            <img src="{% static 'img/gym.png'%}" class="h-6" />
                             <span class="ml-4 text-md font-semibold">GYM Member</span>
                         </a>
 
@@ -55,9 +55,11 @@
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
                             href="{% url 'futsal' %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                             <span class="ml-4">Futsal</span>
                         </a>
                     </li>
@@ -66,10 +68,12 @@
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
                             href="{% url 'snooker' %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                              </svg>
-                              
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+
                             <span class="ml-4">Snooker Club</span>
                         </a>
                     </li>
@@ -106,9 +110,11 @@
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
                             href="{% url 'expenses' %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
                             <span class="ml-4">Expenses</span>
                         </a>
                     </li>
@@ -117,14 +123,17 @@
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
                             href="{% url 'reports' %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z" clip-rule="evenodd" />
-                              </svg>
-                              
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z"
+                                    clip-rule="evenodd" />
+                            </svg>
+
                             <span class="ml-4">Reports</span>
                         </a>
                     </li>
-                    
+
                     <!-- Options & Setting -->
                     <li class="relative px-6 py-3">
                         <button
@@ -154,8 +163,7 @@
                                 x-transition:leave-end="opacity-0 max-h-0"
                                 class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
                                 aria-label="submenu">
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="{% url 'gymSetting' %}">GYM Settings</a>
                                 </li>
                                 {% comment %} <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
@@ -163,8 +171,7 @@
                                         Trainers
                                     </a>
                                 </li> {% endcomment %}
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+                                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
                                     <a class="w-full" href="{% url 'employee' %}">
                                         Employee
                                     </a>
@@ -172,8 +179,7 @@
                                 {% comment %} <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
                                     <a class="w-full" href="">Deleted Client</a>
                                 </li> {% endcomment %}
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
                                     <a class="w-full" href="{% url 'smshistory' %}">SMS History</a>
                                 </li>
                                 {% comment %} <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
@@ -182,8 +188,8 @@
                             </ul>
                         </template>
                     </li>
-                    
-                    
+
+
                 </ul>
             </div>
         </aside>
@@ -310,19 +316,22 @@
                         <p class="p-2 font-semibold text-lg text-gray-600  border-b border-gray-700 border-opacity-80">
                             Person Details
                         </p>
-                        <form class="m-3" method="post" action="{% url 'rental' %}" >
+                        <form class="m-3" method="post" action="{% url 'rental' %}">
                             {% csrf_token %}
 
                             <!-- User Details-->
                             <div class="grid sm:grid-cols-1 md:grid-cols-4 font-semibold gap-2">
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600" required>Full Name</label>
+                                    <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600"
+                                        required>Full Name</label>
                                     <input type="text" name="full-name"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="account-head">
                                 </div>
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Contact No.</label>
+                                    <label for=""
+                                        class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Contact
+                                        No.</label>
                                     <input type="number" name="contact-no" maxlength="11"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="amount-paid">
@@ -331,8 +340,7 @@
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">CNIC No.</label>
                                     <input type="number" name="cnic-no" maxlength="15"
-                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                        >
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
                                 </div>
 
                                 <div class="flex flex-col">
@@ -352,7 +360,8 @@
                             <div class="grid sm:grid-cols-1 md:grid-cols-5 font-semibold gap-2">
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Shop / Flat No.</label>
+                                    <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Shop
+                                        / Flat No.</label>
                                     <input type="text" name="shop-flat-no"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="account-head">
@@ -372,7 +381,8 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Rent</label>
+                                    <label for=""
+                                        class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Rent</label>
                                     <input type="number" name="rent-amount" id="rent-amount"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="amount-paid">
@@ -383,41 +393,48 @@
                                     <select name="payment-mode" id=""
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <!-- <option value="" class="">select payment mode</option> -->
-                                        <option value="Cash" selected >Cash</option>
+                                        <option value="Cash" selected>Cash</option>
                                         <option value="Bank">Bank Transaction</option>
                                     </select>
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent Pay Date</label>
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
+                                        Pay Date</label>
                                     <input type="date" name="rent-pay-date" id="rent-pay-date"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent Duration</label>
-                                    <input type="text" name="rent-duration" onchange="getEndDate(this)" id="rent-duration"
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
+                                        Duration</label>
+                                    <input type="text" name="rent-duration" onchange="getEndDate(this)"
+                                        id="rent-duration"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Total Rent</label>
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Total
+                                        Rent</label>
                                     <input type="text" name="total-rent" id="total-rent" readonly
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
                                         required name="receipent">
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent End Date</label>
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
+                                        End Date</label>
                                     <input type="date" name="rent-end-date" id="end_date" readonly
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
                                         required name="receipent">
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Payment Status</label>
+                                    <label for=""
+                                        class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Payment
+                                        Status</label>
                                     <select name="payment-status" id="" required
                                         class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="" selected>Select</option>
@@ -427,10 +444,11 @@
                                     </select>
                                 </div>
 
-                                
+
 
                                 <div class="flex flex-col">
-                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent Pay From ?</label>
+                                    <label for="" class="m-1 after:content-['*'] after:ml-0.5 after:text-red-600">Rent
+                                        Pay From ?</label>
                                     <input type="text" name="rent-pay-from"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                         required name="receipent">
@@ -446,7 +464,7 @@
                                     <label for="" class="m-1">Attended By</label>
                                     <input type="text" name="attended-by" value="{{user.employee_username}}"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
-                                         name="attended-by" readonly>
+                                        name="attended-by" readonly>
                                 </div>
                             </div>
 
@@ -483,7 +501,7 @@
                                     <option value="Name">Name</option>
                                     <option value="Contact">Contact</option>
                                     <option value="Shop">Shop/Flat No</option>
-                                    
+
                                 </select>
                             </div>
                             <div class="flex flex-col col-span-2">
@@ -566,6 +584,7 @@
                                     <th class="p-1">R. E. Date</th>
                                     <th class="p-1">R. From</th>
                                     <th class="p-1">R. To</th>
+                                    <th class="p-2">Payment Status</th>
                                     <th class="p-1">Action</th>
 
                                 </tr>
@@ -574,7 +593,8 @@
                                 {% for rent in rentalData %}
                                 <tr class="border-2 hover:bg-slate-300">
                                     <td class="p-2">
-                                        <input  onclick="requestDelete(this)" data-id="{{rent.id}}" type="checkbox" class="cursor-pointer rounded-md">
+                                        <input onclick="requestDelete(this)" data-id="{{rent.id}}" type="checkbox"
+                                            class="cursor-pointer rounded-md">
                                     </td>
                                     <td class="p-1">{{rent.created_at}}</td>
                                     <td class="p-1">{{rent.Full_name}}</td>
@@ -585,8 +605,21 @@
                                     <td class="p-1">{{rent.active_rent_id.rent_duration}}</td>
                                     <td class="p-1">{{rent.active_rent_id.rent_end_date}}</td>
                                     <td class="p-1">{{rent.active_rent_id.rent_pay_by}}</td>
+                                    {% if rent.payment_status == 'Paid' %}
+                                    <td
+                                        class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-green-400 rounded-full">
+                                        {{rent.payment_status}}</td>
+                                    {% elif rent.payment_status == 'Unpaid' %}
+                                    <td
+                                        class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-yellow-400 rounded-full">
+                                        {{rent.payment_status}}</td>
+                                    {% else %}
+                                    <td
+                                        class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-red-400 rounded-full">
+                                        {{rent.payment_status}}</td>
+                                    {% endif %}
                                     <td class="p-1">{{rent.rent_attended_by.employee_username}}</td>
-                                    
+
 
                                     <td class="p-1">
                                         <a href="/updateRental/?rent={{rent.id}}">
@@ -616,7 +649,7 @@
             </main>
         </div>
     </div>
-    <script src="{% static 'js/rental.js' %}" ></script>
+    <script src="{% static 'js/rental.js' %}"></script>
 </body>
 
 </html>

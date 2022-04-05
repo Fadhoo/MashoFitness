@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
 from django.urls import reverse
-from theme.functions import fetchUniqueCategoryName
+# from theme.functions import fetchUniqueCategoryName
 from .models import MembershipCategory, Member, BodyAssesments
 from .serializers import MembershipCategorySerializer, MemberSerializer,PaymentSerializer,BillSerializer
 from rest_framework.decorators import api_view
@@ -101,35 +101,35 @@ def memberDetails(request):
             
                 Member.objects.all().filter(id=request.POST.get("cid")).update(member_name=request.POST.get("name"), 
                     member_father_name=request.POST.get("father_name"), 
-                    member_cnic=null_check(request.POST.get("cnic")), 
-                    member_occupation=null_check(request.POST.get("occupation")), 
+                    member_cnic=NoneValue(request.POST.get("cnic")), 
+                    member_occupation=NoneValue(request.POST.get("occupation")), 
                     member_gender=request.POST.get("gender"), 
-                    member_address=null_check(request.POST.get("address")),
+                    member_address=NoneValue(request.POST.get("address")),
                     member_contact=request.POST.get("contact"), 
-                    member_emergency_contact=null_check(request.POST.get("alternative-number")),
-                    member_dob=null_check(request.POST.get("dob")), 
-                    member_age=null_check(request.POST.get("age")), 
-                    member_blood_group=null_check(request.POST.get("blood_group")), 
+                    member_emergency_contact=NoneValue(request.POST.get("alternative-number")),
+                    member_dob=NoneValue(request.POST.get("dob")), 
+                    member_age=NoneValue(request.POST.get("age")), 
+                    member_blood_group=NoneValue(request.POST.get("blood_group")), 
                     member_card_id=request.POST.get("card_id"),
                     member_serial_no=request.POST.get("serial-no"), 
-                    member_target=null_check(request.POST.get("target")),
+                    member_target=NoneValue(request.POST.get("target")),
                     member_image=filename )
             else:
                     Member.objects.all().filter(id=request.POST.get("cid")).update(
                     member_name=request.POST.get("name"), 
                     member_father_name=request.POST.get("father_name"), 
-                    member_cnic=null_check(request.POST.get("cnic")), 
-                    member_occupation=null_check(request.POST.get("occupation")), 
+                    member_cnic=NoneValue(request.POST.get("cnic")), 
+                    member_occupation=NoneValue(request.POST.get("occupation")), 
                     member_gender=request.POST.get("gender"), 
-                    member_address=null_check(request.POST.get("address")),
+                    member_address=NoneValue(request.POST.get("address")),
                     member_contact=request.POST.get("contact"), 
-                    member_emergency_contact=null_check(request.POST.get("alternative-number")),
-                    member_dob=null_check(request.POST.get("dob")), 
-                    member_age=null_check(request.POST.get("age")), 
-                    member_blood_group=null_check(request.POST.get("blood_group")), 
+                    member_emergency_contact=NoneValue(request.POST.get("alternative-number")),
+                    member_dob=NoneValue(request.POST.get("dob")), 
+                    member_age=NoneValue(request.POST.get("age")), 
+                    member_blood_group=NoneValue(request.POST.get("blood_group")), 
                     member_card_id=request.POST.get("card_id"),
                     member_serial_no=request.POST.get("serial-no"), 
-                    member_target=null_check(request.POST.get("target")))
+                    member_target=NoneValue(request.POST.get("target")))
             Fee.objects.filter(member_id=request.POST.get("cid")).update(status=request.POST.get("paymentstatus"))
             return HttpResponseRedirect(reverse('viewMembers'))
         if request.POST.get("pay-installment"):

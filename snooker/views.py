@@ -12,7 +12,7 @@ from django.utils import timezone
 from employees.views import User_credentials
 from employees.models import EmployeeRecord
 
-snooker_id=addSnookerIncome()
+snooker_id=None
 total_income=0
 def snooker(request):
     global total_income,snooker_id
@@ -33,6 +33,7 @@ def snooker(request):
             else:
                 return HttpResponse("update snooker income error")
     else:
+        snooker_id=addSnookerIncome()
         return render(request, 'snooker.html', {
             'user': EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
             'totalIncome': total_income,

@@ -1,4 +1,5 @@
 from datetime import datetime
+from employees.views import User_credentials
 from .models import snookerIncome,snookerTableIncome
 from employees.models import EmployeeRecord
 
@@ -12,7 +13,7 @@ def addSnookerIncome():
     try:
         add=snookerIncome.objects.create(
         description="",
-        attened_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+        attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
         date=datetime.now()
         )
         add.save()

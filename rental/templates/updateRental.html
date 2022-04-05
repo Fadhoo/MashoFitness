@@ -633,7 +633,7 @@
                                         <th class="p-2">Rent End Date</th>
                                         <th class="p-2">Gas bill</th>
                                         <th class="p-2">Electricity bill</th>
-                                        <th class="p-2">Payment Status</th>
+                                        
 
                                     </tr>
                                 </thead>
@@ -657,13 +657,7 @@
                                         {% else %}
                                         <td class="p-2 px-3 py-1 font-semibold leading-tight text-red-500  rounded-full" >Electricity</td>
                                         {% endif %}
-                                        {% if bill.payment_status == 'Paid' %}
-                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-green-400 rounded-full">{{bill.payment_status}}</td>
-                                        {% elif bill.payment_status == 'Unpaid' %}
-                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-yellow-400 rounded-full">{{bill.payment_status}}</td>
-                                        {% else %}
-                                        <td class="p-2 px-3 py-1 font-semibold leading-tight text-black bg-red-400 rounded-full">{{bill.payment_status}}</td>
-                                        {% endif %}
+                                        
                                     </tr>
                                     {% endfor %}
                                 </tbody>
