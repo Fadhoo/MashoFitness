@@ -90,7 +90,10 @@ def employee(request):
             return HttpResponseRedirect(reverse('employee'))
     else:
 
-        return render(request, 'employee.html', {'employees': EmployeeRecord.objects.all().order_by("-id")})
+        return render(request, 'employee.html', {
+            'employee':EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
+            'employees': EmployeeRecord.objects.all().order_by("-id")}
+            )
 
 
 def logout(request):

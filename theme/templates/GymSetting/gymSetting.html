@@ -56,45 +56,6 @@
                             <span class="ml-4">Futsal</span>
                         </a>
                     </li>
-
-                    <!-- Accounting -->
-                    <li class="relative px-6 py-3">
-                        <button
-                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                            @click="toggleAccountingMenu" aria-haspopup="true">
-                            <span class="inline-flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                  </svg>
-                                <span class="ml-4">Accounting</span>
-                            </span>
-                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                        <template x-if="isAccountingMenuOpen">
-                            <ul x-transition:enter="transition-all ease-in-out duration-300"
-                                x-transition:enter-start="opacity-25 max-h-0"
-                                x-transition:enter-end="opacity-100 max-h-xl"
-                                x-transition:leave="transition-all ease-in-out duration-300"
-                                x-transition:leave-start="opacity-100 max-h-xl"
-                                x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
-                                aria-label="submenu">
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="/income/">Income/ Receipt</a>
-                                </li>
-                                
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">Expenses</a>
-                                </li>
-                            </ul>
-                        </template>
-                    </li>
                    
 
                     <!-- Snooker Club -->
@@ -120,6 +81,32 @@
                             <span class="ml-4">Cafeteria</span>
                         </a>
                     </li>
+
+                    <!-- Rental -->
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            href="{% url 'rental'%}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span class="ml-4">Rental</span>
+                        </a>
+                    </li>
+
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
+                            href="{% url 'reports' %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z" clip-rule="evenodd" />
+                              </svg>
+                              
+                            <span class="ml-4">Reports</span>
+                        </a>
+                    </li>
+
                     <!-- Expenses -->
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
@@ -132,6 +119,7 @@
                     </li>
 
                     <!-- Options & Setting -->
+        
                     <li class="relative px-6 py-3 text-red-900">
                         <button
                             class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
@@ -162,26 +150,19 @@
                                     class="px-2 py-1 transition-colors font-bold text-red-900 duration-150 hover:text-red-800 ">
                                     <a class="w-full" href="#">GYM Settings</a>
                                 </li>
+                                
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">
-                                        Trainers
-                                    </a>
-                                </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">
+                                    <a class="w-full" href="{% url 'employee' %}">
                                         Employee
                                     </a>
                                 </li>
-                                <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="">Deleted Client</a>
-                                </li>
+                                
                                 <li
                                     class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
                                     <a class="w-full" href="/smshistory/">SMS History</a>
                                 </li>
+                            
                             </ul>
                         </template>
                     </li>
