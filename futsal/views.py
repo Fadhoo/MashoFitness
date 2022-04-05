@@ -19,6 +19,7 @@ def futsal(request):
     'futsal_total_team': Team.objects.all().count(),
     'futsal_new_team': Team.objects.filter(member_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).count(),
     'futsal_pending_game': Match.objects.filter(paid="Unpaid").count(),
+    "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
     })
 
 def addTeam(request):
@@ -26,7 +27,7 @@ def addTeam(request):
         if request.POST.get("add-team"):
             try:
                 Team.objects.create(team_name=request.POST.get("team-name"),captain_name=request.POST.get("captain-name"),
-                contact_number=request.POST.get("contact-number"),team_attended_by=request.POST.get("team-attended-by")).save()
+                contact_number=request.POST.get("contact-number"),team_attended_by=request.POST.get("attended-by")).save()
                 messages.success(request, 'Match Added Successful')
                 return HttpResponseRedirect(reverse('addTeam'))
             except Exception as e:
@@ -41,7 +42,8 @@ def addTeam(request):
 
 
 def viewTeam(request):
-    return render(request, 'viewTeam.html',{"TeamRecord":Team.objects.all().order_by("-id")})
+    return render(request, 'viewTeam.html',{"TeamRecord":Team.objects.all().order_by("-id"),
+                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
 
 def teamDetails(request):
     if request.method=="POST":
@@ -49,7 +51,8 @@ def teamDetails(request):
             Team.objects.filter(id=request.POST.get("id")).update(team_name=request.POST.get("team-name"),
                     captain_name=request.POST.get("captain-name"), contact_number=request.POST.get("contact"), 
                     team_attended_by=request.POST.get("attended-by"))
-            return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
+            return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id"),
+                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
     else:
         if request.GET.get("team-details"):
             team_id=request.GET.get("team-details")
@@ -78,7 +81,8 @@ def futsalMatch(request):
             "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
             })
         
-        return render(request, 'futsalMatch.html', {'TeamRecord': Match.objects.all()})
+        return render(request, 'futsalMatch.html', {'TeamRecord': Match.objects.all(),
+                    "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
 
 def matches(request):
     if request.method == "POST":
@@ -93,7 +97,8 @@ def matches(request):
             return render(request, "updateFutsalMatch.html", {'TeamRecord': match,
             "teamNames": Team.objects.all().exclude(team_name=match.team1.team_name)})
     
-    return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id")})
+    return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id"),
+                                "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
 
 def updateFutsalMatch(request):
     if request.method == "POST":
@@ -102,7 +107,8 @@ def updateFutsalMatch(request):
             update_match = updateMatchBooking(request)
             print(update_match)
             
-    return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id")})
+    return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id"),
+                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
 
 
 """
