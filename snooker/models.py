@@ -4,8 +4,9 @@ from employees.models import EmployeeRecord
 
 class snookerIncome(models.Model):
     description = models.CharField(max_length=300)
-    attened_by = models.ForeignKey(EmployeeRecord, on_delete=models.SET_NULL, related_name='snooker_attened_by', null=True)
+    snooker_attened_by = models.ForeignKey(EmployeeRecord, on_delete=models.SET_NULL, related_name='snooker_attened_by', null=True)
     date = models.DateField(auto_now_add=True)
+    status=models.BooleanField(default=False)
     
 
 class snookerTableIncome(models.Model):

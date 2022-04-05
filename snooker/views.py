@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from expenses.models import expensesData
+from snooker.serializer import SnookerIncomeSerializer,CustomSeriazerSnooker
 from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
@@ -14,12 +15,13 @@ from employees.models import EmployeeRecord
 
 snooker_id=None
 total_income=0
+print('snooker id',snooker_id)
 def snooker(request):
     global total_income,snooker_id
     if request.method == 'POST':
         if request.POST.get('add-table-income'):
             total_income+=int(request.POST.get("amount"))
-            print(total_income)
+            print(snooker_id)
             if addTableIncome(request,snooker_id):
                 return HttpResponseRedirect(reverse('snooker'))
             else:
@@ -33,11 +35,12 @@ def snooker(request):
             else:
                 return HttpResponse("update snooker income error")
     else:
+        # if snooker_id is None:
         snooker_id=addSnookerIncome()
         return render(request, 'snooker.html', {
             'user': EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
             'totalIncome': total_income,
-            'record':snookerIncome.objects.raw(record),
+            'record':snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),
             'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
             'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
             
@@ -52,7 +55,8 @@ def updateSnooker(request):
                 snookerTableIncome.objects.filter(id=request.POST.get("table-id")).delete()
                 return render(request, 'updateSnooker.html' ,{
                 'record':snookerTableIncome.objects.filter(snooker_id=request.POST.get("snooker-id")).select_related('snooker_id'),
-                "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(request.POST.get('snooker-id'))} GROUP by t.snooker_id_id order by s.id desc;")[0],
+                "day_details":snookerIncome.objects.filter(id=request.POST.get('snooker-id')).annotate(total_income=Sum('snookertableincome__amount')).select_related("snooker_attened_by").last()
+                # "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(request.POST.get('snooker-id'))} GROUP by t.snooker_id_id order by s.id desc;")[0],
                 })
             except IndexError as e:
                 return HttpResponseRedirect(reverse('snooker'))
@@ -62,14 +66,15 @@ def updateSnooker(request):
 
         if request.POST.get("update-income"):
             snookerIncome.objects.filter(id=request.POST.get("income-id")).update(
-                description=request.POST.get("description"), attened_by=request.POST.get("attended-by"), date=request.POST.get("date")
+                description=request.POST.get("description"), date=request.POST.get("date")
             )
             return HttpResponseRedirect(reverse('snooker'))
     else:
         
         return render(request, 'updateSnooker.html' ,{
             'record':snookerTableIncome.objects.filter(snooker_id=request.GET.get("data")).select_related('snooker_id'),
-            "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(request.GET.get('data'))} GROUP by t.snooker_id_id order by s.id desc;")[0],
+            "day_details":snookerIncome.objects.filter(id=request.GET.get('data')).annotate(total_income=Sum('snookertableincome__amount')).select_related("snooker_attened_by").last()
+            # "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(request.GET.get('data'))} GROUP by t.snooker_id_id order by s.id desc;")[0],
         })
 
 
@@ -84,7 +89,8 @@ def editSnooker(request):
             )
             return render(request, 'updateSnooker.html' ,{
             'record':snookerTableIncome.objects.filter(snooker_id=s_id).select_related('snooker_id'),
-            "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(s_id)} GROUP by t.snooker_id_id order by s.id desc;")[0],
+            "day_details":snookerIncome.objects.filter(id=s_id).annotate(total_income=Sum('snookertableincome__amount')).select_related("snooker_attened_by").last()
+            # "day_details":snookerIncome.objects.raw(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.id=={int(s_id)} GROUP by t.snooker_id_id order by s.id desc;")[0],
 
         })
 
@@ -141,7 +147,8 @@ def searchBySnookerDate(request):
         from_date=request.GET.get('fromdate',None)
         to_date=request.GET.get('todate',None)
         if from_date is not None and to_date is not None:
-            return Response(CustomSerializer(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.date BETWEEN  '{from_date}' and '{to_date}'  GROUP by t.snooker_id_id order by s.id desc ;"))
+            return Response(CustomSeriazerSnooker(snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),many=True).data)
+            # return Response(CustomSerializer(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.date BETWEEN  '{from_date}' and '{to_date}'  GROUP by t.snooker_id_id order by s.id desc ;"))
         else:
             return Response({"error":str("Please select date")})
     except Exception as e:

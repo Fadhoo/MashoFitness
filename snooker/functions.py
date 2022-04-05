@@ -11,13 +11,31 @@ order by s.id desc
 """
 def addSnookerIncome():
     try:
-        add=snookerIncome.objects.create(
-        description="",
-        attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
-        date=datetime.now()
-        )
-        add.save()
-        return add
+        if snookerIncome.objects.all().exists():
+            print('record exist')
+            if snookerIncome.objects.last().status is False:
+                print('status False',snookerIncome.objects.last().status)
+                return snookerIncome.objects.last()
+            else:
+                print('status True')
+                print("snooker income added")
+                add=snookerIncome.objects.create(
+                description="",
+                snooker_attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+                date=datetime.now()
+                )
+                add.save()
+                return add
+        else:
+            print("create new record")
+            add=snookerIncome.objects.create(
+            description="",
+            snooker_attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+            date=datetime.now()
+            )
+            add.save()
+            return add
+
     except Exception as e:
         print("add income error:",e)
 
@@ -45,6 +63,7 @@ def updateSnookerIncome(request,obj):
             des=''
         snookerIncome.objects.filter(id=obj.id).update(
         description=des,
+        status=True,
         # attened_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(),
         date=request.POST.get("date")
         )

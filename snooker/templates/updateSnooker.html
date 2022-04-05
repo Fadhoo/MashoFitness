@@ -163,13 +163,20 @@
                                     >
                                 </div>
 
-                                <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                     <label for=""  class="m-1">Attended By</label>
                                     <select name="attended-by" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                         <option value="{{day_details.attened_by}}">{{day_details.attened_by}}</option>
                                         <option value="User 1">User 1</option>
                                         <option value="User 2">User 2</option>
                                     </select>
+                                </div> -->
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1">Attended By</label>
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300" readonly
+                                    value="{{day_details.snooker_attened_by.employee_username}}"
+                                    
+                                    >
                                 </div>
 
                                 <div class="flex flex-col">
