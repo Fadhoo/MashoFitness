@@ -1,6 +1,9 @@
+import email
 from .models import EmployeeRecord
 # from theme.functions import NoneValue
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 def NoneValue(value):
     if value=="":
         return None
@@ -9,27 +12,24 @@ def NoneValue(value):
 
 def CreateAdminUserFirst():
     try:
-        if EmployeeRecord.objects.filter(super_user=True).exists():
+        if EmployeeRecord.objects.filter(user__is_superuser=True).exists():
             print("admin exists")
             return False
         else:
             print("super user not exists")
+            user=User.objects.create(first_name='admin',username="admin",password=make_password('admin'),is_superuser=True,email="")
             EmployeeRecord.objects.create(
-                employee_name="Admin",
                 employee_contact="1234567890",
                 employee_image="default.png",
                 employee_cnic=None,
-                employee_email=None,
                 employee_address=None,
                 employee_gender="Male",
                 employee_dob=None,
                 employee_age=None,
                 employee_blood_group="",
                 employee_type="Active",
-                employee_username="Admin",
-                employee_password="Admin123",
                 employee_pay=0,
-                super_user=True,
+                user=user,
             ).save()
             return True
     except Exception as e:
