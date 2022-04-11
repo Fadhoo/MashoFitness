@@ -486,7 +486,8 @@
                             class="p-2 font-semibold text-lg text-gray-600  border-b-2 border-gray-700 border-opacity-80">
                             Add Customer
                         </p>
-                        <form class="m-2" method="">
+                        <form class="m-2" method="post" action="{% url 'customer' %}">
+                            {% csrf_token %}
                         
                             <!-- Member Details-->
                                 <div class="grid sm:grid-cols-2 font-semibold md:grid-cols-5 gap-x-2">
@@ -495,36 +496,36 @@
                                         <label for="" class="m-1">Account No.</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-account">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Name</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-name">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Contact No.</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-contact">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Email</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-email">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Status</label>
-                                        <select name="gender" id="gender"
+                                        <select name="customer-status" id="status"
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                            <option value="">Active</option>
-                                            <option value="">In-Active</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">InActive</option>
                                         </select>
                                     </div>
                                     <!-- supplier name -->
@@ -532,21 +533,21 @@
                                         <label for="" class="m-1">Address</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-address">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">City</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-city">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Country</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-country">
                                     </div>
                                 </div>
 
@@ -557,7 +558,7 @@
                                 <div class="flex flex-col">
                                     <button
                                         class="bg-blue-500 rounded-lg px-20 text-white shadow-md rounded-br-none py-2"
-                                        name="addmembersubmit" value="addmembersubmit">
+                                        name="add-customer-data" value="add-customer-data">
                                         Save
                                     </button>
                                 </div>
@@ -668,27 +669,28 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for customer in customerData %}
                                 <tr class="border-2 hover:bg-slate-300">
                                     <td class="p-2">
                                         <input type="checkbox" class="cursor-pointer rounded-md">
                                     </td>
-                                    <td class="p-2">F001</td>
-                                    <td class="p-2">S107</td>
-                                    <td class="p-2">smai</td>
-                                    <td class="p-2">000 000 0 </td>
-                                    <td class="p-2">text@gmail.com</td>
-                                    <td class="p-2">quetta</td>
-                                    <td class="p-2">33/33/3333</td>
+                                    <td class="p-2">{{customer.id}}</td>
+                                    <td class="p-2">{{customer.customer_account}}</td>
+                                    <td class="p-2">{{customer.customer_name}}</td>
+                                    <td class="p-2">{{customer.customer_contact}}</td>
+                                    <td class="p-2">{{customer.customer_email}}</td>
+                                    <td class="p-2">{{customer.customer_city}}</td>
+                                    <td class="p-2">{{customer.customer_created_at}}</td>
                                     <td class="p-2">
                                         <span
                                             class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
-                                            Active
+                                            {{customer.customer_status}}
                                         </span>
                                     </td>
                                     
                                     <td class="p-2">
-                                        <div class="float-right mr-5">
-                                            <a href="memberDetails.html">
+                                        <div class="mr-5">
+                                            <a href="/updateCustomer/?customer={{customer.id}}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -698,8 +700,8 @@
                                             </a>
                                         </div>
                                     </td>
-                                   
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

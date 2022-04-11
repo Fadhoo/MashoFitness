@@ -486,7 +486,8 @@
                             class="p-2 font-semibold text-lg text-gray-600  border-b-2 border-gray-700 border-opacity-80">
                             Update Customer
                         </p>
-                        <form class="m-2" method="">
+                        <form class="m-2" method="post" action="{% url 'updateCustomer' %}">
+                            {% csrf_token %}
                         
                             <!-- Member Details-->
                                 <div class="grid sm:grid-cols-2 font-semibold md:grid-cols-5 gap-x-2">
@@ -495,36 +496,36 @@
                                         <label for="" class="m-1">Account No.</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-account" value="{{customerData.customer_account}}">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Name</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-name" value="{{customerData.customer_name}}">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Contact No.</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-contact" value="{{customerData.customer_contact}}">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Email</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-email" value="{{customerData.customer_email}}">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Status</label>
-                                        <select name="gender" id="gender"
+                                        <select name="customer-status" id="status"
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                                            <option value="">Active</option>
-                                            <option value="">In-Active</option>
+                                            <option value="{{customerData.customer_status}}">{{customerData.customer_status}}</option>
+                                            <option value="{{customerData.customer_status}}">{{customerData.customer_account}}</option>
                                         </select>
                                     </div>
                                     <!-- supplier name -->
@@ -532,21 +533,21 @@
                                         <label for="" class="m-1">Address</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-address" value="{{customerData.customer_address}}">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">City</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-city" value="{{customerData.customer_city}}">
                                     </div>
                                     <!-- supplier name -->
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Country</label>
                                         <input type="text" id=""
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                            name="">
+                                            name="customer-country" value="{{customerData.customer_country}}">
                                     </div>
                                 </div>
 
@@ -555,9 +556,11 @@
                             <div class="flex flex-row justify-end mt-3">
 
                                 <div class="flex flex-col">
+                                    <input type="number" name="update-id" id="customer-id" hidden
+                                         value="{{customerData.id}}">
                                     <button
                                         class="bg-blue-500 rounded-lg px-20 text-white shadow-md rounded-br-none py-2"
-                                        name="" value="">
+                                        name="update-customer-data" value="update-customer-data">
                                         Update
                                     </button>
                                 </div>

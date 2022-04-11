@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 
@@ -73,3 +74,25 @@ class Inventory(models.Model):
     # inventory_supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name="inventory_supplier")
     
 
+class Supplier(models.Model):
+    supplier_account = models.CharField(max_length=50)
+    supplier_name = models.CharField(max_length=50)
+    supplier_contact = models.IntegerField()
+    supplier_email = models.CharField(max_length=50)
+    supplier_status = models.CharField(max_length=20)
+    supplier_address = models.CharField(max_length=200)
+    supplier_city = models.CharField(max_length=50)
+    supplier_country = models.CharField(max_length=50)
+    supplier_created_at = models.DateField(default=datetime.now)
+
+
+class Customer(models.Model):
+    customer_account = models.CharField(max_length=50)
+    customer_name = models.CharField(max_length=50)
+    customer_contact = models.IntegerField()
+    customer_email = models.CharField(max_length=50)
+    customer_status = models.CharField(max_length=20)
+    customer_address = models.CharField(max_length=200)
+    customer_city = models.CharField(max_length=50)
+    customer_country = models.CharField(max_length=50)
+    customer_created_at = models.DateField(default=datetime.now)
