@@ -13,6 +13,8 @@ from django.utils import timezone
 from expenses.models import  expensesData
 import datetime as dt
 from theme.models import *
+from django.contrib.auth.models import User
+from django.contrib.auth import logout, login, authenticate
 # def fetchAllData(dbmodel):
 #     data=dbmodel.objects.all()
 #     ls=[]
@@ -63,12 +65,16 @@ def Userlogin(request):
                     username=request.POST.get('user-name')
                     password=request.POST.get('password')
                     
-                    if EmployeeRecord.objects.filter(employee_username=username,employee_password=password).exists():
-                        user=EmployeeRecord.objects.filter(employee_username=username,employee_password=password).first()
-                        User_credentials['username']=user.employee_username
-                        User_credentials['password']=user.employee_password
+                    if User.objects.get(username=username):
+                        user=User.objects.get(username=username)
+                        auth=authenticate(username=user.username,password=password)
+                        if auth:
+                            login(request,auth)
+                        print(user.check_password(password))
+                        User_credentials['username']=user.username
+                        User_credentials['password']=user.password
                         User_credentials['id']=user.id
-                        User_credentials['super_user']=user.super_user
+                        User_credentials['super_user']=user.is_superuser
                         return index(request)
                     else:
                         print("user login failed")
