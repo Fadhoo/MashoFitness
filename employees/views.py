@@ -102,9 +102,8 @@ def employee(request):
             )
 
 
-def logout(request):
-    global User_credentials
-    User_credentials={}
+def logout_user(request):
+    logout(request)
     return render(request,"login.html")
 
 

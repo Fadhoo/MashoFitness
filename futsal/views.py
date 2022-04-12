@@ -27,7 +27,7 @@ def addTeam(request):
         if request.POST.get("add-team"):
             try:
                 Team.objects.create(team_name=request.POST.get("team-name"),captain_name=request.POST.get("captain-name"),
-                contact_number=request.POST.get("contact-number"),team_attended_by=request.POST.get("attended-by")).save()
+                contact_number=request.POST.get("contact-number"),team_attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first()).save()
                 messages.success(request, 'Match Added Successful')
                 return HttpResponseRedirect(reverse('addTeam'))
             except Exception as e:
@@ -37,22 +37,19 @@ def addTeam(request):
         # code here
         if request.POST.get("edit-team"):
             print(request.POST.get("edit-team"))
-        return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id"),
-                                            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first() })
+        return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id") })
 
 
 def viewTeam(request):
-    return render(request, 'viewTeam.html',{"TeamRecord":Team.objects.all().order_by("-id"),
-                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+    return render(request, 'viewTeam.html',{"TeamRecord":Team.objects.all().order_by("-id")})
 
 def teamDetails(request):
     if request.method=="POST":
         if request.POST.get("update-team"):
             Team.objects.filter(id=request.POST.get("id")).update(team_name=request.POST.get("team-name"),
                     captain_name=request.POST.get("captain-name"), contact_number=request.POST.get("contact"), 
-                    team_attended_by=request.POST.get("attended-by"))
-            return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id"),
-                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                    team_attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first())
+            return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id")})
     else:
         if request.GET.get("team-details"):
             team_id=request.GET.get("team-details")
@@ -77,8 +74,7 @@ def futsalMatch(request):
         if request.GET.get("futsal-match"):
             return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],
             "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match")),
-            'TeamRecords': Match.objects.all().order_by("-id"),
-            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+            'TeamRecords': Match.objects.all().order_by("-id")
             })
         
         return render(request, 'futsalMatch.html', {'TeamRecord': Match.objects.all(),

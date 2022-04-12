@@ -157,8 +157,7 @@ def memberDetails(request):
         return render(request,"memberDetails.html",
             {'all_data': member,
             "payment":payment['payment_amount__sum'],
-            "category":fetchUniqueCategoryName(MembershipCategory),
-            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+            "category":fetchUniqueCategoryName(MembershipCategory)
             })
 
 def addMember(request):

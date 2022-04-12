@@ -40,8 +40,7 @@ def rental(request):
         checkMemberStarus()
         print(User_credentials)
         return render(request, "rental.html",
-         {'rentalData':RentalData.objects.all().select_related('active_rent_id').select_related("rent_attended_by"),
-        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
+         {'rentalData':RentalData.objects.all().select_related('active_rent_id').select_related("rent_attended_by")
          })
 
 def updateRental(request):

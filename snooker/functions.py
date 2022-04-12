@@ -21,7 +21,7 @@ def addSnookerIncome():
                 print("snooker income added")
                 add=snookerIncome.objects.create(
                 description="",
-                snooker_attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+                snooker_attened_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
                 date=datetime.now()
                 )
                 add.save()
@@ -30,7 +30,7 @@ def addSnookerIncome():
             print("create new record")
             add=snookerIncome.objects.create(
             description="",
-            snooker_attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+            snooker_attened_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
             date=datetime.now()
             )
             add.save()
@@ -64,7 +64,7 @@ def updateSnookerIncome(request,obj):
         snookerIncome.objects.filter(id=obj.id).update(
         description=des,
         status=True,
-        # attened_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(),
+        snooker_attened_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first(),
         date=request.POST.get("date")
         )
         return True

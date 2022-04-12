@@ -68,7 +68,7 @@ def addMemberRecord(request,status):
                         member_membership_id=membership_id,
                         member_membership_expiry_date=request.POST.get("membership-expire"),
                         member_membership_start_date=request.POST.get("membership-start-date"),
-                        attended_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(),
+                        attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first(),
                         )
         member_data.save()
         print("member data",member_data)

@@ -22,7 +22,7 @@ def addRental(request):
                     cnic_no=null_check(request.POST.get('cnic-no')), reference=null_check(request.POST.get('reference')), 
                     shop_no=request.POST.get('shop-flat-no'), electric_bill=null_check(request.POST.get('electric-bill')),
                     gas_bill=null_check(request.POST.get('gas-bill')),payment_status=request.POST.get('payment-status'),
-                    description=null_check(request.POST.get('description')),rent_attended_by=EmployeeRecord.objects.filter(employee_username=request.POST.get('attended-by')).first())
+                    description=null_check(request.POST.get('description')),rent_attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first())
         add_rental.save()
 
         payment= rentalPayment.objects.create(rent_amount=request.POST.get('rent-amount'), payment_mode=null_check(request.POST.get('payment-mode')),
@@ -30,7 +30,7 @@ def addRental(request):
                     total_rent=request.POST.get('total-rent'), rent_end_date=request.POST.get('rent-end-date'),
                     rental_id=add_rental,rent_pay_by=request.POST.get('rent-pay-from'),
                     payment_gas_bill=True, payment_electric_bill=True,
-                    rent_payment_attended_by=EmployeeRecord.objects.filter(employee_username=request.POST.get('attended-by')).first())
+                    rent_payment_attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first())
         payment.save()
         add_rental.active_rent_id=payment
         add_rental.save()

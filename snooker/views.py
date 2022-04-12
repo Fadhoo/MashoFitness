@@ -38,7 +38,6 @@ def snooker(request):
         # if snooker_id is None:
         snooker_id=addSnookerIncome()
         return render(request, 'snooker.html', {
-            'user': EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
             'totalIncome': total_income,
             'record':snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),
             'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
