@@ -10,4 +10,5 @@ class expensesData(models.Model):
     receipent_name = models.CharField(max_length=20)
     description = models.CharField(max_length=200)
     comments = models.CharField(max_length=200)
+    expense_attended_by=models.ForeignKey('employees.EmployeeRecord',on_delete=models.CASCADE)
     

@@ -455,11 +455,11 @@ function getNumberOfDays(end) {
 
     // Calculating the no. of days between two dates
     const diffInDays = Math.round(diffInTime / oneDay);
-    if (diffInDays+1 > -1) {
-        return diffInDays+1;
+    if (diffInDays+1 == 0) {
+        return "Expired";
     }
     else{
-        return 'Expired';
+        return diffInDays+1;
     }
     // return diffInDays;
 

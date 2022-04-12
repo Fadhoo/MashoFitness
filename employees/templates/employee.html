@@ -434,7 +434,7 @@
                                             <option value="AB-">AB-</option>
                                             <option value="O+">O+</option>
                                             <option value="O-">O-</option>
-                                            <option value=Unknown"">Unknown</option>
+                                            <option value="Unknown">Unknown</option>
                                         </select>
                                     </div>
 
@@ -444,7 +444,7 @@
                                     </div> -->
                                     <div class="flex flex-col">
                                         <label for=""  class="m-1">Type of Employee</label>
-                                        <select name="emp-type" id="emp-type" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" onchange="EmployeeTypeChecker(this)">
+                                        <select name="emp-type" id="emp-type" required class="rounded-md bg-gray-200 outline-none border-none shadow-inner" onchange="EmployeeTypeChecker(this)">
                                             <option value="">Select Blood Group</option>
                                             <option value="Technical">Technical</option>
                                             <option value="Other">Other</option>
@@ -453,12 +453,12 @@
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Pay</label>
-                                        <input type="number" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-pay">
+                                        <input type="number" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" required name="emp-pay">
                                     </div>
                                     
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Status</label>
-                                        <select name="emp-status" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <select name="emp-status" id="" required class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="" class="">select status</option>
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>

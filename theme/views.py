@@ -24,10 +24,11 @@ def fetchAllData(dbmodel):
         ls.append(i)
     return ls
 
-
+checkMemberStarus()
 
 
 def viewRecord(request):
+    checkMemberStarus()
     if request.method=="GET":
         bill=Bill.objects.filter(member_id=request.GET.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
         return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,"memberID":bill[0].member_id.id,'member_serial':bill[0].member_id.member_serial_no,"bill":bill})

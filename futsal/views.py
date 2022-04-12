@@ -17,8 +17,7 @@ def futsal(request):
     {"TeamRecord":Team.objects.all().order_by("-id"),
     'futsal_total_team': Team.objects.all().count(),
     'futsal_new_team': Team.objects.filter(member_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).count(),
-    'futsal_pending_game': Match.objects.filter(paid="Unpaid").count(),
-    "user":EmployeeRecord.objects.filter(id=request.uesr.id).first()
+    'futsal_pending_game': Match.objects.filter(paid="Unpaid").count()
     })
 
 def addTeam(request):
