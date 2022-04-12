@@ -57,7 +57,24 @@ def addProducts(request):
 
 
 def customer(request):
-    return render(request, "customer.html")
+    if request.method == "POST":
+        if request.POST.get("add-customer-data"):
+            print("add customer data")
+            addCustomer(request)
+            return HttpResponseRedirect(reverse("customer"))
+    else:
+        return render(request, "customer.html", {'customerData': Customer.objects.all()})
+
+
+def updateCustomer(request):
+    if request.method== "POST":
+        if request.POST.get("update-customer-data"):
+            print("update customer data")
+            updateCustomerData(request)
+            return HttpResponseRedirect(reverse("customer"))
+    
+    else:
+        return render(request, "updateCustomer.html", {'customerData': Customer.objects.filter(id=request.GET.get("customer")).first()})
 
 
 def inventory(request):
@@ -89,7 +106,25 @@ def salesTerminal(request):
 
 
 def supplier(request):
-    return render(request, "supplier.html")
+    if request.method=="POST":
+        if request.POST.get("add-supplier-data"):
+            print("add supplier data")
+            addSupplier(request)
+            return HttpResponseRedirect(reverse("supplier"))
+    else:
+        return render(request, "supplier.html",
+         {'supplierData': Supplier.objects.all()})
+
+
+def updateSupplier(request):
+    if request.method== "POST":
+        if request.POST.get("update-supplier-data"):
+            print("update supplier data")
+            updateSupplierData(request)
+            return HttpResponseRedirect(reverse("supplier"))
+    
+    else:
+        return render(request, "updateSupplier.html", {'supplierData': Supplier.objects.filter(id=request.GET.get("supplier")).first()})
 
 def cafeteriaExpenses(request):
     return render(request, "cafeteriaExpenses.html")

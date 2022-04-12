@@ -288,7 +288,7 @@
                                         <td class="p-1">{{gym.account_head}}</td>
                                         <td class="p-1">{{gym.receipent_name}}</td>
                                         <td class="p-1">{{gym.description}}</td>
-                                        <td class="p-1">admin</td>
+                                        <td class="p-1">{{gym.user.usernmae}}</td>
                                         <td class="p-1">{{gym.paid_amount}}</td>
 
                                     </tr>
@@ -316,16 +316,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for gym in FutsalData %}
+                                    {% for futsal in FutsalData %}
                                     <tr class="border-2 hover:bg-slate-300">
-                                        <td class="p-1">{{gym.id}}</td>
-                                        <td class="p-1">{{gym.date}}</td>
+                                        <td class="p-1">{{futsal.id}}</td>
+                                        <td class="p-1">{{futsal.date}}</td>
                                         <td class="p-1 font-semibold">Futsal</td>
-                                        <td class="p-1">{{gym.account_head}}</td>
-                                        <td class="p-1">{{gym.receipent_name}}</td>
-                                        <td class="p-1">{{gym.description}}</td>
-                                        <td class="p-1">admin</td>
-                                        <td class="p-1">{{gym.paid_amount}}</td>
+                                        <td class="p-1">{{futsal.account_head}}</td>
+                                        <td class="p-1">{{futsal.receipent_name}}</td>
+                                        <td class="p-1">{{futsal.description}}</td>
+                                        <td class="p-1">{{futsal.user.username}}</td>
+                                        <td class="p-1">{{futsal.paid_amount}}</td>
 
                                     </tr>
                                     {% endfor %}
@@ -354,16 +354,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for gym in SnookerData%}
+                                    {% for snooker in SnookerData%}
                                     <tr class="border-2 hover:bg-slate-300">
-                                        <td class="p-1">{{gym.id}}</td>
-                                        <td class="p-1">{{gym.date}}</td>
+                                        <td class="p-1">{{snooker.id}}</td>
+                                        <td class="p-1">{{snooker.date}}</td>
                                         <td class="p-1 font-semibold">Snooker</td>
-                                        <td class="p-1">{{gym.account_head}}</td>
-                                        <td class="p-1">{{gym.receipent_name}}</td>
-                                        <td class="p-1">{{gym.description}}</td>
-                                        <td class="p-1">admin</td>
-                                        <td class="p-1">{{gym.paid_amount}}</td>
+                                        <td class="p-1">{{snooker.account_head}}</td>
+                                        <td class="p-1">{{snooker.receipent_name}}</td>
+                                        <td class="p-1">{{snooker.description}}</td>
+                                        <td class="p-1">{{snooker.user.username}}</td>
+                                        <td class="p-1">{{snooker.paid_amount}}</td>
 
                                     </tr>
                                     {% endfor %}
@@ -426,16 +426,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for gym in rentalData %}
+                                    {% for rent in rentalData %}
                                     <tr class="border-2 hover:bg-slate-300">
-                                        <td class="p-1">{{gym.id}}</td>
-                                        <td class="p-1">{{gym.date}}</td>
+                                        <td class="p-1">{{rent.id}}</td>
+                                        <td class="p-1">{{rent.date}}</td>
                                         <td class="p-1 font-semibold">Snooker</td>
-                                        <td class="p-1">{{gym.account_head}}</td>
-                                        <td class="p-1">{{gym.receipent_name}}</td>
-                                        <td class="p-1">{{gym.description}}</td>
-                                        <td class="p-1">admin</td>
-                                        <td class="p-1">{{gym.paid_amount}}</td>
+                                        <td class="p-1">{{rent.account_head}}</td>
+                                        <td class="p-1">{{rent.receipent_name}}</td>
+                                        <td class="p-1">{{rent.description}}</td>
+                                        <td class="p-1">{{rent.user.username}}</td>
+                                        <td class="p-1">{{rent.paid_amount}}</td>
 
                                     </tr>
                                     {% endfor %}

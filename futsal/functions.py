@@ -47,10 +47,10 @@ def addMatchBooking(request):
         date=request.POST.get('date')
         fee=request.POST.get('fee')
         payment_status=request.POST.get('payment_status')
-        team_attended_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+        match_attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first()
 
         Match.objects.create(team1=team1,team2=team2,booking_time=booking_time,
-        paid=payment_status,fee=fee,date=date)
+        paid=payment_status,fee=fee,date=date, match_attended_by=match_attended_by)
         return True
     except Exception as e:
         print("error in addMatchBooking",e)
@@ -70,11 +70,11 @@ def updateMatchBooking(request):
         date=request.POST.get('date')
         fee=request.POST.get('fee')
         payment_status=request.POST.get('payment_status')
-        # attended_by=request.POST.get('attended-by')
-        print(team2, booking_time, date, fee,payment_status,attended_by)
+        match_attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first()
+        print(team2, booking_time, date, fee,payment_status,match_attended_by)
 
         Match.objects.filter(id=request.POST.get("id")).update(team2=team2,booking_time=booking_time,
-        paid=payment_status,fee=fee,date=date)
+        paid=payment_status,fee=fee,date=date, match_attended_by=match_attended_by)
         return True
     except Exception as e:
         print("error in addMatchBooking",e)
