@@ -1,5 +1,4 @@
 from datetime import datetime
-from employees.views import User_credentials
 from .models import snookerIncome,snookerTableIncome
 from employees.models import EmployeeRecord
 
@@ -9,7 +8,7 @@ from snooker_snookerincome s
 join snooker_snookertableincome t on s.id=t.snooker_id_id GROUP by t.snooker_id_id
 order by s.id desc
 """
-def addSnookerIncome():
+def addSnookerIncome(id):
     try:
         if snookerIncome.objects.all().exists():
             print('record exist')
@@ -21,7 +20,7 @@ def addSnookerIncome():
                 print("snooker income added")
                 add=snookerIncome.objects.create(
                 description="",
-                snooker_attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+                snooker_attened_by=EmployeeRecord.objects.filter(id=id).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
                 date=datetime.now()
                 )
                 add.save()
@@ -30,7 +29,7 @@ def addSnookerIncome():
             print("create new record")
             add=snookerIncome.objects.create(
             description="",
-            snooker_attened_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
+            snooker_attened_by=EmployeeRecord.objects.filter(id=id).first(), # EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first()
             date=datetime.now()
             )
             add.save()

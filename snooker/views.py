@@ -10,7 +10,6 @@ from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.utils import timezone
-from employees.views import User_credentials
 from employees.models import EmployeeRecord
 
 snooker_id=None
@@ -30,15 +29,14 @@ def snooker(request):
         if request.POST.get('add-snooker-income'):
             if updateSnookerIncome(request,snooker_id):
                 total_income=0
-                snooker_id=addSnookerIncome()
+                snooker_id=addSnookerIncome(request.user.id)
                 return HttpResponseRedirect(reverse('snooker'))
             else:
                 return HttpResponse("update snooker income error")
     else:
         # if snooker_id is None:
-        snooker_id=addSnookerIncome()
+        snooker_id=addSnookerIncome(request.user.id)
         return render(request, 'snooker.html', {
-            'user': EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
             'totalIncome': total_income,
             'record':snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),
             'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],

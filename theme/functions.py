@@ -1,10 +1,11 @@
 import collections
 import datetime as dt
 from operator import truediv
+
+from requests import request
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
 from employees.models import EmployeeRecord
-from employees.views import User_credentials
 
 
 def fetchUniqueCategoryName(model):
@@ -68,7 +69,7 @@ def addMemberRecord(request,status):
                         member_membership_id=membership_id,
                         member_membership_expiry_date=request.POST.get("membership-expire"),
                         member_membership_start_date=request.POST.get("membership-start-date"),
-                        attended_by=EmployeeRecord.objects.filter(employee_username=request.POST.get("attended-by")).first(),
+                        attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first(),
                         )
         member_data.save()
         print("member data",member_data)
@@ -185,7 +186,7 @@ def add_bill_record(subscription,
                         paid=paid,
                         member_id=member,
                         fee_id=fee,
-                        bill_attended_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+                        bill_attended_by=EmployeeRecord.objects.filter(id=request.user.id).first()
                         ).save()
         return True
 

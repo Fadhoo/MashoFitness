@@ -8,7 +8,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import TeamSerializer, MatchSerializer, BookingSerializer
 from django.contrib import messages
-from employees.views import User_credentials
 from employees.models import EmployeeRecord
 
 
@@ -19,7 +18,7 @@ def futsal(request):
     'futsal_total_team': Team.objects.all().count(),
     'futsal_new_team': Team.objects.filter(member_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).count(),
     'futsal_pending_game': Match.objects.filter(paid="Unpaid").count(),
-    "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+    "user":EmployeeRecord.objects.filter(id=request.uesr.id).first()
     })
 
 def addTeam(request):
@@ -38,12 +37,12 @@ def addTeam(request):
         if request.POST.get("edit-team"):
             print(request.POST.get("edit-team"))
         return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id"),
-                                            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first() })
+                                            "user":EmployeeRecord.objects.filter(id=request.user.id).first() })
 
 
 def viewTeam(request):
     return render(request, 'viewTeam.html',{"TeamRecord":Team.objects.all().order_by("-id"),
-                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                        "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
 
 def teamDetails(request):
     if request.method=="POST":
@@ -52,7 +51,7 @@ def teamDetails(request):
                     captain_name=request.POST.get("captain-name"), contact_number=request.POST.get("contact"), 
                     team_attended_by=request.POST.get("attended-by"))
             return render(request,"addTeam.html",{"TeamRecord":Team.objects.all().order_by("-id"),
-                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                        "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
     else:
         if request.GET.get("team-details"):
             team_id=request.GET.get("team-details")
@@ -78,11 +77,11 @@ def futsalMatch(request):
             return render(request,"futsalMatch.html", {"TeamRecord":Team.objects.all().filter(id=request.GET.get("futsal-match"))[0],
             "teamNames": Team.objects.all().exclude(id=request.GET.get("futsal-match")),
             'TeamRecords': Match.objects.all().order_by("-id"),
-            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+            "user":EmployeeRecord.objects.filter(id=request.user.id).first()
             })
         
         return render(request, 'futsalMatch.html', {'TeamRecord': Match.objects.all(),
-                    "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                    "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
 
 def matches(request):
     if request.method == "POST":
@@ -98,7 +97,7 @@ def matches(request):
             "teamNames": Team.objects.all().exclude(team_name=match.team1.team_name)})
     
     return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id"),
-                                "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                                "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
 
 def updateFutsalMatch(request):
     if request.method == "POST":
@@ -108,7 +107,7 @@ def updateFutsalMatch(request):
             print(update_match)
             
     return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id"),
-                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                        "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
 
 
 """
