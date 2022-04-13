@@ -143,13 +143,11 @@ function searchClick(){
 
 
 function update_table(data) {
-    console.log(data);
     let row;
     let all_rows = '';
 
     Object.keys(data).forEach(key => {
         elem = data[key];
-        console.log(elem)
         row =
 
         '<tr class="border-2 hover:bg-slate-300">' +
@@ -161,7 +159,7 @@ function update_table(data) {
         '<td class="p-1">'+
             elem['description']+
         '</td>'+
-        '<td class="p-1">'+elem['snooker_attened_by']['employee_username']+'</td>'+
+        '<td class="p-1">'+elem['snooker_attened_by']['user']['username']+'</td>'+
 
        ' <td class="p-1">'+
             '<a href="/updateSnooker/?data='+elem['id']+'">'+

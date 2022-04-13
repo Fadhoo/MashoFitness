@@ -19,6 +19,7 @@ def snooker(request):
     global total_income,snooker_id
     if request.method == 'POST':
         if request.POST.get('add-table-income'):
+            print("add-table-income")
             total_income+=int(request.POST.get("amount"))
             print(snooker_id)
             if addTableIncome(request,snooker_id):
@@ -103,7 +104,7 @@ def deleteSnookerRecord(request):
             for i in delete_list:
                 print(i)
                 snookerIncome.objects.filter(id=int(i)).delete()
-            return Response(CustomSerializer(record))
+            return Response(CustomSeriazerSnooker(snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by").select_related('snooker_attened_by__user'),many=True).data)
         else:
             # messages.info(request,"No data found")
             return Response({"error":str("No data selected")})
@@ -145,7 +146,7 @@ def searchBySnookerDate(request):
         from_date=request.GET.get('fromdate',None)
         to_date=request.GET.get('todate',None)
         if from_date is not None and to_date is not None:
-            return Response(CustomSeriazerSnooker(snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),many=True).data)
+            return Response(CustomSeriazerSnooker(snookerIncome.objects.filter(date__range=[from_date,to_date]).annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),many=True).data)
             # return Response(CustomSerializer(f"select s.id, s.description, s.attened_by, s.date , sum(t.amount) as total_income from snooker_snookerincome s join snooker_snookertableincome t on s.id=t.snooker_id_id where s.date BETWEEN  '{from_date}' and '{to_date}'  GROUP by t.snooker_id_id order by s.id desc ;"))
         else:
             return Response({"error":str("Please select date")})
