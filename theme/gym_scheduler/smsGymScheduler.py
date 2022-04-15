@@ -5,8 +5,8 @@ import requests
 import datetime as dt
 def send_sms(phoneNumber,message):
     phoneNumber=phoneNumber.replace("-", "")
-    # print(phoneNumber)
-    return requests.get(f'https://sendpk.com/api/sms.php?api_key=923402601866-e097c210-00f1-4fdf-9318-7e012f796e4a&sender=MashoFitness&mobile={phoneNumber}&message={message}').status_code
+    print(phoneNumber)
+    # return requests.get(f'https://sendpk.com/api/sms.php?api_key=923402601866-e097c210-00f1-4fdf-9318-7e012f796e4a&sender=MashoFitness&mobile={phoneNumber}&message={message}').status_code
 def main():
     try:
         if Member.objects.all().exists():

@@ -592,13 +592,12 @@
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
                                             required name="serial-no">
                                     </div>
-                                    
+
                                     <div class="flex flex-col">
-                                        <label for=""
-                                            class="m-1 after:ml-0.5 after:text-red-600">Attended By</label>
+                                        <label for="" class="m-1 after:ml-0.5 after:text-red-600">Attended By</label>
                                         <input type="text" id="attended-by" value="{{request.user.username}}" readonly
                                             class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                                             name="attended-by">
+                                            name="attended-by">
                                     </div>
 
                                     <div class="flex flex-col">
@@ -864,7 +863,7 @@
                                         </td>
                                     </form>
                                     <td class="p-2">
-                                        <button x-on:click="openSMSModel();"
+                                        <button x-on:click.prevent="openSMSModal();" 
                                             class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>
                                     </td>
                                 </tr>
@@ -898,9 +897,106 @@
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-90">
 
-            <div>
-                sms
-            </div>
+            <div class="p-2">
+                <div class="float-right">
+                  <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeSMSModal()"
+                    class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                <form action="{% url 'memberDetails' %}" method="post">
+                  {% csrf_token %}
+                  <input type="text" name="cid" hidden value="{{all_data.id}}" />
+                  <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
+                    
+
+                    <div class="flex flex-col">
+                      <label for="" class="m-1 text-sm">Sms Module</label>
+                      <select name="model-smsModule" id="model-smsModule" onchange="SMSModuleChange(this)"
+                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                        <option value="">Select Module</option>
+                        {% for i in sms_list %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1 text-sm">Membership Class</label>
+                      <select name="model-smsfor" id="model-smsfor" onchange="SMSForChange(this)"
+                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                        <option value="">Select Module</option>
+                      </select>
+                    </div>
+                    <input type="text" name="rew-model-gender" hidden value="{{all_data.member_gender}}">
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Membership Duration</label>
+                      <input type="text" id="model-category-months" name="model-category-months"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200">
+                    </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Amount</label>
+                      <input type="number" readonly id="model-amount"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" name="model-amount">
+                    </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Discount</label>
+                      <input type="text" id="model-discount" value="0"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                        name="model-discount">
+                    </div>
+
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Payable Amount</label>
+                      <input type="number" readonly id="model-payableamount"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                        name="model-payableamount">
+                    </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">MemberShip Expire</label>
+                      <input type="text" readonly id="model-expiry"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300"
+                        name="model-membership-expire">
+                    </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Attended By</label>
+                      <input type="text" id="attended-by" value="{{request.user.username}}"
+                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-300" readonly
+                        name="attended-by">
+                    </div>
+                    <div class="flex flex-col">
+                      <label for="" class="m-1">Instalment ?</label>
+                      <div class="flex flex-row">
+
+                        <input type="checkbox" class="rounded-md mt-2 mr-3 shadow-inner p-2 bg-gray-200"
+                          name="instalment" id="instalment" onclick="instalmentValueChanged(this)">
+                        <label for="" class="m-1">Installment</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-row col-span-2" style="display: None;" id="paidamount">
+                    <div class="flex flex-row gap-x-3">
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Paid Amount</label>
+                        <input type="text" id="paidamounts"
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="paidamount">
+                      </div>
+
+                      <div class="flex flex-col">
+                        <label for="" class="m-1">Remaining Amount</label>
+                        <input type="nuumber" id="remaining-amount" readonly
+                          class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                          name="remainingamount">
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <button class="bg-blue-600 px-10 rounded-lg mt-5 text-white ml-32 shadow-md rounded-br-none py-1"
+                    name="submit-button" value="submit-button">Renew Subscription</button>
+                </form>
+              </div>
 
         </div>
     </div>

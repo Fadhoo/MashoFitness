@@ -525,3 +525,32 @@ function serialNoCheck(data){
 
     })
 }
+
+
+function SMSModuleChange(data){
+    let sms_module=data.value
+    $.ajax({
+        method: "GET",
+        url: "/api/smsForsearch/",
+        data:{
+            "module":sms_module,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                console.log(value);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
+
+function SmsForChange(){
+    let category_name=document.getElementById("membershipcategory").value
+    let category_class=document.getElementById("membership-class").value
+    let category_
+}   

@@ -14,6 +14,7 @@ from django.http import HttpResponseRedirect
 from expenses.models import  expensesData
 import datetime as dt
 from employees.models import EmployeeRecord
+from smsSetting.models import SmsModle
 
 
 
@@ -34,8 +35,7 @@ def viewRecord(request):
         return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,"memberID":bill[0].member_id.id,'member_serial':bill[0].member_id.member_serial_no,"bill":bill})
                         
 
-def smshistory(request):
-    return render(request, 'smshistory.html')
+
 
 def printform(request):
     return render(request,"printform.html")
@@ -210,6 +210,7 @@ def addMember(request):
                         "user":EmployeeRecord.objects.filter(id=request.user.id).first(),
                         'category':fetchUniqueCategoryName(MembershipCategory),
                         'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),
+                        'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
                     })   
 
 def viewMembers(request):

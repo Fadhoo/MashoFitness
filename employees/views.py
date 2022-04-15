@@ -74,6 +74,7 @@ def Userlogin(request):
                         return HttpResponseRedirect(reverse('login'))
             except Exception as e:
                 print("login error ",e)
+                messages.error(request,"Invalid User")
                 return HttpResponseRedirect(reverse('login'))
         else:
             CreateAdminUserFirst()

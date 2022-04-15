@@ -11,7 +11,6 @@ urlpatterns = [
     path("GymSetting/editGymSetting/", views.editGymSetting, name="editGymSetting"),
     path("memberDetails/", views.memberDetails, name="memberDetails"),
     path("printform/", views.printform, name="printform"),
-    path("smshistory/", views.smshistory, name="smshistory"),
     path("viewMembers/", views.viewMembers, name="viewMembers"),
     path("viewRecord/", views.viewRecord, name="viewRecord"),
     

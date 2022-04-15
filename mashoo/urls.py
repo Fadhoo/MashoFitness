@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('cafeteria.urls')),
     path('', include('accounting.urls')),
     path('', include('rental.urls')),
+    path('', include('smsSetting.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
