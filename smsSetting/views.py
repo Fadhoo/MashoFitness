@@ -1,3 +1,4 @@
+from tkinter import E
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -5,6 +6,9 @@ from .models import SmsModle
 from .serializer import SmsSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from theme.models import Member
+from django.contrib import messages
+from theme.gym_scheduler.smsGymScheduler import sendMessageToUser
 # Create your views here.
 def smshistory(request):
     if request.method=="POST":
@@ -14,6 +18,20 @@ def smshistory(request):
         if request.POST.get('sms-delete'):
             SmsModle.objects.filter(id=request.POST.get('sms-id')).delete()
             return HttpResponseRedirect(reverse('smshistory'))
+        if request.POST.get('send-message'):
+            name=Member.objects.filter(id=request.POST.get('model-member-id')).first().member_name
+            number=Member.objects.filter(id=request.POST.get('model-member-id')).first().member_contact
+            message=request.POST.get('model-smstext')
+            try:
+                if sendMessageToUser(name,number,message)==200:
+                    messages.success(request, 'Message sent successfully')
+                    return HttpResponseRedirect(reverse('addMember'))
+                else:
+                    messages.error(request, 'Message not sent')
+                    return HttpResponseRedirect(reverse('addMember'))
+            except:
+                messages.error(request, 'Message not sent')
+                return HttpResponseRedirect(reverse('addMember'))
     else:
         return render(request, 'smshistory.html',
         {'sms_list':SmsModle.objects.all()})
@@ -28,6 +46,21 @@ def smsForsearch(request):
             serializer = SmsSerializer(sms_list, many=True)
             return Response(serializer.data)
         except SmsModle.DoesNotExist:
+            return Response("No sms module data found")
+    else:
+        return Response("Invalid request method")
+    
+@api_view(['GET'])
+def searchMessage(request):
+    if request.method == 'GET':
+        try:
+            module=request.GET.get('module')
+            sms_for=request.GET.get('sms')
+            sms_list = SmsModle.objects.filter(smsModule=module).filter(smsFor=sms_for)
+            print("hellow",sms_list)
+            return Response(SmsSerializer(sms_list,many=True).data)
+        except Exception as e:
+            print(e)
             return Response("No sms module data found")
     else:
         return Response("Invalid request method")

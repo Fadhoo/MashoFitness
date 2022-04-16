@@ -6,4 +6,5 @@ urlpatterns = [
     path("smshistory/", views.smshistory, name="smshistory"),
 
     path("api/smsForsearch/", views.smsForsearch, name="smsForsearch"),
+    path("api/searchMessage/", views.searchMessage, name="searchMessage"),
 ]

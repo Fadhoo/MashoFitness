@@ -3,6 +3,8 @@ import datetime as dt
 from operator import truediv
 
 from requests import request
+
+from theme.gym_scheduler.smsGymScheduler import sendMessageToUser
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
 from employees.models import EmployeeRecord
@@ -136,6 +138,7 @@ def addMemberRecord(request,status):
                             fee=fee,
                             user_id=request.user.id
                             )
+        sendMessageToUser(request.POST.get("fullname"),request.POST.get("contactnumber"),f"Welcome to the Masho Fitness Club. Your membership category is {request.POST.get('membershipcategory')} and memership class is {request.POST.get('membership-class')}. your membership expire date is {request.POST.get('membership-expire')}")
     
 
 def update_payment_installment(request):
@@ -167,6 +170,7 @@ def update_payment_installment(request):
                         fee=Fee.objects.filter(id=member.active_fee_id.id)[0],
                         user_id=request.user.id
                         )
+        
         return True
     except Exception as e:
         print('update_payment_installmente',e)

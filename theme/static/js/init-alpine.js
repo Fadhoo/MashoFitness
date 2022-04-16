@@ -131,9 +131,11 @@ function data() {
     // SMS Modal
     isSMSModalOpen: false,
     trapCleanupSMS: null,
-    openSMSModal() {
+    openSMSModal(ids) {
       this.isSMSModalOpen = true
       this.trapCleanupSMS = focusTrap(document.querySelector('#SMSModal'))
+      set_member_id(ids)
+
     },
     closeSMSModal() {
       this.isSMSModalOpen = false

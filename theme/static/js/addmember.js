@@ -436,7 +436,7 @@ $(document).ready(function() {
     // messages timeout for 10 sec 
     setTimeout(function() {
         $('.message').fadeOut('slow');
-    }, 9000); // <-- time in milliseconds, 1000 =  1 sec
+    }, 4000); // <-- time in milliseconds, 1000 =  1 sec
 
     // delete message
     $('.del-msg').live('click',function(){
@@ -538,7 +538,10 @@ function SMSModuleChange(data){
         success: function (data) {
             Object.keys(data).forEach(key => {
                 var value = data[key];
-                console.log(value);
+                var o = new Option(value['smsFor'], value['smsFor']);
+                /// jquerify the DOM object 'o' so we can use the html method
+                $(o).html(value['smsFor']);
+                $("#model-smsfor").append(o);
                 
 
             });
@@ -549,8 +552,28 @@ function SMSModuleChange(data){
     });
 }
 
-function SmsForChange(){
-    let category_name=document.getElementById("membershipcategory").value
-    let category_class=document.getElementById("membership-class").value
-    let category_
-}   
+function SmsForChange(data){
+    $.ajax({
+        method: "GET",
+        url: "/api/searchMessage/",
+        data:{
+            "module":document.getElementById("model-smsModule").value,
+            "sms":data.value,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                $('#model-smstext').text(value['smsText']);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
+function set_member_id(id){
+    console.log(id);
+    $('#model-member-id').val(id);
+}       
