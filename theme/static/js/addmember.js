@@ -313,7 +313,7 @@ function update_table(data) {
             '</td>'+
             
             '<td class="p-2">'+
-                '<button x-on:click="openSMSModel();"'+
+            '<button @click="openSMSModal('+elem['id']+');"'+
                     'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
             '</td>'+
         '</tr>';
@@ -365,7 +365,7 @@ function update_table(data) {
             '</td>'+
             
             '<td class="p-2">'+
-                '<button x-on:click="openSMSModel();"'+
+            '<button @click="openSMSModal('+elem['id']+');"'+
                     'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
             '</td>'+
         '</tr>';
@@ -418,7 +418,7 @@ function update_table(data) {
             '</td>'+
             
             '<td class="p-2">'+
-                '<button x-on:click="openSMSModel();"'+
+                '<button @click="openSMSModal('+elem['id']+');"'+
                     'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
             '</td>'+
         '</tr>';
@@ -551,6 +551,30 @@ function SMSModuleChange(data){
         }
     });
 }
+function AllSMSModuleChange(data){
+    let sms_module=data.value
+    $.ajax({
+        method: "GET",
+        url: "/api/smsForsearch/",
+        data:{
+            "module":sms_module,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                var o = new Option(value['smsFor'], value['smsFor']);
+                /// jquerify the DOM object 'o' so we can use the html method
+                $(o).html(value['smsFor']);
+                $("#model-smsfor-all").append(o);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
 
 function SmsForChange(data){
     $.ajax({
@@ -564,6 +588,27 @@ function SmsForChange(data){
             Object.keys(data).forEach(key => {
                 var value = data[key];
                 $('#model-smstext').text(value['smsText']);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
+function AllSmsForChange(data){
+    $.ajax({
+        method: "GET",
+        url: "/api/searchMessage/",
+        data:{
+            "module":document.getElementById("model-smsModule-all").value,
+            "sms":data.value,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                $('#model-smstext-all').text(value['smsText']);
                 
 
             });

@@ -156,6 +156,20 @@ function data() {
       this.isViewBillModalOpen = false
       this.trapCleanupViewBill()
     },
+
+    // View ALL Sms Modal
+    isViewAllSmsModalOpen: false,
+    trapCleanupViewAllSms: null,
+    openViewAllSmsModal() {
+        
+        this.isViewAllSmsModalOpen = true
+        this.trapCleanupViewAllSms = focusTrap(document.querySelector('#ViewAllSmsModal'))
+      }
+    ,
+    closeViewAllSmsModal() {
+      this.isViewAllSmsModalOpen = false
+      this.trapCleanupViewAllSms()
+    },
     
   }
 }

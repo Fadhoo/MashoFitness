@@ -4,6 +4,19 @@ from theme.models import Member
 import requests
 import datetime as dt
 
+def sendMessageToAll(message,status):
+    try:
+        if status=='All':
+            for i in Member.objects.all():
+                print(sendMessageToUser(i.member_name,i.member_contact, message))
+        else:
+            for i in Member.objects.filter(active_fee_id__status=status):
+                print(sendMessageToUser(i.member_name,i.member_contact, message))
+        return 200
+    except Exception as e:
+        print("sendMessageToAll exception",e)
+        return 400
+
 def sendMessageToUser(name,number,message):
     number=number.replace("-", "")
     try:

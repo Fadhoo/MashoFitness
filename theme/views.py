@@ -80,6 +80,7 @@ def gymManagement(request):
         'income':Payment.objects.filter(payment_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('payment_amount'))['payment_amount__sum'],
         'expense':expensesData.objects.filter(expenses_for='Gym').filter(date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('paid_amount'))['paid_amount__sum'],
         'total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
+        'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
         
         
         # 'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
@@ -228,6 +229,7 @@ def viewMembers(request):
         # Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
         return render(request, 'viewMembers.html',{
             'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
+            'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
         })
 
 def bodyAssesments(request):
