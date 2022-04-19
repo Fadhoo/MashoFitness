@@ -13,8 +13,8 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from expenses.models import  expensesData
 import datetime as dt
-from employees.views import User_credentials
 from employees.models import EmployeeRecord
+from smsSetting.models import SmsModle
 
 
 
@@ -25,17 +25,17 @@ def fetchAllData(dbmodel):
         ls.append(i)
     return ls
 
-
+checkMemberStarus()
 
 
 def viewRecord(request):
+    checkMemberStarus()
     if request.method=="GET":
         bill=Bill.objects.filter(member_id=request.GET.get("cid")).select_related("member_id").select_related("fee_id").select_related("subscription_id").order_by("-id")
         return render(request, "viewRecord.html", {"member_name":bill[0].member_id.member_name,"memberID":bill[0].member_id.id,'member_serial':bill[0].member_id.member_serial_no,"bill":bill})
                         
 
-def smshistory(request):
-    return render(request, 'smshistory.html')
+
 
 def printform(request):
     return render(request,"printform.html")
@@ -80,6 +80,7 @@ def gymManagement(request):
         'income':Payment.objects.filter(payment_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('payment_amount'))['payment_amount__sum'],
         'expense':expensesData.objects.filter(expenses_for='Gym').filter(date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('paid_amount'))['paid_amount__sum'],
         'total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
+        'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
         
         
         # 'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
@@ -203,14 +204,14 @@ def addMember(request):
       
             
     else:
-        print("user login",User_credentials)
         # print(Member.objects.all().select_related("membershp_id")[0].payment_status)
         # join=Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
         return render(request, "addMember.html",
              {
-                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first(),
+                        "user":EmployeeRecord.objects.filter(id=request.user.id).first(),
                         'category':fetchUniqueCategoryName(MembershipCategory),
                         'zipdata':Member.objects.all().select_related('member_membership_id').select_related('active_fee_id').order_by('-id'),
+                        'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
                     })   
 
 def viewMembers(request):
@@ -228,6 +229,7 @@ def viewMembers(request):
         # Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;")
         return render(request, 'viewMembers.html',{
             'zipdata':Member.objects.all().select_related('member_membership_id').order_by('-id'),
+            'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
         })
 
 def bodyAssesments(request):

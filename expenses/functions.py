@@ -1,5 +1,5 @@
 from .models import expensesData
-
+from employees.models import EmployeeRecord
 def addExpense(request):
         if request.POST.get('comment'):
             comment=request.POST.get('comment')
@@ -13,7 +13,9 @@ def addExpense(request):
                 expenses_for=request.POST.get('expense-for'),
                 receipent_name=request.POST.get('receipent'),
                 description=request.POST.get('description'),
-                comments=comment,)
+                comments=comment,
+                expense_attended_by=EmployeeRecord.objects.filter(id=request.user.id).first()
+                )
 
         add_data.save()
 

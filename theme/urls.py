@@ -11,7 +11,6 @@ urlpatterns = [
     path("GymSetting/editGymSetting/", views.editGymSetting, name="editGymSetting"),
     path("memberDetails/", views.memberDetails, name="memberDetails"),
     path("printform/", views.printform, name="printform"),
-    path("smshistory/", views.smshistory, name="smshistory"),
     path("viewMembers/", views.viewMembers, name="viewMembers"),
     path("viewRecord/", views.viewRecord, name="viewRecord"),
     
@@ -32,6 +31,7 @@ urlpatterns = [
     path("api/ViewBillCall/", views.ViewBillCall, name="ViewBillCall"),
     path("api/getExpireRemainingDays/", views.getExpireRemainingDays, name="getExpireRemainingDays"),
     path("api/searchbygender/", views.searchbygender, name="searchbygender"),
+    path("api/checkSerialNo/", views.checkSerialNo, name="checkSerialNo"),
     # ex: /polls/
     # path('', views.home, name='home'),
     # path('login', views.login, name='login'),

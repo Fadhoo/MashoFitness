@@ -313,7 +313,7 @@ function update_table(data) {
             '</td>'+
             
             '<td class="p-2">'+
-                '<button x-on:click="openSMSModel();"'+
+            '<button @click="openSMSModal('+elem['id']+');"'+
                     'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
             '</td>'+
         '</tr>';
@@ -365,7 +365,7 @@ function update_table(data) {
             '</td>'+
             
             '<td class="p-2">'+
-                '<button x-on:click="openSMSModel();"'+
+            '<button @click="openSMSModal('+elem['id']+');"'+
                     'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
             '</td>'+
         '</tr>';
@@ -418,7 +418,7 @@ function update_table(data) {
             '</td>'+
             
             '<td class="p-2">'+
-                '<button x-on:click="openSMSModel();"'+
+                '<button @click="openSMSModal('+elem['id']+');"'+
                     'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
             '</td>'+
         '</tr>';
@@ -436,7 +436,7 @@ $(document).ready(function() {
     // messages timeout for 10 sec 
     setTimeout(function() {
         $('.message').fadeOut('slow');
-    }, 9000); // <-- time in milliseconds, 1000 =  1 sec
+    }, 4000); // <-- time in milliseconds, 1000 =  1 sec
 
     // delete message
     $('.del-msg').live('click',function(){
@@ -455,11 +455,11 @@ function getNumberOfDays(end) {
 
     // Calculating the no. of days between two dates
     const diffInDays = Math.round(diffInTime / oneDay);
-    if (diffInDays+1 > -1) {
-        return diffInDays+1;
+    if (diffInDays+1 == 0) {
+        return "Expired";
     }
     else{
-        return 'Expired';
+        return diffInDays+1;
     }
     // return diffInDays;
 
@@ -525,3 +525,100 @@ function serialNoCheck(data){
 
     })
 }
+
+
+function SMSModuleChange(data){
+    let sms_module=data.value
+    $.ajax({
+        method: "GET",
+        url: "/api/smsForsearch/",
+        data:{
+            "module":sms_module,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                var o = new Option(value['smsFor'], value['smsFor']);
+                /// jquerify the DOM object 'o' so we can use the html method
+                $(o).html(value['smsFor']);
+                $("#model-smsfor").append(o);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
+function AllSMSModuleChange(data){
+    let sms_module=data.value
+    $.ajax({
+        method: "GET",
+        url: "/api/smsForsearch/",
+        data:{
+            "module":sms_module,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                var o = new Option(value['smsFor'], value['smsFor']);
+                /// jquerify the DOM object 'o' so we can use the html method
+                $(o).html(value['smsFor']);
+                $("#model-smsfor-all").append(o);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
+
+function SmsForChange(data){
+    $.ajax({
+        method: "GET",
+        url: "/api/searchMessage/",
+        data:{
+            "module":document.getElementById("model-smsModule").value,
+            "sms":data.value,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                $('#model-smstext').text(value['smsText']);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
+function AllSmsForChange(data){
+    $.ajax({
+        method: "GET",
+        url: "/api/searchMessage/",
+        data:{
+            "module":document.getElementById("model-smsModule-all").value,
+            "sms":data.value,
+        },
+        success: function (data) {
+            Object.keys(data).forEach(key => {
+                var value = data[key];
+                $('#model-smstext-all').text(value['smsText']);
+                
+
+            });
+        },
+        error: function () {
+            console.log("error on get Membership Category months");
+        }
+    });
+}
+function set_member_id(id){
+    console.log(id);
+    $('#model-member-id').val(id);
+}       

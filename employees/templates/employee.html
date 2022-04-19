@@ -113,7 +113,7 @@
                     </li>
 
                     <!-- Accounting -->
-                    {% if employee.super_user %}
+                    {% if request.user.is_superuser %}
                     <li class="relative px-6 py-3">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700"
                             href="{% url 'reports' %}">
@@ -150,11 +150,11 @@
                                 x-transition:leave="transition-all ease-in-out duration-300"
                                 x-transition:leave-start="opacity-100 max-h-xl"
                                 x-transition:leave-end="opacity-0 max-h-0"
-                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 "
+                                class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
                                 aria-label="submenu">
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="{% url 'gymSetting'%}">GYM Settings</a>
+                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
+                                    <a class="w-full" href="{% url 'gymSetting' %}">GYM Settings</a>
                                 </li>
                                 
                                 <li
@@ -165,9 +165,11 @@
                                 </li>
                                 
                                 <li
-                                    class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
-                                    <a class="w-full" href="#">SMS History</a>
+                                    class="
+                                    px-2 py-1 transition-colors duration-150 hover:text-red-800">
+                                    <a class="w-full" href="{% url 'smshistory' %}">SMS History</a>
                                 </li>
+                            
                             </ul>
                         </template>
                     </li>
@@ -434,7 +436,7 @@
                                             <option value="AB-">AB-</option>
                                             <option value="O+">O+</option>
                                             <option value="O-">O-</option>
-                                            <option value=Unknown"">Unknown</option>
+                                            <option value="Unknown">Unknown</option>
                                         </select>
                                     </div>
 
@@ -444,7 +446,7 @@
                                     </div> -->
                                     <div class="flex flex-col">
                                         <label for=""  class="m-1">Type of Employee</label>
-                                        <select name="emp-type" id="emp-type" class="rounded-md bg-gray-200 outline-none border-none shadow-inner" onchange="EmployeeTypeChecker(this)">
+                                        <select name="emp-type" id="emp-type" required class="rounded-md bg-gray-200 outline-none border-none shadow-inner" onchange="EmployeeTypeChecker(this)">
                                             <option value="">Select Blood Group</option>
                                             <option value="Technical">Technical</option>
                                             <option value="Other">Other</option>
@@ -453,12 +455,12 @@
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">Pay</label>
-                                        <input type="number" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" name="emp-pay">
+                                        <input type="number" class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200" required name="emp-pay">
                                     </div>
                                     
                                     <div class="flex flex-col ">
                                         <label for="" class="m-1">Status</label>
-                                        <select name="emp-status" id="" class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                        <select name="emp-status" id="" required class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="" class="">select status</option>
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>

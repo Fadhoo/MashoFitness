@@ -44,7 +44,11 @@ def addEmployee(request):
             uploaded_file_url = fs.url(filename)
         else:
             filename="default.png"
-        user = User.objects.create(first_name=request.POST.get("emp-name"),username=request.POST.get("emp-username"),password=make_password(request.POST.get("emp-password")),email=NoneValue(request.POST.get("emp-email")),is_superuser=False)
+        if request.POST.get("emp-email"):
+            emails=request.POST.get("emp-email")
+        else:
+            emails=""
+        user = User.objects.create(first_name=request.POST.get("emp-name"),username=request.POST.get("emp-username"),password=make_password(request.POST.get("emp-password")),email=emails,is_superuser=False)
         employee_data = EmployeeRecord.objects.create(
                     employee_contact=request.POST.get('emp-contact'),
                     employee_image=filename,

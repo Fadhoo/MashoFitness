@@ -134,9 +134,11 @@ function data() {
     // SMS Modal
     isSMSModalOpen: false,
     trapCleanupSMS: null,
-    openSMSModal() {
+    openSMSModal(ids) {
       this.isSMSModalOpen = true
       this.trapCleanupSMS = focusTrap(document.querySelector('#SMSModal'))
+      set_member_id(ids)
+
     },
     closeSMSModal() {
       this.isSMSModalOpen = false
@@ -156,6 +158,20 @@ function data() {
     closeViewBillModal() {
       this.isViewBillModalOpen = false
       this.trapCleanupViewBill()
+    },
+
+    // View ALL Sms Modal
+    isViewAllSmsModalOpen: false,
+    trapCleanupViewAllSms: null,
+    openViewAllSmsModal() {
+        
+        this.isViewAllSmsModalOpen = true
+        this.trapCleanupViewAllSms = focusTrap(document.querySelector('#ViewAllSmsModal'))
+      }
+    ,
+    closeViewAllSmsModal() {
+      this.isViewAllSmsModalOpen = false
+      this.trapCleanupViewAllSms()
     },
     
   }

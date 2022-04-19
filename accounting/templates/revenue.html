@@ -316,7 +316,7 @@
                                     <td class="p-1 font-semibold">Futsal</td>
                                     <td class="p-1">{{futsal.team1.team_name}}</td>
                                     <td class="p-1">{{futsal.team1.id}}</td>
-                                    <td class="p-1">admin</td>
+                                    <td class="p-1">{{futsal.match_attended_by.user.username}}</td>
                                     <td class="p-1">{{futsal.fee}}</td>
                                 </tr>
                                 {% endfor %}
@@ -350,7 +350,7 @@
                                     <td class="p-1 font-semibold">Snooker</td>
                                     <td class="p-1">{{snooker.table_number}}</td>
                                     <td class="p-1">{{snooker.minutes_per_table}}</td>
-                                    <td class="p-1">admin</td>
+                                    <td class="p-1">{{snooker.snooker_id.snooker_attened_by.user.username}}</td>
                                     <td class="p-1">{{snooker.amount}}</td>
 
                                 </tr>
@@ -420,7 +420,7 @@
                                     <td class="p-1">{{rent.rental_id.shop_no}}</td>
                                     <td class="p-1">{{rent.rental_id.active_rent_id.rent_amount}}</td>
                                     <td class="p-1">{{rent.rental_id.active_rent_id.rent_duration}}</td>
-                                    <td class="p-1">{{rent.rental_id.rent_attended_by.employee_username}}</td>
+                                    <td class="p-1">{{rent.rental_id.rent_attended_by.user.username}}</td>
                                     <td class="p-1">{{rent.rental_id.active_rent_id.total_rent}}</td>
 
                                 </tr>

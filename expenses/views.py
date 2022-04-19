@@ -10,7 +10,6 @@ from rest_framework.response import Response
 from .serializer import *
 from django.db.models import Sum
 from employees.models import EmployeeRecord
-from employees.views import User_credentials
 def expenses(request):
     if request.method == "POST":
         if request.POST.get("add-expenses"):
@@ -28,7 +27,7 @@ def expenses(request):
          {'all_expenses': expensesData.objects.order_by('-id'),
          'total_expenses':expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'],
          'total_expenses_for_today':expensesData.objects.filter(date=datetime.today()).aggregate(Sum('paid_amount'))['paid_amount__sum'],
-         "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+         "user":EmployeeRecord.objects.filter(id=request.user.id).first()
          
          })
 
@@ -55,7 +54,7 @@ def updateExpense(request):
         print(request.GET.get("data"))
         return render(request, 'updateExpense.html',{
             'record': expensesData.objects.filter(id=request.GET.get("data"))[0],
-            "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+            "user":EmployeeRecord.objects.filter(id=request.user.id).first()
         })
 
 

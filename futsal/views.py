@@ -8,7 +8,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import TeamSerializer, MatchSerializer, BookingSerializer
 from django.contrib import messages
-from employees.views import User_credentials
 from employees.models import EmployeeRecord
 
 
@@ -18,8 +17,7 @@ def futsal(request):
     {"TeamRecord":Team.objects.all().order_by("-id"),
     'futsal_total_team': Team.objects.all().count(),
     'futsal_new_team': Team.objects.filter(member_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).count(),
-    'futsal_pending_game': Match.objects.filter(paid="Unpaid").count(),
-    "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+    'futsal_pending_game': Match.objects.filter(paid="Unpaid").count()
     })
 
 def addTeam(request):
@@ -78,7 +76,7 @@ def futsalMatch(request):
             })
         
         return render(request, 'futsalMatch.html', {'TeamRecord': Match.objects.all(),
-                    "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                    "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
 
 def matches(request):
     if request.method == "POST":
@@ -94,7 +92,7 @@ def matches(request):
             "teamNames": Team.objects.all().exclude(team_name=match.team1.team_name)})
     
     return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id"),
-                                "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                                "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
 
 def updateFutsalMatch(request):
     if request.method == "POST":
@@ -104,7 +102,7 @@ def updateFutsalMatch(request):
             print(update_match)
             
     return render(request, 'matches.html', {'TeamRecord': Match.objects.all().order_by("-id"),
-                        "user":EmployeeRecord.objects.filter(id=User_credentials['id']).first()})
+                        "user":EmployeeRecord.objects.filter(id=request.user.id).first()})
 
 
 """

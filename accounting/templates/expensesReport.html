@@ -288,7 +288,7 @@
                                         <td class="p-1">{{gym.account_head}}</td>
                                         <td class="p-1">{{gym.receipent_name}}</td>
                                         <td class="p-1">{{gym.description}}</td>
-                                        <td class="p-1">{{gym.user.usernmae}}</td>
+                                        <td class="p-1">{{gym.expense_attended_by.user.username}}</td>
                                         <td class="p-1">{{gym.paid_amount}}</td>
 
                                     </tr>
@@ -324,7 +324,7 @@
                                         <td class="p-1">{{futsal.account_head}}</td>
                                         <td class="p-1">{{futsal.receipent_name}}</td>
                                         <td class="p-1">{{futsal.description}}</td>
-                                        <td class="p-1">{{futsal.user.username}}</td>
+                                        <td class="p-1">{{futsal.expense_attended_by.user.username}}</td>
                                         <td class="p-1">{{futsal.paid_amount}}</td>
 
                                     </tr>
@@ -362,7 +362,7 @@
                                         <td class="p-1">{{snooker.account_head}}</td>
                                         <td class="p-1">{{snooker.receipent_name}}</td>
                                         <td class="p-1">{{snooker.description}}</td>
-                                        <td class="p-1">{{snooker.user.username}}</td>
+                                        <td class="p-1">{{snooker.expense_attended_by.user.username}}</td>
                                         <td class="p-1">{{snooker.paid_amount}}</td>
 
                                     </tr>
@@ -416,12 +416,12 @@
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
                                         <th class="p-1">S No.</th>
-                                        <th class="p-1">Pay Date</th>
+                                        <th class="p-1">Date</th>
                                         <th class="p-1">Module</th>
-                                        <th class="p-1">P Name</th>
-                                        <th class="p-1">Shop/ Flat No.</th>
-                                        <th class="p-1">Rent</th>
-                                        <th class="p-1">Rent Duration</th>
+                                        <th class="p-1">Head of Acc.</th>
+                                        <th class="p-1">Recipient Name</th>
+                                        <th class="p-1">Description</th>
+                                        <th class="p-1">Attended by</th>
                                         <th class="p-1">Amount</th>
                                     </tr>
                                 </thead>
@@ -430,11 +430,11 @@
                                     <tr class="border-2 hover:bg-slate-300">
                                         <td class="p-1">{{rent.id}}</td>
                                         <td class="p-1">{{rent.date}}</td>
-                                        <td class="p-1 font-semibold">Snooker</td>
+                                        <td class="p-1 font-semibold">Rental</td>
                                         <td class="p-1">{{rent.account_head}}</td>
                                         <td class="p-1">{{rent.receipent_name}}</td>
                                         <td class="p-1">{{rent.description}}</td>
-                                        <td class="p-1">{{rent.user.username}}</td>
+                                        <td class="p-1">{{rent.expense_attended_by.user.username}}</td>
                                         <td class="p-1">{{rent.paid_amount}}</td>
 
                                     </tr>

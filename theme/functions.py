@@ -1,10 +1,13 @@
 import collections
 import datetime as dt
 from operator import truediv
+
+from requests import request
+
+from theme.gym_scheduler.smsGymScheduler import sendMessageToUser
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
 from employees.models import EmployeeRecord
-from employees.views import User_credentials
 
 
 def fetchUniqueCategoryName(model):
@@ -25,11 +28,14 @@ def NoneValue(value):
         return value
 
 def checkMemberStarus():
-    member=Member.objects.all()
-    for i in member:
-        if (i.member_membership_expiry_date-dt.date.today()).days<0:
-            id=Member.objects.filter(id=i.id)[0].active_fee_id.id
-            Fee.objects.filter(id=id).update(status="Expired")
+    try:
+        if Member.objects.all().exists():
+            for i in Member.objects.all():
+                if (i.member_membership_expiry_date-dt.date.today()).days<0:
+                    id=Member.objects.filter(id=i.id)[0].active_fee_id.id
+                    Fee.objects.filter(id=id).update(status="Expired")
+    except:
+        print("checkMemberStarus")
 
 def addMemberRecord(request,status):
         print("atted by ****** ", request.POST.get("attended-by"))
@@ -68,7 +74,7 @@ def addMemberRecord(request,status):
                         member_membership_id=membership_id,
                         member_membership_expiry_date=request.POST.get("membership-expire"),
                         member_membership_start_date=request.POST.get("membership-start-date"),
-                        attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first(),
+                        attended_by=EmployeeRecord.objects.filter(id=request.user.id).first(),
                         )
         member_data.save()
         print("member data",member_data)
@@ -98,7 +104,8 @@ def addMemberRecord(request,status):
                         remaining=0,
                         paid=request.POST.get("payableamount"),
                         member=member_data,
-                        fee=fee
+                        fee=fee,
+                        user_id=request.user.id
                         )
             
         else: # for installment
@@ -128,8 +135,10 @@ def addMemberRecord(request,status):
                             remaining=request.POST.get("remainingamount"),
                             paid=request.POST.get("paidamount"),
                             member=member_data,
-                            fee=fee
+                            fee=fee,
+                            user_id=request.user.id
                             )
+        sendMessageToUser(request.POST.get("fullname"),request.POST.get("contactnumber"),f"Welcome to the Masho Fitness Club. Your membership category is {request.POST.get('membershipcategory')} and memership class is {request.POST.get('membership-class')}. your membership expire date is {request.POST.get('membership-expire')}")
     
 
 def update_payment_installment(request):
@@ -158,8 +167,10 @@ def update_payment_installment(request):
                         remaining=request.POST.get("istallment-new-pending-amount"),
                         paid=request.POST.get("installment-pay-amount"),
                         member=member,
-                        fee=Fee.objects.filter(id=member.active_fee_id.id)[0]
+                        fee=Fee.objects.filter(id=member.active_fee_id.id)[0],
+                        user_id=request.user.id
                         )
+        
         return True
     except Exception as e:
         print('update_payment_installmente',e)
@@ -172,7 +183,7 @@ def add_bill_record(subscription,
                     discount,
                     payable,
                     remaining,
-                    paid,member,fee):
+                    paid,member,fee,user_id):
     try:
         Bill.objects.create(
                         subscription_id=subscription,
@@ -185,7 +196,7 @@ def add_bill_record(subscription,
                         paid=paid,
                         member_id=member,
                         fee_id=fee,
-                        bill_attended_by=EmployeeRecord.objects.filter(id=User_credentials['id']).first()
+                        bill_attended_by=EmployeeRecord.objects.filter(id=user_id).first()
                         ).save()
         return True
 
@@ -241,7 +252,8 @@ def renewSubscription(request,status):
                         remaining=0,
                         paid=request.POST.get("model-payableamount"),
                         member=member_data,
-                        fee=fee
+                        fee=fee,
+                        user_id=request.user.id
                         )
             
         else: # for installment
@@ -275,7 +287,8 @@ def renewSubscription(request,status):
                             remaining=request.POST.get("remainingamount"),
                             paid=request.POST.get("paidamount"),
                             member=member_data,
-                            fee=fee
+                            fee=fee,
+                            user_id=request.user.id
                             )
     except Exception as e:
         print("re new subscription ",e)
