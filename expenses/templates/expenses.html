@@ -422,6 +422,11 @@
                                     <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required name="receipent">
                                 </div>
 
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1">Attended By</label>
+                                    <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"  name="attended-by" value="{{request.user.username}}" readonly>
+                                </div>
+
                                 <div class="flex flex-col col-span-4">
                                     <label for="" class="m-1">Description</label>
                                     <input type="text" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required
@@ -543,6 +548,7 @@
                                 <th class="p-1">Expense for</th>
                                 <th class="p-1">Description</th>
                                 <th class="p-1">Recipient Name</th>
+                                <th class="p-1">Attended By</th>
                                 <th class="p-1">Action</th>
                                 
                             </tr>
@@ -562,6 +568,7 @@
                                     {{expense.description}}
                                 </td>
                                 <td class="p-1">{{expense.receipent_name}}</td>
+                                <td class="p-1">{{expense.expense_attended_by.user.username}}</td>
                                 
                                 <td class="p-1">
                                     <a href="/updateExpense/?data={{expense.id}}">

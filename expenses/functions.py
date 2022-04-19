@@ -14,7 +14,7 @@ def addExpense(request):
                 receipent_name=request.POST.get('receipent'),
                 description=request.POST.get('description'),
                 comments=comment,
-                expense_attended_by=EmployeeRecord.objects.filter(id=request.user.id).first()
+                expense_attended_by=EmployeeRecord.objects.filter(user__username=request.POST.get("attended-by")).first()
                 )
 
         add_data.save()
