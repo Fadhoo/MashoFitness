@@ -550,7 +550,7 @@
                                     </li>
 
                                     <li class="relative">
-                                        <button @click="openSubModal"
+                                        <button @click="openSubModal({{addItems.id}}, 'inventory')"
                                             class="w-32 text-lg inline-flex justify-center text-white bg-red-500 shadow-md rounded-md rounded-br-none px-1">
 
                                             <span>
@@ -616,7 +616,7 @@
                             </thead>
                                 
                             <tbody>
-                                {% for product in inventory %}
+                                {% for product in addItems %}
                                 <tr class="text-left hover:bg-red-200">
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
@@ -630,13 +630,13 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td class="p-2">{{product.inventory_code}}</td>
-                                    <td class="p-2">{{product.inventory_name}}</td>
-                                    <td class="p-2">{{product.inventory_unit}}</td>
-                                    <td class="p-2">{{product.inventory_selling_price}}</td>
-                                    <td class="p-2">{{product.stock_available}}</td>
-                                    <td class="p-2">{{product.stock_in_shop}}</td>
-                                    <td class="p-2">{{product.inventory_stock_expiry}}</td>
+                                    <td class="p-2">{{product.item_code}}</td>
+                                    <td class="p-2">{{product.item_name}}</td>
+                                    <td class="p-2">{{product.item_unit}}</td>
+                                    <td class="p-2">{{product.item_selling_price}}</td>
+                                    <td class="p-2">12</td>
+                                    <td class="p-2">4</td>
+                                    <td class="p-2">{{product.item_expiry_day}}</td>
                                     
 
 
@@ -730,7 +730,7 @@
     </div>
 
     <!-- Modal backdrop. This what you want to place close to the closing body tag -->
-    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+    <div x-show="isModalOpen"  x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
         class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
@@ -756,7 +756,7 @@
                 </button>
             </header>
             <!-- Modal body -->
-            <form action="/inventory/" method="post">
+            <form action="{% url 'inventory' %}" method="post">
                 {% csrf_token %}
             
                 <div class="bg-white p-1">
@@ -1088,7 +1088,7 @@
         </div>
     </div>
     <!-- End of Product modal backdrop -->
-
+    <script src="{% static 'js/inventory.js' %}"></script>
 </body>
 
 </html>

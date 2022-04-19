@@ -4,7 +4,7 @@ from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import ItemSerializer, NonStockSerializer
+from .serializer import ItemSerializer, NonStockSerializer, InventorySerializer
 from django.urls import reverse
 
 
@@ -50,6 +50,14 @@ def addNonStockItem(request):
         return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
 
 
+def inventory(request):
+    # if request.method=="POST":
+    #     if request.POST.get("add-inventory-data"):
+    #         print("add inventory data")
+    #         # addInventory(request)
+    #         # return HttpResponseRedirect(reverse("inventory"))
+    # else:
+        return render(request, "inventory.html", {'addItems': Items.objects.all()})
 
 
 def addProducts(request):
@@ -77,8 +85,6 @@ def updateCustomer(request):
         return render(request, "updateCustomer.html", {'customerData': Customer.objects.filter(id=request.GET.get("customer")).first()})
 
 
-def inventory(request):
-    return render(request, "inventory.html")
 
 
 def pos(request):
@@ -180,5 +186,13 @@ def UpdateNonStockItemQueryCall(request):
     value=request.GET.get("nonStock-id")
     try:
         return Response(NonStockSerializer(NonStock.objects.filter(id=value),many=True).data)
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def InventoryQueryCall(request):
+    value=request.GET.get("id")
+    try:
+        return Response(InventorySerializer(Inventory.objects.filter(id=value),many=True).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})

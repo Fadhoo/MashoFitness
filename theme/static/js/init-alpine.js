@@ -80,6 +80,9 @@ function data() {
     openModal() {
       this.isModalOpen = true;
       this.trapCleanup = focusTrap(document.querySelector('#modal'));
+      if (call=="inventory"){
+        inventory_query_call_nonstock(id)
+      }
     },
     closeModal() {
       this.isModalOpen = false;
