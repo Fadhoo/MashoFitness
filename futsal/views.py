@@ -207,3 +207,12 @@ def SearchByTeamMatchStatus(request):
         return Response(MatchSerializer(Match.objects.filter(paid=value),many=True).data)
     except Exception as e:
         return Response({"error":str(e)})
+
+@api_view(['GET'])
+def SearchByFutsalDate(request):
+    date=request.GET.get('date')
+    print(date)
+    try:
+        return Response(BookingSerializer(createDailyMatchTimeTable(date),many=True).data)
+    except Exception as e:
+        return Response({"error":str(e)})
