@@ -100,3 +100,13 @@ def logout_user(request):
     return render(request,"login.html")
 
 
+def editEmployee(request):
+    if request.method == "POST":
+        print("post **&*&*&*&*&*&*&*&*&*&*&*& ")
+        if request.POST.get('edit-employee'):
+            return render(request, 'editEmployee.html')
+    else:
+        return render(request, 'employee.html', {
+            'employee':EmployeeRecord.objects.filter(id=id).first(),
+            'employees': EmployeeRecord.objects.all().order_by("-id")}
+            )

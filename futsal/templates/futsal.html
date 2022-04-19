@@ -325,7 +325,8 @@
                         <div class="flex flex-row mt-2 justify-between border-b-2 border-gray-700 border-opacity-80">
                             <p class="p-2 text-lg font-semibold text-gray-600 ">Team Details</p>
                             <div class="flex flex-row">
-                                
+                                <input type="date" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" @change ="openFutsalMatchUpdateModal();"
+                                    name="match-date" id="match-date">
                                 <span onclick="reloadPage()" class="p-1 cursor-pointer rounded-md border border-blue-700 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -412,6 +413,36 @@
 
         </div>
 
+    </div>
+    <!-- futsal day match update -->
+    <div x-show="isFutsalMatchUpdateModalOpen" id="FutsalMatchUpdateModal"
+        class="fixed w-full h-screen left-0 top-0 z-10 flex flex-wrap justify-center content-center p-24">
+        <div x-show="isFutsalMatchUpdateModalOpen" class="fixed glass w-full h-screen left-0 top-0 z-0"
+            x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+        <div x-show="isFutsalMatchUpdateModalOpen" class="w-96 rounded-3xl bg-white shadow-xl overflow-hidden z-10"
+            x-transition:enter="transition ease-out duration-100"
+            x-transition:enter-start="opacity-0 transform scale-90"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-90">
+
+            <div class="p-2">
+                <div class="float-right">
+                  <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeFutsalMatchUpdateModal()"
+                    class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                <div class="p-2" id="booking-div-id">
+
+                </div>
+              </div>
+
+        </div>
     </div>
     <script src="{% static 'js/futsal.js'%}"></script>
 </body>

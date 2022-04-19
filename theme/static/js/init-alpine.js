@@ -173,6 +173,22 @@ function data() {
       this.isViewAllSmsModalOpen = false
       this.trapCleanupViewAllSms()
     },
+
+
+    // futsal match udpate modal
+    isFutsalMatchUpdateModalOpen: false,
+    trapCleanupFutsalMatchUpdate: null,
+    openFutsalMatchUpdateModal() {
+        SearchByFutsalDate()
+        this.isFutsalMatchUpdateModalOpen = true
+        this.trapCleanupFutsalMatchUpdate = focusTrap(document.querySelector('#FutsalMatchUpdateModal'))
+      
+    },
+    closeFutsalMatchUpdateModal() {
+      this.isFutsalMatchUpdateModalOpen = false
+      this.trapCleanupFutsalMatchUpdate()
+    },
+    
     
   }
 }
