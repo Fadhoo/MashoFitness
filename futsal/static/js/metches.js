@@ -158,3 +158,18 @@ function update_match_table(data){
 
 
 }
+
+function searchByFutsalDate(date){
+    $.ajax({
+        method: "GET",
+        url: "/api/searchByFutsalDate/",
+        data: { "date": date.value },
+        success: function (data) {
+            update_match_table(data)
+        },
+        error: function () {
+            console.log('error');
+        }
+
+    })
+}

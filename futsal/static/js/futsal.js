@@ -212,7 +212,7 @@ function SearchByFutsalDate(date){
             htmlcontainer+=
 
             '<div class="flex flex-row gap-1 border border-teal-800">'+
-            '<span>'+elem['time']+elem['meridiem']+'</span>'+
+            '<span>'+elem['time']+'&nbsp;'+elem['meridiem']+'</span>'+
             '</div>'
 
             
@@ -221,7 +221,7 @@ function SearchByFutsalDate(date){
             console.log("true");
             htmlcontainer+=
             '<div class="flex flex-row gap-1 border p-1 border-teal-900">'+
-            '<span>'+elem['time']+elem['meridiem']+'</span>'+
+            '<span>'+elem['time']+ ' ' +elem['meridiem']+'</span>'+
                     '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-green-700 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">'+
                         '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />'+
                 '</svg>'+

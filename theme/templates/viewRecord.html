@@ -368,7 +368,7 @@
                             <table class="table-auto border-gray-200 w-full" id="myTable">
                                 <thead class="border-b-2 border-gray-400">
                                     <tr class="text-left">
-                                        <th class="p-1"></th>
+                                        <!-- <th class="p-1"></th> -->
                                         <th class="p-2">Bill Id.</th>
                                         <th class="p-2">Subscription</th>
                                         <th class="p-2">Start Date</th>
@@ -386,9 +386,9 @@
                                 <tbody>
                                     {% for i in bill %}
                                     <tr class="text-left text-md border-2 hover:bg-slate-300">
-                                        <td class="p-1">
+                                        <!-- <td class="p-1">
                                             <input  onclick="requestDelete(this)" data-id="{{i.id}}" type="checkbox" class="cursor-pointer rounded-md">
-                                        </td>
+                                        </td> -->
 
                                         <td class="p-2">{{i.id}}</td>
                                         <td class="p-2">{{i.subscription_id.category_months}}</td>

@@ -24,5 +24,6 @@ urlpatterns = [
     path("api/deleteTeamMatch/", views.deleteTeamMatch, name="deleteTeamMatch"),
     path("api/SearchByTeamMatchField/", views.SearchByTeamMatchField, name="SearchByTeamMatchField"),
     path("api/SearchByTeamMatchStatus/", views.SearchByTeamMatchStatus, name="SearchByTeamMatchStatus"),
+    path("api/searchByFutsalDate/", views.searchByFutsalDate, name="searchByFutsalDate"),
 
 ]

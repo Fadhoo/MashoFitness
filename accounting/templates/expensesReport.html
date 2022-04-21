@@ -16,6 +16,9 @@
     <script src="{% static 'js/focus-trap.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     {% tailwind_css %}
 </head>
 
@@ -223,13 +226,13 @@
                                 <div class="flex flex-row gap-x-2 ml-5">
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">From</label>
-                                        <input type="date" id="from-date" name="from-date" required
+                                        <input type="date" id="from-date" name="from-date" required value="{{from_date|date:'Y-m-d'}}"
                                             class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">To</label>
-                                        <input type="date" id="to-date" name="to-date" required
+                                        <input type="date" id="to-date" name="to-date" required value="{{to_date|date:'Y-m-d'}}"
                                             class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200">
                                     </div>
                                 </div>
@@ -248,7 +251,7 @@
                             
                             <div class="flex flex-row">
                                 <a class="p-1 cursor-pointer rounded-md border  border-orange-700 m-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-orange-700 w-6" fill="none"
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 text-orange-700 w-6" fill="none" onclick="generate()"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -293,16 +296,22 @@
 
                                     </tr>
                                     {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="p-1 font-semibold">GYM Total Amount:</td>
+                                        <td class="p-1 font-semibold">{{gym_expense_total}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
-                            <div class="text-right p-1 border-2 mt-1">
-                                <span class="font-bold">GYM Total Amount:</span>
-                                <span class="font-semibold">{{gym_expense_total}}</span>
-                            </div>
                             {% endif %}
                             <!-- Futsal -->
                             {% if FutsalData %}
-                            <table class="table-auto border-gray-200 w-full" id="myTable">
+                            <table class="table-auto border-gray-200 w-full" id="myTable11">
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
                                         <th class="p-1">S No.</th>
@@ -329,18 +338,22 @@
 
                                     </tr>
                                     {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="p-1 font-semibold">Futsal Total Amount:</td>
+                                        <td class="p-1 font-semibold">{{futsal_expense_total}}</td>
                                 </tbody>
                             </table>
-
-                            <div class="text-right p-1 border-2 mt-1">
-                                <span class="font-bold">Futsal Total Amount:</span>
-                                <span class="font-semibold">{{futsal_expense_total}}</span>
-                            </div>
                             {% endif %}
 
                             <!-- Snooker -->
                             {% if SnookerData %}
-                            <table class="table-auto border-gray-200 w-full" id="myTable">
+                            <table class="table-auto border-gray-200 w-full" id="myTable2">
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
                                         <th class="p-1">S No.</th>
@@ -367,13 +380,17 @@
 
                                     </tr>
                                     {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="p-1 font-semibold">Snooker Total Amount:</td>
+                                        <td class="p-1 font-semibold">{{snooker_expense_total}}</td>
                                 </tbody>
                             </table>
-
-                            <div class="text-right p-1 border-2 mt-1">
-                                <span class="font-bold">Snooker Total Amount:</span>
-                                <span class="font-semibold">{{snooker_expense_total}}</span>
-                            </div>
                             {% endif %}
                             <!-- Cafeteria -->
                             {% if CafeteriaData %}
@@ -412,7 +429,7 @@
                             {% endif %}
                             <!-- Rental -->
                             {% if rentalData %}
-                            <table class="table-auto border-gray-200 w-full" id="myTable">
+                            <table class="table-auto border-gray-200 w-full" id="myTable3">
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
                                         <th class="p-1">S No.</th>
@@ -439,21 +456,34 @@
 
                                     </tr>
                                     {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="p-1 font-semibold">Rental Total Amount:</td>
+                                        <td class="p-1 font-semibold">{{rental_expense_total}}</td>
                                 </tbody>
                             </table>
-
-                            <div class="text-right p-1 border-2 mt-1">
-                                <span class="font-bold">Rental Total Expense:</span>
-                                <span class="font-semibold">{{rental_expense}}</span>
-                            </div>
                                 
                             {% endif %}
                             <!-- Others -->
                             {% if All_total %}
-                            <div class="text-right p-2 border-2 mt-3">
-                                <span class="text-lg font-bold">Total Amount:</span>
-                                <span class="text-lg font-semibold">{{All_total}}</span>
-                            </div>
+                            <table id="totalTable">
+                                <tbody >
+                                    <thead>
+                                        
+                                        <tr>
+                                            <td><span class="text-lg font-bold">Total Amount:</span></td>
+                                            <td><span class="text-lg font-semibold">{{All_total}}</span></td>
+                                        </tr>
+                                    </thead>
+                                        
+                                    
+                                </tbody>
+                            </table>
                             {% endif %}
                         </div>
                     </div>
@@ -466,16 +496,20 @@
     <div>
 
     </div>
+    <script src="{% static 'js/printrevenue.js' %}"></script>
     <script>
         function onlyOne(checkbox) {
-    var checkboxes = document.getElementsByName('check')
-    console.log(checkboxes)
-    checkboxes.forEach((item) => {
-        console.log(item)
-        if (item !== checkbox) item.checked = false
-    })
-}
+            var checkboxes = document.getElementsByName('check')
+            console.log(checkboxes)
+            checkboxes.forEach((item) => {
+                console.log(item)
+                if (item !== checkbox) item.checked = false
+            })
+        }
     </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
     <!-- pdf print end -->
 </body>
 

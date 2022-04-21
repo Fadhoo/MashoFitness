@@ -397,7 +397,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file"
+                                        <input name="photos" id="fileInput" accept="image/*" class="hidden" type="file"
                                             onChange="let file = this.files[0]; 
                                             var reader = new FileReader();
                         
@@ -484,7 +484,7 @@
                                         <select name="emp-type" id="emp-type" required
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner"
                                             onchange="EmployeeTypeChecker(this)">
-                                            <option value="">Select Blood Group</option>
+                                            <option value="">Select Employee Type</option>
                                             <option value="Technical">Technical</option>
                                             <option value="Other">Other</option>
                                         </select>
@@ -603,7 +603,7 @@
                                     <td class="p-1">{{data.employee_gender}}</td>
                                     <td class="p-1">{{data.employee_type}}</td>
                                     <td class="p-1">
-                                        <form action="{% url 'editEmployee' %}" method="post">
+                                        <form action="{% url 'editEmployee' %}" method="get">
                                         {% csrf_token %}
                                             <input type="number" name="e-id" value="{{data.id}}" hidden>
                                         <button type="submit" name="edit-employee" value="edit-employee"

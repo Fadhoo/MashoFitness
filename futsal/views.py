@@ -216,3 +216,13 @@ def SearchByFutsalDate(request):
         return Response(BookingSerializer(createDailyMatchTimeTable(date),many=True).data)
     except Exception as e:
         return Response({"error":str(e)})
+
+@api_view(['GET'])
+def searchByFutsalDate(request):
+    try:
+        print(request.GET)
+        date = request.GET.get("date", None)
+        return Response(MatchSerializer(Match.objects.filter(date=date).select_related("team1"),many=True).data)
+
+    except Exception as e:
+        return Response({"error": str(e)})

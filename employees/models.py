@@ -14,3 +14,9 @@ class EmployeeRecord(models.Model):
     employee_type = models.CharField(max_length=30)
     employee_pay = models.IntegerField(default=0)
     employee_status = models.CharField(max_length=20)
+
+class EmployeeSalary(models.Model):
+    employee_salary = models.ForeignKey(EmployeeRecord,on_delete=models.CASCADE)
+    salary_date = models.DateField()
+    salary_amount = models.IntegerField()
+    salary_attended_by = models.CharField(max_length=20)

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from .models import *
-from .functions import CreateAdminUserFirst,addEmployee
+from .functions import CreateAdminUserFirst,addEmployee,updateEmployee,renewSalary
 from django.shortcuts import render
 from django.contrib import messages
 from futsal.models import Match, Team
@@ -102,11 +102,17 @@ def logout_user(request):
 
 def editEmployee(request):
     if request.method == "POST":
-        print("post **&*&*&*&*&*&*&*&*&*&*&*& ")
-        if request.POST.get('edit-employee'):
-            return render(request, 'editEmployee.html')
+        if request.POST.get("update-employee"):
+            print("update employee button ********* ")
+            updateEmployee(request)
+            return HttpResponseRedirect(reverse('employee'))
+        if request.POST.get("salary-renew"):
+            print("salary renew button ********* ")
+            if renewSalary(request):
+                return HttpResponseRedirect(reverse('employee'))
     else:
-        return render(request, 'employee.html', {
-            'employee':EmployeeRecord.objects.filter(id=id).first(),
-            'employees': EmployeeRecord.objects.all().order_by("-id")}
+        return render(request, 'editEmployee.html', {
+            'user':EmployeeRecord.objects.filter(id=request.GET.get("e-id")).first(),
+            'record':EmployeeSalary.objects.filter(employee_salary__id=request.GET.get("e-id")).select_related('employee_salary').order_by("-id")
+            }
             )
