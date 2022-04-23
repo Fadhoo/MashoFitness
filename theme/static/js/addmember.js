@@ -439,7 +439,7 @@ $(document).ready(function() {
     }, 4000); // <-- time in milliseconds, 1000 =  1 sec
 
     // delete message
-    $('.del-msg').live('click',function(){
+    $('body').on('click','.del-msg',function(){
         $('.del-msg').parent().attr('style', 'display:none;');
     })
 });

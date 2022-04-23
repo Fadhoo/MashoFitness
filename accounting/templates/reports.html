@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" x-data="data()">
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,11 +11,24 @@
     <link rel="stylesheet" href="{% static 'public/main.css' %}">
     <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}" />
     <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{% static 'js/init-alpine.js' %}"></script>
     <script src="{% static 'js/focus-trap.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% tailwind_css %}
+
 </head>
 
 <body>
@@ -258,31 +272,31 @@
                                 <tbody class="flex flex-col gap-2">
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">GYM</td>
-                                            <td class="p-1 float-right">{{gym_revenue}}</td>
+                                        <td class="p-1 float-right">{{gym_revenue}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Futsal</td>
-                                        
-                                            <td class="p-1 float-right">{{futsal_revenue}}</td>
-                                        
+
+                                        <td class="p-1 float-right">{{futsal_revenue}}</td>
+
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Snooker</td>
-                                        
-                                            <td class="p-1 float-right">{{snooker_revenue}}</td>
+
+                                        <td class="p-1 float-right">{{snooker_revenue}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Cafeteria</td>
-                                            <td class="p-1 float-right">{{cafeteria_revenue}}</td>
+                                        <td class="p-1 float-right">{{cafeteria_revenue}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Rental</td>
-                                            <td class="p-1 float-right">{{rental_revenue}}</td>
-                                        
+                                        <td class="p-1 float-right">{{rental_revenue}}</td>
+
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left text-lg font-semibold">Total</td>
-                                            <td class="p-1 float-right text-lg font-semibold">{{total_revenue}}</td>
+                                        <td class="p-1 float-right text-lg font-semibold">{{total_revenue}}</td>
                                 </tbody>
                             </table>
 
@@ -296,23 +310,23 @@
                                 <tbody class="flex flex-col gap-2">
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">GYM</td>
-                                            <td class="p-1 float-right">{{gym_expense}}</td>
+                                        <td class="p-1 float-right">{{gym_expense}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Futsal</td>
-                                            <td class="p-1 float-right">{{futsal_expense}}</td>
+                                        <td class="p-1 float-right">{{futsal_expense}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Snooker</td>
-                                            <td class="p-1 float-right">{{snooker_expense}}</td>
+                                        <td class="p-1 float-right">{{snooker_expense}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Cafeteria</td>
-                                            <td class="p-1 float-right">{{cafeteria_expense}}</td>
+                                        <td class="p-1 float-right">{{cafeteria_expense}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left font-semibold">Rental</td>
-                                            <td class="p-1 float-right">{{rental_expense}}</td>
+                                        <td class="p-1 float-right">{{rental_expense}}</td>
                                     </tr>
                                     <tr class="border hover:bg-slate-300">
                                         <td class="p-1 float-left text-lg font-semibold">Total</td>
@@ -321,8 +335,8 @@
                                 </tbody>
                             </table>
                         </div>
-                         <!-- profit / loss -->
-                         <div class="p-3 m-1 border-2 border-blue-400 text-right">
+                        <!-- profit / loss -->
+                        <div class="p-3 m-1 border-2 border-blue-400 text-right">
                             <label for="" class="text-xl font-bold">Profit/ Loss:</label>
                             <span class="text-lg font-semibold ml-4">{{profit}}</span>
                         </div>

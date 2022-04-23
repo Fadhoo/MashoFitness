@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="{% static 'public/main.css' %}">
     <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}" />
     <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="{% static 'js/init-alpine.js' %}"></script>
     <script src="{% static 'js/focus-trap.js' %}"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     {% tailwind_css %}
 
 </head>
@@ -482,8 +482,8 @@
                         <div class="flex flex-row mt-2 justify-between border-b-2 border-gray-700 border-opacity-80">
                             <p class="p-2 text-lg font-semibold text-gray-600 ">Registered Members</p>
                             <div class="flex flex-row">
-                                <span @click="openViewAllSmsModal()" 
-                                class="p-1 cursor-pointer rounded-md border border-blue-700 m-1">
+                                <span @click="openViewAllSmsModal()"
+                                    class="p-1 cursor-pointer rounded-md border border-blue-700 m-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-900" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -613,7 +613,7 @@
                                         </td>
                                     </form>
                                     <td class="p-2">
-                                        <button @click="openSMSModal({{data.id}});" 
+                                        <button @click="openSMSModal({{data.id}});"
                                             class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>
                                     </td>
                                 </tr>
@@ -649,50 +649,51 @@
 
             <div class="p-2">
                 <div class="float-right">
-                  <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeSMSModal()"
-                    class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeSMSModal()"
+                        class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </div>
                 <form action="{% url 'smshistory' %}" method="post">
-                  {% csrf_token %}
-                  <input type="text" name="model-member-id" id="model-member-id" hidden/>
-                  <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
-                    
+                    {% csrf_token %}
+                    <input type="text" name="model-member-id" id="model-member-id" hidden />
+                    <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
 
-                    <div class="flex flex-col">
-                      <label for="" class="m-1 text-sm">Sms Module</label>
-                      <select name="model-smsModule" id="model-smsModule" onchange="SMSModuleChange(this)"
-                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                        <option value="">Select Module</option>
-                        {% for i in sms_list %}
-                        <option value="{{i}}">{{i}}</option>
-                        {% endfor %}
-                      </select>
+
+                        <div class="flex flex-col">
+                            <label for="" class="m-1 text-sm">Sms Module</label>
+                            <select name="model-smsModule" id="model-smsModule" onchange="SMSModuleChange(this)"
+                                class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                <option value="">Select Module</option>
+                                {% for i in sms_list %}
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="" class="m-1 text-sm">SMS For</label>
+                            <select name="model-smsfor" id="model-smsfor" onchange="SmsForChange(this)"
+                                class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                <option value="">Select Module</option>
+                            </select>
+                        </div>
+
+
+                        <div class="flex flex-col col-span-2">
+                            <label for="" class="m-1">Message</label>
+                            <textarea type="text" id="model-smstext" value="0"
+                                class="rounded-md outline-none border-none shadow-inner p-2 bg-white"
+                                name="model-smstext"></textarea>
+                        </div>
+
+
                     </div>
-                    <div class="flex flex-col">
-                      <label for="" class="m-1 text-sm">SMS For</label>
-                      <select name="model-smsfor" id="model-smsfor" onchange="SmsForChange(this)"
-                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                        <option value="">Select Module</option>
-                      </select>
-                    </div>
-                    
-                    
-                    <div class="flex flex-col col-span-2">
-                      <label for="" class="m-1">Message</label>
-                      <textarea type="text" id="model-smstext" value="0"
-                        class="rounded-md outline-none border-none shadow-inner p-2 bg-white"
-                        name="model-smstext"></textarea>
-                    </div>
-                    
-                    
-                  </div>
-                  <button class="bg-blue-600 px-10 rounded-lg mt-5 text-white ml-32 shadow-md rounded-br-none py-1"
-                    name="send-message" value="send-message">Send</button>
+                    <button class="bg-blue-600 px-10 rounded-lg mt-5 text-white ml-32 shadow-md rounded-br-none py-1"
+                        name="send-message" value="send-message">Send</button>
                 </form>
-              </div>
+            </div>
 
         </div>
     </div>
@@ -713,81 +714,83 @@
 
             <div class="p-2">
                 <div class="float-right">
-                  <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeViewAllSmsModal()"
-                    class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" x-on:click="closeViewAllSmsModal()"
+                        class="h-5 w-5 text-blue-800 cursor-pointer" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </div>
                 <form action="{% url 'smshistory' %}" method="post">
-                  {% csrf_token %}
-                  <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
-                    
+                    {% csrf_token %}
+                    <div class="grid grid-cols-2 gap-y-2 mt-3 gap-x-3 p-2 overflow-y-auto">
 
-                    <div class="flex flex-col">
-                      <label for="" class="m-1 text-sm">Sms Module</label>
-                      <select name="model-smsModule-all" id="model-smsModule-all" onchange="AllSMSModuleChange(this)"
-                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                        <option value="">Select Module</option>
-                        {% for i in sms_list %}
-                        <option value="{{i}}">{{i}}</option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                    <div class="flex flex-col">
-                      <label for="" class="m-1 text-sm">SMS For</label>
-                      <select name="model-smsfor-all" id="model-smsfor-all" onchange="AllSmsForChange(this)"
-                        class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
-                        <option value="">Select Module</option>
-                      </select>
-                    </div>
-                    
-                    
-                    <div class="flex flex-col col-span-2">
-                      <label for="" class="m-1">Message</label>
-                      <textarea type="text" id="model-smstext-all" value="0"
-                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
-                        name="model-smstext-all"></textarea>
-                    </div>
-                    <div class="flex flex-col col-span-2">
-                        <label for="" class="m-1">Send Message To</label>
-                        <div class="grid grid-cols-2">
-                            <div class="flex flex-row gap-2">
-                                <input type="checkbox" id="model-status" value="All"
-                              class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
-                              name="model-status"/>
-                              <label for="" class="">All Members</label>
-                            </div>
-    
-                            <div class="flex flex-row gap-2">
-                                <input type="checkbox" id="model-status" value="Unpaid"
-                              class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
-                              name="model-status"/>
-                              <label for="" class="">Unpaid Members</label>
-                            </div>
-    
-                            <div class="flex flex-row gap-2">
-                                <input type="checkbox" id="model-status" value="Expired"
-                              class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
-                              name="model-status"/>
-                              <label for="" class="">Expired Members</label>
-                            </div>
-                            
-                            <div class="flex flex-row gap-2">
-                                <input type="checkbox" id="model-status" value="Paid"
-                              class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
-                              name="model-status"/>
-                              <label for="" class="">Paid Members</label>
+
+                        <div class="flex flex-col">
+                            <label for="" class="m-1 text-sm">Sms Module</label>
+                            <select name="model-smsModule-all" id="model-smsModule-all"
+                                onchange="AllSMSModuleChange(this)"
+                                class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                <option value="">Select Module</option>
+                                {% for i in sms_list %}
+                                <option value="{{i}}">{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="" class="m-1 text-sm">SMS For</label>
+                            <select name="model-smsfor-all" id="model-smsfor-all" onchange="AllSmsForChange(this)"
+                                class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
+                                <option value="">Select Module</option>
+                            </select>
+                        </div>
+
+
+                        <div class="flex flex-col col-span-2">
+                            <label for="" class="m-1">Message</label>
+                            <textarea type="text" id="model-smstext-all" value="0"
+                                class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200"
+                                name="model-smstext-all"></textarea>
+                        </div>
+                        <div class="flex flex-col col-span-2">
+                            <label for="" class="m-1">Send Message To</label>
+                            <div class="grid grid-cols-2">
+                                <div class="flex flex-row gap-2">
+                                    <input type="checkbox" id="model-status" value="All"
+                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
+                                        name="model-status" />
+                                    <label for="" class="">All Members</label>
+                                </div>
+
+                                <div class="flex flex-row gap-2">
+                                    <input type="checkbox" id="model-status" value="Unpaid"
+                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
+                                        name="model-status" />
+                                    <label for="" class="">Unpaid Members</label>
+                                </div>
+
+                                <div class="flex flex-row gap-2">
+                                    <input type="checkbox" id="model-status" value="Expired"
+                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
+                                        name="model-status" />
+                                    <label for="" class="">Expired Members</label>
+                                </div>
+
+                                <div class="flex flex-row gap-2">
+                                    <input type="checkbox" id="model-status" value="Paid"
+                                        class="rounded-md outline-none border-none shadow-inner p-2 bg-gray-200 m-1 outline-gray-300"
+                                        name="model-status" />
+                                    <label for="" class="">Paid Members</label>
+                                </div>
                             </div>
                         </div>
-                      </div>
-                    
-                    
-                  </div>
-                  <button class="bg-blue-600 px-10 rounded-lg mt-5 text-white ml-32 shadow-md rounded-br-none py-1"
-                    name="send-message-toall" value="send-message-toall">Send</button>
+
+
+                    </div>
+                    <button class="bg-blue-600 px-10 rounded-lg mt-5 text-white ml-32 shadow-md rounded-br-none py-1"
+                        name="send-message-toall" value="send-message-toall">Send</button>
                 </form>
-              </div>
+            </div>
 
         </div>
     </div>
