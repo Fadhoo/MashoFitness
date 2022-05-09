@@ -2,6 +2,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from numpy import zeros_like
 from .models import *
 from .functions import CreateAdminUserFirst,addEmployee,updateEmployee,renewSalary
 from django.shortcuts import render
@@ -21,25 +22,30 @@ from django.contrib.auth import logout, login, authenticate
 #     for i in data:
 #         ls.append(i)
 #     return ls
+def zeroValue(value):
+    if value is None:
+        return 0
+    else:
+        return value
 
 def index(request):
     if request.user.is_superuser==True:
         print("super user")
         return render(request, 'index.html',
         {
-            "total_member":Member.objects.all().count(),
-            "total_male":Member.objects.filter(member_gender="Male").count(),
-            "total_female":Member.objects.filter(member_gender="Female").count(),
-            'member_dues':Fee.objects.filter(status="Unpaid").count(),
-            'member_income':Payment.objects.all().aggregate(Sum('payment_amount'))['payment_amount__sum'],
-            'member_expense':expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            'gym_total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
-            'futsal_total_team': Team.objects.all().count(),
-            'futsal_income':Match.objects.filter(paid="Paid").aggregate(Sum('fee'))['fee__sum'], 
-            'futsal_expense': expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            'total_expenses':expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum'],
-            'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
-            'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+            "total_member":f"{Member.objects.all().count():,}",
+            "total_male":f"{Member.objects.filter(member_gender='Male').count():,}",
+            "total_female":f"{Member.objects.filter(member_gender='Female').count():,}",
+            'member_dues':f"{Fee.objects.filter(status='Unpaid').count():,}",
+            'member_income':f"{zeroValue(Payment.objects.all().aggregate(Sum('payment_amount'))['payment_amount__sum']):,}",
+            'member_expense':f"{zeroValue(expensesData.objects.filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
+            'gym_total_dues':f"{zeroValue(Fee.objects.filter(status='Unpaid').aggregate(Sum('remaining'))['remaining__sum']):,}",
+            'futsal_total_team': f"{Team.objects.all().count():,}",
+            'futsal_income':f"{zeroValue(Match.objects.filter(paid='Paid').aggregate(Sum('fee'))['fee__sum']):,}", 
+            'futsal_expense': f"{zeroValue(expensesData.objects.filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
+            'total_expenses':f"{zeroValue(expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
+            'today_snooker_income':f"{zeroValue(snookerTableIncome.objects.select_related('snooker_id').aggregate(Sum('amount'))['amount__sum']):,}",
+            'snooker_expenses':f"{zeroValue(expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
         })
     elif request.user.is_superuser==False:
         print("employee user")

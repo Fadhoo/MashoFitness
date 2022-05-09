@@ -467,6 +467,7 @@ function getNumberOfDays(end) {
 
 
 function get_all_member_remaining_expiredays(){
+    console.log('get_all_member_remaining_expiredays');
     $.ajax({
         method: "GET",
         url: "/api/getExpireRemainingDays/",
