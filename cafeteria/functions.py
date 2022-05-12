@@ -69,36 +69,36 @@ def UpdateItem(request):
         return False
 
 # function for products to add in Product table 
-def addProducts(request):
-    try:
-        if request.FILES:
-            f=request.FILES["photo"]
-            fs = FileSystemStorage()
-            filename = fs.save(f.name, f)
-            uploaded_file_url = fs.url(filename)
-        else:
-            filename="default.png"
+# def addProducts(request):
+#     try:
+#         if request.FILES:
+#             f=request.FILES["photo"]
+#             fs = FileSystemStorage()
+#             filename = fs.save(f.name, f)
+#             uploaded_file_url = fs.url(filename)
+#         else:
+#             filename="default.png"
 
-        add_product =   Product.objects.create(product_code=request.POST.get("product-code"),
-                        product_name=request.POST.get("product-name"), product_unit=request.POST.get("product-measure"),
-                        product_category=request.POST.get("product-category"), product_brand=request.POST.get("product-brand"),
-                        product_manufacturer=request.POST.get("manufacturer"), product_selling_price=request.POST.get("selling-price"),
-                        product_max_selling_quantity=request.POST.get("max-selling-qty"), product_min_selling_quantity=request.POST.get("min-selling-qty"),
-                        product_image=filename, product_expire_date=request.POST.get("expiry-date"), 
-                        product_description=request.POST.get("item-description"), product_status=request.POST.get("status")
-                        )
-        add_product.save()
+#         add_product =   Product.objects.create(product_code=request.POST.get("product-code"),
+#                         product_name=request.POST.get("product-name"), product_unit=request.POST.get("product-measure"),
+#                         product_category=request.POST.get("product-category"), product_brand=request.POST.get("product-brand"),
+#                         product_manufacturer=request.POST.get("manufacturer"), product_selling_price=request.POST.get("selling-price"),
+#                         product_max_selling_quantity=request.POST.get("max-selling-qty"), product_min_selling_quantity=request.POST.get("min-selling-qty"),
+#                         product_image=filename, product_expire_date=request.POST.get("expiry-date"), 
+#                         product_description=request.POST.get("item-description"), product_status=request.POST.get("status")
+#                         )
+#         add_product.save()
 
-        return add_product
-    except Exception as e:
-        print("Error in adding items", e)
-        return False
+#         return add_product
+#     except Exception as e:
+#         print("Error in adding items", e)
+#         return False
 
 # function for non-stock items to add in NonStock table
 def addNonStockItems(request):
     try:
         if request.FILES:
-            f=request.FILES["photo"]
+            f=request.FILES["photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
             uploaded_file_url = fs.url(filename)

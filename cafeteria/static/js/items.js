@@ -106,7 +106,7 @@ function update_query_call_nonstock(id){
         success: function (data) {
             Object.keys(data).forEach(key => {
             elem = data[key];
-            console.log(elem)
+            console.log(elem['nonStock_item_image']);
             
             document.getElementById("update-id").value=elem['id'];
 

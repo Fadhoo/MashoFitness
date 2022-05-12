@@ -150,9 +150,13 @@ def SearchByItemField(request):
     print(field,value)
     try:
         if field=="Name":
-            return Response(ItemSerializer(Items.objects.filter(item_name__icontains=value).order_by('-id'),many=True).data)
+            return Response(ItemSerializer(Items.objects.filter(
+                        item_name__icontains=value).order_by('-id'),
+                        many=True).data)
         elif field=="Code":
-            return Response(ItemSerializer(Items.objects.filter(item_code__icontains=value).order_by('-id'),many=True).data)
+            return Response(ItemSerializer(Items.objects.filter(
+                        item_code__icontains=value).order_by('-id'),
+                        many=True).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
 
@@ -165,9 +169,13 @@ def SearchByStockField(request):
     print(field,value)
     try:
         if field=="Name":
-            return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_name__icontains=value).order_by('-id'),many=True).data)
+            return Response(NonStockSerializer(NonStock.objects.filter(
+                        nonStock_item_name__icontains=value).order_by('-id'),
+                        many=True).data)
         elif field=="Code":
-            return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_code__icontains=value).order_by('-id'),many=True).data)
+            return Response(NonStockSerializer(NonStock.objects.filter(
+                        nonStock_item_code__icontains=value).order_by('-id'),
+                        many=True).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
 
