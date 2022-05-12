@@ -1,9 +1,4 @@
-import collections
 import datetime as dt
-from operator import truediv
-
-from requests import request
-
 from theme.gym_scheduler.smsGymScheduler import sendMessageToUser
 from .models import MembershipCategory, Member,Payment,Fee,Bill,BodyAssesments
 from django.core.files.storage import FileSystemStorage
@@ -210,10 +205,6 @@ def add_bill_record(subscription,
 def renewSubscription(request,status):
     print(status)
     try:
-        print("renew subscription",request.POST.get("model-start-date"))
-        print(request.POST.get("model-membershipcategory"))
-        print(request.POST.get("model-membership-class"))
-        print(request.POST.get("model-payableamount"))
         membership_id = MembershipCategory.objects.filter(
                         category_name=request.POST.get("model-membershipcategory")).filter(
                         category_class=request.POST.get("model-membership-class")).filter(
@@ -290,6 +281,8 @@ def renewSubscription(request,status):
                             fee=fee,
                             user_id=request.user.id
                             )
+        sendMessageToUser(member_data.member_name,member_data.member_contact,f"Your membership successfully renewed. Your membership category is {membership_id.category_name} and memership class is {membership_id.category_class}. your membership expire date is {member_data.member_membership_expiry_date}")
+
     except Exception as e:
         print("re new subscription ",e)
 
