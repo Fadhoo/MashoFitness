@@ -16,7 +16,7 @@
     <script src="{% static 'js/init-alpine.js' %}"></script>
     <script src="{% static 'js/focus-trap.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -806,7 +806,7 @@
                                     <td class="p-2">{{data.member_card_id}}</td>
                                     <td class="p-2">{{data.member_contact}}</td>
                                     <td class="p-2">{{data.member_membership_id.category_months}}</td>
-                                    <td class="p-2">Masho</td>
+                                    <td class="p-2">{{data.attended_by.user.username}}</td>
                                     <td class="p-2">
                                         {{data.member_membership_start_date}}
 
