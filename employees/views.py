@@ -2,7 +2,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from numpy import zeros_like
 from .models import *
 from .functions import CreateAdminUserFirst,addEmployee,updateEmployee,renewSalary
 from django.shortcuts import render

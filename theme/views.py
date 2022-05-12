@@ -16,7 +16,11 @@ import datetime as dt
 from employees.models import EmployeeRecord
 from smsSetting.models import SmsModle
 
-
+def zeroValue(value):
+    if value is None:
+        return 0
+    else:
+        return value
 
 def fetchAllData(dbmodel):
     data=dbmodel.objects.all()
@@ -77,9 +81,9 @@ def gymManagement(request):
         "total_male":Member.objects.filter(member_gender="Male").count(),
         "total_female":Member.objects.filter(member_gender="Female").count(),
         'member_dues':Fee.objects.filter(status="Unpaid").count(),
-        'income':Payment.objects.filter(payment_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('payment_amount'))['payment_amount__sum'],
-        'expense':expensesData.objects.filter(expenses_for='Gym').filter(date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('paid_amount'))['paid_amount__sum'],
-        'total_dues':Fee.objects.filter(status="Unpaid").aggregate(Sum('remaining'))['remaining__sum'],
+        'income':f"{zeroValue(Payment.objects.filter(payment_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('payment_amount'))['payment_amount__sum']):,}",
+        'expense':f"{zeroValue(expensesData.objects.filter(expenses_for='Gym').filter(date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
+        'total_dues':f"{zeroValue(Fee.objects.filter(status='Unpaid').aggregate(Sum('remaining'))['remaining__sum']):,}",
         'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
         
         
