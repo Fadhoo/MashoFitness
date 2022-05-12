@@ -2,6 +2,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from datetime import datetime
 from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
@@ -9,15 +10,21 @@ from rest_framework.response import Response
 from .serializer import TeamSerializer, MatchSerializer, BookingSerializer
 from django.contrib import messages
 from employees.models import EmployeeRecord
+from django.db.models import Sum
 
-
+def zeroValue(value):
+    if value is None:
+        return 0
+    else:
+        return value
 
 def futsal(request):
     return render(request, 'futsal.html',
     {"TeamRecord":Team.objects.all().order_by("-id"),
     'futsal_total_team': Team.objects.all().count(),
     'futsal_new_team': Team.objects.filter(member_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).count(),
-    'futsal_pending_game': Match.objects.filter(paid="Unpaid").count()
+    'futsal_pending_game': Match.objects.filter(paid="Unpaid").count(),
+    'futsal_today_sales': f"{zeroValue(Match.objects.filter(paid='Paid',date=datetime.today()).aggregate(Sum('fee'))['fee__sum']):,}",
     })
 
 def addTeam(request):

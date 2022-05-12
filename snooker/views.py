@@ -11,6 +11,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.utils import timezone
 
+def zeroValue(value):
+    if value is None:
+        return 0
+    else:
+        return value
+
 snooker_id=None
 print('snooker id',snooker_id)
 def snooker(request):
@@ -34,8 +40,8 @@ def snooker(request):
         return render(request, 'snooker.html', {
             'totalIncome': snookerIncome.objects.filter(id=snookerIncome.objects.last().id).annotate(total_income=Sum('snookertableincome__amount')).last().total_income,
             'record':snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),
-            'today_snooker_income':snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum'],
-            'snooker_expenses':expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+            'today_snooker_income':f"{zeroValue(snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum']):,}",
+            'snooker_expenses':f"{zeroValue(expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
             
             })
 

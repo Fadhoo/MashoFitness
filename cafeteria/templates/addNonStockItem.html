@@ -956,7 +956,7 @@
                                 <div
                                     class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
                                     <img id="image" class="object-cover w-full h-32"
-                                        src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
+                                        src="{{ MEDIA_URL }}/{{nonStock_item_image}}" />
 
                                     <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
                                         onClick="document.getElementById('fileInput').click()">
@@ -976,8 +976,8 @@
                                         </button>
                                     </div>
                                 </div>
-                                <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
-                                    onChange="let file = this.files[0]; 
+                                <input name="photos" id="fileInput" accept="image/*" class="hidden" type="file" \
+                                    enctype="multipart/form-data" onChange="let f = this.files[0]; 
                                     var reader = new FileReader();
                 
                                     reader.onload = function (e) {
@@ -985,7 +985,7 @@
                                         document.getElementById('image2').src = e.target.result;
                                     };
                                 
-                                    reader.readAsDataURL(file);
+                                    reader.readAsDataURL(f);
                                 ">
                             </div>
                         </div>

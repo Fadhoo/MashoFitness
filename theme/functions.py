@@ -281,7 +281,7 @@ def renewSubscription(request,status):
                             fee=fee,
                             user_id=request.user.id
                             )
-        sendMessageToUser(member_data.member_name,member_data.member_contact,f"Your membership successfully renewed. Your membership category is {membership_id.category_name} and memership class is {membership_id.category_class}. your membership expire date is {member_data.member_membership_expiry_date}")
+        sendMessageToUser(member_data.member_name,member_data.member_contact,f"Your membership successfully renewed. Your membership category is {membership_id.category_name} and memership class is {membership_id.category_class}. your membership expire date is {request.POST.get('model-membership-expire')}")
 
     except Exception as e:
         print("re new subscription ",e)
