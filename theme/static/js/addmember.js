@@ -245,7 +245,7 @@ function SearchByGender(data){
     $.ajax({
         method: "GET",
         url: "/api/searchbygender/",
-        data: { "searchbygender": data.value },
+        data: { "searchbygender": data.value , "searchbytype": document.getElementById('searchbytype').value },
         success: function (data) {
             update_table(data)
         
