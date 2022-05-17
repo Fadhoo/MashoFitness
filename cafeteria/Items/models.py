@@ -55,45 +55,7 @@ class NonStock(models.Model):
     nonStock_item_status = models.CharField(max_length=20, null=True, default="")
     
 
-class Inventory(models.Model):
-    inventory_unit_price = models.IntegerField()
-    inventory_purchased_quantity = models.IntegerField()
-    inventory_sub_total = models.IntegerField()
-    inventory_tax_total = models.IntegerField()
-    inventory_item_total = models.IntegerField()
-    inventory_reference_number = models.IntegerField()
-    inventory_expiry_date = models.DateField()
-    inventory_stock_in_shop = models.IntegerField()
-    inventory_stock_in_storeroom = models.IntegerField()
-
-    inventory_item_code = models.ForeignKey(Items, on_delete=models.CASCADE, related_name="inventory_item_code")
-    inventory_item_name = models.ForeignKey(Items, on_delete=models.CASCADE, related_name="inventory_item_name")
-    inventory_item_unit = models.ForeignKey(Items, on_delete=models.CASCADE, related_name="inventory_item_unit")
-    inventory_unit_net_price = models.ForeignKey(Items, on_delete=models.CASCADE, related_name="inventory_net_price")
-    # inventory_supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name="inventory_supplier")
 
 
 
 
-class Supplier(models.Model):
-    supplier_account = models.CharField(max_length=50)
-    supplier_name = models.CharField(max_length=50)
-    supplier_contact = models.IntegerField()
-    supplier_email = models.CharField(max_length=50, null=True, default="")
-    supplier_status = models.CharField(max_length=20, null=True, default="")
-    supplier_address = models.CharField(max_length=200, null=True, default="")
-    supplier_city = models.CharField(max_length=50)
-    supplier_country = models.CharField(max_length=50)
-    supplier_created_at = models.DateField(default=datetime.now)
-
-
-class Customer(models.Model):
-    customer_account = models.CharField(max_length=50, null=True, default="")
-    customer_name = models.CharField(max_length=50)
-    customer_contact = models.IntegerField()
-    customer_email = models.CharField(max_length=50, null=True, default="")
-    customer_status = models.CharField(max_length=20, null=True, default="")
-    customer_address = models.CharField(max_length=200, null=True, default="")
-    customer_city = models.CharField(max_length=50)
-    customer_country = models.CharField(max_length=50)
-    customer_created_at = models.DateField(default=datetime.now)

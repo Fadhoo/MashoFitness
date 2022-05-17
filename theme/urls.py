@@ -13,10 +13,6 @@ urlpatterns = [
     path("printform/", views.printform, name="printform"),
     path("viewMembers/", views.viewMembers, name="viewMembers"),
     path("viewRecord/", views.viewRecord, name="viewRecord"),
-    
-
-
-
 
     # """
     # API path for the ajex call

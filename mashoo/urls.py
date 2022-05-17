@@ -25,10 +25,15 @@ urlpatterns = [
     path('', include('expenses.urls')),
     path('', include('employees.urls')),
     path('', include('futsal.urls')),
-    path('', include('cafeteria.urls')),
-    path('', include('accounting.urls')),
     path('', include('rental.urls')),
     path('', include('smsSetting.urls')),
+    path('', include('accounting.urls')),
+    path('', include('cafeteria.Items.urls')),
+    path('', include('cafeteria.purchases.urls')),
+    path('', include('cafeteria.sales.urls')),
+    path('', include('cafeteria.salesTerminal.urls')),
+    path('', include('cafeteria.suppliers.urls')),
+    path('', include('cafeteria.customers.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

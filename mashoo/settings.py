@@ -49,10 +49,15 @@ INSTALLED_APPS = [
     'expenses',
     'employees',
     'futsal',
-    'cafeteria',
     'accounting',
     'rental',
     'smsSetting',
+    'cafeteria.Items',
+    'cafeteria.purchases',
+    'cafeteria.sales',
+    'cafeteria.salesTerminal',
+    'cafeteria.suppliers',
+    'cafeteria.customers',
 ]
 
 TAILWIND_APP_NAME = 'theme'
