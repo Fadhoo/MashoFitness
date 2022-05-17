@@ -48,7 +48,6 @@ function update_table(data){
         '<td class="p-2">'+elem['nonStock_item_unit']+'</td>'+
         '<td class="p-2">'+elem['nonStock_item_purchase_price']+'</td>'+
         '<td class="p-2">'+elem['nonStock_item_selling_price']+'</td>'+
-        '<td class="p-2">'+elem['nonStock_item_max_selling_quantity']+'</td>'+
         '<td class="p-2">'+elem['nonStock_item_category']+'</td>'+
         '<td class="p-2">'+elem['nonStock_item_status']+'</td>'+
 

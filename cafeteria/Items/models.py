@@ -12,13 +12,10 @@ class Items(models.Model):
     item_brand = models.CharField(max_length=30, null=True, default="")
     item_manufacturer = models.CharField(max_length=30, null=True, default="")
     item_selling_price = models.IntegerField()
-    item_max_selling_quantity = models.IntegerField()
-    item_min_selling_quantity = models.IntegerField()
     item_reorder_level = models.IntegerField()
     item_image = models.ImageField(upload_to='items_images/', null=True)
     item_description= models.CharField(max_length=100, null=True, default='')
     item_status = models.CharField(max_length=20, default='Active', null=True)
-    item_expiry_day = models.IntegerField()
 
 
 
@@ -47,8 +44,6 @@ class NonStock(models.Model):
     nonStock_item_manufacturer = models.CharField(max_length=30, null=True, default="")
     nonStock_item_purchase_price = models.IntegerField(default=0)
     nonStock_item_selling_price = models.IntegerField()
-    nonStock_item_max_selling_quantity = models.IntegerField()
-    nonStock_item_min_selling_quantity = models.IntegerField()
     nonStock_item_image = models.ImageField(upload_to='items_images/', null=True)
     # nonStock_item_expire_date = models.DateField()
     nonStock_item_description= models.CharField(max_length=200, null=True, default="")
