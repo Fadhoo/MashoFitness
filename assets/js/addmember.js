@@ -245,7 +245,7 @@ function SearchByGender(data){
     $.ajax({
         method: "GET",
         url: "/api/searchbygender/",
-        data: { "searchbygender": data.value },
+        data: { "searchbygender": data.value , "searchbytype": document.getElementById('searchbytype').value },
         success: function (data) {
             update_table(data)
         
@@ -439,7 +439,7 @@ $(document).ready(function() {
     }, 4000); // <-- time in milliseconds, 1000 =  1 sec
 
     // delete message
-    $('.del-msg').live('click',function(){
+    $('body').on('click','.del-msg',function(){
         $('.del-msg').parent().attr('style', 'display:none;');
     })
 });
@@ -467,6 +467,7 @@ function getNumberOfDays(end) {
 
 
 function get_all_member_remaining_expiredays(){
+    console.log('get_all_member_remaining_expiredays');
     $.ajax({
         method: "GET",
         url: "/api/getExpireRemainingDays/",

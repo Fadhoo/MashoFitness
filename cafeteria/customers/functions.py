@@ -1,4 +1,4 @@
-
+from .models import Customer
 
 def addCustomer(request):
     try:

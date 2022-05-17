@@ -128,3 +128,13 @@ function update_query_call_nonstock(id){
 
     })
 }
+
+
+function onItemCode(data){
+    var item_code = data.value;
+    console.log(item_code);
+    // document.getElementById("item-barcode").innerHTML = item_code;
+    JsBarcode("#barcode", item_code);
+    
+}
+
