@@ -33,3 +33,7 @@ function checkStatus(data){
     console.log(data)
     
 }
+function reloadPage() {
+    window.location.reload();
+    console.log("reload");
+};

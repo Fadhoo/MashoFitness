@@ -9,7 +9,7 @@ def ItemsAdd(request):
     '''
     try:
         if request.FILES:
-            f=request.FILES["photo"]
+            f=request.FILES["photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
             uploaded_file_url = fs.url(filename)
@@ -22,10 +22,9 @@ def ItemsAdd(request):
                         item_name=request.POST.get("item-name"), item_unit=request.POST.get("unit-measure"),
                         item_category=request.POST.get("item-category"), item_brand=request.POST.get("item-brand"),
                         item_manufacturer=request.POST.get("manufacturer"), item_selling_price=request.POST.get("selling-price"),
-                        item_max_selling_quantity=request.POST.get("max-selling-qty"), item_min_selling_quantity=request.POST.get("min-selling-qty"),
                         item_reorder_level=request.POST.get("reorder-level"), item_image=filename,
                         item_description=request.POST.get("item-description"),
-                        item_status=request.POST.get("status"), item_expiry_day=request.POST.get("remaining-days"),
+                        item_status=request.POST.get("status")
                         )
         add_item.save()
 
@@ -57,10 +56,9 @@ def UpdateItem(request):
                         item_name=request.POST.get("item-name"), item_unit=request.POST.get("unit-measure"),
                         item_category=request.POST.get("item-category"), item_brand=request.POST.get("item-brand"),
                         item_manufacturer=request.POST.get("manufacturer"), item_selling_price=request.POST.get("selling-price"),
-                        item_max_selling_quantity=request.POST.get("max-selling-qty"), item_min_selling_quantity=request.POST.get("min-selling-qty"),
                         item_reorder_level=request.POST.get("reorder-level"), item_image=filename,
                         item_description=request.POST.get("item-description"),
-                        item_status=request.POST.get("status"), item_expiry_day=request.POST.get("remaining-days"),
+                        item_status=request.POST.get("status")
                         )
 
         return update_item
@@ -112,9 +110,7 @@ def addNonStockItems(request):
                         nonStock_item_brand=request.POST.get("item-brand"),
                         nonStock_item_manufacturer=request.POST.get("manufacturer"),
                         nonStock_item_purchase_price=request.POST.get("purchase-price"),
-                        nonStock_item_selling_price=request.POST.get("selling-price"),
-                        nonStock_item_max_selling_quantity=request.POST.get("max-selling-qty"), 
-                        nonStock_item_min_selling_quantity=request.POST.get("min-selling-qty"),nonStock_item_image=filename, 
+                        nonStock_item_selling_price=request.POST.get("selling-price"),nonStock_item_image=filename, 
                         nonStock_item_description=request.POST.get("description"),
                         nonStock_item_status=request.POST.get("status")
                         )
@@ -148,8 +144,6 @@ def updateNonStockItems(request):
                         nonStock_item_status=request.POST.get("status"),
                         nonStock_item_image=filename,  
                         nonStock_item_description=request.POST.get("description"),
-                        nonStock_item_max_selling_quantity=request.POST.get("max-selling-qty"), 
-                        nonStock_item_min_selling_quantity=request.POST.get("min-selling-qty"),
                         )
 
         return update_nonStock_item

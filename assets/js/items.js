@@ -106,7 +106,7 @@ function update_query_call_nonstock(id){
         success: function (data) {
             Object.keys(data).forEach(key => {
             elem = data[key];
-            console.log(elem)
+            console.log(elem['nonStock_item_image']);
             
             document.getElementById("update-id").value=elem['id'];
 
@@ -133,4 +133,27 @@ function update_query_call_nonstock(id){
         }
 
     })
+}
+
+
+function onItemCode(this){
+    var item_code = this.value;
+    console.log(item_code);
+    document.getElementById("item-barcode").value = item_code;
+    // $.ajax({
+    //     method: "GET",
+    //     url: "/api/ItemCodeCheck/",
+    //     data: { "item_code": item_code},
+    //     success: function (data) {
+    //         console.log(data);
+    //         if(data.length > 0){
+    //             document.getElementById("item-code").value="";
+    //             alert("Item Code Already Exists");
+    //         }
+    //     },
+    //     error: function () {
+    //         console.log('error');
+    //     }
+
+    // })
 }
