@@ -6,7 +6,6 @@ urlpatterns = [
     path('index/', index, name='index'),
     path("addItem/", views.addItem, name="addItem"),
     path("addNonStockItem/", views.addNonStockItem, name="addNonStockItem"),
-    path("addProducts/", views.addProducts, name="addProducts"),
     path("pos/", views.pos, name="pos"),
     path("cafeteriaExpenses/", views.cafeteriaExpenses, name="cafeteriaExpenses"),
     path("updateCafeteriaExpenses/", views.updateCafeteriaExpenses, name="updateCafeteriaExpenses"),

@@ -597,7 +597,6 @@
                                     <th class="p-1">unit Of</th>
                                     <th class="p-1">Purchase Price</th>
                                     <th class="p-1">Selling Price</th>
-                                    <th class="p-1">Size</th>
                                     <th class="p-1">Category</th>
                                     
                                     <th class="p-1">Status</th>
@@ -624,7 +623,6 @@
                                     <td class="p-2">{{stock.nonStock_item_unit}}</td>
                                     <td class="p-2">{{stock.nonStock_item_purchase_price}}</td>
                                     <td class="p-2">{{stock.nonStock_item_selling_price}}</td>
-                                    <td class="p-2">{{stock.nonStock_item_max_selling_quantity}}</td>
                                     <td class="p-2">{{stock.nonStock_item_category}}</td>
                                     <td class="p-2">{{stock.nonStock_item_status}}</td>
 
@@ -805,16 +803,7 @@
                                 <input type="text" class="h-22 rounded-md shadow-inner" name="description">
                             </div>
 
-                            <div class="flex flex-col">
-                                <label for="">Maximum Selling Quantity</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner text-right" 
-                                value="" name="max-selling-qty" >
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="">Minimum Selling Quantity</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner text-right" value="" 
-                                name="min-selling-qty">
-                            </div>
+                            
                             
 
                         </div>
@@ -1009,16 +998,7 @@
                             <input type="text" class="h-22 rounded-md shadow-inner" name="description" id="item-description">
                         </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Maximum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" 
-                            value="" name="max-selling-qty" id="max-selling-qty">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Minimum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="" 
-                            name="min-selling-qty" id="min-selling-qty">
-                        </div>
+                        
                         
 
                     </div>

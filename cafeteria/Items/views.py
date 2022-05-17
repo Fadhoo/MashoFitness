@@ -53,9 +53,6 @@ def addNonStockItem(request):
 
 
 
-def addProducts(request):
-    return render(request, "addProducts.html")
-
 
 
 
