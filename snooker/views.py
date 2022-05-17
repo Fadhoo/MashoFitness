@@ -4,13 +4,12 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from expenses.models import expensesData
-from snooker.serializer import SnookerIncomeSerializer,CustomSeriazerSnooker
+from snooker.serializer import CustomSeriazerSnooker
 from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.utils import timezone
-from employees.models import EmployeeRecord
 
 def zeroValue(value):
     if value is None:
@@ -19,15 +18,11 @@ def zeroValue(value):
         return value
 
 snooker_id=None
-total_income=0
 print('snooker id',snooker_id)
 def snooker(request):
     global total_income,snooker_id
     if request.method == 'POST':
         if request.POST.get('add-table-income'):
-            print("add-table-income")
-            total_income+=int(request.POST.get("amount"))
-            print(snooker_id)
             if addTableIncome(request,snooker_id):
                 return HttpResponseRedirect(reverse('snooker'))
             else:
@@ -35,7 +30,6 @@ def snooker(request):
         
         if request.POST.get('add-snooker-income'):
             if updateSnookerIncome(request,snooker_id):
-                total_income=0
                 snooker_id=addSnookerIncome(request.user.id)
                 return HttpResponseRedirect(reverse('snooker'))
             else:
@@ -44,7 +38,7 @@ def snooker(request):
         # if snooker_id is None:
         snooker_id=addSnookerIncome(request.user.id)
         return render(request, 'snooker.html', {
-            'totalIncome': f"{total_income:,}",
+            'totalIncome': snookerIncome.objects.filter(id=snookerIncome.objects.last().id).annotate(total_income=Sum('snookertableincome__amount')).last().total_income,
             'record':snookerIncome.objects.all().annotate(total_income=Sum('snookertableincome__amount')).order_by('-id').select_related("snooker_attened_by"),
             'today_snooker_income':f"{zeroValue(snookerTableIncome.objects.select_related('snooker_id').filter(snooker_id__date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('amount'))['amount__sum']):,}",
             'snooker_expenses':f"{zeroValue(expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
@@ -52,7 +46,7 @@ def snooker(request):
             })
 
 def updateSnooker(request):
-    global snooker_id,total_income
+    global snooker_id
     if request.method=="POST":
         print(request.method)
         if request.POST.get("delete-button"):

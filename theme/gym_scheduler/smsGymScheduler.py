@@ -3,7 +3,15 @@ from threading import Thread
 from theme.models import Member
 import requests
 import datetime as dt
-
+def smsMessage(days):
+    english=f"""
+Hello and Asalam o Alaikum 
+Greetings from Masho Fitness
+We sincerely hope that you are enjoying your fitness and health. To continue with it, all you need to do is to renew your membership to stay part of Masho's Fitness as early as possible. 
+Your Membership will expire {days}. 
+Thank you.
+"""
+    return english
 def sendMessageToAll(message,status):
     try:
         if status=='All':
@@ -23,28 +31,20 @@ def sendMessageToUser(name,number,message):
         return requests.get(f'https://sendpk.com/api/sms.php?api_key=923402601866-e097c210-00f1-4fdf-9318-7e012f796e4a&sender=MashoFitness&mobile={number}&message=Dear {name},{message}').status_code
     except Exception as e:
         print("sendMessageToUser exception",e)
-
-# def send_sms(phoneNumber,message):
-#     phoneNumber=phoneNumber.replace("-", "")
-#     print(phoneNumber)
-    # return requests.get(f'https://sendpk.com/api/sms.php?api_key=923402601866-e097c210-00f1-4fdf-9318-7e012f796e4a&sender=MashoFitness&mobile={phoneNumber}&message={message}').status_code
+        
 def main():
     try:
         if Member.objects.all().exists():
             for i in Member.objects.all():
                 
                 if (i.member_membership_expiry_date-dt.date.today()).days==5:
-                    print('5 days left')
-                    # print(sendMessageToUser(i.member_name,i.member_contact, '5 days left'))
+                    sendMessageToUser('Sami shah','0335-2321360', smsMessage('in 5 days'))
                 elif (i.member_membership_expiry_date-dt.date.today()).days==3:
-                    print('3 days left')
-                    # print(sendMessageToUser(i.member_name,i.member_contact, '3 days left'))
+                    sendMessageToUser('Sami shah','0335-2321360', smsMessage('in 3 days'))
                 elif (i.member_membership_expiry_date-dt.date.today()).days==1:
-                    print('1 day left',)
-                    # print(sendMessageToUser(i.member_name,i.member_contact, '1 day left'))
-                elif (i.member_membership_expiry_date-dt.date.today()).days==1:
-                    print('0 day left',)
-                    # print(sendMessageToUser(i.member_name,i.member_contact, 'today expire')
+                    sendMessageToUser('Sami shah','0335-2321360', smsMessage('in 1 day'))
+                elif (i.member_membership_expiry_date-dt.date.today()).days==0:
+                    sendMessageToUser('Sami shah','0335-2321360', smsMessage('today'))
     except Exception as e:
         print("checkMemberStarus exception",e)
 

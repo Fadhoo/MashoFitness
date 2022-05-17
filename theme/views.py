@@ -15,6 +15,7 @@ from expenses.models import  expensesData
 import datetime as dt
 from employees.models import EmployeeRecord
 from smsSetting.models import SmsModle
+from django.db.models import Q
 
 def zeroValue(value):
     if value is None:
@@ -80,11 +81,12 @@ def gymManagement(request):
         "total_member":Member.objects.all().count(),
         "total_male":Member.objects.filter(member_gender="Male").count(),
         "total_female":Member.objects.filter(member_gender="Female").count(),
-        'member_dues':Fee.objects.filter(status="Unpaid").count(),
+        'member_dues':Member.objects.filter(active_fee_id__status="Unpaid").count(),
         'income':f"{zeroValue(Payment.objects.filter(payment_created_at__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('payment_amount'))['payment_amount__sum']):,}",
         'expense':f"{zeroValue(expensesData.objects.filter(expenses_for='Gym').filter(date__gte=timezone.now().replace(day=1, hour=0, minute=0, second=0, microsecond=0)).aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
         'total_dues':f"{zeroValue(Fee.objects.filter(status='Unpaid').aggregate(Sum('remaining'))['remaining__sum']):,}",
         'sms_list':SmsModle.objects.values_list('smsModule',flat=True).distinct(),
+        'active_member':Member.objects.filter(~Q(active_fee_id__status="Expired")).count(),
         
         
         # 'zipdata':Member.objects.raw("SELECT * from theme_member JOIN theme_membershipcategory on theme_member.member_membership_id_id=theme_membershipcategory.id join theme_payment on theme_member.id=theme_payment.member_id_id order by theme_member.id DESC;"),
@@ -415,10 +417,20 @@ def checkSerialNo(request):
 def searchbygender(request):
     try:
         gender=request.GET.get('searchbygender',None)
-        if gender is not None:
-            return Response(MemberSerializer(Member.objects.filter(member_gender=gender).order_by('-id'),many=True).data)
+        bytype=request.GET.get('searchbytype',None)
+        print(bytype)
+        if bool(bytype):
+            print("if")
+            if gender is not None:
+                return Response(MemberSerializer(Member.objects.filter(member_gender=gender).filter(active_fee_id__status=bytype).order_by('-id'),many=True).data)
+            else:
+                return Response(MemberSerializer(Member.objects.all().order_by('-id'),many=True).data)
         else:
-            return Response(MemberSerializer(Member.objects.all().order_by('-id'),many=True).data)
+            if gender is not None:
+                return Response(MemberSerializer(Member.objects.filter(member_gender=gender).order_by('-id'),many=True).data)
+            else:
+                return Response(MemberSerializer(Member.objects.all().order_by('-id'),many=True).data)
+
 
     except Exception as e:
         return Response({"error":str(e)})
