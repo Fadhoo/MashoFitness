@@ -60,9 +60,6 @@ def inventory(request):
         return render(request, "inventory.html", {'addItems': Items.objects.all()})
 
 
-def addProducts(request):
-    return render(request, "addProducts.html")
-
 
 def customer(request):
     if request.method == "POST":

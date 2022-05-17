@@ -105,7 +105,7 @@
                            </svg>
                            <a class="w-full" href="/addItem/">Add Items</a>
                        </li>
-                       <li
+                       <!-- <li
                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
                            <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -119,7 +119,7 @@
                                <line x1="12" y1="9" x2="12" y2="12" />
                            </svg>
                            <a class="w-full" href="/addProducts/">Add Products</a>
-                       </li>
+                       </li> -->
 
                        <li
                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
@@ -595,7 +595,6 @@
                                     <th class="p-1">Name</th>
                                     <th class="p-1">unit Of</th>
                                     <th class="p-1">Selling Price</th>
-                                    <th class="p-1">Size</th>
                                     <th class="p-1">Category</th>
                                     
                                     <th class="p-1">Status</th>
@@ -624,7 +623,6 @@
                                     <td class="p-2">{{item.item_name}}</td>
                                     <td class="p-2">{{item.item_unit}}</td>
                                     <td class="p-2">{{item.item_selling_price}}</td>
-                                    <td class="p-2">{{item.item_max_selling_quantity}}</td>
                                     <td class="p-2">{{item.item_category}}</td>
                                     
                                     <td class="p-2">{{item.item_status}}</td>
@@ -736,16 +734,7 @@
                                 name="selling-price">
                             </div>
                             
-                            <div class="flex flex-col">
-                                <label for="">Maximum Selling Quantity</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner text-right" value="100" 
-                                name="max-selling-qty">
-                            </div>
-                            <div class="flex flex-col">
-                                <label for="">Minimum Selling Quantity</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner text-right" value="1"
-                                name="min-selling-qty">
-                            </div>
+                            
                             <div class="flex flex-col">
                                 <label for="">Re Order Level</label>
                                 <input type="text" class="h-7 rounded-md shadow-inner text-right" value="10"
@@ -943,16 +932,7 @@
                             name="selling-price" value="" id="item-selling-price">
                         </div>
                         
-                        <div class="flex flex-col">
-                            <label for="">Maximum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value="" 
-                            name="max-selling-qty" value="" id="item-max-selling-qty">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Minimum Selling Quantity</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner text-right" value=""
-                            name="min-selling-qty" id="item-min-selling-qty">
-                        </div>
+                        
                         <div class="flex flex-col">
                             <label for="">Re Order Level</label>
                             <input type="text" class="h-7 rounded-md shadow-inner text-right" value=""
