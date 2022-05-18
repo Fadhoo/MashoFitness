@@ -49,7 +49,6 @@ function update_table(data){
         '<td class="p-2">'+elem['item_name']+'</td>'+
         '<td class="p-2">'+elem['item_unit']+'</td>'+
         '<td class="p-2">'+elem['item_selling_price']+'</td>'+
-        '<td class="p-2">'+elem['item_max_selling_quantity']+'</td>'+
         '<td class="p-2">'+elem['item_category']+'</td>'+
         '<td class="p-2">'+elem['item_status']+'</td>'+
 
