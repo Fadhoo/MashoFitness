@@ -68,7 +68,7 @@ function update_query_call(id){
         success: function (data) {
             Object.keys(data).forEach(key => {
             elem = data[key];
-            console.log(elem)
+            console.log(elem['item_image'])
             
             document.getElementById("update-id").value=elem['id'];
             document.getElementById("item-code").value=elem['item_code'];
@@ -79,11 +79,12 @@ function update_query_call(id){
             document.getElementById("item-manufacturer").value=elem['item_manufacturer'];
             document.getElementById("item-selling-price").value=elem['item_selling_price'];
             document.getElementById("item-reorder-level").value=elem['item_reorder_level'];
-            document.getElementById("image").src=elem['item_image'];
+            document.getElementById("update-image").src=elem['item_image'];
             // document.getElementById("item-barcode").value=elem['item_code'];
             document.getElementById("update-item-description").value=elem['item_description'];
 
             document.getElementById("update-status").value=elem['item_status'];
+            JsBarcode("#barcode-update", elem['item_code']);
             });
             
         },
@@ -136,5 +137,23 @@ function onItemCode(data){
     // document.getElementById("item-barcode").innerHTML = item_code;
     JsBarcode("#barcode", item_code);
     
+}
+function onItemCodeUpdate(data){
+    var item_code = data.value;
+    console.log(item_code);
+    // document.getElementById("item-barcode").innerHTML = item_code;
+    JsBarcode("#barcode-update", item_code);
+    
+}
+
+function ImageLoder(data){
+    let file = data.files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+            console.log("update call ",e.target.result);
+            document.getElementById('image').src = e.target.result;
+            document.getElementById('update-image').src = e.target.result;
+        }
+    reader.readAsDataURL(file);
 }
 
