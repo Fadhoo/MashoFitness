@@ -78,11 +78,15 @@ function data() {
     // Modal
     isModalOpen: false,
     trapCleanup: null,
-    openModal() {
+    openModal(call) {
+      console.log("open modal",call)
       this.isModalOpen = true;
       this.trapCleanup = focusTrap(document.querySelector('#modal'));
       if (call=="inventory"){
-        inventory_query_call_nonstock(id)
+        inventory_query_call_nonstock()
+      }
+      else{
+      addInventoryItem()
       }
     },
     closeModal() {
@@ -100,7 +104,11 @@ function data() {
         update_query_call_nonstock(id)
       }
       else if (call=="stock"){
-      update_query_call(id)}
+      update_query_call(id)
+      }
+      else if (call=="inventory"){
+        update_query_call_inventory(id)}
+
       
     },
     closeUpdateModal() {

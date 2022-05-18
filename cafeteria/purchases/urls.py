@@ -8,5 +8,5 @@ urlpatterns = [
     path("purchaseReturn/", views.purchaseReturn, name="purchasesReturn"),
     path("purchases/", views.purchases, name="purchases"),
     # # api path
-    path("api/InventoryQueryCall/", views.InventoryQueryCall, name='InventoryQueryCall'),
+    path("api/updateInventoryQueryCall/", views.updateInventoryQueryCall, name='updateInventoryQueryCall'),
 ]

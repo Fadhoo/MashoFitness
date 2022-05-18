@@ -1,5 +1,6 @@
 from .models import *
 from django.core.files.storage import FileSystemStorage
+from cafeteria.purchases.models import Inventory
 
 # create the item data  in database table name Items from models
 def ItemsAdd(request):
@@ -27,7 +28,31 @@ def ItemsAdd(request):
                         item_status=request.POST.get("status")
                         )
         add_item.save()
+    #     inventory_unit_price = models.IntegerField(default=0)
+    # inventory_net_price = models.IntegerField(default=0)
+    # inventory_purchased_quantity = models.IntegerField(default=0)
+    # inventory_sub_total = models.IntegerField(default=0)
+    # inventory_item_total = models.IntegerField(default=0)
+    # inventory_order_number = models.IntegerField(default=0)
+    # inventory_reference_number = models.IntegerField(default=0)
+    # inventory_stock_in_shop = models.IntegerField(default=0)
 
+    # inventory_item_id = models.ForeignKey(Items, on_delete=models.CASCADE, related_name="inventory_item_id")
+    # supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name="supplier_id")
+
+        add_inventory = Inventory.objects.create(
+                        inventory_unit_price= 0,
+                        inventory_net_price= 0,
+                        inventory_purchased_quantity=0,
+                        inventory_sub_total= 0,
+                        inventory_item_total=0,
+                        inventory_order_number=0,
+                        inventory_reference_number=0,
+                        inventory_stock_in_shop=0,
+                        inventory_item_id=add_item,
+                        
+                        )
+        add_inventory.save()
         return add_item
     except Exception as e:
         print("Error in adding items", e)
@@ -115,6 +140,8 @@ def addNonStockItems(request):
                         nonStock_item_status=request.POST.get("status")
                         )
         add_nonStock_item.save()
+
+
 
         return add_nonStock_item
     except Exception as e:
