@@ -8,15 +8,14 @@ def ItemsAdd(request):
     add_item.save() # to save the item data into a table
     '''
     try:
+        print("photo is selected",request.FILES)
         if request.FILES:
+            print("photo is selected",request.FILES['photos'])
             f=request.FILES["photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
-            uploaded_file_url = fs.url(filename)
         else:
             filename="default.png"
-
-    
 
         add_item = Items.objects.create(item_code=request.POST.get("item-code"),
                         item_name=request.POST.get("item-name"), item_unit=request.POST.get("unit-measure"),
@@ -44,13 +43,16 @@ def UpdateItem(request):
     filename="default.png" the default png pic will save in database
     '''
     try:
+        print("photo is selected",request.FILES)
         if request.FILES:
-            f=request.FILES["photo"]
+            print("photo is selected",request.FILES['update-photos'])
+            f=request.FILES["update-photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
             uploaded_file_url = fs.url(filename)
         else:
             filename="default.png"
+        print(filename)
         print("update id recieved:",request.POST.get("update-id"))
         update_item = Items.objects.filter(id=request.POST.get("update-id")).update(item_code=request.POST.get("item-code"),
                         item_name=request.POST.get("item-name"), item_unit=request.POST.get("unit-measure"),

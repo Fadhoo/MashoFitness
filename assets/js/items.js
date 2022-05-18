@@ -69,7 +69,7 @@ function update_query_call(id){
         success: function (data) {
             Object.keys(data).forEach(key => {
             elem = data[key];
-            console.log(elem)
+            console.log(elem['item_image'])
             
             document.getElementById("update-id").value=elem['id'];
             document.getElementById("item-code").value=elem['item_code'];
@@ -79,15 +79,13 @@ function update_query_call(id){
             document.getElementById("item-category").value=elem['item_category'];
             document.getElementById("item-manufacturer").value=elem['item_manufacturer'];
             document.getElementById("item-selling-price").value=elem['item_selling_price'];
-            document.getElementById("item-max-selling-qty").value=elem['item_max_selling_quantity'];
-            document.getElementById("item-min-selling-qty").value=elem['item_min_selling_quantity'];
             document.getElementById("item-reorder-level").value=elem['item_reorder_level'];
-            document.getElementById("image").src=elem['item_image'];
+            document.getElementById("update-image").src=elem['item_image'];
             // document.getElementById("item-barcode").value=elem['item_code'];
             document.getElementById("update-item-description").value=elem['item_description'];
 
             document.getElementById("update-status").value=elem['item_status'];
-            document.getElementById("update-remaining-days").value=elem['item_expiry_day'];
+            JsBarcode("#barcode-update", elem['item_code']);
             });
             
         },
@@ -121,8 +119,6 @@ function update_query_call_nonstock(id){
             document.getElementById("update-status").value=elem['nonStock_item_status'];
             document.getElementById("image").src=elem['nonStock_item_image'];
             document.getElementById("item-description").value=elem['nonStock_item_description'];
-            document.getElementById("max-selling-qty").value=elem['nonStock_item_max_selling_quantity'];
-            document.getElementById("min-selling-qty").value=elem['nonStock_item_min_selling_quantity'];
             // document.getElementById("item-barcode").value=elem['item_code'];
 
             });
@@ -136,24 +132,35 @@ function update_query_call_nonstock(id){
 }
 
 
-function onItemCode(this){
-    var item_code = this.value;
+function onItemCode(data){
+    var item_code = data.value;
     console.log(item_code);
-    document.getElementById("item-barcode").value = item_code;
-    // $.ajax({
-    //     method: "GET",
-    //     url: "/api/ItemCodeCheck/",
-    //     data: { "item_code": item_code},
-    //     success: function (data) {
-    //         console.log(data);
-    //         if(data.length > 0){
-    //             document.getElementById("item-code").value="";
-    //             alert("Item Code Already Exists");
-    //         }
-    //     },
-    //     error: function () {
-    //         console.log('error');
-    //     }
+    // document.getElementById("item-barcode").innerHTML = item_code;
+    JsBarcode("#barcode", item_code);
+    
+}
 
-    // })
+function ImageLoder(data){
+    let file = data.files[0]; 
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        document.getElementById('image').src = e.target.result;
+        document.getElementById('image2').src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
+
+function ImageLoderUpdate(data){
+    let file = data.files[0]; 
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        console.log(e.target.result);
+        document.getElementById('update-image').src = e.target.result;
+        document.getElementById('image2').src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
 }

@@ -789,17 +789,7 @@
                                             </div>
                                         </div>
                                         <input name="photos" id="fileInput" accept="image/*" class="hidden" type="file"
-                                            enctype="multipart/form-data" onChange="
-                                            let file = this.files[0]; 
-                                            var reader = new FileReader();
-                        
-                                            reader.onload = function (e) {
-                                                document.getElementById('image').src = e.target.result;
-                                                document.getElementById('image2').src = e.target.result;
-                                            };
-                                        
-                                            reader.readAsDataURL(file);
-                                        ">
+                                            enctype="multipart/form-data" onChange="ImageLoder(this)">
                                     </div>
                                 </div>
                             </div>
@@ -875,7 +865,7 @@
             class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-xl" role="dialog" id="updateModal">
             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
             <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
-                <span>New Item</span>
+                <span>Update Item</span>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
                     aria-label="close" @click="closeUpdateModal">
@@ -886,7 +876,7 @@
                     </svg>
                 </button>
             </header>
-            <form action="/addItem/" method="post">
+            <form action="{% url 'addItem' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="text" id="update-row-id" hidden>
                 <!-- Modal body -->
@@ -896,7 +886,7 @@
                         <div class="p-1 border border-gray-500">
                             <div class="flex flex-col">
                                 <label for="">Item Code</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" value=""
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" value="" onkeyup="onItemCodeUpdate(this)"
                                     id="item-code">
                             </div>
                             <div class="flex flex-col">
@@ -960,7 +950,7 @@
                                     <div class="flex flex-col">
                                         <div
                                             class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
-                                            <img id="image" class="object-cover w-full h-32"
+                                            <img id="update-image" class="object-cover w-full h-32"
                                                 src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
 
                                             <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
@@ -981,29 +971,14 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file"
-                                            enctype="multipart/form-data" onChange="let file = this.files[0]; 
-                                        var reader = new FileReader();
-                    
-                                        reader.onload = function (e) {
-                                            document.getElementById('image').src = e.target.result;
-                                            document.getElementById('image2').src = e.target.result;
-                                        };
-                                    
-                                        reader.readAsDataURL(file);
-                                    ">
+                                        <input name="update-photos" id="fileInput" accept="image/*" class="hidden" type="file"
+                                            enctype="multipart/form-data" onChange="ImageLoder(this)">
                                     </div>
                                 </div>
                             </div>
                             <div class="flex flex-col items-center border border-gray-400">
-                                <label for="">||| ||| |||| ||||</label>
-                                <!-- <svg id="barcode"></svg>
-                            <script >
-                                document.getElementById("code").value
-                                let text = document.getElementById('text').value
-                                JsBarcode("#barcode", "Hi!");
-                            </script> -->
-                                <label for="">00000000000000</label>
+                                <svg id="barcode-update" name="update-barcode">
+                                </svg>
                             </div>
                             <div class="flex flex-col">
                                 <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
