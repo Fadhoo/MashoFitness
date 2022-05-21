@@ -17,7 +17,9 @@
         <script src="{% static 'js/init-alpine.js' %}"></script>
         <script src="{% static 'js/focus-trap.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+       
         {% tailwind_css %}
     
 </head>
@@ -124,7 +126,7 @@
                                         
                                         <!-- products -->
                                         {% for item in itemsData %}
-                                        <div
+                                        <div onclick="addToCart('{{item.id}}')" 
                                             class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">
                                             
                                             <div>
@@ -143,8 +145,9 @@
                                         {% endfor %}        
                                         <!-- </div> -->
                                         {% for item in nonStockItems %}
-                                        <div
-                                            class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">
+                                        <div class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between"
+                                        onclick="addToCart('{{item.id}}')"  
+                                        >
                                             
                                             <div>
                                                 
@@ -180,7 +183,7 @@
                                     <!-- order list -->
                                     <div class="px-1 lg:h-110 2xl:h-120 bg-white scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200">
 
-                                        <table class="table-auto border-gray-200 w-full">
+                                        <table class="table-auto border-gray-200 w-full" id="myTable">
 
                                             <thead class="border-b-2 border-gray-400 sticky top-0 bg-red-100">
                                                 <tr class=" text-sm">
@@ -191,38 +194,14 @@
                                                     <th class="p-1">Item Name</th>
                                                     <th class="p-1">Price</th>
                                                     <th class="p-1">Quantity</th>
+                                                    <th class="p-1">in/de</th>
                                                     <th class="p-1">Discount</th>
                                                     <th class="p-1">Total Price</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody class="">
-                                                <tr class="border-2 text-center">
-                                                    <td>
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"
-                                                            fill="none" viewBox="0 0 24 24"
-                                                            stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                        </svg>
-                                                    </td>
-                                                    <td class="p-1">11111</td>
-                                                    <td class="p-1">F001</td>
-                                                    <td class="p-1">Masho Fitness</td>
-                                                    <td class="p-1">000000</td>
-                                                    <td class="p-1 inline-flex items-center space-x-1">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
-                                                          </svg>
-                                                          <span>1</span>
-                                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                                          </svg>
-                                                    </td>
-                                                    <td class="p-1">10000</td>
-                                                    <td class="p-1 font-semibold">100000</td>
-                                                </tr>
+                                                
                                             </tbody>
                                         </table>
 
@@ -270,7 +249,7 @@
     
                                 <div class="grid grid-flow-col justify-end gap-5">
                                     <!-- Cash -->
-                                    <div class=" bg-white p-1 rounded-md shadow-sm rounded-br-none px-10 w-36">
+                                    <div class=" bg-white p-1 rounded-md shadow-sm rounded-br-none px-10 w-36" onclick="GetCashPayment()" >
                                         <img src="{% static 'img/cash.png' %}" class="h-12" />
                                         <span class="font-semibold">Cash</span>
                                     </div>
@@ -337,6 +316,7 @@
         </div>
 
     </div>
+    <script src="{% static 'js/salesTerminal.js' %}"></script>
 </body>
 
 </html>

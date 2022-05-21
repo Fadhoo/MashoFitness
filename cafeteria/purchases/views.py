@@ -45,3 +45,14 @@ def updateInventoryQueryCall(request):
         return Response(InventorySerializer(Inventory.objects.filter(id=value),many=True).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
+
+
+@api_view(['GET'])
+def addToCart(request):
+    value=request.GET.get("id")
+    # print(value)
+    try:
+        # print(InventorySerializer(Inventory.objects.filter(inventory_item_id__id=value).first()).data)
+        return Response(InventorySerializer(Inventory.objects.filter(inventory_item_id__id=value).first()).data)
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
