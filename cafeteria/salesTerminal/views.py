@@ -22,14 +22,14 @@ def searchItemInSalesTerminal(request):
     item_data = Items.objects.filter(item_name__icontains=item_name)
     nonStock= NonStock.objects.filter(nonStock_item_name__icontains=item_name)
     if item_data and nonStock:
-        print("both")
+        
         return JsonResponse({"Both":CostomSerializer(item_data,nonStock)})
     elif item_data:
-        print("stock")
+        
         return Response({'Stock':ItemSerializer(item_data,many=True).data})
     elif nonStock:
-        print("nonstock")
+        
         return Response({"NonStock":NonStockSerializer(nonStock,many=True).data})
     else:
-        print("not found")
+        
         return JsonResponse({"Both":CostomSerializer()})
