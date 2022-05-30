@@ -1,4 +1,5 @@
 from .models import Supplier
+from cafeteria.purchases.models import Inventory
 
 def addSupplier(request):
     try:
@@ -13,6 +14,19 @@ def addSupplier(request):
                         )
         add_supplier.save()
 
+        add_inventory = Inventory.objects.create(
+                        inventory_unit_price= 0,
+                        inventory_net_price= 0,
+                        inventory_purchased_quantity=0,
+                        inventory_sub_total= 0,
+                        inventory_item_total=0,
+                        inventory_order_number=0,
+                        inventory_reference_number=0,
+                        inventory_stock_in_shop=0,
+                        supplier_id=add_supplier,
+                        
+                        )
+        add_inventory.save()
         return add_supplier
     except Exception as e:
         print("Error in adding supplier data", e)

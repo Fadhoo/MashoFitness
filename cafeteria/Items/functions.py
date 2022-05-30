@@ -1,6 +1,7 @@
 from .models import *
 from django.core.files.storage import FileSystemStorage
 from cafeteria.purchases.models import Inventory
+from cafeteria.suppliers.models import Supplier
 
 # create the item data  in database table name Items from models
 def ItemsAdd(request):
@@ -48,9 +49,9 @@ def ItemsAdd(request):
                         inventory_order_number=0,
                         inventory_reference_number=0,
                         inventory_stock_in_shop=0,
-                        inventory_item_id=add_item,
-                        
+                        inventory_item_id=add_item
                         )
+        # print(Supplier.objects.get('supplier_name'))
         add_inventory.save()
         return add_item
     except Exception as e:
@@ -122,11 +123,12 @@ def UpdateItem(request):
 # function for non-stock items to add in NonStock table
 def addNonStockItems(request):
     try:
+        print("photo is selected",request.FILES)
         if request.FILES:
+            print("photo is selected",request.FILES['photos'])
             f=request.FILES["photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
-            uploaded_file_url = fs.url(filename)
         else:
             filename="default.png"
 
@@ -154,13 +156,16 @@ def addNonStockItems(request):
 # function for non-stock items to update the NonStock table's values
 def updateNonStockItems(request):
     try:
+        print("photo is selected",request.FILES)
         if request.FILES:
-            f=request.FILES["photo"]
+            print("photo is selected",request.FILES['update-photos'])
+            f=request.FILES["update-photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
             uploaded_file_url = fs.url(filename)
         else:
             filename="default.png"
+        print(filename)
         print(request.POST.get("update-id"))
         update_nonStock_item = NonStock.objects.filter(id=request.POST.get("update-id")).update(nonStock_item_code=request.POST.get("item-code"),
                         nonStock_item_name=request.POST.get("item-name"), 

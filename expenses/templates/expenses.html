@@ -22,12 +22,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
     {% tailwind_css %}
 
 </head>
 
 <body>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.1.0/autoNumeric.min.js"></script>
     <div class="flex h-screen bg-gray-50 " :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop Sidebar ye side navigation ha -->
         <aside
@@ -397,7 +399,8 @@
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Amount Paid</label>
-                                    <input type="number" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required name="amount-paid">
+                                    <input type="number" class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" required name="amount-paid"
+                                    id="DEMO" data-a-sign="" data-a-dec="," data-a-sep="." >
                                 </div>
                                 <div class="flex flex-col">
                                     <label for="" class="m-1">Mode of Payment</label>
@@ -565,7 +568,7 @@
                                 </td>
                                 <td class="p-1">{{expense.date}}</td>
                                 <td class="p-1">{{expense.account_head}}</td>
-                                <td class="p-1">{{expense.paid_amount}}</td>
+                                <td class="p-1" id="payment" onload="numberWithCommas(this)">{{expense.paid_amount}}</td>
                                 <td class="p-1">{{expense.payment_mode}}</td>
                                 <td class="p-1">{{expense.expenses_for}}</td>
                                 <td class="p-1">
@@ -633,6 +636,17 @@
 }
     
     
+    </script>
+    <script> function numberWithCommas(x) {
+        var x = x.value;
+        console.log(x);
+        document.getElementById("payment").value= x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    </script>
+    <script>
+        jQuery(function($) {
+        $('#DEMO').autoNumeric('init');   
+        });
     </script>
     <script src="{% static 'js/expenses.js'%}"></script>
 </body>

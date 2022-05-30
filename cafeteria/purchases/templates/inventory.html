@@ -104,7 +104,7 @@
                            </svg>
                            <a class="w-full" href="/addItem/">Add Items</a>
                        </li>
-                       <li
+                       <!-- <li
                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
                            <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -118,7 +118,7 @@
                                <line x1="12" y1="9" x2="12" y2="12" />
                            </svg>
                            <a class="w-full" href="/addProducts/">Add Products</a>
-                       </li>
+                       </li> -->
 
                        <li
                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
@@ -659,76 +659,7 @@
 
                 </div> <!-- Main Container-->
             </main>
-            <footer
-                class="sticky bottom-0 grid px-4 py-2 text-xs shadow-md rounded-b-lg font-semibold tracking-wide text-gray-500 uppercase border-t  bg-gray-300 sm:grid-cols-9  ">
-                <span class="flex items-center col-span-3">
-                    Showing 21-30 of 100
-                </span>
-                <span class="col-span-2"></span>
-                <!-- Pagination -->
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                    <nav aria-label="Table navigation">
-                        <ul class="inline-flex items-center">
-                            <li>
-                                <button
-                                    class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                    aria-label="Previous">
-                                    <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                        <path
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    1
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    2
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    3
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    4
-                                </button>
-                            </li>
-                            <li>
-                                <span class="px-3 py-1">...</span>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    8
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    9
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                                    aria-label="Next">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
-                </span>
-            </footer>
+            
 
         </div>
 
@@ -794,23 +725,15 @@
                                 value="0" name="unit-tax" id="unit-tax">
                             </div> -->
 
-                            <div class="flex flex-col">
-                                <label for="">Unit Net Price</label>
-                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
-                                name="net-price" id="net-price">
-                            </div>
+                            
 
                             <div class="flex flex-col">
                                 <label for="">Purchased Quantity</label>
-                                <input type="text" class="h-7 rounded-md text-right shadow-inner" 
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
                                 name="purchased-qty" id="purchased-qty">
                             </div>
 
-                            <div class="flex flex-col">
-                                <label for="">Sub Total</label>
-                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
-                                name="sub-total" id="sub-total">
-                            </div>
+                            
 
                             <!-- <div class="flex flex-col">
                                 <label for="">Tax Total</label>
@@ -819,7 +742,7 @@
 
                             <div class="flex flex-col">
                                 <label for="">Item Total</label>
-                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0" name="item-total" id="item-total">
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0" name="item-total" id="item-total" readonly>
                             </div>
 
                         </div>
@@ -853,22 +776,13 @@
                                         </div>
                                     </div>
                                     <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
-                                        onChange="let file = this.files[0]; 
-                                        var reader = new FileReader();
-                    
-                                        reader.onload = function (e) {
-                                            document.getElementById('image').src = e.target.result;
-                                            document.getElementById('image2').src = e.target.result;
-                                        };
-                                    
-                                        reader.readAsDataURL(file);
-                                    ">
+                                        onChange="">
                                 </div>
                             </div>
                             
                             <div class="flex flex-col">
                                 <label for="">Order Number</label>
-                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="order-number" id="order-number">
+                                <input type="number" placeholder="" class="h-7 rounded-md shadow-inner" name="order-number" id="order-number">
                             </div>
 
                             
@@ -880,12 +794,13 @@
                             <div class="flex flex-col">
                                 <label for="">Supplier</label>
                                 <div class="inline-flex w-full">
-                                    <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="supplier" id="supplier">
-                                    <div class="border border-slate-700 rounded-md">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                                        </svg>
-                                    </div>
+                                    <select name="supplier-name" id="">
+                                    {% for supplier in suppliersName %} 
+                                        <option value="{{supplier}}" class="h-7 rounded-md shadow-inner">{{supplier}}</option>
+                                    {% endfor %}
+                                </select>
+                                    <!-- <input type="text" placeholder="" class="h-7 rounded-md shadow-inner" name="supplier" id="supplier"> -->
+                                    
                                 </div>
                             </div>
 
@@ -893,11 +808,22 @@
                                 <label for="">Expiry Date</label>
                                 <input type="date" placeholder="" class="h-7 rounded-md shadow-inner p-0">
                             </div> -->
+                            <div class="flex flex-col">
+                                <label for="">Stock in Available</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
+                                name="sub-total" id="sub-total">
+                            </div>
 
                             <div class="flex flex-col">
                                 <label for="">Stock in Shop</label>
-                                <input type="text" placeholder="" class="h-7 rounded-md shadow-inner"
+                                <input type="text" placeholder="" class="h-7 rounded-md text-right shadow-inner" value="0"
                                 name="available-stock" id="available-stock">
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label for="">Paid Amount</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
+                                name="net-price" id="net-price">
                             </div>
 
                             <!-- <div class="flex flex-col">
@@ -919,10 +845,10 @@
                         class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="add-inventory-data" id="add-inventory-data" value="add-inventory-data">
                         Complete
                     </button>
-                    <button @click="closeModal"
-                        class="bg-blue-400 px-6 py-1 rounded-xl text-white">
+                    <!-- <button @click="closeModal"
+                        class="bg-blue-400 px-6 py-1 rounded-xl text-white" >
                         Close
-                    </button>
+                    </button> -->
             </form>
             </footer>
 
