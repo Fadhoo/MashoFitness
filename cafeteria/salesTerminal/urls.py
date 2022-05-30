@@ -7,4 +7,5 @@ urlpatterns = [
     path("salesTerminal/", views.salesTerminal, name="salesTerminal"),
 
     # api path
+    path("api/searchItemInSalesTerminal/", views.searchItemInSalesTerminal, name="searchItemInSalesTerminal"),
 ]

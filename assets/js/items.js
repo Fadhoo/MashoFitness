@@ -49,7 +49,6 @@ function update_table(data){
         '<td class="p-2">'+elem['item_name']+'</td>'+
         '<td class="p-2">'+elem['item_unit']+'</td>'+
         '<td class="p-2">'+elem['item_selling_price']+'</td>'+
-        '<td class="p-2">'+elem['item_max_selling_quantity']+'</td>'+
         '<td class="p-2">'+elem['item_category']+'</td>'+
         '<td class="p-2">'+elem['item_status']+'</td>'+
 
@@ -139,28 +138,22 @@ function onItemCode(data){
     JsBarcode("#barcode", item_code);
     
 }
+function onItemCodeUpdate(data){
+    var item_code = data.value;
+    console.log(item_code);
+    // document.getElementById("item-barcode").innerHTML = item_code;
+    JsBarcode("#barcode-update", item_code);
+    
+}
 
 function ImageLoder(data){
-    let file = data.files[0]; 
+    let file = data.files[0];
     var reader = new FileReader();
-
     reader.onload = function (e) {
-        document.getElementById('image').src = e.target.result;
-        document.getElementById('image2').src = e.target.result;
-    };
-
+            console.log("update call ",e.target.result);
+            document.getElementById('image').src = e.target.result;
+            document.getElementById('update-image').src = e.target.result;
+        }
     reader.readAsDataURL(file);
 }
 
-function ImageLoderUpdate(data){
-    let file = data.files[0]; 
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-        console.log(e.target.result);
-        document.getElementById('update-image').src = e.target.result;
-        document.getElementById('image2').src = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-}

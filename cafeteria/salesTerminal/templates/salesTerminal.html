@@ -97,16 +97,11 @@
                                                 clip-rule="evenodd"></path>
                                         </svg>
                                     </div>
-                                    <input
+                                    <input onkeyup="searchItemInSalesTerminal(this.value)"
                                         class="w-96 pl-8 h-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-200 border-0 rounded-md      focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                                         type="search" placeholder="Search" aria-label="Search" />
                                 </div>
         
-                                <!-- Item List -->
-        
-                                <button class="p-1 bg-slate-500 text-white rounded-md ml-3 px-2">
-                                    Item List
-                                </button>
         
                             </div>
                         </li>
@@ -122,24 +117,24 @@
                             <div class="w-3/5 border border-gray-700 ml-1 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-red-600 scrollbar-track-red-300">
                                 <!-- left daba -->
                                 <div class="flex flex-col  md:col-span-3 border-r-8 border-white bg-white">
-                                    <div class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-7 p-5 gap-4  overflow-y-auto shadow-inner scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200">
+                                    <div id="item-main-div" class="grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-7 p-5 gap-4  overflow-y-auto shadow-inner scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200">
                                         
                                         <!-- products -->
                                         {% for item in itemsData %}
                                         <div onclick="addToCart('{{item.id}}')" 
                                             class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">
-                                            
                                             <div>
-                                                
                                                 <div class="font-bold text-gray-800">{{item.item_name}}</div>
                                                 <span class="font-light text-sm text-gray-400">{{item.item_category}}</span>
+                                            </div>    
                                                 
-                                            </div>
+                                            
                                             <div class="flex flex-row justify-between items-center">
                                                 <span class="self-end font-bold text-lg text-yellow-500">{{item.item_selling_price}}</span>
                                                 <img src="{% static 'img/wallet.png' %}" class="h-14 object-cover rounded-md"
                                                     alt="">
                                             </div>
+                                            
                                             
                                         </div>
                                         {% endfor %}        
@@ -220,24 +215,24 @@
                                 <div class="p-1 bg-gray-200 justify-between border border-slate-800 ml-1 mr-1 flex flex-row">
                                     <div class="p-3 bg-white shadow-lg ml-32 px-20">
                                         <span class="font-bold">Amount Paid : </span>
-                                        <span class="font-bold text-lg text-blue-700">1000</span>
+                                        <span class="font-bold text-lg text-blue-700" id="amount-paid">00</span>
                                     </div>
                                     <div class="justify-end flex flex-row">
                                         <div class="border px-6 flex flex-col bg-white">
                                             <span class="font-semibold text-md">Subtotal</span>
-                                            <span class="font-bold text-right">1000</span>
+                                            <span class="font-bold text-right" id="subtotal">00</span>
                                         </div>
                                         <div class="border px-6 flex flex-col bg-white">
-                                            <span class="font-semibold text-md">Discount</span>
-                                            <span class="font-bold text-right text-red-700">- 200</span>
+                                            <span class="font-semibold text-md" >Discount</span>
+                                            <span class="font-bold text-right text-red-700" id="total-discount">- 00</span>
                                         </div>
                                         <div class="border px-6 flex flex-col bg-white">
-                                            <span class="font-semibold text-md">Sales Tax</span>
-                                            <span class="font-bold text-right">0</span>
+                                            <span class="font-semibold text-md" >Sales Tax</span>
+                                            <span class="font-bold text-right" id="sales-tax">00</span>
                                         </div>
                                         <div class="border px-6 items-center flex gap-4 bg-white">
                                             <span class="font-semibold text-2xl">Total :</span>
-                                            <span class="font-bold text-2xl">800</span>
+                                            <span class="font-bold text-2xl" id="total-price">00</span>
                                         </div>
                                     </div>
                                 </div>
@@ -257,8 +252,9 @@
     
                                     <!-- Close -->
                                     <div class=" bg-white p-1 rounded-md shadow-sm rounded-br-none px-10 w-36">
+                                        <a href="{% url 'pos' %}">
                                         <img src="{% static 'img/close.png' %}" class="h-12" />
-                                        <span class="font-semibold">Close</span>
+                                        <span class="font-semibold">Close</span></a>
                                     </div>
     
                                     <!-- cash -->

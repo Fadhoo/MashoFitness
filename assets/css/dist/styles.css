@@ -1633,12 +1633,6 @@ select {
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
-.space-x-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .self-end {
   align-self: flex-end;
 }
@@ -2800,11 +2794,6 @@ select {
 
 .hover\:border-2:hover {
   border-width: 2px;
-}
-
-.hover\:border-blue-800:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(30 64 175 / var(--tw-border-opacity));
 }
 
 .hover\:bg-gray-100:hover {
