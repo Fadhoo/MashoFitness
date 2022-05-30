@@ -105,7 +105,7 @@
                                 </svg>
                                 <a class="w-full" href="/addItem/">Add Items</a>
                             </li>
-                            <li
+                            <!-- <li
                                 class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
                                 <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -119,7 +119,7 @@
                                     <line x1="12" y1="9" x2="12" y2="12" />
                                 </svg>
                                 <a class="w-full" href="/addProducts/">Add Products</a>
-                            </li>
+                            </li> -->
 
                             <li
                                 class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
@@ -770,22 +770,15 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
-                                        onChange="let file = this.files[0]; 
-                                        var reader = new FileReader();
-                    
-                                        reader.onload = function (e) {
-                                            document.getElementById('image').src = e.target.result;
-                                            document.getElementById('image2').src = e.target.result;
-                                        };
-                                    
-                                        reader.readAsDataURL(file);
-                                    ">
+                                    <input name="photos" id="fileInput" accept="image/*" class="hidden" type="file"
+                                        enctype="multipart/form-data" onChange="ImageLoder(this)">
                                 </div>
                             </div>
                             <div class="flex flex-col items-center border border-gray-400">
-                                <label for="">||||||||||||||||||||||||||||</label>
-                                <label for="">00000000000000</label>
+                                <svg id="barcode">
+                                </svg>
+
+                                <!-- <label for="" id="item-barcode">000000000</label> -->
                             </div>
                             <div class="flex flex-col">
                                 <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
@@ -866,7 +859,7 @@
                 </svg>
             </button>
         </header>
-        <form action="/addNonStockItem/" method="post">
+        <form action="/addNonStockItem/" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="text" id="update-row-id" hidden>
         <!-- Modal body -->
@@ -939,13 +932,13 @@
                     <!-- Right -->
                     <div class="p-1 border border-gray-500">
 
-                        <div class="flex flex-col items-center p-2 bg-white row-span-2">
-                            
+                        <div class="flex flex-col items-center row-span-2">
+                            <label for="" class="m-1"></label>
                             <div class="flex flex-col">
                                 <div
                                     class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
-                                    <img id="image" class="object-cover w-full h-32"
-                                        src="{{ MEDIA_URL }}/{{nonStock_item_image}}" />
+                                    <img id="update-image" class="object-cover w-full h-32"
+                                        src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
 
                                     <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
                                         onClick="document.getElementById('fileInput').click()">
@@ -965,22 +958,13 @@
                                         </button>
                                     </div>
                                 </div>
-                                <input name="photos" id="fileInput" accept="image/*" class="hidden" type="file" \
-                                    enctype="multipart/form-data" onChange="let f = this.files[0]; 
-                                    var reader = new FileReader();
-                
-                                    reader.onload = function (e) {
-                                        document.getElementById('image').src = e.target.result;
-                                        document.getElementById('image2').src = e.target.result;
-                                    };
-                                
-                                    reader.readAsDataURL(f);
-                                ">
+                                <input name="update-photos" id="fileInput" accept="image/*" class="hidden" type="file"
+                                    enctype="multipart/form-data" onChange="ImageLoder(this)">
                             </div>
                         </div>
                         <div class="flex flex-col items-center border border-gray-400">
-                            <label for="">||||||||||||||||||||||||||||</label>
-                            <label for="">00000000000000</label>
+                            <svg id="barcode-update" name="update-barcode">
+                            </svg>
                         </div>
                         <div class="flex flex-col">
                             <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
@@ -1027,6 +1011,7 @@
     </div>
     </div>
     <script src="{% static 'js/items.js'%}"></script>
+    <script src="{% static 'js/nonStockItems.js'%}"></script>
 </body>
 
 </html>

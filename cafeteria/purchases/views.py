@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from cafeteria.Items.models import Items
-from .models import Inventory
+from .models import Inventory, Purchases
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import InventorySerializer
 from django.urls import reverse
+from cafeteria.suppliers.models import Supplier
 from .functions import UpdateInventory
 
 # Create your views here.
@@ -18,14 +19,18 @@ def inventory(request):
     else:
         return render(request, "inventory.html", {
                     # 'addItems': Items.objects.all(),
-                    'inventoryData': Inventory.objects.all().select_related('inventory_item_id')})  
+                    'inventoryData': Inventory.objects.all().select_related('inventory_item_id'),
+                    "suppliersName":Supplier.objects.all().values_list('supplier_name',flat=True).distinct(),
+                    })  
+
+
+def purchases(request):
+    return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('inventory_id')})
 
 def purchaseReturn(request):
     return render(request, "purchaseReturn.html")
 
 
-def purchases(request):
-    return render(request, "purchases.html")
 
 
 

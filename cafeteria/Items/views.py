@@ -126,7 +126,7 @@ def UpdateItemQueryCall(request):
 
 
 @api_view(['GET'])
-def UpdateNonStockItemQueryCall(request):
+def UpdateNonStockQueryCall(request):
     value=request.GET.get("nonStock-id")
     try:
         return Response(NonStockSerializer(NonStock.objects.filter(id=value),many=True).data)
