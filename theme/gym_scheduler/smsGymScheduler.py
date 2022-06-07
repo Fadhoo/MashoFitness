@@ -28,7 +28,6 @@ def sendMessageToAll(message,status):
 def sendMessageToUser(name,number,message):
     number=number.replace("-", "")
     try:
-        # return 200
         return requests.get(f'https://sendpk.com/api/sms.php?api_key=923402601866-e097c210-00f1-4fdf-9318-7e012f796e4a&sender=MashoFitness&mobile={number}&message=Dear {name},{message}').status_code
     except Exception as e:
         print("sendMessageToUser exception",e)

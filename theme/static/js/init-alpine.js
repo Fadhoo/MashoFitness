@@ -197,6 +197,19 @@ function data() {
       this.isFutsalMatchUpdateModalOpen = false
       this.trapCleanupFutsalMatchUpdate()
     },
+
+    // cafeteria customer model
+    isCafeteriaCustomerModalOpen: false,
+    trapCleanupCafeteriaCustomer: null,
+    openCafeteriaCustomerModal() {
+        this.isCafeteriaCustomerModalOpen = true
+        this.trapCleanupCafeteriaCustomer = focusTrap(document.querySelector('#CafeteriaCustomerModal'))
+      
+    },
+    closeCafeteriaCustomerModal() {
+      this.isCafeteriaCustomerModalOpen = false
+      this.trapCleanupCafeteriaCustomer()
+    },
     
     
   }

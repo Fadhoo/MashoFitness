@@ -101,9 +101,10 @@ $("#myTable").on("click", "#DeleteRow", function () {
 });
 
 function updateCart() {
-    const rows = document.querySelectorAll("table > tbody > tr");
+    const rows = document.querySelectorAll("#myTableBody > tr");
     var total = 0;
     var discount = 0;
+    console.log(rows)
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         if (row.querySelectorAll("td > input")[0].value != "") {
@@ -176,4 +177,12 @@ function searchItemInSalesTerminal(value) {
             }
         }
     });
+}
+
+function onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+    console.log(checkbox.value);
 }
