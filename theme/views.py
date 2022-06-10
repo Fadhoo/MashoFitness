@@ -434,3 +434,17 @@ def searchbygender(request):
 
     except Exception as e:
         return Response({"error":str(e)})
+
+@api_view(['GET'])
+def deleteBill(request):
+    try:
+        id=request.GET.get('id',None)
+        member_id=Bill.objects.filter(id=id).values('member_id')[0]['member_id']
+        print(member_id)
+        if id is not None:
+            Bill.objects.filter(id=id).delete()
+            return Response(BillSerializer(Bill.objects.filter(member_id=member_id),many=True).data)
+        else:
+            return Response({"error":str("Please select bill id")})
+    except Exception as e:
+        return Response({"error":str(e)})

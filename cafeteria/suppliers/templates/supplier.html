@@ -571,7 +571,7 @@
                     <div class="px-3 py-3 bg-white rounded-lg rounded-b-none shadow-md ">
 
                         <div class="grid grid-cols-7 gap-2">
-                            <div class="flex flex-col ">
+                            <!-- <div class="flex flex-col ">
                                 <label for="" class="m-1">Result per Page</label>
                                 <select name="resultperpage" id="resultperpage" onchange="resultperpageValueChanged()"
                                     class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
@@ -582,16 +582,15 @@
                                     <option value="all">All</option>
 
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="flex flex-col ">
                                 <label for="" class="m-1">Type</label>
-                                <select name="searchbytype" id="searchbytype" onchange="resultperpageValueChanged()"
+                                <select name="searchbytype" id="searchbytype" 
                                     class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                     <option value="" class="">select Type</option>
                                     <option value="">By Name</option>
                                     <option value="">By Email</option>
-                                    <option value="">Active</option>
-                                    <option value="">In-Active</option>
+                                    <option value="">By Number</option>
                                 </select>
                             </div>
                             <div class="flex flex-col col-span-2">
@@ -604,7 +603,7 @@
                             <!-- from to To search -->
                             <div class="flex flex-col">
 
-                                <div class="inline-flex gap-2">
+                                <!-- <div class="inline-flex gap-2">
                                     <div class="flex flex-col">
                                         <label for="" class="m-1">From</label>
                                         <input type="date" id="fromdate"
@@ -627,7 +626,7 @@
                                         </span>
                                     </div>
 
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
@@ -712,6 +711,7 @@
         </div>
 
     </div>
+    <script src="{% static 'js/supplier.js' %}"></script>
 </body>
 
 </html>

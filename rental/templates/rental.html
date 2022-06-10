@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en" x-data="data()">
 
@@ -605,7 +606,7 @@
                                     <td class="p-1">{{rent.Full_name}}</td>
                                     <td class="p-1">{{rent.contact_no}}</td>
                                     <td class="p-1">{{rent.shop_no}}</td>
-                                    <td class="p-1">{{rent.active_rent_id.rent_amount}}</td>
+                                    <td class="p-1">{{rent.active_rent_id.rent_amount|intcomma}}</td>
                                     <td class="p-1">{{rent.active_rent_id.rent_pay_date}}</td>
                                     <td class="p-1">{{rent.active_rent_id.rent_duration}}</td>
                                     <td class="p-1">{{rent.active_rent_id.rent_end_date}}</td>

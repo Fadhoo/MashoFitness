@@ -10,4 +10,5 @@ urlpatterns = [
     # # api path
     path("api/updateInventoryQueryCall/", views.updateInventoryQueryCall, name='updateInventoryQueryCall'),
     path('api/salesTerminal/addToCart/', views.addToCart, name='addToCart'),
+    path('api/salesTerminal/addToCartNonStock/', views.addToCartNonStock, name='addToCartNonStock'),
 ]

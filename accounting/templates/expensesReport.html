@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en" x-data="data()">
 
@@ -293,7 +294,7 @@
                                         <td class="p-1">{{gym.receipent_name}}</td>
                                         <td class="p-1">{{gym.description}}</td>
                                         <td class="p-1">{{gym.expense_attended_by.user.username}}</td>
-                                        <td class="p-1">{{gym.paid_amount}}</td>
+                                        <td class="p-1">{{gym.paid_amount|intcomma}}</td>
 
                                     </tr>
                                     {% endfor %}
@@ -335,7 +336,7 @@
                                         <td class="p-1">{{futsal.receipent_name}}</td>
                                         <td class="p-1">{{futsal.description}}</td>
                                         <td class="p-1">{{futsal.expense_attended_by.user.username}}</td>
-                                        <td class="p-1">{{futsal.paid_amount}}</td>
+                                        <td class="p-1">{{futsal.paid_amount|intcomma}}</td>
 
                                     </tr>
                                     {% endfor %}
@@ -377,7 +378,7 @@
                                         <td class="p-1">{{snooker.receipent_name}}</td>
                                         <td class="p-1">{{snooker.description}}</td>
                                         <td class="p-1">{{snooker.expense_attended_by.user.username}}</td>
-                                        <td class="p-1">{{snooker.paid_amount}}</td>
+                                        <td class="p-1">{{snooker.paid_amount|intcomma}}</td>
 
                                     </tr>
                                     {% endfor %}
@@ -453,7 +454,7 @@
                                         <td class="p-1">{{rent.receipent_name}}</td>
                                         <td class="p-1">{{rent.description}}</td>
                                         <td class="p-1">{{rent.expense_attended_by.user.username}}</td>
-                                        <td class="p-1">{{rent.paid_amount}}</td>
+                                        <td class="p-1">{{rent.paid_amount|intcomma}}</td>
 
                                     </tr>
                                     {% endfor %}

@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from cafeteria.Items.models import Items, NonStock
 from cafeteria.Items.serializer import ItemSerializer, NonStockSerializer
 from rest_framework.decorators import api_view
+
+from theme.models import Member
 from .functions import *
 # Create your views here.
 
@@ -12,7 +14,8 @@ def salesTerminal(request):
     print(data.item_name)
     return render(request, "salesTerminal.html", {
                             "itemsData": Items.objects.all(),
-                            "nonStockItems": NonStock.objects.all()
+                            "nonStockItems": NonStock.objects.all(),
+                            'customer': Member.objects.all(),
                             })
 
 

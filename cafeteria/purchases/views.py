@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from cafeteria.Items.models import Items
+from cafeteria.Items.models import Items, NonStock
 from .models import Inventory, Purchases
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from rest_framework.decorators import api_view
@@ -8,7 +8,7 @@ from .serializer import InventorySerializer
 from django.urls import reverse
 from cafeteria.suppliers.models import Supplier
 from .functions import UpdateInventory
-
+from cafeteria.Items.serializer import NonStockSerializer
 # Create your views here.
 def inventory(request):
     if request.method=="POST":
@@ -57,7 +57,14 @@ def addToCart(request):
     value=request.GET.get("id")
     # print(value)
     try:
-        # print(InventorySerializer(Inventory.objects.filter(inventory_item_id__id=value).first()).data)
         return Response(InventorySerializer(Inventory.objects.filter(inventory_item_id__id=value).first()).data)
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def addToCartNonStock(request):
+    value=request.GET.get("id")
+    try:
+        return Response(NonStockSerializer(NonStock.objects.filter(id=value).first()).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})

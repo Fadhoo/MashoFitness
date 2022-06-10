@@ -218,10 +218,14 @@
                     <!-- totalItems -->
                     <div class="w-full fixed bottom-24">
                         <div class="p-1 bg-gray-200 justify-between border border-slate-800 ml-1 mr-1 flex flex-row">
-                            <div class="p-3 bg-white shadow-lg ml-32 px-20">
+                            <div class="p-3 bg-white shadow-lg ml-20 px-20">
                                 <span class="font-bold">Amount Paid : </span>
                                 <span class="font-bold text-lg text-blue-700" id="amount-paid">00</span>
                             </div>
+                            <!-- <div class="p-3 bg-white shadow-lg ml-20 px-20">
+                                <span class="font-bold">Member Name: : </span>
+                                <span class="font-bold text-lg text-blue-700" id="Member-name"></span>
+                            </div> -->
                             <div class="justify-end flex flex-row">
                                 <div class="border px-6 flex flex-col bg-white">
                                     <span class="font-semibold text-md">Subtotal</span>
@@ -289,7 +293,7 @@
                                     <div class="flex flex-row justify-between items-center"
                                         @click="openCafeteriaCustomerModal">
                                         <div class="flex flex-col px-5">
-                                            <span class="text-lg font-semibold">Walk-In Customer</span>
+                                            <span class="text-lg font-semibold" id="Member-name">Walk-In Customer</span>
                                             <div class="flex-row">
                                                 <span class="text-xl font-bold text-yellow-500">Balance :
                                                 </span>
@@ -333,7 +337,8 @@
             class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-xl" role="dialog" id="CafeteriaCustomerModal">
             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
             <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
-                <span>New Item</span>
+                <span>Customer Model</span>
+                <input type="text" class="w-full h-full" placeholder="Search" id="search-memberName" onkeyup="MemberSearchByName()"/>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
                     aria-label="close" @click="closeCafeteriaCustomerModal">
@@ -343,9 +348,10 @@
                             clip-rule="evenodd" fill-rule="evenodd"></path>
                     </svg>
                 </button>
+                
             </header>
-            <form action="{% url 'addItem' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+            <!-- <form action="{% url 'addItem' %}" method="post" enctype="multipart/form-data"> -->
+                <!-- {% csrf_token %} -->
                 <!-- Modal body -->
                 <div class="bg-white p-1">
                     <div class=" grid gap-1">
@@ -359,40 +365,33 @@
                                     <th class="p-2">Number</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="memberTableId">
+                                {% for c in customer %}
                                 <tr>
                                     <td class="p-2">
-                                        <input onclick="onlyOne(this)" value="1" type="checkbox" name="check"
-                                            class="cursor-pointer rounded-md">
+                                        <input onclick="onlyOne(this)" value="{{c.id}}" type="checkbox" name="check"
+                                            class="cursor-pointer rounded-md ">
                                     </td>
-                                    <td class="p-2">M001 </td>
-                                    <td class="p-2">Ehtisham </td>
-                                    <td class="p-2">03475715230</td>
+                                    <td class="p-2">{{c.member_serial_no}} </td>
+                                    <td class="p-2 member-name-row">{{c.member_name}} </td>
+                                    <td class="p-2">{{c.member_contact}}</td>
                                 </tr>
-                                <tr>
-                                    <td class="p-2">
-                                        <input onclick="onlyOne(this)" value="2" type="checkbox" name="check"
-                                            class="cursor-pointer rounded-md">
-                                    </td>
-                                    <td class="p-2">M001 </td>
-                                    <td class="p-2">Ehtisham </td>
-                                    <td class="p-2">03475715230</td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <footer
                     class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
-                    <button class="bg-blue-500 px-6 py-1 rounded-xl text-white " name="save-button" value="save-button">
+                    <button class="bg-blue-500 px-6 py-1 rounded-xl text-white " onclick="memberSelection()" @click="closeCafeteriaCustomerModal">
                         OK
                     </button>
-                    <button @click="closeModal" class="bg-blue-400 px-6 py-1 rounded-xl text-white" name="cancel-button"
+                    <button @click="closeCafeteriaCustomerModal" class="bg-blue-400 px-6 py-1 rounded-xl text-white" 
                         value="cancel-button">
                         Cancel
                     </button>
                 </footer>
-            </form>
+            <!-- </form> -->
 
         </div>
     </div>

@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en" x-data="data()">
 
@@ -357,13 +358,13 @@
                                                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                         </svg>
                                     </span>
-                                    <span onclick="sendDeleteRequest()" class="p-1 cursor-pointer rounded-md border border-red-900 m-1">
+                                    <!-- <span onclick="sendDeleteRequest()" class="p-1 cursor-pointer rounded-md border border-red-900 m-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-900" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div>
                             <input type="text" id="name" value="{{memberID}}" hidden>
@@ -396,12 +397,12 @@
                                         <td class="p-2">{{i.subscription_id.category_months}}</td>
                                         <td class="p-2">{{i.start_date}}</td>
                                         <td class="p-2">{{i.end_date}}</td>
-                                        <td class="p-2">{{i.amount}}</td>
-                                        <td class="p-2">{{i.discount}}</td>
-                                        <td class="p-2">{{i.payable}}</td>
+                                        <td class="p-2">{{i.amount|intcomma}}</td>
+                                        <td class="p-2">{{i.discount|intcomma}}</td>
+                                        <td class="p-2">{{i.payable|intcomma}}</td>
                                         <td class="p-2">{{i.start_date}}</td>
-                                        <td class="p-2">{{i.paid}}</td>
-                                        <td class="p-2">{{i.remaining}}</td>
+                                        <td class="p-2">{{i.paid|intcomma}}</td>
+                                        <td class="p-2">{{i.remaining|intcomma}}</td>
                                         
                                         <td class="p-1">
                                             <div class="grid grid-rows-1 gap-1">
@@ -411,6 +412,18 @@
                                                         Bill</button>
 
                                                 </div>
+
+                                            </div>
+                                        </td>
+                                        <td class="p-1">
+                                            <div class="flex flex-row w-20">
+                                                <span onclick="sendDeleteRequest('{{i.id}}')" class="p-1 cursor-pointer rounded-md border border-red-900 m-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-900" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                </span>
 
                                             </div>
                                         </td>
@@ -622,6 +635,60 @@ const $printPaymentBill = document.querySelector("#printPaymentBill");
 $printPaymentBill.addEventListener("click", () => {
     window.print();
 });
+
+function sendDeleteRequest(id){
+    // console.log(id);
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+              $.ajax({
+        method: "GET",
+        url: "/api/deleteBill/",
+        data: { "id": id},
+        success: function (data) {
+            console.log("success on delete");
+            update_table(data)
+            reloadPage();
+        },
+        error: function () {
+            console.log("error on delete");
+        }
+    });
+            
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            )
+        }
+    })
+};
+
 
 </script>
 

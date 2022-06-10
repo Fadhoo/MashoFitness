@@ -28,6 +28,7 @@ urlpatterns = [
     path("api/getExpireRemainingDays/", views.getExpireRemainingDays, name="getExpireRemainingDays"),
     path("api/searchbygender/", views.searchbygender, name="searchbygender"),
     path("api/checkSerialNo/", views.checkSerialNo, name="checkSerialNo"),
+    path("api/deleteBill/", views.deleteBill, name="deleteBill"),
     # ex: /polls/
     # path('', views.home, name='home'),
     # path('login', views.login, name='login'),
