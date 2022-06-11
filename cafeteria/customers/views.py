@@ -3,6 +3,9 @@ from .models import CafeteriaCustomer
 from .functions import *
 from django.urls import reverse
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializer import CustomerSerializer
 # Create your views here.
 def customer(request):
     if request.method == "POST":

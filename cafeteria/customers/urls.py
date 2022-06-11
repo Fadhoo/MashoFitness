@@ -9,4 +9,5 @@ urlpatterns = [
     
 
     # api path
+    path('api/SearchByCustomerField/', views.SearchByCustomerField, name='SearchByCustomerField'),
 ]
