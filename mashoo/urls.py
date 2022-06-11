@@ -34,6 +34,7 @@ urlpatterns = [
     path('', include('cafeteria.salesTerminal.urls')),
     path('', include('cafeteria.suppliers.urls')),
     path('', include('cafeteria.customers.urls')),
+    path('', include('cafeteria.CafeteriaExpenses.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

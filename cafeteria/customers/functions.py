@@ -1,8 +1,8 @@
-from .models import Customer
+from .models import CafeteriaCustomer
 
 def addCustomer(request):
     try:
-        add_customer = Customer.objects.create(customer_account=request.POST.get("customer-account"),
+        add_customer = CafeteriaCustomer.objects.create(customer_SerialNo=request.POST.get("customer-account"),
                         customer_name=request.POST.get("customer-name"),
                         customer_contact=request.POST.get("customer-contact"),
                         customer_email=request.POST.get("customer-email"),
@@ -12,17 +12,14 @@ def addCustomer(request):
                         customer_country=request.POST.get("customer-country")
                         )
         add_customer.save()
-
-        return add_customer
     except Exception as e:
-        print("Error in adding customer data", e)
-        return False
+        print("Error in adding cafeteria customer data", e)
 
 
 def updateCustomerData(request):
     try:
-        Customer.objects.filter(id=request.POST.get("update-id")).update(
-                        customer_account=request.POST.get("customer-account"),
+        CafeteriaCustomer.objects.filter(id=request.POST.get("update-id")).update(
+                        customer_SerialNo=request.POST.get("customer-account"),
                         customer_name=request.POST.get("customer-name"),
                         customer_contact=request.POST.get("customer-contact"),
                         customer_email=request.POST.get("customer-email"),

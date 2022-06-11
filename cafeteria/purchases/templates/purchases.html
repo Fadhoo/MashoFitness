@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en" x-data="data()">
 
@@ -640,7 +641,7 @@
                                     <td class="p-2">{{item.inventory_id.inventory_reference_number}}</td>
                                     <td class="p-2">{{item.inventory_id.supplier_id.supplier_name}}</td>
                                     <td class="p-2">{{item.create_date}}</td>
-                                    <td class="p-2">{{item.inventory_id.inventory_item_total}}</td>
+                                    <td class="p-2">{{item.inventory_id.inventory_item_total|intcomma}}</td>
                                     <td class="p-2">{{item.status}}</td>
 
 

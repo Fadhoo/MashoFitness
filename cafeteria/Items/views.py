@@ -62,18 +62,6 @@ def addNonStockItem(request):
 def pos(request):
     return render(request, "pos.html")
 
-
-
-
-
-
-
-def cafeteriaExpenses(request):
-    return render(request, "cafeteriaExpenses.html")
-
-def updateCafeteriaExpenses(request):
-    return render(request, "updateCafeteriaExpenses.html")
-
 def barcodeLabel(request):
     return render(request, "barcodeLabel.html")
 
