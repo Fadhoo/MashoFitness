@@ -571,7 +571,7 @@
                     <div class="px-3 py-3 bg-white rounded-lg rounded-b-none shadow-md ">
 
                         <div class="grid grid-cols-7 gap-2">
-                            <div class="flex flex-col ">
+                            <!-- <div class="flex flex-col ">
                                 <label for="" class="m-1">Result per Page</label>
                                 <select name="resultperpage" id="resultperpage" onchange="resultperpageValueChanged()"
                                     class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
@@ -582,27 +582,26 @@
                                     <option value="all">All</option>
 
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="flex flex-col ">
                                 <label for="" class="m-1">Type</label>
-                                <select name="searchbytype" id="searchbytype" onchange="resultperpageValueChanged()"
+                                <select name="searchByType" id="searchByType"
                                     class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                     <option value="" class="">select Type</option>
-                                    <option value="">By Name</option>
-                                    <option value="">By Email</option>
-                                    <option value="">Active</option>
-                                    <option value="">In-Active</option>
+                                    <option value="name">By Name</option>
+                                    <option value="number">Number</option>
+                                    <option value="status">Status</option>
                                 </select>
                             </div>
                             <div class="flex flex-col col-span-2">
                                 <label for="" class="m-1">Search Customer</label>
-                                <input type="search" name="searchbyname" id="searchbyname" oninput="searchbymembername();"
+                                <input type="search" name="searchByName" id="searchByName" oninput="SearchByFields();"
                                     class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
                                     placeholder="search">
                             </div>
 
                             <!-- from to To search -->
-                            <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
 
                                 <div class="inline-flex gap-2">
                                     <div class="flex flex-col">
@@ -628,7 +627,7 @@
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
 
@@ -712,6 +711,7 @@
         </div>
 
     </div>
+    <script src="{% static 'js/customer.js' %}"></script>
 </body>
 
 </html>
