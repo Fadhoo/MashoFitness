@@ -23,3 +23,6 @@ def updateCustomer(request):
             return HttpResponseRedirect(reverse("customer"))
     else:
         return render(request, "updateCustomer.html", {'customerData': CafeteriaCustomer.objects.filter(id=request.GET.get("customer")).first()})
+
+# def internee(request):
+#     pass
