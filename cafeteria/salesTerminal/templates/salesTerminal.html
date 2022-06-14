@@ -123,7 +123,7 @@
 
                                     <!-- products -->
                                     {% for item in itemsData %}
-                                    <div onclick="addToCart('{{item.id}}')"
+                                    <div onclick="addToCart('{{item.item_name}}')"
                                         class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">
                                         <div>
                                             <div class="font-bold text-gray-800">{{item.item_name}}</div>
@@ -144,7 +144,7 @@
                                     <!-- </div> -->
                                     {% for item in nonStockItems %}
                                     <div class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between"
-                                        onclick="addToCart('{{item.id}}')">
+                                        onclick="addToCart('{{item.nonStock_item_name}}')">
 
                                         <div>
 
@@ -182,8 +182,9 @@
                                 <!-- order list -->
                                 <div
                                     class="px-1 lg:h-110 2xl:h-120 bg-white scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200">
-
-                                    <table class="table-auto border-gray-200 w-full" id="myTable">
+                                    <form id="FormName" action="{% url 'salesTerminal' %}" method="post">
+                                        <!-- {% csrf_token %} -->
+                                    <table class="table-auto border-gray-200 w-full" id="myTable" name="table-data">
 
                                         <thead class="border-b-2 border-gray-400 sticky top-0 bg-red-100">
                                             <tr class=" text-sm">
@@ -204,6 +205,7 @@
 
                                         </tbody>
                                     </table>
+                                </form>
 
                                 </div>
                                 <!-- end order list -->
@@ -255,7 +257,7 @@
                             <div class="grid grid-flow-col justify-end gap-5">
                                 <!-- Cash -->
                                 <div class=" bg-white p-1 rounded-md shadow-sm rounded-br-none px-10 w-36"
-                                    onclick="GetCashPayment()">
+                                    onclick="submitForm()">
                                     <img src="{% static 'img/cash.png' %}" class="h-12" />
                                     <span class="font-semibold">Cash</span>
                                 </div>
@@ -354,8 +356,8 @@
                 <!-- {% csrf_token %} -->
                 <!-- Modal body -->
                 <div class="bg-white p-1">
-                    <div class=" grid gap-1">
-                        <table class="table-auto border-gray-200 w-full" id="myTable">
+                    <div class=" grid gap-1 h-110 overflow-y-auto">
+                        <table class="table-auto border-gray-200 w-full " id="myTableCustomers">
                             <thead class="border-b-2 text-left border-gray-400">
                                 <tr class="">
                                     <th class="p-2">
@@ -372,9 +374,9 @@
                                         <input onclick="onlyOne(this)" value="{{c.id}}" type="checkbox" name="check"
                                             class="cursor-pointer rounded-md ">
                                     </td>
-                                    <td class="p-2">{{c.member_serial_no}} </td>
-                                    <td class="p-2 member-name-row">{{c.member_name}} </td>
-                                    <td class="p-2">{{c.member_contact}}</td>
+                                    <td class="p-2">{{c.customer_SerialNo}} </td>
+                                    <td class="p-2 member-name-row">{{c.customer_name}} </td>
+                                    <td class="p-2">{{c.customer_contact}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

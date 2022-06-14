@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Customer
+from .models import CafeteriaCustomer
 from .functions import *
 from django.urls import reverse
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
@@ -14,7 +14,7 @@ def customer(request):
             addCustomer(request)
             return HttpResponseRedirect(reverse("customer"))
     else:
-        return render(request, "customer.html", {'customerData': Customer.objects.all()})
+        return render(request, "customer.html", {'customerData': CafeteriaCustomer.objects.all()})
 
 
 def updateCustomer(request):
@@ -25,7 +25,7 @@ def updateCustomer(request):
             return HttpResponseRedirect(reverse("customer"))
     
     else:
-        return render(request, "updateCustomer.html", {'customerData': Customer.objects.filter(id=request.GET.get("customer")).first()})
+        return render(request, "updateCustomer.html", {'customerData': CafeteriaCustomer.objects.filter(id=request.GET.get("customer")).first()})
 
 # api work
 @api_view(['GET'])
@@ -34,11 +34,11 @@ def SearchByCustomerField(request):
     value=request.GET.get("value")
     try:
         if field=="name":
-            return Response(CustomerSerializer(Customer.objects.filter(customer_name__icontains=value).order_by("-id"),many=True).data)
+            return Response(CustomerSerializer(CafeteriaCustomer.objects.filter(customer_name__icontains=value).order_by("-id"),many=True).data)
         if field=="number":
-            return Response(CustomerSerializer(Customer.objects.filter(customer_contact__icontains=value).order_by("-id"),many=True).data)
+            return Response(CustomerSerializer(CafeteriaCustomer.objects.filter(customer_contact__icontains=value).order_by("-id"),many=True).data)
         if field=="status":
-            return Response(CustomerSerializer(Customer.objects.filter(customer_status__icontains=value).order_by("-id"),many=True).data)
+            return Response(CustomerSerializer(CafeteriaCustomer.objects.filter(customer_status__icontains=value).order_by("-id"),many=True).data)
     except:
         return Response({"message":"No data found"})
 

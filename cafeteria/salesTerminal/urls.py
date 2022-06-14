@@ -8,4 +8,8 @@ urlpatterns = [
 
     # api path
     path("api/searchItemInSalesTerminal/", views.searchItemInSalesTerminal, name="searchItemInSalesTerminal"),
+    path("api/searchbynameCafeteriaCustomer/", views.searchbynameCafeteriaCustomer, name="searchbynameCafeteriaCustomer"),
+    path("api/CafeteriaOrderPlacement/", views.CafeteriaOrderPlacement, name="CafeteriaOrderPlacement"),
+
+
 ]

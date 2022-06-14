@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from cafeteria.Items.models import Items, NonStock
+from cafeteria.Items.models import NonStock
 from .models import Inventory, Purchases
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import InventorySerializer
@@ -23,23 +23,11 @@ def inventory(request):
                     "suppliersName":Supplier.objects.all().values_list('supplier_name',flat=True).distinct(),
                     })  
 
-
 def purchases(request):
     return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('inventory_id')})
 
 def purchaseReturn(request):
     return render(request, "purchaseReturn.html")
-
-
-
-
-
-
-
-
-
-
-
 
 @api_view(['GET'])
 def updateInventoryQueryCall(request):
@@ -57,7 +45,7 @@ def addToCart(request):
     value=request.GET.get("id")
     # print(value)
     try:
-        return Response(InventorySerializer(Inventory.objects.filter(inventory_item_id__id=value).first()).data)
+        return Response(InventorySerializer(Inventory.objects.filter(inventory_item_id__item_name=value).first()).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
 
@@ -65,6 +53,6 @@ def addToCart(request):
 def addToCartNonStock(request):
     value=request.GET.get("id")
     try:
-        return Response(NonStockSerializer(NonStock.objects.filter(id=value).first()).data)
+        return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_name=value).first()).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})

@@ -1,4 +1,4 @@
-member_id=null;
+member_id = null;
 item_name = [];
 function addToCart(id) {
     $.ajax({
@@ -8,7 +8,7 @@ function addToCart(id) {
             id: id
         },
         success: function (data) {
-            CreateRows(data,id);
+            CreateRows(data, id);
             updateCart();
         }
     });
@@ -16,44 +16,46 @@ function addToCart(id) {
 }
 
 
-function CreateRows(data,id) {
-    try{
-    if (item_name.includes(data['inventory_item_id']['item_name'])) {
-        alert("Item already in cart");
-    }
-    else {
-        item_name.push(data['inventory_item_id']['item_name']);
-        $('#myTable').find('tbody').append(
-            '<tr class="border-2 text-center">' +
-            '<td id="DeleteRow">' +
-            '<svg xmlns="http://www.w3.org/2000/svg"' +
-            'class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"' +
-            'fill="none" viewBox="0 0 24 24"' +
-            'stroke="currentColor">' +
-            '<path stroke-linecap="round" stroke-linejoin="round"' +
-            'stroke-width="2" d="M6 18L18 6M6 6l12 12" />' +
-            '</svg>' +
-            '</td>' +
-            '<td class="p-1">1</td>' +
-            '<td class="p-1">' + data['inventory_item_id']['item_code'] + '</td>' +
-            '<td class="p-1 product-name">' + data['inventory_item_id']['item_name'] + '</td>' +
-            '<td class="p-1 productPrice">' + data['inventory_item_id']['item_selling_price'] + '</td>' +
-            '<td class="p-1 quantity">1</td>' +
-            '<td class="p-1 inline-flex items-center space-x-1">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" class="sub-btn h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />' +
-            '</svg>' +
+function CreateRows(data, id) {
+    try {
+        if (item_name.includes(data['inventory_item_id']['item_name'])) {
+            console.log(item_name)
+            alert("Item already in cart");
+        }
+        else {
+            item_name.push(data['inventory_item_id']['item_name']);
+            $('#myTable').find('tbody').append(
+                '<tr class="border-2 text-center">' +
+                '<td id="DeleteRow">' +
+                '<svg xmlns="http://www.w3.org/2000/svg"' +
+                'class="h-5 w-5 hover:border-blue-800 border-2 rounded-md text-red-900 cursor-pointer"' +
+                'fill="none" viewBox="0 0 24 24"' +
+                'stroke="currentColor">' +
+                '<path stroke-linecap="round" stroke-linejoin="round"' +
+                'stroke-width="2" d="M6 18L18 6M6 6l12 12" />' +
+                '</svg>' +
+                '</td>' +
+                '<td class="p-1">1</td>' +
+                '<td class="p-1">' + data['inventory_item_id']['item_code'] + '</td>' +
+                '<td class="p-1 product-name" name="helloworld">' + data['inventory_item_id']['item_name'] + '</td>' +
+                '<td class="p-1 productPrice">' + data['inventory_item_id']['item_selling_price'] + '</td>' +
+                '<td class="p-1 quantity">1</td>' +
+                '<td class="p-1 inline-flex items-center space-x-1">' +
+                '<svg xmlns="http://www.w3.org/2000/svg" class="sub-btn h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />' +
+                '</svg>' +
 
-            ' <svg xmlns="http://www.w3.org/2000/svg" class="add-btn h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
-            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />' +
-            '</svg>' +
-            '</td>' +
-            '<td class="totaldiscount p-1"><input placeholder="0" class="discount w-10"  /></td>' +
-            '<td class="price p-1 font-semibold">' + data['inventory_item_id']['item_selling_price'] + '</td>' +
-            '</tr>'
-        );
-    }}
-    catch(err){
+                ' <svg xmlns="http://www.w3.org/2000/svg" class="add-btn h-5 w-5 border border-blue-400 hover:border-2 rounded-md cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />' +
+                '</svg>' +
+                '</td>' +
+                '<td class="totaldiscount p-1"><input placeholder="0" class="discount w-10"  /></td>' +
+                '<td class="price p-1 font-semibold">' + data['inventory_item_id']['item_selling_price'] + '</td>' +
+                '</tr>'
+            );
+        }
+    }
+    catch (err) {
         $.ajax({
             url: '/api/salesTerminal/addToCartNonStock',
             type: 'GET',
@@ -70,6 +72,7 @@ function CreateRows(data,id) {
 
 function CreateNonStockRows(data) {
     if (item_name.includes(data['nonStock_item_name'])) {
+
         alert("Item already in cart");
     }
     else {
@@ -144,16 +147,17 @@ $(document).ready(function () {
         var discount = parseFloat(row.find(".discount").val());
         var price = parseFloat(row.find(".price").text());
         var quantity = parseFloat(row.find(".quantity").text());
-        var productprice=parseFloat(row.find(".productPrice").text());
+        var productprice = parseFloat(row.find(".productPrice").text());
         if (isNaN(discount)) {
             discount = 0;
-            row.find(".price").text(productprice*quantity);
+            row.find(".price").text(productprice * quantity);
             updateCart();
         }
-        else{
-        var total = price - discount;
-        row.find(".price").text(total);
-        updateCart();}
+        else {
+            var total = price - discount;
+            row.find(".price").text(total);
+            updateCart();
+        }
     });
 })();
 
@@ -175,10 +179,10 @@ function updateCart() {
         }
         total += parseFloat(row.querySelector(".price").textContent);
     }
-    document.getElementById("total-price").innerHTML = total ; //total;
+    document.getElementById("total-price").innerHTML = total; //total;
     document.getElementById("total-discount").innerHTML = discount; //total discount
     document.getElementById("subtotal").innerHTML = total + discount; //subtotal
-    document.getElementById("amount-paid").innerHTML = total ;
+    document.getElementById("amount-paid").innerHTML = total;
 }
 
 
@@ -209,8 +213,8 @@ function searchItemInSalesTerminal(value) {
             }
             else if (data['NonStock']) {
                 Object.keys(data['NonStock']).forEach(key => {
-                $('#item-main-div').append(
-                    '<div onclick="addToCart(' + data['NonStock'][key]["id"] + ')"' +
+                    $('#item-main-div').append(
+                        '<div onclick="addToCart(' + data['NonStock'][key]["id"] + ')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
                         '<div>' +
                         '<div class="font-bold text-gray-800">' + data['NonStock'][key]['nonStock_item_name'] + '</div>' +
@@ -225,18 +229,18 @@ function searchItemInSalesTerminal(value) {
             else {
                 // console.log(data);
                 Object.keys(data['Both']).forEach(key => {
-                $('#item-main-div').append(
-                    '<div onclick="addToCart(' + data['Both'][key]['id'] + ')"' +
+                    $('#item-main-div').append(
+                        '<div onclick="addToCart(' + data['Both'][key]['id'] + ')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
                         '<div>' +
                         '<div class="font-bold text-gray-800">' + data['Both'][key]['item_name'] + '</div>' +
-                        '<span class="font-light text-sm text-gray-400">' +data['Both'][key]['item_category'] + '</span>' +
+                        '<span class="font-light text-sm text-gray-400">' + data['Both'][key]['item_category'] + '</span>' +
                         '</div>' +
                         '<div class="flex flex-row justify-between items-center">' +
                         '<span class="self-end font-bold text-lg text-yellow-500">' + data['Both'][key]['item_price'] + '</span>' +
                         '<img src=' + data['Both'][key]['item_image'] + ' class="h-14 object-cover rounded-md" alt="">' +
                         '</div></div>');
-            })
+                })
             }
         }
     });
@@ -251,91 +255,85 @@ function onlyOne(checkbox) {
     // console.log(member_id)
 }
 
-function memberSelection(){
+function memberSelection() {
     console.log(member_id)
     const rows = document.querySelectorAll("#memberTableId > tr");
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        id=row.querySelectorAll("td > input")[0].value
+        id = row.querySelectorAll("td > input")[0].value
         // console.log(row.querySelector(".member-name-row").textContent)
-        if (id==member_id) {
+        if (id == member_id) {
             console.log(row.querySelector(".member-name-row").textContent)
-            document.getElementById("Member-name").innerHTML =row.querySelector(".member-name-row").textContent;
+            document.getElementById("Member-name").innerHTML = row.querySelector(".member-name-row").textContent;
         }
     }
 
 }
 
-function MemberSearchByName(){
+function MemberSearchByName() {
     $.ajax({
-        url: '/api/searchbyname/',
+        url: '/api/searchbynameCafeteriaCustomer/',
         method: 'GET',
         data: {
             'searchbyname': document.getElementById("search-memberName").value
         },
         success: function (data) {
-            console.log(data);
-    let row;
-    let all_rows = '';
+            // console.log(data);
+            let row;
+            let all_rows = '';
 
-    Object.keys(data).forEach(key => {
-        elem = data[key];
-        row =
-        '<tr class="border-2 hover:bg-slate-300">' +
-            '<td class="p-2">' +
-                '<input onclick="requestDelete(this)" data-id="' + elem['id'] +'" type="checkbox" class="cursor-pointer rounded-md" onc>' +
-            '</td>' +
-            '<td class="p-2">'+ elem['member_serial_no'] +'</td>'+
-            '<td class="p-2"><div class="flex items-center text-sm">'+
-                    '<div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">'+
-                        '<img class="object-cover w-full h-full rounded-full"'+ 
-                           ' src="'+ elem['member_image'] +'"'+
-                            'alt="" loading="lazy" />'+
-                        '<div class="absolute inset-0 rounded-full shadow-inner"'+
-                            'aria-hidden="true"></div>'+
-                    '</div>'+
-                    '<div>'+
-                        '<p class="font-semibold">'+ elem['member_name'] +'</p>'+
-                        '<p class="text-sm text-gray-600 ">'+elem['member_membership_id']['category_name']+'</p>'+
-                    '</div>'+
-                '</div>'+
-            '</td>'+
-            '<td class="p-2">'+elem['member_card_id']+'</td>'+
-            '<td class="p-2">'+elem['member_contact']+'</td>'+
-            '<td class="p-2">'+elem['member_membership_id']['category_months']+'</td>'+
-            '<td class="p-2">'+'Masho'+'</td>'+
-            '<td class="p-2">'+ elem['member_membership_start_date'] +'</td>'+
-            '<td class="p-2">'+elem['member_membership_expiry_date']+'</td>'+
-            '<td class="p-2">'+
-                '<span class="px-2 py-1 font-semibold leading-tight text-black bg-blue-400 rounded-full">'+ elem['active_fee_id']['status']+ '</span>'+
-            '</td>'+
-            
-            '<td class="p-2" >'+
-                '<div class="float-right mr-5">'+
-                    '<a href="/memberDetails/?data='+elem['id']+'">'+
-                        '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"'+
-                            'fill="none" viewBox="0 0 24 24" stroke="currentColor" >'+
-                            '<path stroke-linecap="round" stroke-linejoin="round"'+
-                                'stroke-width="2"'+
-                                'd="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />'+
-                        '</svg>'+
-                    '</a>'+
-                '</div>'+
-            '</td>'+
-            
-            '<td class="p-2">'+
-            '<button @click="openSMSModal('+elem['id']+');"'+
-                    'class="bg-green-500 drop-shadow-md px-5 rounded-lg rounded-br-none">SMS</button>'+
-            '</td>'+
-        '</tr>';
-       
-        all_rows = all_rows + row;
-    });
+            Object.keys(data).forEach(key => {
+                elem = data[key];
+                // console.log(elem);
+                row =
+                    '<tr>' +
+                    '<td class="p-2">' +
+                    '<input onclick="onlyOne(this)" value="' + elem['id'] + '" type="checkbox" name="check"' +
+                    'class="cursor-pointer rounded-md ">' +
+                    '</td>' +
+                    '<td class="p-2">' + elem['customer_SerialNo'] + '</td>' +
+                    '<td class="p-2 member-name-row">' + elem['customer_name'] + '</td>' +
+                    '<td class="p-2">' + elem['customer_contact'] + '</td>' +
+                    '</tr>'
 
-    $('#myTable tbody').html(all_rows);
+                all_rows = all_rows + row;
+            });
+
+            $('#myTableCustomers tbody').html(all_rows);
         },
         error: function (data) {
-            console.log(data)
+            console.log('error in row add', data)
         }
     });
 }
+
+function submitForm() {
+    console.log("success");
+    var values = [];
+    $('#myTableBody').find('tr').each(function () {
+        console.log($(this).find('td')[2].innerHTML);
+        values.push({
+            itemName: $(this).find('td')[3].innerHTML,
+            quantity: $(this).find('td')[5].innerHTML,
+            discount: $(this).find('input')[0].value,
+            totalPrice: $(this).find('td')[8].innerHTML
+        });
+    });
+    var myJSON=JSON.stringify({'data':values});
+    console.log(myJSON);
+    // POST - send JSON data to Python/Django server
+    $.ajax({
+        url: "/api/CafeteriaOrderPlacement",
+        type: "GET",
+        datatype: 'json',
+        data: JSON.stringify({"object": values}),
+        // async: false,
+        success: function () {
+            console.log('Your data is saved :)');
+        },
+        error: function () {
+            console.log('Error occured :(');
+        }
+    });
+}
+
