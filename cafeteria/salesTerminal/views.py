@@ -57,9 +57,15 @@ def searchbynameCafeteriaCustomer(request):
 @api_view(['GET'])
 def CafeteriaOrderPlacement(request):
     item_name = json.dumps(request.GET)
-    item_name=json.loads(item_name)
-    for i in item_name:
+    # item_name=json.loads(item_name)
+    for i in json.loads(item_name):
         for j in json.loads(i)["object"]:
-            print(j)
-            
+            dc=dict(j)
+            print(dc)
+        obj=json.loads(i)
+        if  obj.get("member-id") is not None:
+            id=obj["member-id"]
+            c=CafeteriaCustomer.objects.filter(id=id).first()
+            c.customer_dues=c.customer_dues+100
+            print(c)
     return Response({'message':'success'})

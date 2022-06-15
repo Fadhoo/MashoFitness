@@ -194,11 +194,14 @@ function searchItemInSalesTerminal(value) {
             'item_name': value
         },
         success: function (data) {
+            console.log("stock")
+            
             $('#item-main-div').empty();
             if (data['Stock']) {
                 Object.keys(data['Stock']).forEach(key => {
+                    var name=data['Stock'][key]['item_name']
                     $('#item-main-div').append(
-                        '<div onclick="addToCart(' + data['Stock'][key]["id"] + ')"' +
+                        '<div onclick="addToCart(' + name + ')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
                         '<div>' +
                         '<div class="font-bold text-gray-800">' + data['Stock'][key]['item_name'] + '</div>' +
@@ -212,9 +215,11 @@ function searchItemInSalesTerminal(value) {
 
             }
             else if (data['NonStock']) {
+                console.log("non stock");
+                var name=data['NonStock'][key]["nonStock_item_name"]
                 Object.keys(data['NonStock']).forEach(key => {
                     $('#item-main-div').append(
-                        '<div onclick="addToCart(' + data['NonStock'][key]["id"] + ')"' +
+                        '<div onclick="addToCart(' + name + ')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
                         '<div>' +
                         '<div class="font-bold text-gray-800">' + data['NonStock'][key]['nonStock_item_name'] + '</div>' +
@@ -227,10 +232,11 @@ function searchItemInSalesTerminal(value) {
                 })
             }
             else {
-                // console.log(data);
+                console.log('else');
                 Object.keys(data['Both']).forEach(key => {
+                    var name=data['Both'][key]['item_name']
                     $('#item-main-div').append(
-                        '<div onclick="addToCart(' + data['Both'][key]['id'] + ')"' +
+                        '<div onclick="addToCart(' + name + ')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
                         '<div>' +
                         '<div class="font-bold text-gray-800">' + data['Both'][key]['item_name'] + '</div>' +
@@ -256,15 +262,17 @@ function onlyOne(checkbox) {
 }
 
 function memberSelection() {
-    console.log(member_id)
+    // console.log(member_id)
     const rows = document.querySelectorAll("#memberTableId > tr");
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         id = row.querySelectorAll("td > input")[0].value
         // console.log(row.querySelector(".member-name-row").textContent)
         if (id == member_id) {
-            console.log(row.querySelector(".member-name-row").textContent)
+            // console.log(row.querySelector(".member-dues-row").textContent)
+            document.getElementById("member-id").innerHTML = row.querySelector(".member-id-row").textContent;
             document.getElementById("Member-name").innerHTML = row.querySelector(".member-name-row").textContent;
+            document.getElementById("Member-dues").innerHTML = row.querySelector(".member-dues-row").textContent;
         }
     }
 
@@ -326,7 +334,10 @@ function submitForm() {
         url: "/api/CafeteriaOrderPlacement",
         type: "GET",
         datatype: 'json',
-        data: JSON.stringify({"object": values}),
+        data: JSON.stringify({"object": values,
+        "member-id": document.getElementById("member-id").innerHTML,
+    
+    }),
         // async: false,
         success: function () {
             console.log('Your data is saved :)');

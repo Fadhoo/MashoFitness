@@ -295,11 +295,12 @@
                                     <div class="flex flex-row justify-between items-center"
                                         @click="openCafeteriaCustomerModal">
                                         <div class="flex flex-col px-5">
+                                            <span hidden id="member-id"></span>
                                             <span class="text-lg font-semibold" id="Member-name">Walk-In Customer</span>
                                             <div class="flex-row">
                                                 <span class="text-xl font-bold text-yellow-500">Balance :
                                                 </span>
-                                                <span class="text-sm text-gray-600 ">1000</span>
+                                                <span class="text-sm text-gray-600 " id="Member-dues">1000</span>
                                             </div>
                                         </div>
 
@@ -365,6 +366,7 @@
                                     <th class="p-2">S No.</th>
                                     <th class="p-2">Name</th>
                                     <th class="p-2">Number</th>
+                                    <th class="p-2">Dues</th>
                                 </tr>
                             </thead>
                             <tbody id="memberTableId">
@@ -374,9 +376,11 @@
                                         <input onclick="onlyOne(this)" value="{{c.id}}" type="checkbox" name="check"
                                             class="cursor-pointer rounded-md ">
                                     </td>
+                                    <td class="p-2 member-id-row" hidden>{{c.id}}</td>
                                     <td class="p-2">{{c.customer_SerialNo}} </td>
                                     <td class="p-2 member-name-row">{{c.customer_name}} </td>
                                     <td class="p-2">{{c.customer_contact}}</td>
+                                    <td class="p-2 member-dues-row">{{c.customer_dues}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
