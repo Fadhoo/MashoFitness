@@ -61,8 +61,5 @@ def CafeteriaOrderPlacement(request):
     for i in item_name:
         for j in json.loads(i)["object"]:
             print(j)
-    # print("CafeteriaOrderPlacement",json.dumps(request.GET))
-    # data = json.loads(json.dumps(request.GET))
-    # print(data)
-    # for i in data.get("data"):÷
+            
     return Response({'message':'success'})

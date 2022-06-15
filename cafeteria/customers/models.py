@@ -12,3 +12,4 @@ class CafeteriaCustomer(models.Model):
     customer_city = models.CharField(max_length=50)
     customer_country = models.CharField(max_length=50)
     customer_created_at = models.DateField(default=datetime.now)
+    customer_dues = models.IntegerField(default=0)
