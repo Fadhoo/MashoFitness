@@ -1,4 +1,74 @@
+var delete_array = [];
 
+function requestDelete(e) {
+    console.log(delete_array);
+    if (e.checked) {
+        delete_array.push(parseInt(e.dataset.id));
+    } else {
+        delete_array.splice(delete_array.indexOf(e.dataset.id), 1);
+    }
+    
+}
+
+// Delete a recrod function
+function sendDeleteRequest() {
+    if(delete_array.length > 0){
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            
+            $.ajax({
+                method: "GET",
+                url: "/api/deleteSupplier/",
+                data: { "arr[]": delete_array },
+                success: function (data) {
+                    console.log("success on delete"+data);
+                    update_supplier_table(data)
+                    // reloadPage();
+                },
+                error: function() {
+                    console.log('error');
+                  }
+
+            })
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            )
+        }
+    })
+
+    }
+    else{
+        alert('Please select atleast one member to delete')
+    }
+}
+
+function reloadPage() {
+    window.location.reload();
+    console.log("reload");
+};
 
 function SearchByFields() {
     let field = document.getElementById('searchByType').value;

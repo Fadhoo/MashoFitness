@@ -10,4 +10,5 @@ urlpatterns = [
 
     # api path
     path('api/SearchByCustomerField/', views.SearchByCustomerField, name='SearchByCustomerField'),
+    path('api/deleteCustomer/', views.deleteCustomer, name='deleteCustomer'),
 ]
