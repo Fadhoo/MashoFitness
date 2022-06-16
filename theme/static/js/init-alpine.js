@@ -210,8 +210,32 @@ function data() {
       this.isCafeteriaCustomerModalOpen = false
       this.trapCleanupCafeteriaCustomer()
     },
+
+    // cafeteria History model
+    isCafeteriaHistoryModalOpen: false,
+    trapCleanupCafeteriaHistory: null,
+    openCafeteriaHistoryModal() {
+        this.isCafeteriaHistoryModalOpen = true
+        this.trapCleanupCafeteriaHistory = focusTrap(document.querySelector('#CafeteriaHistoryModal'))
+      
+    },
+    closeCafeteriaHistoryModal() {
+      this.isCafeteriaHistoryModalOpen = false
+      this.trapCleanupCafeteriaHistory()
+    },
     
-    
+    // cafeteria  roder detail model
+    // isCafeteriaOrderDetailModalOpen: false,
+    // trapCleanupCafeteriaOrderDetail: null,
+    // openCafeteriaOrderDetailModal(id) {
+    //     this.isCafeteriaOrderDetailModalOpen = true
+    //     this.trapCleanupCafeteriaOrderDetail = focusTrap(document.querySelector('#CafeteriaOrderDetailModal'))
+      
+    // },
+    // closeCafeteriaHistoryModal() {
+    //   this.isCafeteriaOrderDetailModalOpen = false
+    //   this.trapCleanupCafeteriaOrderDetail()
+    // },
   }
 }
 
