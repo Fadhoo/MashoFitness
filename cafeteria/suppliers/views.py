@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .functions import *
+from .models import Supplier
 from django.urls import  reverse
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from .serializer import SupplierSerializer
@@ -41,3 +42,19 @@ def SearchBySupplierField(request):
             return Response(SupplierSerializer(Supplier.objects.filter(supplier_contact__icontains=value).order_by("-id"),many=True).data)
     except:
         return Response({"message":"No data found"})
+
+@api_view(['GET'])
+def deleteSupplier(request):
+    try:
+        delete_list=request.GET.getlist('arr[]')
+        print(delete_list)
+        if delete_list is not None:
+            for i in delete_list:
+                print(i)
+                Supplier.objects.filter(id=int(i)).delete()
+            return Response(SupplierSerializer(Supplier.objects.all().order_by("-id"),many=True).data)
+        else:
+            return Response({"error":str("No data selected")})
+    except Exception as e:
+        print(e)
+        return Response({"error":str(e)})

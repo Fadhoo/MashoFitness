@@ -13,3 +13,9 @@ class CafeteriaCustomer(models.Model):
     customer_country = models.CharField(max_length=50)
     customer_created_at = models.DateField(default=datetime.now)
     customer_dues = models.IntegerField(default=0)
+
+class CustomerPayment(models.Model):
+    payment_date = models.DateField(default=datetime.now)
+    payment_amount = models.IntegerField(default=0)
+    remaining_amount = models.IntegerField(default=0)
+    customer_id = models.ForeignKey(CafeteriaCustomer, on_delete=models.CASCADE)

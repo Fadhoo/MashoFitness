@@ -673,7 +673,8 @@
                                 {% for customer in customerData %}
                                 <tr class="border-2 hover:bg-slate-300">
                                     <td class="p-2">
-                                        <input type="checkbox" class="cursor-pointer rounded-md">
+                                        <input type="checkbox" class="cursor-pointer rounded-md"
+                                        onclick="requestDelete(this)" data-id="{{customer.id}}">
                                     </td>
                                     <td class="p-2">{{customer.id}}</td>
                                     <td class="p-2">{{customer.customer_SerialNo}}</td>

@@ -1,4 +1,4 @@
-from .models import CafeteriaCustomer
+from .models import CafeteriaCustomer, CustomerPayment
 
 def addCustomer(request):
     try:
@@ -30,4 +30,13 @@ def updateCustomerData(request):
                         )
     except Exception as e:
         print("Error in updating customer data", e)
+        return False
+
+def PaymentDues(request):
+    try:
+        CustomerPayment.objects.create(payment_date=request.POST.get("payment-date"),
+                                payment_amount=request.POST.get("payment"),
+                                remaining_amount=request.POST.get("remaining"))
+    except Exception as e:
+        print("Error in updating customer payment", e)
         return False

@@ -23,9 +23,14 @@ def updateCustomer(request):
             print("update customer data")
             updateCustomerData(request)
             return HttpResponseRedirect(reverse("customer"))
+        if request.POST.get("customer-payment"):
+            print("customer payment")
+            PaymentDues(request)
+            return HttpResponseRedirect(reverse("updateCustomer"))
     
     else:
-        return render(request, "updateCustomer.html", {'customerData': CafeteriaCustomer.objects.filter(id=request.GET.get("customer")).first()})
+        return render(request, "updateCustomer.html", {'customerData': CafeteriaCustomer.objects.filter(id=request.GET.get("customer")).first(),
+                                                        "payment": CustomerPayment.objects.all()})
 
 # api work
 @api_view(['GET'])
@@ -42,5 +47,18 @@ def SearchByCustomerField(request):
     except:
         return Response({"message":"No data found"})
 
-# def customerr(request):
-#     pass
+@api_view(['GET'])
+def deleteCustomer(request):
+    try:
+        delete_list=request.GET.getlist('arr[]')
+        print(delete_list)
+        if delete_list is not None:
+            for i in delete_list:
+                print(i)
+                CafeteriaCustomer.objects.filter(id=int(i)).delete()
+            return Response(CustomerSerializer(CafeteriaCustomer.objects.all().order_by("-id"),many=True).data)
+        else:
+            return Response({"error":str("No data selected")})
+    except Exception as e:
+        print(e)
+        return Response({"error":str(e)})
