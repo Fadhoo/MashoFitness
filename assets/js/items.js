@@ -60,6 +60,7 @@ function update_table(data){
     $('#myTable tbody').html(all_rows);
 }
 
+// function on Item Code Update
 function update_query_call(id){
     $.ajax({
         method: "GET",
@@ -95,10 +96,11 @@ function update_query_call(id){
     })
 }
 
+// function on NonStock Item Code Update
 function update_query_call_nonstock(id){
     $.ajax({
         method: "GET",
-        url: "/api/UpdateNonStockItemQueryCall/",
+        url: "/api/UpdateNonStockQueryCall/",
         data: { "nonStock-id": id},
         success: function (data) {
             Object.keys(data).forEach(key => {
@@ -116,7 +118,7 @@ function update_query_call_nonstock(id){
             document.getElementById("purchase-price").value=elem['nonStock_item_purchase_price'];
             document.getElementById("item-selling-price").value=elem['nonStock_item_selling_price'];
             document.getElementById("update-status").value=elem['nonStock_item_status'];
-            document.getElementById("image").src=elem['nonStock_item_image'];
+            document.getElementById("update-image").src=elem['nonStock_item_image'];
             document.getElementById("item-description").value=elem['nonStock_item_description'];
             // document.getElementById("item-barcode").value=elem['item_code'];
 

@@ -201,7 +201,7 @@ function searchItemInSalesTerminal(value) {
                 Object.keys(data['Stock']).forEach(key => {
                     var name = data['Stock'][key]['item_name']
                     $('#item-main-div').append(
-                        '<div onclick="addToCart(' + name + ')"' +
+                        '<div onclick="addToCart(\'' + name + '\')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
                         '<div>' +
                         '<div class="font-bold text-gray-800">' + data['Stock'][key]['item_name'] + '</div>' +
@@ -581,6 +581,8 @@ function cashlessCredit() {
                         success: function () {
                             console.log('Your data is saved :)');
                             $("#myTableBody > tr").remove();
+                            // openViewCafeteriaBillModal();
+                            
                             item_name = [];
                             window.location.reload();
 
@@ -596,3 +598,8 @@ function cashlessCredit() {
     }
 
 }
+
+const $printPaymentBill = document.querySelector("#printPaymentBill");
+$printPaymentBill.addEventListener("click", () => {
+    window.print();
+});
