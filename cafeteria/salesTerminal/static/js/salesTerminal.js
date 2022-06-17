@@ -416,28 +416,56 @@ function submitForm() {
             totalPrice: $(this).find('td')[8].innerHTML
         });
     });
-    var myJSON = JSON.stringify({ 'data': values });
-    console.log(myJSON);
-    // POST - send JSON data to Python/Django server
-    $.ajax({
-        url: "/api/CafeteriaOrderPlacement",
-        type: "GET",
-        datatype: 'json',
-        data: JSON.stringify({
-            "object": values,
-            "member-id": document.getElementById("member-id").innerHTML,
-            "total-price": document.getElementById("total-price").innerHTML,
-            "total-discount": document.getElementById("total-discount").innerHTML,
+    if (values.length == 0) {
+        alert("Please select at least one item");
+        return;
+    }
+    else {
+        swal({
+            title: "Are you sure. To Add Cashless Credit?",
+            text: "Once you Ok, Then Payment added to Mashoo account!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: false,
+        })
+            .then((willDelete) => {
 
-        }),
-        // async: false,
-        success: function () {
-            console.log('Your data is saved :)');
-        },
-        error: function () {
-            console.log('Error occured :(');
-        }
-    });
+                if (willDelete) {
+                    swal("Order Completed  ", {
+                        icon: "success",
+                    });
+                    var myJSON = JSON.stringify({ 'data': values });
+                    console.log(myJSON);
+                    // POST - send JSON data to Python/Django server
+                    $.ajax({
+                        url: "/api/CafeteriaOrderPlacement",
+                        type: "GET",
+                        datatype: 'json',
+                        data: JSON.stringify({
+                            "object": values,
+                            "member-id": document.getElementById("member-id").innerHTML,
+                            "total-price": document.getElementById("total-price").innerHTML,
+                            "total-discount": document.getElementById("total-discount").innerHTML,
+
+                        }),
+                        // async: false,
+                        success: function () {
+                            console.log('Your data is saved :)');
+                            $("#myTableBody > tr").remove();
+                            item_name=[];
+                            window.location.reload();
+                        },
+                        error: function () {
+                            console.log('Error occured :(');
+                        }
+                    });
+
+                } else {
+                    swal("Order Cancelled!");
+                }
+            });
+    }
+
 }
 
 function orderDetailsModel(id) {
@@ -487,4 +515,84 @@ function orderDetailTable(data) {
     });
     $('#myTableOrder thead').html(head);
     $('#myTableOrder tbody').html(all_rows);
+}
+
+function cashlessCredit() {
+    // swal({
+    //     title: "Are you sure?",
+    //     text: "Once deleted, you will not be able to recover this imaginary file!",
+    //     icon: "warning",
+    //     buttons: true,
+    //     dangerMode: true,
+    //   })
+    //   .then((willDelete) => {
+    //     if (willDelete) {
+    //       swal("Poof! Your imaginary file has been deleted!", {
+    //         icon: "success",
+    //       });
+    //     } else {
+    //       swal("Your imaginary file is safe!");
+    //     }
+    //   });
+
+    console.log("success");
+    var values = [];
+    $('#myTableBody').find('tr').each(function () {
+        console.log($(this).find('td')[2].innerHTML);
+        values.push({
+            itemName: $(this).find('td')[3].innerHTML,
+            quantity: $(this).find('td')[5].innerHTML,
+            discount: $(this).find('input')[0].value,
+            totalPrice: $(this).find('td')[8].innerHTML
+        });
+    });
+    if (values.length == 0) {
+        alert("Please select at least one item");
+        return;
+    }
+    else {
+        swal({
+            title: "Are you sure. To Add Cashless Credit?",
+            text: "Once you Ok, Then Payment added to Mashoo account!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: false,
+        })
+            .then((willDelete) => {
+
+                if (willDelete) {
+                    swal("Order Completed  ", {
+                        icon: "success",
+                    });
+                    var myJSON = JSON.stringify({ 'data': values });
+                    console.log(myJSON);
+                    // POST - send JSON data to Python/Django server
+                    $.ajax({
+                        url: "/api/CafeteriaOrderPlacementAdmin",
+                        type: "GET",
+                        datatype: 'json',
+                        data: JSON.stringify({
+                            "object": values,
+                            "total-price": document.getElementById("total-price").innerHTML,
+                            "total-discount": document.getElementById("total-discount").innerHTML,
+
+                        }),
+                        // async: false,
+                        success: function () {
+                            console.log('Your data is saved :)');
+                            $("#myTableBody > tr").remove();
+                            item_name = [];
+                            window.location.reload();
+
+                        },
+                        error: function () {
+                            console.log('Error occured :(');
+                        }
+                    });
+                } else {
+                    swal("Order Cancelled!");
+                }
+            });
+    }
+
 }

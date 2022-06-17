@@ -10,8 +10,9 @@ urlpatterns = [
     path("api/searchItemInSalesTerminal/", views.searchItemInSalesTerminal, name="searchItemInSalesTerminal"),
     path("api/searchbynameCafeteriaCustomer/", views.searchbynameCafeteriaCustomer, name="searchbynameCafeteriaCustomer"),
     path("api/searchbynameCafeteriaOrder/", views.searchbynameCafeteriaOrder, name="searchbynameCafeteriaOrder"),
-    path("api/CafeteriaOrderPlacement/", views.CafeteriaOrderPlacement, name="CafeteriaOrderPlacement"),
     path("api/orderDetails/", views.orderDetails, name="orderDetails"),
 
+    path("api/CafeteriaOrderPlacement/", views.CafeteriaOrderPlacement, name="CafeteriaOrderPlacement"),
+    path("api/CafeteriaOrderPlacementAdmin/", views.CafeteriaOrderPlacementAdmin, name="CafeteriaOrderPlacementAdmin"),
 
 ]

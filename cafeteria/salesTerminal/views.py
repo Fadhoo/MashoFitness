@@ -26,6 +26,7 @@ def salesTerminal(request):
                             "nonStockItems": NonStock.objects.all(),
                             'customer': CafeteriaCustomer.objects.all(),
                             "orders": Order.objects.all().select_related("customer_id"),
+                            "mashoo":CafeteriaCustomer.objects.filter(customer_name="Mashoo").first(),
                             })
 
 
@@ -65,6 +66,7 @@ def CafeteriaOrderPlacement(request):
         if obj.get("member-id"):
             c=CafeteriaCustomer.objects.filter(id=obj["member-id"]).first()
             c.customer_dues=c.customer_dues+int(obj["total-price"])
+            c.save()
             order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"],customer_id=c)
         else:
             order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"])
@@ -90,3 +92,17 @@ def orderDetails(request):
         return Response(OrderHistorySerializer(order_data,many=True).data)
     else:
         return Response(OrderHistorySerializer(OrderHistory.objects.all(),many=True).data)
+
+@api_view(['GET'])
+def CafeteriaOrderPlacementAdmin(request):
+    item_name = json.dumps(request.GET)
+    for i in json.loads(item_name):
+        obj=json.loads(i)
+        c=CafeteriaCustomer.objects.filter(customer_name="Mashoo").first()
+        print(c)
+        c.customer_dues=c.customer_dues+int(obj["total-price"])
+        c.save()
+        order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"],customer_id=c)
+        for j in obj["object"]:
+            OrderPlaced(dict(j),order)
+    return Response({'message':'success'})

@@ -17,6 +17,7 @@
     <script src="{% static 'js/init-alpine.js' %}"></script>
     <script src="{% static 'js/focus-trap.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -235,7 +236,7 @@
                                 </div>
                                 <div class="border px-6 flex flex-col bg-white">
                                     <span class="font-semibold text-md">Discount</span>
-                                    <span class="font-bold text-right text-red-700" id="total-discount">- 00</span>
+                                    <span class="font-bold text-right text-red-700" id="total-discount">0</span>
                                 </div>
                                 <div class="border px-6 flex flex-col bg-white">
                                     <span class="font-semibold text-md">Sales Tax</span>
@@ -278,11 +279,11 @@
 
                                 <!-- cash -->
                                 <!-- <div class="px-5 mt-5"> -->
-                                <div class="rounded-md shadow-lg bg-white px-5 py-1 w-auto">
-                                    <div class="flex flex-row justify-between items-center">
-                                        <div class="flex flex-col px-3">
-                                            <span class="uppercase text-sm font-semibold">cashless credit</span>
-                                            <span class="text-xl font-bold text-yellow-500">1000</span>
+                                <div class="rounded-md shadow-lg bg-white px-5 py-1 w-auto" >
+                                    <div class="flex flex-row justify-between items-center" onclick="cashlessCredit()">
+                                        <div class="flex flex-col px-3"  >
+                                            <span class="uppercase text-sm font-semibold " id="cashless">cashless credit:{{mashoo.customer_name}}</span>
+                                            <span class="text-xl font-bold text-yellow-500" id="cashlessAmount">{{mashoo.customer_dues}}</span>
                                             <span class="text-sm text-gray-600 ">Available</span>
                                         </div>
 
