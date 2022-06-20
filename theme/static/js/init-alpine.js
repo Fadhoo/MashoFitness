@@ -79,14 +79,14 @@ function data() {
     isModalOpen: false,
     trapCleanup: null,
     openModal(call) {
-      console.log("open modal",call)
+      console.log("open modal", call)
       this.isModalOpen = true;
       this.trapCleanup = focusTrap(document.querySelector('#modal'));
-      if (call=="inventory"){
+      if (call == "inventory") {
         inventory_query_call_nonstock()
       }
-      else{
-      addInventoryItem()
+      else {
+        addInventoryItem()
       }
     },
     closeModal() {
@@ -97,25 +97,26 @@ function data() {
     // Modal
     isUpdateModalOpen: false,
     trapCleanup222: null,
-    openUpdateModal(id,call) {
+    openUpdateModal(id, call) {
       this.isUpdateModalOpen = true;
       this.trapCleanup222 = focusTrap(document.querySelector('#updateModal'));
-      if (call=="non_stock"){
+      if (call == "non_stock") {
         update_query_call_nonstock(id)
       }
-      else if (call=="stock"){
-      update_query_call(id)
+      else if (call == "stock") {
+        update_query_call(id)
       }
-      else if (call=="inventory"){
-        update_query_call_inventory(id)}
+      else if (call == "inventory") {
+        update_query_call_inventory(id)
+      }
 
-      
+
     },
     closeUpdateModal() {
       this.isUpdateModalOpen = false;
       this.trapCleanup222();
     },
-    
+
     // Product Modal
     isProductModalOpen: false,
     trapCleanup1: null,
@@ -158,7 +159,7 @@ function data() {
     isViewBillModalOpen: false,
     trapCleanupViewBill: null,
     openViewBillModal(id) {
-      
+
       this.isViewBillModalOpen = true
       this.trapCleanupViewBill = focusTrap(document.querySelector('#ViewBillModal'))
       console.log(id)
@@ -173,10 +174,10 @@ function data() {
     isViewAllSmsModalOpen: false,
     trapCleanupViewAllSms: null,
     openViewAllSmsModal() {
-        
-        this.isViewAllSmsModalOpen = true
-        this.trapCleanupViewAllSms = focusTrap(document.querySelector('#ViewAllSmsModal'))
-      }
+
+      this.isViewAllSmsModalOpen = true
+      this.trapCleanupViewAllSms = focusTrap(document.querySelector('#ViewAllSmsModal'))
+    }
     ,
     closeViewAllSmsModal() {
       this.isViewAllSmsModalOpen = false
@@ -188,10 +189,10 @@ function data() {
     isFutsalMatchUpdateModalOpen: false,
     trapCleanupFutsalMatchUpdate: null,
     openFutsalMatchUpdateModal() {
-        SearchByFutsalDate()
-        this.isFutsalMatchUpdateModalOpen = true
-        this.trapCleanupFutsalMatchUpdate = focusTrap(document.querySelector('#FutsalMatchUpdateModal'))
-      
+      SearchByFutsalDate()
+      this.isFutsalMatchUpdateModalOpen = true
+      this.trapCleanupFutsalMatchUpdate = focusTrap(document.querySelector('#FutsalMatchUpdateModal'))
+
     },
     closeFutsalMatchUpdateModal() {
       this.isFutsalMatchUpdateModalOpen = false
@@ -202,19 +203,58 @@ function data() {
     isCafeteriaCustomerModalOpen: false,
     trapCleanupCafeteriaCustomer: null,
     openCafeteriaCustomerModal() {
-        this.isCafeteriaCustomerModalOpen = true
-        this.trapCleanupCafeteriaCustomer = focusTrap(document.querySelector('#CafeteriaCustomerModal'))
-      
+      this.isCafeteriaCustomerModalOpen = true
+      this.trapCleanupCafeteriaCustomer = focusTrap(document.querySelector('#CafeteriaCustomerModal'))
+
     },
     closeCafeteriaCustomerModal() {
       this.isCafeteriaCustomerModalOpen = false
       this.trapCleanupCafeteriaCustomer()
     },
-    
-    
+
+    // cafeteria History model
+    isCafeteriaHistoryModalOpen: false,
+    trapCleanupCafeteriaHistory: null,
+    openCafeteriaHistoryModal() {
+      this.isCafeteriaHistoryModalOpen = true
+      this.trapCleanupCafeteriaHistory = focusTrap(document.querySelector('#CafeteriaHistoryModal'))
+
+    },
+    closeCafeteriaHistoryModal() {
+      this.isCafeteriaHistoryModalOpen = false
+      this.trapCleanupCafeteriaHistory()
+    },
+
+    // cafeteria  roder detail model
+    // isCafeteriaOrderDetailModalOpen: false,
+    // trapCleanupCafeteriaOrderDetail: null,
+    // openCafeteriaOrderDetailModal(id) {
+    //     this.isCafeteriaOrderDetailModalOpen = true
+    //     this.trapCleanupCafeteriaOrderDetail = focusTrap(document.querySelector('#CafeteriaOrderDetailModal'))
+
+    // },
+    // closeCafeteriaHistoryModal() {
+    //   this.isCafeteriaOrderDetailModalOpen = false
+    //   this.trapCleanupCafeteriaOrderDetail()
+    // },
+
+    // cafeteria History model
+    isViewCafeteriaBillModalOpen: false,
+    trapCleanupCafeteriaBillModel: null,
+    openViewCafeteriaBillModal() {
+      this.isViewCafeteriaBillModalOpen = true
+      this.trapCleanupCafeteriaBillModel = focusTrap(document.querySelector('#ViewCafeteriaBillModal'))
+
+    },
+    closeCafeteriaBillModel() {
+      this.isViewCafeteriaBillModalOpen = false
+      this.trapCleanupCafeteriaBillModel()
+    },
+
+
   }
 }
 
-function ajax_call(id){
-  console.log("row id fetch ",id)
+function ajax_call(id) {
+  console.log("row id fetch ", id)
 }

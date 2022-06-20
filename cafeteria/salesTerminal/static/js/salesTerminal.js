@@ -195,13 +195,13 @@ function searchItemInSalesTerminal(value) {
         },
         success: function (data) {
             console.log("stock")
-            
+
             $('#item-main-div').empty();
             if (data['Stock']) {
                 Object.keys(data['Stock']).forEach(key => {
-                    var name=data['Stock'][key]['item_name']
+                    var name = data['Stock'][key]['item_name']
                     $('#item-main-div').append(
-                        '<div onclick="addToCart(' + name + ')"' +
+                        '<div onclick="addToCart(\'' + name + '\')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
                         '<div>' +
                         '<div class="font-bold text-gray-800">' + data['Stock'][key]['item_name'] + '</div>' +
@@ -216,7 +216,7 @@ function searchItemInSalesTerminal(value) {
             }
             else if (data['NonStock']) {
                 console.log("non stock");
-                var name=data['NonStock'][key]["nonStock_item_name"]
+                var name = data['NonStock'][key]["nonStock_item_name"]
                 Object.keys(data['NonStock']).forEach(key => {
                     $('#item-main-div').append(
                         '<div onclick="addToCart(' + name + ')"' +
@@ -234,7 +234,7 @@ function searchItemInSalesTerminal(value) {
             else {
                 console.log('else');
                 Object.keys(data['Both']).forEach(key => {
-                    var name=data['Both'][key]['item_name']
+                    var name = data['Both'][key]['item_name']
                     $('#item-main-div').append(
                         '<div onclick="addToCart(' + name + ')"' +
                         'class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">' +
@@ -258,7 +258,7 @@ function onlyOne(checkbox) {
         if (item !== checkbox) item.checked = false
     })
     member_id = checkbox.value
-    // console.log(member_id)
+    console.log("member_id", member_id)
 }
 
 function memberSelection() {
@@ -273,6 +273,19 @@ function memberSelection() {
             document.getElementById("member-id").innerHTML = row.querySelector(".member-id-row").textContent;
             document.getElementById("Member-name").innerHTML = row.querySelector(".member-name-row").textContent;
             document.getElementById("Member-dues").innerHTML = row.querySelector(".member-dues-row").textContent;
+        }
+    }
+
+}
+
+function orderSelection() {
+    // console.log(member_id)
+    const rows = document.querySelectorAll("#orderTableId > tr");
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        id = row.querySelectorAll("td > input")[0].value
+        if (id == member_id) {
+            orderDetailsModel(id)
         }
     }
 
@@ -315,6 +328,46 @@ function MemberSearchByName() {
     });
 }
 
+function OrderSearchByName() {
+    $.ajax({
+        url: '/api/searchbynameCafeteriaOrder/',
+        method: 'GET',
+        data: {
+            'searchbyname': document.getElementById("search-memberNameForOrder").value
+        },
+        success: function (data) {
+            // console.log(data);
+            let row;
+            let all_rows = '';
+
+            Object.keys(data).forEach(key => {
+                elem = data[key];
+                // console.log(elem);
+                row =
+                    '<tr>' +
+                    '<td class="p-2">' +
+                    '<input onclick="onlyOne(this)" value="' + elem['id'] + '" type="checkbox" name="check"' +
+                    'class="cursor-pointer rounded-md ">' +
+                    '</td>' +
+                    '<td class="p-1">' + elem['id'] + '</td>' +
+                    '<td class="p-1">' + elem['order_date'] + '</td>' +
+                    '<td class="p-1">' + elem['customer_id']['customer_name'] + '</td>' +
+                    '<td class="p-1">' + elem['order_total_discount'] + '</td>' +
+                    '<td class="p-1">' + elem['order_total_price'] + '</td>' +
+                    '<td class="p-1 bg-green-200 m-3 drop-shadow-md rounded-xl rounded-br-none">' + elem['order_status'] + '</td>' +
+                    '</tr>'
+
+                all_rows = all_rows + row;
+            });
+
+            $('#myTableOrder tbody').html(all_rows);
+        },
+        error: function (data) {
+            console.log('error in row add', data)
+        }
+    });
+}
+
 function submitForm() {
     console.log("success");
     var values = [];
@@ -327,17 +380,20 @@ function submitForm() {
             totalPrice: $(this).find('td')[8].innerHTML
         });
     });
-    var myJSON=JSON.stringify({'data':values});
+    var myJSON = JSON.stringify({ 'data': values });
     console.log(myJSON);
     // POST - send JSON data to Python/Django server
     $.ajax({
         url: "/api/CafeteriaOrderPlacement",
         type: "GET",
         datatype: 'json',
-        data: JSON.stringify({"object": values,
-        "member-id": document.getElementById("member-id").innerHTML,
-    
-    }),
+        data: JSON.stringify({
+            "object": values,
+            "member-id": document.getElementById("member-id").innerHTML,
+            "total-price": document.getElementById("total-price").innerHTML,
+            "total-discount": document.getElementById("total-discount").innerHTML,
+
+        }),
         // async: false,
         success: function () {
             console.log('Your data is saved :)');
@@ -348,3 +404,202 @@ function submitForm() {
     });
 }
 
+function submitForm() {
+    console.log("success");
+    var values = [];
+    $('#myTableBody').find('tr').each(function () {
+        console.log($(this).find('td')[2].innerHTML);
+        values.push({
+            itemName: $(this).find('td')[3].innerHTML,
+            quantity: $(this).find('td')[5].innerHTML,
+            discount: $(this).find('input')[0].value,
+            totalPrice: $(this).find('td')[8].innerHTML
+        });
+    });
+    if (values.length == 0) {
+        alert("Please select at least one item");
+        return;
+    }
+    else {
+        swal({
+            title: "Are you sure. To Add Cashless Credit?",
+            text: "Once you Ok, Then Payment added to Mashoo account!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: false,
+        })
+            .then((willDelete) => {
+
+                if (willDelete) {
+                    swal("Order Completed  ", {
+                        icon: "success",
+                    });
+                    var myJSON = JSON.stringify({ 'data': values });
+                    console.log(myJSON);
+                    // POST - send JSON data to Python/Django server
+                    $.ajax({
+                        url: "/api/CafeteriaOrderPlacement",
+                        type: "GET",
+                        datatype: 'json',
+                        data: JSON.stringify({
+                            "object": values,
+                            "member-id": document.getElementById("member-id").innerHTML,
+                            "total-price": document.getElementById("total-price").innerHTML,
+                            "total-discount": document.getElementById("total-discount").innerHTML,
+
+                        }),
+                        // async: false,
+                        success: function () {
+                            console.log('Your data is saved :)');
+                            $("#myTableBody > tr").remove();
+                            item_name=[];
+                            window.location.reload();
+                        },
+                        error: function () {
+                            console.log('Error occured :(');
+                        }
+                    });
+
+                } else {
+                    swal("Order Cancelled!");
+                }
+            });
+    }
+
+}
+
+function orderDetailsModel(id) {
+    $.ajax({
+        url: '/api/orderDetails/',
+        method: 'GET',
+        data: {
+            'id': id
+        },
+        success: function (data) {
+            orderDetailTable(data);
+        },
+        error: function (data) {
+            console.log('error in row add', data)
+        }
+    });
+}
+
+function orderDetailTable(data) {
+    // console.log(data);
+    let row;
+    let all_rows = '';
+    var head =
+        '<tr class="">' +
+        '<th class="p-2">S No.</th>' +
+        '<th class="p-2">Name</th>' +
+        '<th class="p-2">Price</th>' +
+        '<th class="p-2">Quantity</th>' +
+        '<th class="p-2">Discount</th>' +
+        '<th class="p-2">Total</th>' +
+        '</tr>'
+
+    Object.keys(data).forEach(key => {
+        elem = data[key];
+        // console.log(elem);
+        row =
+            '<tr>' +
+            '<td class="p-1">' + elem['id'] + '</td>' +
+            '<td class="p-1">' + elem['order_item_name'] + '</td>' +
+            '<td class="p-1">' + elem['order_item_price'] + '</td>' +
+            '<td class="p-1">' + elem['order_item_quantity'] + '</td>' +
+            '<td class="p-1">' + elem['order_item_discount'] + '</td>' +
+            '<td class="p-1">' + elem['order_item_total'] + '</td>' +
+            '</tr>'
+
+        all_rows = all_rows + row;
+    });
+    $('#myTableOrder thead').html(head);
+    $('#myTableOrder tbody').html(all_rows);
+}
+
+function cashlessCredit() {
+    // swal({
+    //     title: "Are you sure?",
+    //     text: "Once deleted, you will not be able to recover this imaginary file!",
+    //     icon: "warning",
+    //     buttons: true,
+    //     dangerMode: true,
+    //   })
+    //   .then((willDelete) => {
+    //     if (willDelete) {
+    //       swal("Poof! Your imaginary file has been deleted!", {
+    //         icon: "success",
+    //       });
+    //     } else {
+    //       swal("Your imaginary file is safe!");
+    //     }
+    //   });
+
+    console.log("success");
+    var values = [];
+    $('#myTableBody').find('tr').each(function () {
+        console.log($(this).find('td')[2].innerHTML);
+        values.push({
+            itemName: $(this).find('td')[3].innerHTML,
+            quantity: $(this).find('td')[5].innerHTML,
+            discount: $(this).find('input')[0].value,
+            totalPrice: $(this).find('td')[8].innerHTML
+        });
+    });
+    if (values.length == 0) {
+        alert("Please select at least one item");
+        return;
+    }
+    else {
+        swal({
+            title: "Are you sure. To Add Cashless Credit?",
+            text: "Once you Ok, Then Payment added to Mashoo account!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: false,
+        })
+            .then((willDelete) => {
+
+                if (willDelete) {
+                    swal("Order Completed  ", {
+                        icon: "success",
+                    });
+                    var myJSON = JSON.stringify({ 'data': values });
+                    console.log(myJSON);
+                    // POST - send JSON data to Python/Django server
+                    $.ajax({
+                        url: "/api/CafeteriaOrderPlacementAdmin",
+                        type: "GET",
+                        datatype: 'json',
+                        data: JSON.stringify({
+                            "object": values,
+                            "total-price": document.getElementById("total-price").innerHTML,
+                            "total-discount": document.getElementById("total-discount").innerHTML,
+
+                        }),
+                        // async: false,
+                        success: function () {
+                            console.log('Your data is saved :)');
+                            $("#myTableBody > tr").remove();
+                            // openViewCafeteriaBillModal();
+                            
+                            item_name = [];
+                            window.location.reload();
+
+                        },
+                        error: function () {
+                            console.log('Error occured :(');
+                        }
+                    });
+                } else {
+                    swal("Order Cancelled!");
+                }
+            });
+    }
+
+}
+
+const $printPaymentBill = document.querySelector("#printPaymentBill");
+$printPaymentBill.addEventListener("click", () => {
+    window.print();
+});

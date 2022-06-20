@@ -8,6 +8,8 @@ from cafeteria.customers.serializer import CustomerSerializer
 import json
 
 from cafeteria.customers.models import CafeteriaCustomer
+from .models import Order
+from .serializer import OrderHistorySerializer, OrderSerializer
 from .functions import *
 # Create your views here.
 
@@ -23,6 +25,8 @@ def salesTerminal(request):
                             "itemsData": Items.objects.all(),
                             "nonStockItems": NonStock.objects.all(),
                             'customer': CafeteriaCustomer.objects.all(),
+                            "orders": Order.objects.all().select_related("customer_id"),
+                            "mashoo":CafeteriaCustomer.objects.filter(customer_name="Mashoo").first(),
                             })
 
 
@@ -57,15 +61,48 @@ def searchbynameCafeteriaCustomer(request):
 @api_view(['GET'])
 def CafeteriaOrderPlacement(request):
     item_name = json.dumps(request.GET)
-    # item_name=json.loads(item_name)
     for i in json.loads(item_name):
-        for j in json.loads(i)["object"]:
-            dc=dict(j)
-            print(dc)
         obj=json.loads(i)
-        if  obj.get("member-id") is not None:
-            id=obj["member-id"]
-            c=CafeteriaCustomer.objects.filter(id=id).first()
-            c.customer_dues=c.customer_dues+100
-            print(c)
+        if obj.get("member-id"):
+            c=CafeteriaCustomer.objects.filter(id=obj["member-id"]).first()
+            c.customer_dues=c.customer_dues+int(obj["total-price"])
+            c.save()
+            order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"],customer_id=c)
+        else:
+            order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"])
+        for j in obj["object"]:
+            OrderPlaced(dict(j),order)
+    return Response({'message':'success'})
+
+@api_view(['GET'])
+def searchbynameCafeteriaOrder(request):
+    customer_name = request.GET.get("searchbyname")
+
+    order_data = Order.objects.filter(customer_id__customer_name__icontains=customer_name)
+    if order_data:
+        return Response(OrderSerializer(order_data,many=True).data)
+    else:
+        return Response(OrderSerializer(Order.objects.all(),many=True).data)
+
+@api_view(['GET'])
+def orderDetails(request):
+    order_id = request.GET.get("id")
+    order_data = OrderHistory.objects.filter(order_id__id=order_id)
+    if order_data:
+        return Response(OrderHistorySerializer(order_data,many=True).data)
+    else:
+        return Response(OrderHistorySerializer(OrderHistory.objects.all(),many=True).data)
+
+@api_view(['GET'])
+def CafeteriaOrderPlacementAdmin(request):
+    item_name = json.dumps(request.GET)
+    for i in json.loads(item_name):
+        obj=json.loads(i)
+        c=CafeteriaCustomer.objects.filter(customer_name="Mashoo").first()
+        print(c)
+        c.customer_dues=c.customer_dues+int(obj["total-price"])
+        c.save()
+        order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"],customer_id=c)
+        for j in obj["object"]:
+            OrderPlaced(dict(j),order)
     return Response({'message':'success'})
