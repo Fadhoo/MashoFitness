@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import CustomerSerializer
 # Create your views here.
+
 def customer(request):
     if request.method == "POST":
         if request.POST.get("add-customer-data"):
