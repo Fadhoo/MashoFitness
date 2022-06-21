@@ -567,8 +567,8 @@ function cashlessCredit() {
                     swal("Order Completed  ", {
                         icon: "success",
                     });
-                    var myJSON = JSON.stringify({ 'data': values });
-                    console.log(myJSON);
+                    // var myJSON = JSON.stringify({ 'data': values });
+                    // console.log(myJSON);
                     // POST - send JSON data to Python/Django server
                     $.ajax({
                         url: "/api/CafeteriaOrderPlacementAdmin",
@@ -616,6 +616,9 @@ function ZeroCheck(id) {
 function PrintTable() {
     console.log('print tabel')
     const rows = document.querySelectorAll("#myTableBody > tr");
+    if (rows.length == 0) {
+        window.alpine_data.closeCafeteriaBillModel();
+    }
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
         console.log(row);
@@ -636,4 +639,5 @@ function PrintTable() {
             '</tr>'
         );
     }
+    
    };

@@ -635,6 +635,7 @@
         const $printPaymentBill = document.querySelector("#ViewCafeteriaBillModal");
         $printPaymentBill.addEventListener("click", () => {
             window.print();
+            window.location.reload();
         });
     </script>
     <script src="{% static 'js/salesTerminal.js' %}"></script>

@@ -237,7 +237,8 @@ window.alpine_data = {
   //   this.trapCleanupCafeteriaOrderDetail()
   // },
 
-  // cafeteria History model
+  
+  // cafeteria  print order model
   isViewCafeteriaBillModalOpen: false,
   trapCleanupCafeteriaBillModel: null,
   openViewCafeteriaBillModal() {
