@@ -34,9 +34,12 @@ def updateCustomerData(request):
 
 def PaymentDues(request):
     try:
-        CustomerPayment.objects.create(payment_date=request.POST.get("payment-date"),
+        payment_date= CustomerPayment.objects.create(payment_date=request.POST.get("payment-date"),
                                 payment_amount=request.POST.get("payment"),
-                                remaining_amount=request.POST.get("remaining"))
+                                remaining_amount=request.POST.get("remaining"),
+                                customer_id=CafeteriaCustomer.objects.filter(id=request.POST.get('customer-id')).first())
+        payment_date.save()
+        print("payment done")
     except Exception as e:
         print("Error in updating customer payment", e)
         return False
