@@ -1,4 +1,4 @@
-from pytest import Item
+
 from cafeteria.Items.models import Items, NonStock
 from cafeteria.purchases.models import Inventory
 from cafeteria.salesTerminal.models import Order, OrderHistory
