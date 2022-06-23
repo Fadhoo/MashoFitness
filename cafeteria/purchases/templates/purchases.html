@@ -532,7 +532,7 @@
             <main class="h-full overflow-y-auto">
                 <div class=" mx-auto grid">
                     <h2 class="my-1 text-2xl text-center font-semibold text-gray-700 ">
-                        Inventory
+                        Purchases
                     </h2>
                     <div class=" bg-gray-200 rounded-none ">
                         <div class="grid grid-cols-6 gap-5 p-1 bg-white">
@@ -571,25 +571,25 @@
 
                                     <li class="relative">
                                         <div class="flex">
-                                            <select name="" id=""
+                                            <select name="searchType" id="searchType"
                                                 class="rounded-md bg-gray-100 text-sm h-8 outline-none border-none shadow-inner">
                                                 <option value="" class="">select search Type</option>
-                                                <option value="">Name</option>
-                                                <option value="">Code</option>
+                                                <option value="">Supllier Name</option>
+                                                <option value="">Order Number</option>
                                             </select>
                                         </div>
                                     </li>
                                     <!-- Search Item -->
                                     <li class="relative">
                                         <div class="flex flex-col w-60">
-                                            <input type="search"
+                                            <input type="search" onkeyup="searchPurchases(this)"
                                                 class="rounded-md bg-gray-100 h-8 outline-none border-none shadow-inner"
                                                 placeholder="search">
                                         </div>
                                     </li>
 
                                     <li class="relative">
-                                        <button
+                                        <button onclick="reload()"
                                             class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -607,7 +607,7 @@
 
 
 
-                        <table class="table-auto w-full">
+                        <table class="table-auto w-full" id="purchasesTable">
                             <thead class="text-left border-2 border-gray-500">
                                 <tr class="">
                                     <th class="p-1"></th>
@@ -889,7 +889,7 @@
 
                 <button
                     class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
-                    Complete
+                    Return Purchases
                 </button>
                 <button @click="closeModal"
                     class="bg-blue-400 px-6 py-1 rounded-xl text-white">
@@ -1063,6 +1063,7 @@
         </div>
     </div>
     <!-- End of Product modal backdrop -->
+    <script src="{% static 'js/purchases.js'%}"></script>
 
 </body>
 

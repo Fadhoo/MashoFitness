@@ -22,11 +22,12 @@ def UpdateInventory(request):
                                                     inventory_unit_price=request.POST.get("unit-price"),
                                                     inventory_net_price=request.POST.get("net-price"),
                                                     inventory_purchased_quantity=request.POST.get("purchased-qty"),
-                                                    inventory_sub_total=request.POST.get("sub-total"),
+                                                    # inventory_sub_total=request.POST.get("sub-total"),
                                                     inventory_item_total=request.POST.get("item-total"),
                                                     inventory_order_number=request.POST.get("order-number"),
                                                     inventory_reference_number=request.POST.get("reference-number"),
-                                                    inventory_stock_in_shop=request.POST.get("available-stock"),
+                                                    inventory_stock_in_shop=request.POST.get("available-stock-inshop"),
+                                                    inventory_stock_available=request.POST.get("available-stock"),    
                                                     supplier_id=Supplier.objects.filter(supplier_name=request.POST.get("supplier-name")).first(),
                                                     )
         
@@ -38,3 +39,20 @@ def UpdateInventory(request):
 
 def purchases(request):
     pass
+
+
+def CustomerPurchasesSerializer(query):
+    data=[]
+    for i in query:
+        data.append(
+            {
+                "id":i.id,
+                "inventory_order_number":i.inventory_id.inventory_order_number,
+                "inventory_order_number":i.inventory_id.inventory_reference_number,
+                "supplier_id":i.inventory_id.supplier_id.supplier_name,
+                "inventory_item_total":i.inventory_id.inventory_item_total,
+                "status":i.status,
+                "create_date":i.create_date,
+            }
+            )
+    return data

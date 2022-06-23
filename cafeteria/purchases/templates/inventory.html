@@ -564,25 +564,25 @@
 
                                     <li class="relative">
                                         <div class="flex">
-                                            <select name="" id=""
+                                            <select name="searchType" id="searchType"
                                                 class="rounded-md bg-gray-100 text-sm h-8 outline-none border-none shadow-inner">
                                                 <option value="" class="">select search Type</option>
-                                                <option value="">Name</option>
-                                                <option value="">Code</option>
+                                                <option value="">Item Name</option>
+                                                <option value="">Item Code</option>
                                             </select>
                                         </div>
                                     </li>
                                     <!-- Search Item -->
                                     <li class="relative">
                                         <div class="flex flex-col w-60">
-                                            <input type="search"
+                                            <input type="search" onkeyup="searchInventory(this)"
                                                 class="rounded-md bg-gray-100 h-8 outline-none border-none shadow-inner"
                                                 placeholder="search">
                                         </div>
                                     </li>
 
                                     <li class="relative">
-                                        <button
+                                        <button onclick="reload()"
                                             class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -600,7 +600,7 @@
 
 
 
-                        <table class="table-auto w-full">
+                        <table class="table-auto w-full" id="InventoryTable">
                             <thead class="text-left border-2 border-gray-500">
                                 <tr class="">
                                     <th clas="p-1"></th>
@@ -640,8 +640,9 @@
                                     <td class="p-2">{{product.inventory_item_id.item_name}}</td>
                                     <td class="p-2">{{product.inventory_item_id.item_unit}}</td>
                                     <td class="p-2">{{product.inventory_item_id.item_selling_price}}</td>
+                                    <td class="p-2">{{product.inventory_stock_available}}</td>
                                     <td class="p-2">{{product.inventory_stock_in_shop}}</td>
-                                    <td class="p-2">4</td>
+                                    <!-- <td class="p-2">4</td> -->
                                     
 
 
@@ -811,13 +812,13 @@
                             <div class="flex flex-col">
                                 <label for="">Stock in Available</label>
                                 <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0"
-                                name="sub-total" id="sub-total">
+                                name="available-stock" id="sub-total">
                             </div>
 
                             <div class="flex flex-col">
                                 <label for="">Stock in Shop</label>
                                 <input type="text" placeholder="" class="h-7 rounded-md text-right shadow-inner" value="0"
-                                name="available-stock" id="available-stock">
+                                name="available-stock-inshop" id="available-stock">
                             </div>
 
                             <div class="flex flex-col">
@@ -873,7 +874,7 @@
                 <span>Single Item Purchase</span>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
-                    aria-label="close" @click="closeModal">
+                    aria-label="close" @click="closeUpdateModal">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
                         <path
                             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"

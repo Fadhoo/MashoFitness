@@ -4,10 +4,10 @@ from .models import Inventory, Purchases
 from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import InventorySerializer
+from .serializer import InventorySerializer, PurchasesSerializer
 from django.urls import reverse
 from cafeteria.suppliers.models import Supplier
-from .functions import UpdateInventory
+from .functions import UpdateInventory, CustomerPurchasesSerializer
 from cafeteria.Items.serializer import NonStockSerializer
 # Create your views here.
 def inventory(request):
@@ -56,3 +56,52 @@ def addToCartNonStock(request):
         return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_name=value).first()).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def search_inventory_ItemName(request):
+    if request.method == "GET":
+        name=request.GET.get("item_name")
+        print(name,'namem')
+        inventory = Inventory.objects.filter(inventory_item_id__item_name__icontains=name).select_related('inventory_item_id').order_by("-id")
+        if inventory:
+            serializer = InventorySerializer(inventory, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"message":"No inventory found"})
+
+@api_view(['GET'])
+def search_inventory_ItemCode(request):
+    if request.method == "GET":
+        code=request.GET.get("item_code")
+        # print(name,'namem')
+        inventory = Inventory.objects.filter(inventory_item_id__item_code__icontains=code).select_related('inventory_item_id').order_by("-id")
+        if inventory:
+            serializer = InventorySerializer(inventory, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"message":"No inventory found"})
+
+
+@api_view(['GET'])
+def search_purchases_supplierName(request):
+    if request.method == "GET":
+        name=request.GET.get("supplier_name")
+        print(name,'namem')
+        purchases = Purchases.objects.filter(inventory_id__supplier_id__supplier_name__icontains=name).select_related('inventory_id').order_by("-id")
+        if purchases:
+            serializer = CustomerPurchasesSerializer(purchases)
+            return Response(serializer)
+        else:
+            return Response({"message":"No inventory found"})
+
+@api_view(['GET'])
+def search_purchases_orderNumber(request):
+    if request.method == "GET":
+        code=request.GET.get("order_name")
+        # print(name,'namem')
+        purchases = Purchases.objects.filter(inventory_id__inventory_order_number__icontains=code).select_related('inventory_id').order_by("-id")
+        if purchases:
+            serializer = CustomerPurchasesSerializer(purchases)
+            return Response(serializer)
+        else:
+            return Response({"message":"No inventory found"})

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from numpy import average
 from cafeteria.salesTerminal.models import Order, OrderHistory
 from django.urls import reverse
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
