@@ -31,7 +31,7 @@ function update_query_call_inventory(id) {
                 document.getElementById("order-number").value = elem['inventory_order_number'];
                 document.getElementById("reference-number").value = elem['inventory_reference_number'];
                 document.getElementById("supplier").value = elem['supplier_id']['supplier_name'];
-                document.getElementById("available-stock").value = elem['inventory_stock_in_shop'];
+                // document.getElementById("available-stock").value = elem['inventory_stock_in_shop'];
             });
 
         },
@@ -66,7 +66,7 @@ function addInventoryItem() {
                 document.getElementById("order-number").value = elem['inventory_order_number'];
                 document.getElementById("reference-number").value = elem['inventory_reference_number'];
                 document.getElementById("supplier").value = elem['supplier_id']['supplier_name'];
-                document.getElementById("available-stock").value = elem['inventory_stock_in_shop'];
+                // document.getElementById("available-stock").value = elem['inventory_stock_in_shop'];
             });
 
         },
@@ -173,7 +173,7 @@ function createTable(data) {
         row += '<td class="p-2">'+ data[i]['inventory_item_id']['item_unit'] +'</td>';
         row += '<td class="p-2">'+ data[i]['inventory_item_id']['item_selling_price'] +'</td>';
         row += '<td class="p-2">'+ data[i]['inventory_stock_available'] +'</td>';
-        row += '<td class="p-2">'+ data[i]['inventory_stock_in_shop'] +'</td>';
+        // row += '<td class="p-2">'+ data[i]['inventory_stock_in_shop'] +'</td>';
         // row += '<td class="p-2">{{product.inventory_stock_in_shop}}</td>';
 
 

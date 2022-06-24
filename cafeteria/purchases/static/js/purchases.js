@@ -96,3 +96,42 @@ function createTable(data) {
         $('#purchasesTable').append(row);
     }
 }
+
+function LoadPurchaseReturn(id){
+    // console.log(id)
+    $.ajax({
+        url: '/api/cafeteria/purchases/return/'+id,
+        type: 'GET',
+        // data: { 'id': id },
+        // dataType: 'json',
+        success: function (data) {
+            console.log(data[0]['inventory_id']['inventory_item_id']['item_name'])
+            $('#model-item-name').val(data[0]['inventory_id']['inventory_item_id']['item_name']);
+            $('#model-item-code').val(data[0]['inventory_id']['inventory_item_id']['item_code']);
+            $('#model-item-unit-price').val(data[0]['inventory_id']['inventory_unit_price']);
+            $('#model-item-quantity').val(data[0]['inventory_id']['inventory_purchased_quantity']);
+            $('#model-item-total').val(data[0]['inventory_id']['inventory_purchased_quantity'] * data[0]['inventory_id']['inventory_unit_price']);
+            $('#model-available-stock').val(data[0]['inventory_id']['inventory_stock_available']);
+            $('#model-order-number').val(data[0]['inventory_id']['inventory_order_number']);
+            $('#model-reference-number').val(data[0]['inventory_id']['inventory_reference_number']);
+            $('#model-id').val(data[0]['id']);
+            
+            // createReturnTable(data);
+        },
+        error: function (data) {
+            console.log("not found")
+        },
+    });
+}
+
+function returnStockQuantity(data){
+    let available=$("#model-available-stock").val();
+    let unitprice=$("#model-item-unit-price").val();
+    let totalPrice=$("#model-item-total").val();
+    // console.log(available)
+    let total=available-data.value;
+    $("#model-remaining-stock").val(total);
+    // let totalPrice=$().val()+'-'+data.value*price;
+    // console.log(totalPrice+'-'+(data.value*unitprice)+'='+(totalPrice-(data.value*unitprice)))
+    $("#model-remaining-price").val(totalPrice+'-'+(data.value*unitprice)+'='+(totalPrice-(data.value*unitprice)));
+}

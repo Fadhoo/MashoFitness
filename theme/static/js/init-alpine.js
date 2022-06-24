@@ -237,7 +237,7 @@ window.alpine_data = {
   //   this.trapCleanupCafeteriaOrderDetail()
   // },
 
-  
+
   // cafeteria  print orderuf model
   isViewCafeteriaBillModalOpen: false,
   trapCleanupCafeteriaBillModel: null,
@@ -265,6 +265,21 @@ window.alpine_data = {
   closeCafeteriaSalesModel() {
     this.isViewCafeteriaSalesModalOpen = false
     this.trapCleanupCafeteriaSalesModel()
+  },
+
+  // cafeteria  purchases return model
+  isViewCafeteriaPurchasesModalOpen: false,
+  trapCleanupCafeteriaPurchasesModel: null,
+  openViewCafeteriaPurchasesModal(id) {
+    this.isViewCafeteriaPurchasesModalOpen = true
+    this.trapCleanupCafeteriaPurchasesModel = focusTrap(document.querySelector('#ViewCafeteriaPurchasesModal'))
+    // PrintTable();
+    LoadPurchaseReturn(id)
+
+  },
+  closeCafeteriaPurchasesModel() {
+    this.isViewCafeteriaPurchasesModalOpen = false
+    this.trapCleanupCafeteriaPurchasesModel()
   },
 
 

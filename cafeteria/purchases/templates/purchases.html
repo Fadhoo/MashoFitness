@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masho Fitness</title>
     <link rel="stylesheet" href="{% static 'public/main.css' %}">
-    <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}"/>
-    <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}"/>
-    
+    <link rel="icon" type="" sizes="32x32" href="{% static 'img/favicon.jpeg'%}" />
+    <link rel="icon" type="" sizes="16x16" href="{% static 'img/favicon.jpeg'%}" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -26,86 +26,91 @@
 <body>
 
     <div class="flex h-screen bg-gray-50 " :class="{ 'overflow-hidden': isSideMenuOpen }">
-       <!-- Desktop Sidebar ye side navigation ha -->
-       <aside
-       class="z-20 hidden w-56 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
-       <div class="py-4 text-gray-600 ">
-           <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
-           
-           <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
-               <!-- DASHBOARD -->
-               <li class="relative px-6 py-2">
-                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                       href="/index/">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                           stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                               d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                       </svg>
-                       <span class="ml-4">Dashboard</span>
-                   </a>
-               </li>
-                 
-               <!-- POS -->
-               <li class="relative px-6 py-2 ">
-                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                       href="/pos/">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                         </svg>
-                       <span class="ml-4">Cafeteria</span>
-                   </a>
-               </li>
+        <!-- Desktop Sidebar ye side navigation ha -->
+        <aside
+            class="z-20 hidden w-56 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
+            <div class="py-4 text-gray-600 ">
+                <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
 
-               <!-- Sales Terminal -->
-               <li class="relative px-6 py-2">
-                <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                    href="/salesTerminal/">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    <span class="ml-4">Sales Terminal</span>
-                </a>
-            </li>
+                <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
+                    <!-- DASHBOARD -->
+                    <li class="relative px-6 py-2">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            href="/index/">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <span class="ml-4">Dashboard</span>
+                        </a>
+                    </li>
 
-               <!-- ITEMS & Products -->
-               <li class="relative px-6 py-2">
-                   <button
-                       class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                       @click="toggleItemsMenu" aria-haspopup="true">
-                       <span class="inline-flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
-                             </svg>
-                              
-                           <span class="ml-4 text-lg">Items</span>
-                       </span>
-                       <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                           <path fill-rule="evenodd"
-                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                               clip-rule="evenodd"></path>
-                       </svg>
-                   </button>
-                   <template x-if="isItemsMenuOpen">
-                       <ul x-transition:enter="transition-all ease-in-out duration-300"
-                           x-transition:enter-start="opacity-25 max-h-0"
-                           x-transition:enter-end="opacity-100 max-h-xl"
-                           x-transition:leave="transition-all ease-in-out duration-300"
-                           x-transition:leave-start="opacity-100 max-h-xl"
-                           x-transition:leave-end="opacity-0 max-h-0"
-                           class="p-1 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
-                           aria-label="submenu">
-                           <li
-                           class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+                    <!-- POS -->
+                    <li class="relative px-6 py-2 ">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            href="/pos/">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                            <span class="ml-4">Cafeteria</span>
+                        </a>
+                    </li>
 
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                               viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                   d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                           </svg>
-                           <a class="w-full" href="/addItem/">Add Items</a>
-                       </li>
-                       <!-- <li
+                    <!-- Sales Terminal -->
+                    <li class="relative px-6 py-2">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            href="/salesTerminal/">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span class="ml-4">Sales Terminal</span>
+                        </a>
+                    </li>
+
+                    <!-- ITEMS & Products -->
+                    <li class="relative px-6 py-2">
+                        <button
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            @click="toggleItemsMenu" aria-haspopup="true">
+                            <span class="inline-flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                                </svg>
+
+                                <span class="ml-4 text-lg">Items</span>
+                            </span>
+                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <template x-if="isItemsMenuOpen">
+                            <ul x-transition:enter="transition-all ease-in-out duration-300"
+                                x-transition:enter-start="opacity-25 max-h-0"
+                                x-transition:enter-end="opacity-100 max-h-xl"
+                                x-transition:leave="transition-all ease-in-out duration-300"
+                                x-transition:leave-start="opacity-100 max-h-xl"
+                                x-transition:leave-end="opacity-0 max-h-0"
+                                class="p-1 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
+                                aria-label="submenu">
+                                <li class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <a class="w-full" href="/addItem/">Add Items</a>
+                                </li>
+                                <!-- <li
                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
                            <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -121,175 +126,191 @@
                            <a class="w-full" href="/addProducts/">Add Products</a>
                        </li> -->
 
-                       <li
-                           class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+                                <li class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
-                           <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                               <polygon
-                                   points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
-                               <line x1="15" y1="9" x2="9" y2="15" />
-                               <line x1="9" y1="9" x2="15" y2="15" />
-                           </svg>
-                           <a class="w-full" href="/addNonStockItem/">Items (non-stock)</a>
-                       </li>
-                       </ul>
-                   </template>
-               </li>
+                                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon
+                                            points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
+                                        <line x1="15" y1="9" x2="9" y2="15" />
+                                        <line x1="9" y1="9" x2="15" y2="15" />
+                                    </svg>
+                                    <a class="w-full" href="/addNonStockItem/">Items (non-stock)</a>
+                                </li>
+                            </ul>
+                        </template>
+                    </li>
 
-               <!-- Purchases -->
-               <li class="relative px-6 py-2 text-red-900">
-                <button
-                    class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                    @click="togglePurchasesMenu" aria-haspopup="true">
-                    <span class="inline-flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                          </svg>
-                          <span class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"></span>
-                        <span class="ml-4 text-lg">Purchases</span>
-                    </span>
-                    <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-                <template x-if="isPurchasesMenuOpen">
-                    <ul x-transition:enter="transition-all ease-in-out duration-300"
-                        x-transition:enter-start="opacity-25 max-h-0"
-                        x-transition:enter-end="opacity-100 max-h-xl"
-                        x-transition:leave="transition-all ease-in-out duration-300"
-                        x-transition:leave-start="opacity-100 max-h-xl"
-                        x-transition:leave-end="opacity-0 max-h-0"
-                        class="p-1 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
-                        aria-label="submenu">
-                        <li
-                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+                    <!-- Purchases -->
+                    <li class="relative px-6 py-2 text-red-900">
+                        <button
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            @click="togglePurchasesMenu" aria-haspopup="true">
+                            <span class="inline-flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <span
+                                    class="absolute inset-y-0 left-0 w-1 bg-red-600 rounded-tr-lg rounded-br-lg"></span>
+                                <span class="ml-4 text-lg">Purchases</span>
+                            </span>
+                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <template x-if="isPurchasesMenuOpen">
+                            <ul x-transition:enter="transition-all ease-in-out duration-300"
+                                x-transition:enter-start="opacity-25 max-h-0"
+                                x-transition:enter-end="opacity-100 max-h-xl"
+                                x-transition:leave="transition-all ease-in-out duration-300"
+                                x-transition:leave-start="opacity-100 max-h-xl"
+                                x-transition:leave-end="opacity-0 max-h-0"
+                                class="p-1 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
+                                aria-label="submenu">
+                                <li class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd" />
-                              </svg>
-                            <a class="w-full" href="/inventory/">Inventory</a>
-                        </li>
-                        <li
-                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <a class="w-full" href="/inventory/">Inventory</a>
+                                </li>
+                                <li class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
-                              </svg>
-                            <a class="w-full" href="/purchases/">Purchases</a>
-                        </li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path
+                                            d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
+                                    </svg>
+                                    <a class="w-full" href="/purchases/">Purchases</a>
+                                </li>
 
-                        <li
-                            class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+                                <li class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm4.707 3.707a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 9H10a3 3 0 013 3v1a1 1 0 102 0v-1a5 5 0 00-5-5H8.414l1.293-1.293z" clip-rule="evenodd" />
-                              </svg>
-                            <a class="w-full" href="/purchaseReturn/">Purchases Return</a>
-                        </li>
-                    </ul>
-                </template>
-            </li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm4.707 3.707a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L8.414 9H10a3 3 0 013 3v1a1 1 0 102 0v-1a5 5 0 00-5-5H8.414l1.293-1.293z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <a class="w-full" href="/purchaseReturn/">Purchases Return</a>
+                                </li>
+                            </ul>
+                        </template>
+                    </li>
 
 
-               
 
-               <!-- Sales -->
-               <li class="relative px-6 py-2">
-                   <button
-                       class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                       @click="toggleSalesMenu" aria-haspopup="true">
-                       <span class="inline-flex items-center">
-                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                             </svg>
-                           <span class="ml-4">Sales</span>
-                       </span>
-                       <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                           <path fill-rule="evenodd"
-                               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                               clip-rule="evenodd"></path>
-                       </svg>
-                   </button>
-                   <template x-if="isSalesMenuOpen">
-                       <ul x-transition:enter="transition-all ease-in-out duration-300"
-                           x-transition:enter-start="opacity-25 max-h-0"
-                           x-transition:enter-end="opacity-100 max-h-xl"
-                           x-transition:leave="transition-all ease-in-out duration-300"
-                           x-transition:leave-start="opacity-100 max-h-xl"
-                           x-transition:leave-end="opacity-0 max-h-0"
-                           class="p-1 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
-                           aria-label="submenu">
-                           <li
-                               class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
-                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                 </svg>
-                               <a class="w-full" href="/sales/">Sales</a>
-                           </li>
-                           <li
-                               class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
+                    <!-- Sales -->
+                    <li class="relative px-6 py-2">
+                        <button
+                            class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            @click="toggleSalesMenu" aria-haspopup="true">
+                            <span class="inline-flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span class="ml-4">Sales</span>
+                            </span>
+                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <template x-if="isSalesMenuOpen">
+                            <ul x-transition:enter="transition-all ease-in-out duration-300"
+                                x-transition:enter-start="opacity-25 max-h-0"
+                                x-transition:enter-end="opacity-100 max-h-xl"
+                                x-transition:leave="transition-all ease-in-out duration-300"
+                                x-transition:leave-start="opacity-100 max-h-xl"
+                                x-transition:leave-end="opacity-0 max-h-0"
+                                class="p-1 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50  "
+                                aria-label="submenu">
+                                <li class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
-                               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z" />
-                                 </svg>
-                               <a class="w-full" href="/salesReturn/">Sales Return</a>
-                           </li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <a class="w-full" href="/sales/">Sales</a>
+                                </li>
+                                <li class="flex gap-2 px-2 py-1 transition-colors duration-150 hover:text-gray-800 ">
 
-                       </ul>
-                   </template>
-               </li>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z" />
+                                    </svg>
+                                    <a class="w-full" href="/salesReturn/">Sales Return</a>
+                                </li>
 
-               <!-- Suppliers -->
-               <li class="relative px-6 py-2">
-                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                       href="/supplier/">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
-                         </svg>
-                       <span class="ml-4">Suppliers</span>
-                   </a>
-               </li>
+                            </ul>
+                        </template>
+                    </li>
 
-               <!-- Customers -->
-               <li class="relative px-6 py-2">
-                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                       href="/customer/">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                         </svg>
-                       <span class="ml-4">Customers</span>
-                   </a>
-               </li>
+                    <!-- Suppliers -->
+                    <li class="relative px-6 py-2">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            href="/supplier/">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                            </svg>
+                            <span class="ml-4">Suppliers</span>
+                        </a>
+                    </li>
 
-               
+                    <!-- Customers -->
+                    <li class="relative px-6 py-2">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            href="/customer/">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <span class="ml-4">Customers</span>
+                        </a>
+                    </li>
 
-               <!-- Expenses -->
-               <li class="relative px-6 py-3">
-                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
-                       href="/expenses/">
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                         </svg>
-                       <span class="ml-4">Expenses </span>
-                   </a>
-               </li>
 
-           </ul>
 
-       </div>
-   </aside>
-   <!-- Yahan Desktop Sidebar khatam -->
+                    <!-- Expenses -->
+                    <li class="relative px-6 py-3">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
+                            href="/expenses/">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="ml-4">Expenses </span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </aside>
+        <!-- Yahan Desktop Sidebar khatam -->
 
         <div class="flex flex-col flex-1 w-full">
             <!-- Header -->
             <header class="z-10 py-4 bg-white shadow-md ">
-                <div
-                    class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 ">
+                <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 ">
 
                     <!-- Mobile hamburger -->
                     <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
@@ -539,7 +560,7 @@
                             <div class="flex flex-col py-1">
                                 <ul class="hidden sm:flex flex-shrink-0 space-x-6">
 
-                                    <li class="relative">
+                                    <!-- <li class="relative">
                                         <button @click="openModal"
                                             class="w-32 text-lg inline-flex justify-center text-white bg-green-700 shadow-md rounded-md rounded-br-none px-1">
 
@@ -552,9 +573,9 @@
                                                     d="M12 4v16m8-8H4" />
                                             </svg>
                                         </button>
-                                    </li>
+                                    </li> -->
 
-                                    <li class="relative">
+                                    <!-- <li class="relative">
                                         <button @click="openSubModal"
                                             class="w-32 text-lg inline-flex justify-center text-white bg-red-500 shadow-md rounded-md rounded-br-none px-1">
 
@@ -567,7 +588,7 @@
                                                     d="M12 4v16m8-8H4" />
                                             </svg>
                                         </button>
-                                    </li>
+                                    </li> -->
 
                                     <li class="relative">
                                         <div class="flex">
@@ -618,7 +639,7 @@
                                     <th class="p-1">Total</th>
                                     <th class="p-1">Status</th>
                                     <!-- <th class="p-1">Expiration Date</th> -->
-                                    
+
                                 </tr>
                             </thead>
 
@@ -627,7 +648,7 @@
                                 <tr class="text-left hover:bg-red-200">
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
-                                            <span @click="openModal({{item.id}}, 'purchase')">
+                                            <span @click="openViewCafeteriaPurchasesModal({{item.id}})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -659,31 +680,31 @@
 
                 </div> <!-- Main Container-->
             </main>
-            
+
 
         </div>
 
     </div>
 
     <!-- Modal backdrop. This what you want to place close to the closing body tag -->
-    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    <div x-show="isViewCafeteriaPurchasesModalOpen" x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
         class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
         <!-- Modal -->
-        <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150"
+        <div x-show="isViewCafeteriaPurchasesModalOpen" x-transition:enter="transition ease-out duration-150"
             x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal"
-            @keydown.escape="closeModal"
-            class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-xl"
-            role="dialog" id="modal">
+            @keydown.escape="closeModal" class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-xl" role="dialog"
+            id="ViewCafeteriaPurchasesModal">
             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
             <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
                 <span>Single Item Purchase</span>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
-                    aria-label="close" @click="closeModal">
+                    aria-label="close" @click="closeCafeteriaPurchasesModel()">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
                         <path
                             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -698,56 +719,58 @@
                     <div class="p-1 border border-gray-500">
                         <div class="flex flex-col">
                             <label for="">Item Code</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-code">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Item Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner">
+                            <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-name">
                         </div>
-                        <div class="flex flex-col">
-                            <label for=""  class="">Unit of Measure</label>
+                        <!-- <div class="flex flex-col">
+                            <label for="" class="">Unit of Measure</label>
                             <select name="" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner">
                                 <option value=""></option>
                                 <option value="">Nos</option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="flex flex-col">
                             <label for="">Unit Price</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
+                            <input type="text" id="model-item-unit-price"
+                                class="h-7 rounded-md text-right shadow-inner">
                         </div>
-                        <div class="flex flex-row pt-1">
+                        <!-- <div class="flex flex-row pt-1">
                             <input type="checkbox" class="m-1 rounded-md shadow-inner">
                             <label for="">Price Inclusive Sale Tax</label>
-                        </div>
+                        </div> -->
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for="">Unit Tax</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
+                        </div> -->
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for="">Unit Net Price</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
+                        </div> -->
 
                         <div class="flex flex-col">
                             <label for="">Purchased Quantity</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner">
+                            <input type="text" id="model-item-quantity" class="h-7 rounded-md text-right shadow-inner">
                         </div>
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for="">Sub Total</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
+                        </div> -->
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for="">Tax Total</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
-                        </div>
+                        </div> -->
 
                         <div class="flex flex-col">
-                            <label for="">Item Total</label>
-                            <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
+                            <label for="">Item Total Price</label>
+                            <input type="text" id="model-item-total" class="h-7 rounded-md text-right shadow-inner"
+                                value="0">
                         </div>
 
                     </div>
@@ -755,68 +778,20 @@
                     <div class="p-1 border border-gray-500">
 
                         <div class="flex flex-col items-center p-2 bg-white row-span-2">
-                            <ul class="hidden sm:flex items-center flex-shrink-0 space-x-6">
-                                <!-- Menu Close Open -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 6h16M4 12h16m-7 6h7" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Large Screen -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Lock Screen -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                        </svg>
-                                    </button>
-                                </li>
-                                <!-- Calender -->
-                                <li class="relative">
-                                    <button
-                                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                    </button>
-                                </li>
-                            </ul>
-                            <div class="flex flex-col">
-                                <div
-                                    class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
+
+                            <!-- <div class="flex flex-col">
+                                <div class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
                                     <img id="image" class="object-cover w-full h-32"
                                         src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
 
                                     <div class="absolute top-0 left-0 right-0 bottom-0 w-full cursor-pointer flex items-center justify-center"
                                         onClick="document.getElementById('fileInput').click()">
-                                        <button type="button"
-                                            style="background-color: rgba(255, 255, 255, 0.65)"
+                                        <button type="button" style="background-color: rgba(255, 255, 255, 0.65)"
                                             class="hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 text-sm border border-gray-300 rounded-lg shadow-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon-tabler icon-tabler-camera" width="24"
-                                                height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                stroke="currentColor" fill="none" stroke-linecap="round"
-                                                stroke-linejoin="round">
+                                                class="icon icon-tabler icon-tabler-camera" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
                                                 <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
                                                 <path
                                                     d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
@@ -825,8 +800,8 @@
                                         </button>
                                     </div>
                                 </div>
-                                <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file" enctype="multipart/form-data"
-                                    onChange="let file = this.files[0]; 
+                                <input name="photo" id="fileInput" accept="image/*" class="hidden" type="file"
+                                    enctype="multipart/form-data" onChange="let file = this.files[0]; 
                                     var reader = new FileReader();
                 
                                     reader.onload = function (e) {
@@ -836,45 +811,69 @@
                                 
                                     reader.readAsDataURL(file);
                                 ">
-                            </div>
+                            </div> -->
                         </div>
-                        
+
                         <div class="flex flex-col">
                             <label for="">Order Number</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
+                            <input type="text" placeholder="" id="model-order-number"
+                                class="h-7 rounded-md shadow-inner">
                         </div>
 
-                        
+
                         <div class="flex flex-col">
                             <label for="">Reference Number</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
+                            <input type="text" placeholder="" id="model-reference-number"
+                                class="h-7 rounded-md shadow-inner">
                         </div>
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for="">Supplier</label>
                             <div class="inline-flex w-full">
                                 <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
                                 <div class="border border-slate-700 rounded-md">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                                      </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                    </svg>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for="">Expiry Date</label>
                             <input type="date" placeholder="" class="h-7 rounded-md shadow-inner">
-                        </div>
+                        </div> -->
 
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <label for="">Stock in Shop</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
+                            <input type="text" placeholder=""
+                            id="model-stock-inshop" class="h-7 rounded-md shadow-inner">
+                        </div> -->
+
+                        <div class="flex flex-col">
+                            <label for="">Available Stock Quantity</label>
+                            <input type="text" placeholder="" readonly id="model-available-stock"
+                                class="h-7 rounded-md shadow-inner">
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="">Stock In Storeroom</label>
-                            <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
+                            <label for="">Return Stock Quantity</label>
+                            <input type="number" placeholder="" onkeyup="returnStockQuantity(this)"
+                                id="model-return-stock" class="h-7 rounded-md shadow-inner">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="">Remaining Stock Quantity</label>
+                            <input type="text" placeholder="" id="model-remaining-stock" readonly
+                                class="h-7 rounded-md shadow-inner">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="">Remaining Item Total Price</label>
+                            <input type="text" placeholder="" id="model-remaining-price" readonly
+                                class="h-7 rounded-md shadow-inner">
                         </div>
 
                     </div>
@@ -885,14 +884,15 @@
 
             <footer
                 class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
-                
 
-                <button
-                    class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
-                    Return Purchases
-                </button>
-                <button @click="closeModal"
-                    class="bg-blue-400 px-6 py-1 rounded-xl text-white">
+                <form action="{% url 'purchases' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="model-id" id="model-id" hidden>
+                    <button name="return-stock" value="return-stock" class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
+                        Return Purchases
+                    </button>
+                </form>
+                <button @click="closeCafeteriaPurchasesModel()" class="bg-blue-400 px-6 py-1 rounded-xl text-white">
                     Close
                 </button>
 
@@ -903,19 +903,18 @@
     <!-- End of modal backdrop -->
 
     <!-- Product Modal backdrop. This what you want to place close to the closing body tag -->
-    <div x-show="isSubModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    <!-- <div x-show="isSubModalOpen" x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
         class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
-        <!-- Modal -->
+
         <div x-show="isSubModalOpen" x-transition:enter="transition ease-out duration-150"
             x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeSubModal"
-            @keydown.escape="closeSubModal"
-            class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-4xl"
+            @keydown.escape="closeSubModal" class="w-full h-11/12 overflow-auto bg-white  sm:m-4 sm:max-w-4xl"
             role="dialog" id="SubModal">
-            <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
             <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
                 <span>Items</span>
                 <button
@@ -928,28 +927,29 @@
                     </svg>
                 </button>
             </header>
-            <!-- Modal body -->
             <div class="bg-white p-1 text-sm relative">
-                
+
                 <div class="mt-1 border border-slate-500">
                     <div class="">
                         <ul class="hidden sm:flex items-center flex-shrink-0 space-x-4">
-                            <!--  -->
-                            <li class="relative" >
+                            <li class="relative">
                                 <button @click="openProductModel"
                                     class="relative align-middle m-1 rounded-md border border-green-700 focus:outline-none focus:shadow-outline-purple">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                      </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
                                 </button>
                             </li>
-                            <!--  -->
                             <li class="relative">
                                 <button
                                     class="relative align-middle rounded-md border border-slate-700 focus:outline-none focus:shadow-outline-purple">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                                      </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                    </svg>
                                 </button>
                             </li>
 
@@ -964,18 +964,19 @@
                             <li class="relative">
                                 <input type="search" class="rounded-md m-1 h-7" placeholder="search">
                             </li>
-                            <!-- -->
                             <li class="relative">
                                 <button
                                     class="relative align-middle rounded-md border border-blue-500 focus:outline-none focus:shadow-outline-purple">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                      </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
                                 </button>
                             </li>
-                            
+
                         </ul>
-                        
+
                         <table class="table-auto w-full">
                             <thead class="text-left text-sm border-2 border-gray-500">
                                 <tr class="">
@@ -989,9 +990,12 @@
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
                                             <a href="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                                  </svg>                                            </a>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                                </svg> </a>
                                         </div>
                                     </td>
                                     <th class="p-1">Order Number</th>
@@ -1019,9 +1023,12 @@
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
                                             <a href="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                                  </svg>                                            </a>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                                </svg> </a>
                                         </div>
                                     </td>
                                     <td class="p-2">abc1234567</td>
@@ -1032,13 +1039,13 @@
                                     <td class="p-2">10</td>
                                     <td class="p-2">10</td>
                                     <td class="p-2">10</td>
-                                    
+
                                     <td class="p-2">20</td>
                                     <td class="p-2">1/1/1/111</td>
 
 
                                 </tr>
-                            
+
                             </tbody>
                         </table>
 
@@ -1047,22 +1054,20 @@
 
             </div>
 
-            <footer class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
+            <footer
+                class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
 
-                <button
-                    class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
+                <button class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
                     Save
                 </button>
-                <button @click="closeSubModal"
-                    class="bg-blue-400 px-6 py-1 rounded-xl text-white">
+                <button @click="closeSubModal" class="bg-blue-400 px-6 py-1 rounded-xl text-white">
                     Cancel
                 </button>
 
             </footer>
 
         </div>
-    </div>
-    <!-- End of Product modal backdrop -->
+    </div> -->
     <script src="{% static 'js/purchases.js'%}"></script>
 
 </body>

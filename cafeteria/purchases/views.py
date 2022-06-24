@@ -24,9 +24,20 @@ def inventory(request):
                     })  
 
 def purchases(request):
-    return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('inventory_id')})
+    if request.method=="POST":
+        print("purchases")
+        if request.POST.get("return-stock"):
+            print("add purchase return data")
+            print(request.POST.get("model-id"))
+            # UpdateInventory(request)
+            return HttpResponseRedirect(reverse('purchaseReturn'))
+            # HttpResponseRedirect(reverse('viewMembers'))
+    else:
+        return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('inventory_id').order_by('-id'),})
 
 def purchaseReturn(request):
+    print("purchaseReturn")
+    
     return render(request, "purchaseReturn.html")
 
 @api_view(['GET'])
@@ -103,5 +114,19 @@ def search_purchases_orderNumber(request):
         if purchases:
             serializer = CustomerPurchasesSerializer(purchases)
             return Response(serializer)
+        else:
+            return Response({"message":"No inventory found"})
+
+
+
+@api_view(['GET'])
+def purchaseReturnCall(request,pk):
+    if request.method == "GET":
+        # print(name,'namem')
+        purchases = Purchases.objects.filter(id=pk).select_related('inventory_id')
+        print(purchases,'purchases')
+        if purchases:
+            serializer = PurchasesSerializer(purchases,many=True)
+            return Response(serializer.data)
         else:
             return Response({"message":"No inventory found"})
