@@ -40,9 +40,10 @@ function searchPurchases(value) {
 }
 
 function createTable(data) {
+    // console.log(data)
     $('#purchasesTable tbody').empty();
     for (var i = 0; i < data.length; i++) {
-        // console.log(data)
+        console.log(data)
         var row = "<tr class='text-left hover:bg-red-200'>";
         // row += '<td class="p-2">' +
         //     '<input onclick="onlyOne(this)" data-id="'+ data[i]['id']+'" type="checkbox"' +
@@ -62,11 +63,12 @@ function createTable(data) {
             '</td>';
 
 
-        row += '<td class="p-2">'+ data[i]['inventory_order_number'] +'</td>';
-        row += '<td class="p-2">'+ data[i]['inventory_order_number']+'</td>';
-        row += '<td class="p-2">'+ data[i]['supplier_id'] +'</td>';
+        row += '<td class="p-2">'+ data[i]['purchases_order_number'] +'</td>';
+        row += '<td class="p-2">'+ data[i]['purchases_reference_number']+'</td>';
+        row += '<td class="p-2">'+ data[i]['purchases_item_id']['item_name']+'</td>';
+        row += '<td class="p-2">'+ data[i]['purchases_supplier_id']['supplier_name'] +'</td>';
         row += '<td class="p-2">'+ data[i]['create_date'] +'</td>';
-        row += '<td class="p-2">'+ data[i]['inventory_item_total'] +'</td>';
+        row += '<td class="p-2">'+ data[i]['purchases_item_total'] +'</td>';
         row += '<td class="p-2">'+ data[i]['status'] +'</td>';
         // row += '<td class="p-2">{{product.inventory_stock_in_shop}}</td>';
 
@@ -105,15 +107,15 @@ function LoadPurchaseReturn(id){
         // data: { 'id': id },
         // dataType: 'json',
         success: function (data) {
-            console.log(data[0]['inventory_id']['inventory_item_id']['item_name'])
-            $('#model-item-name').val(data[0]['inventory_id']['inventory_item_id']['item_name']);
-            $('#model-item-code').val(data[0]['inventory_id']['inventory_item_id']['item_code']);
-            $('#model-item-unit-price').val(data[0]['inventory_id']['inventory_unit_price']);
-            $('#model-item-quantity').val(data[0]['inventory_id']['inventory_purchased_quantity']);
-            $('#model-item-total').val(data[0]['inventory_id']['inventory_purchased_quantity'] * data[0]['inventory_id']['inventory_unit_price']);
-            $('#model-available-stock').val(data[0]['inventory_id']['inventory_stock_available']);
-            $('#model-order-number').val(data[0]['inventory_id']['inventory_order_number']);
-            $('#model-reference-number').val(data[0]['inventory_id']['inventory_reference_number']);
+            console.log(data[0]['purchases_item_id']['item_name'])
+            $('#model-item-name').val(data[0]['purchases_item_id']['item_name']);
+            $('#model-item-code').val(data[0]['purchases_item_id']['item_code']);
+            $('#model-item-unit-price').val(data[0]['purchases_unit_price']);
+            $('#model-item-quantity').val(data[0]['purchases_purchased_quantity']);
+            $('#model-item-total').val(data[0]['purchases_purchased_quantity'] * data[0]['purchases_unit_price']);
+            $('#model-available-stock').val(data[0]['purchases_stock_available']);
+            $('#model-order-number').val(data[0]['purchases_order_number']);
+            $('#model-reference-number').val(data[0]['purchases_reference_number']);
             $('#model-id').val(data[0]['id']);
             
             // createReturnTable(data);

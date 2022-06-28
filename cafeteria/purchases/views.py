@@ -33,7 +33,7 @@ def purchases(request):
             return HttpResponseRedirect(reverse('purchaseReturn'))
             # HttpResponseRedirect(reverse('viewMembers'))
     else:
-        return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('inventory_id').order_by('-id'),})
+        return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('purchases_item_id').select_related('purchases_supplier_id').order_by('-id'),})
 
 def purchaseReturn(request):
     print("purchaseReturn")
@@ -98,9 +98,9 @@ def search_purchases_supplierName(request):
     if request.method == "GET":
         name=request.GET.get("supplier_name")
         print(name,'namem')
-        purchases = Purchases.objects.filter(inventory_id__supplier_id__supplier_name__icontains=name).select_related('inventory_id').order_by("-id")
+        purchases = Purchases.objects.filter(purchases_supplier_id__supplier_name__icontains=name).select_related('purchases_item_id').select_related('purchases_supplier_id').order_by("-id")
         if purchases:
-            serializer = CustomerPurchasesSerializer(purchases)
+            serializer = PurchasesSerializer(purchases,many=True).data
             return Response(serializer)
         else:
             return Response({"message":"No inventory found"})
@@ -110,9 +110,9 @@ def search_purchases_orderNumber(request):
     if request.method == "GET":
         code=request.GET.get("order_name")
         # print(name,'namem')
-        purchases = Purchases.objects.filter(inventory_id__inventory_order_number__icontains=code).select_related('inventory_id').order_by("-id")
+        purchases = Purchases.objects.filter(purchases_order_number__icontains=code).select_related('purchases_item_id').select_related('purchases_supplier_id').order_by("-id")
         if purchases:
-            serializer = CustomerPurchasesSerializer(purchases)
+            serializer = PurchasesSerializer(purchases,many=True).data
             return Response(serializer)
         else:
             return Response({"message":"No inventory found"})
@@ -123,7 +123,7 @@ def search_purchases_orderNumber(request):
 def purchaseReturnCall(request,pk):
     if request.method == "GET":
         # print(name,'namem')
-        purchases = Purchases.objects.filter(id=pk).select_related('inventory_id')
+        purchases = Purchases.objects.filter(id=pk).select_related('purchases_item_id').select_related('purchases_supplier_id')
         print(purchases,'purchases')
         if purchases:
             serializer = PurchasesSerializer(purchases,many=True)

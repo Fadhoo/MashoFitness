@@ -549,7 +549,7 @@
                                         </button>
                                     </li>
 
-                                    <li class="relative">
+                                    <!-- <li class="relative">
                                         <button @click="openSubModal({{inventoryData.id}}, 'inventory')"
                                             class="w-32 text-lg inline-flex justify-center text-white bg-red-500 shadow-md rounded-md rounded-br-none px-1">
 
@@ -560,7 +560,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
                                               </svg>
                                         </button>
-                                    </li>
+                                    </li> -->
 
                                     <li class="relative">
                                         <div class="flex">
@@ -604,7 +604,6 @@
                             <thead class="text-left border-2 border-gray-500">
                                 <tr class="">
                                     <th clas="p-1"></th>
-                                    <th class="p-1"></th>
                                     <th class="p-1">Code</th>
                                     <th class="p-1">Name</th>
                                     <th class="p-1">unit Of</th>
@@ -622,10 +621,8 @@
                                         <input onclick="onlyOne(this)" data-id="{{product.id}}" type="checkbox"
                                             class="cursor-pointer rounded-md" name="check">
                                     </td>
-                                    <td class="p-2">
+                                    <!-- <td class="p-2">
                                         <div class="float-left hover:text-red-600">
-
-                                            <!-- <input type="text" value="{{item.id}}" id="row_id"> -->
                                             <span @click="openUpdateModal({{product.id}}, 'inventory')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -635,7 +632,7 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td class="p-2">{{product.inventory_item_id.item_code}}</td>
                                     <td class="p-2">{{product.inventory_item_id.item_name}}</td>
                                     <td class="p-2">{{product.inventory_item_id.item_unit}}</td>
@@ -681,7 +678,7 @@
             role="dialog" id="modal">
             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
             <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
-                <span>Single Item Purchase</span>
+                <span>Add Item Inventory</span>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
                     aria-label="close" @click="closeModal">
@@ -871,7 +868,7 @@
             role="dialog" id="modal">
             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
             <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
-                <span>Single Item Purchase</span>
+                <span>Update Item Inventory</span>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
                     aria-label="close" @click="closeUpdateModal">

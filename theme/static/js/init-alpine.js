@@ -77,16 +77,28 @@ window.alpine_data = {
   // Modal
   isModalOpen: false,
   trapCleanup: null,
-  openModal(call) {
-    console.log("open modal", call)
+  openModal() {
+    // if(window.add_array.length > 0) {
+    
+    // if(call==''){
+    //   alert("Please select a row")
+    // }
+    // else{
+    // console.log("open modal", call)
     this.isModalOpen = true;
     this.trapCleanup = focusTrap(document.querySelector('#modal'));
-    if (call == "inventory") {
-      inventory_query_call_nonstock()
-    }
-    else {
+    // if (call == "inventory") {
+    //   console.log("inventory")
+    //   inventory_query_call_nonstock()
+    // }
+    // else {
+      console.log("member")
       addInventoryItem()
-    }
+    // }
+    // }
+    // else{
+    //   alert("Please select a row")
+    // }
   },
   closeModal() {
     this.isModalOpen = false;

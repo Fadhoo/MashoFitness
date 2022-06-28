@@ -1,3 +1,4 @@
+from pytest import Item
 from .models import *
 from django.core.files.storage import FileSystemStorage
 from cafeteria.suppliers.models import Supplier
@@ -36,21 +37,22 @@ def UpdateInventory(request):
         )
 
         Purchases.objects.create(
-            inventory_unit_price=request.POST.get("unit-price"),
-            inventory_net_price=request.POST.get("net-price"),
-            inventory_purchased_quantity=request.POST.get("purchased-qty"),
+            purchases_unit_price=request.POST.get("unit-price"),
+            purchases_net_price=request.POST.get("net-price"),
+            purchases_purchased_quantity=request.POST.get("purchased-qty"),
             # inventory_sub_total=request.POST.get("sub-total"),
-            inventory_item_total=request.POST.get(
+            purchases_item_total=request.POST.get(
                 "item-total"),
-            inventory_order_number=request.POST.get(
+            purchases_order_number=request.POST.get(
                 "order-number"),
-            inventory_reference_number=request.POST.get(
+            purchases_reference_number=request.POST.get(
                 "reference-number"),
             # inventory_stock_in_shop=request.POST.get("available-stock-inshop"),
-            inventory_stock_available=request.POST.get(
+            purchases_stock_available=request.POST.get(
                 "available-stock"),
             purchases_supplier_id=Supplier.objects.filter(
                 supplier_name=request.POST.get("supplier-name")).first(),
+            purchases_item_id=Items.objects.get(id=Inventory.objects.get(id=request.POST.get("update-id")).inventory_item_id.id)
         ).save()
         print("successfully updated inventory")
     except Exception as e:

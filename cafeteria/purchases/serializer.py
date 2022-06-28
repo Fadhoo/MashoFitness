@@ -1,8 +1,8 @@
-from attr import fields
-from numpy import source
+# from attr import fields
+# from numpy import source
 from rest_framework import serializers
-
-from cafeteria.suppliers.models import Supplier
+from cafeteria.suppliers.serializer import SupplierSerializer
+# from cafeteria.suppliers.models import Supplier
 from .models import Inventory , Purchases
 from cafeteria.Items.serializer import ItemSerializer
 
@@ -13,7 +13,8 @@ class InventorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PurchasesSerializer(serializers.ModelSerializer):
-    inventory_id = InventorySerializer(read_only=True)
+    purchases_item_id = ItemSerializer(read_only=True)
+    purchases_supplier_id = SupplierSerializer( read_only=True)
     # inventory_id = serializers.PrimaryKeyRelatedField( read_only=True)
     # supplier_name=serializers.ReadOnlyField(source=         '')
     # supplier_id=

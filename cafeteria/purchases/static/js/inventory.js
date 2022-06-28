@@ -43,6 +43,11 @@ function update_query_call_inventory(id) {
 }
 function addInventoryItem() {
     // console.log(add_array)
+    if (add_array == null) {
+        alert("Please select an item to add");
+        window.alpine_data.closeModal();
+    }
+    else{
     $.ajax({
         method: "GET",
         url: "/api/updateInventoryQueryCall/",
@@ -75,6 +80,7 @@ function addInventoryItem() {
         }
 
     })
+}
 }
 
 function onlyOne(checkbox) {
@@ -154,18 +160,18 @@ function createTable(data) {
             '<input onclick="onlyOne(this)" data-id="'+ data[i]['id']+'" type="checkbox"' +
             'class="cursor-pointer rounded-md" name="check">' +
             '</td>';
-        row += '<td class="p-2">' +
-            '<div class="float-left hover:text-red-600">' +
-            '<span @click="openUpdateModal('+ data[i]['id']+', \'inventory\')">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"' +
-            'fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
-            '<path stroke-linecap="round" stroke-linejoin="round"' +
-            'stroke-width="2"' +
-            'd="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />' +
-            '</svg>' +
-            '</span>' +
-            '</div>' +
-            '</td>';
+        // row += '<td class="p-2">' +
+        //     '<div class="float-left hover:text-red-600">' +
+        //     '<span @click="openUpdateModal('+ data[i]['id']+', \'inventory\')">' +
+        //     '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"' +
+        //     'fill="none" viewBox="0 0 24 24" stroke="currentColor">' +
+        //     '<path stroke-linecap="round" stroke-linejoin="round"' +
+        //     'stroke-width="2"' +
+        //     'd="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />' +
+        //     '</svg>' +
+        //     '</span>' +
+        //     '</div>' +
+        //     '</td>';
 
 
         row += '<td class="p-2">'+ data[i]['inventory_item_id']['item_code'] +'</td>';
