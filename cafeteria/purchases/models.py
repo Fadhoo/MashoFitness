@@ -40,5 +40,6 @@ class PurchasesReturn(models.Model):
     return_stock = models.IntegerField(default=0)
     tatal_price = models.IntegerField(default=0)
     unit_price = models.IntegerField(default=0)
-    supplierid = models.ForeignKey(Supplier, on_delete=models.DO_NOTHING, related_name="supplierid")
-    inventoryid = models.ForeignKey(Inventory, on_delete=models.DO_NOTHING, related_name="inventoryid")
+    purchases_id = models.ForeignKey(Purchases, on_delete=models.CASCADE, related_name="purchases_id", null=True)
+    # supplierid = models.ForeignKey(Supplier, on_delete=models.÷, related_name="supplierid")
+    # inventoryid = models.ForeignKey(Inventory, on_delete=models.DO_NOTHING, related_name="inventoryid")

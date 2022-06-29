@@ -703,7 +703,7 @@
             id="ViewCafeteriaPurchasesModal">
             <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
             <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
-                <span>Single Item Purchase</span>
+                <span>Return Item</span>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded  hover: hover:text-gray-700"
                     aria-label="close" @click="closeCafeteriaPurchasesModel()">
@@ -715,73 +715,78 @@
                 </button>
             </header>
             <!-- Modal body -->
-            <div class="bg-white p-1">
-                <div class=" grid grid-cols-2 gap-1">
-                    <!-- Left -->
-                    <div class="p-1 border border-gray-500">
-                        <div class="flex flex-col">
-                            <label for="">Item Code</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-code">
-                        </div>
-                        <div class="flex flex-col">
-                            <label for="">Item Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-name">
-                        </div>
-                        <!-- <div class="flex flex-col">
+            <form action="{% url 'purchases' %}" method="post">
+                {% csrf_token %}
+                <div class="bg-white p-1">
+
+                    <div class=" grid grid-cols-2 gap-1">
+                        <!-- Left -->
+
+                        <div class="p-1 border border-gray-500">
+                            <div class="flex flex-col">
+                                <label for="">Item Code</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-code">
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="">Item Name</label>
+                                <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-name">
+                            </div>
+                            <!-- <div class="flex flex-col">
                             <label for="" class="">Unit of Measure</label>
                             <select name="" id="" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner">
                                 <option value=""></option>
                                 <option value="">Nos</option>
                             </select>
                         </div> -->
-                        <div class="flex flex-col">
-                            <label for="">Unit Price</label>
-                            <input type="text" id="model-item-unit-price"
-                                class="h-7 rounded-md text-right shadow-inner">
-                        </div>
-                        <!-- <div class="flex flex-row pt-1">
+                            <div class="flex flex-col">
+                                <label for="">Unit Price</label>
+                                <input type="text" name="unit-price" id="model-item-unit-price"
+                                    class="h-7 rounded-md text-right shadow-inner">
+                            </div>
+                            <!-- <div class="flex flex-row pt-1">
                             <input type="checkbox" class="m-1 rounded-md shadow-inner">
                             <label for="">Price Inclusive Sale Tax</label>
                         </div> -->
 
-                        <!-- <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                             <label for="">Unit Tax</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
                         </div> -->
 
-                        <!-- <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                             <label for="">Unit Net Price</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
                         </div> -->
 
-                        <div class="flex flex-col">
-                            <label for="">Purchased Quantity</label>
-                            <input type="text" id="model-item-quantity" class="h-7 rounded-md text-right shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Purchased Quantity</label>
+                                <input type="text" id="model-item-quantity"
+                                    class="h-7 rounded-md text-right shadow-inner">
+                            </div>
 
-                        <!-- <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                             <label for="">Sub Total</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
                         </div> -->
 
-                        <!-- <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                             <label for="">Tax Total</label>
                             <input type="text" class="h-7 rounded-md text-right shadow-inner" value="0">
                         </div> -->
 
-                        <div class="flex flex-col">
-                            <label for="">Item Total Price</label>
-                            <input type="text" id="model-item-total" class="h-7 rounded-md text-right shadow-inner"
-                                value="0">
+                            <div class="flex flex-col">
+                                <label for="">Item Total Price</label>
+                                <input type="text" id="model-item-total" name="total-price"
+                                    class="h-7 rounded-md text-right shadow-inner" value="0">
+                            </div>
+
                         </div>
+                        <!-- Right -->
+                        <div class="p-1 border border-gray-500">
 
-                    </div>
-                    <!-- Right -->
-                    <div class="p-1 border border-gray-500">
+                            <div class="flex flex-col items-center p-2 bg-white row-span-2">
 
-                        <div class="flex flex-col items-center p-2 bg-white row-span-2">
-
-                            <!-- <div class="flex flex-col">
+                                <!-- <div class="flex flex-col">
                                 <div class="w-32 h-32 mb-1 border rounded-lg overflow-hidden relative bg-gray-100">
                                     <img id="image" class="object-cover w-full h-32"
                                         src="https://placehold.co/300x300/e2e8f0/e2e8f0" />
@@ -814,22 +819,22 @@
                                     reader.readAsDataURL(file);
                                 ">
                             </div> -->
-                        </div>
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Order Number</label>
-                            <input type="text" placeholder="" id="model-order-number"
-                                class="h-7 rounded-md shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Order Number</label>
+                                <input type="text" placeholder="" name="order-number" id="model-order-number"
+                                    class="h-7 rounded-md shadow-inner">
+                            </div>
 
 
-                        <div class="flex flex-col">
-                            <label for="">Reference Number</label>
-                            <input type="text" placeholder="" id="model-reference-number"
-                                class="h-7 rounded-md shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Reference Number</label>
+                                <input type="text" placeholder="" name="reference-number" id="model-reference-number"
+                                    class="h-7 rounded-md shadow-inner">
+                            </div>
 
-                        <!-- <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                             <label for="">Supplier</label>
                             <div class="inline-flex w-full">
                                 <input type="text" placeholder="" class="h-7 rounded-md shadow-inner">
@@ -843,62 +848,63 @@
                             </div>
                         </div> -->
 
-                        <!-- <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                             <label for="">Expiry Date</label>
                             <input type="date" placeholder="" class="h-7 rounded-md shadow-inner">
                         </div> -->
 
-                        <!-- <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                             <label for="">Stock in Shop</label>
                             <input type="text" placeholder=""
                             id="model-stock-inshop" class="h-7 rounded-md shadow-inner">
                         </div> -->
 
-                        <div class="flex flex-col">
-                            <label for="">Available Stock Quantity</label>
-                            <input type="text" placeholder="" readonly id="model-available-stock"
-                                class="h-7 rounded-md shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Available Stock Quantity</label>
+                                <input type="text" placeholder="" name="available-stock" readonly
+                                    id="model-available-stock" class="h-7 rounded-md shadow-inner">
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Return Stock Quantity</label>
-                            <input type="number" placeholder="" onkeyup="returnStockQuantity(this)"
-                                id="model-return-stock" class="h-7 rounded-md shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Return Stock Quantity</label>
+                                <input type="number" placeholder="" name="return-stock"
+                                    onkeyup="returnStockQuantity(this)" id="model-return-stock"
+                                    class="h-7 rounded-md shadow-inner">
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Remaining Stock Quantity</label>
-                            <input type="text" placeholder="" id="model-remaining-stock" readonly
-                                class="h-7 rounded-md shadow-inner">
-                        </div>
+                            <div class="flex flex-col">
+                                <label for="">Remaining Stock Quantity</label>
+                                <input type="text" placeholder="" id="model-remaining-stock" readonly
+                                    class="h-7 rounded-md shadow-inner">
+                            </div>
 
-                        <div class="flex flex-col">
-                            <label for="">Remaining Item Total Price</label>
-                            <input type="text" placeholder="" id="model-remaining-price" readonly
-                                class="h-7 rounded-md shadow-inner">
+                            <div class="flex flex-col">
+                                <label for="">Remaining Item Total Price</label>
+                                <input type="text" placeholder="" id="model-remaining-price" readonly
+                                    class="h-7 rounded-md shadow-inner">
+                            </div>
+
                         </div>
 
                     </div>
-
                 </div>
 
-            </div>
+                <footer
+                    class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
 
-            <footer
-                class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
 
-                <form action="{% url 'purchases' %}" method="post">
-                    {% csrf_token %}
                     <input type="text" name="model-id" id="model-id" hidden>
-                    <button name="return-stock" value="return-stock" class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
+                    <button name="return-stock-btn" value="return-stock-btn"
+                        class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
                         Return Purchases
                     </button>
-                </form>
-                <button @click="closeCafeteriaPurchasesModel()" class="bg-blue-400 px-6 py-1 rounded-xl text-white">
-                    Close
-                </button>
 
-            </footer>
+                    <button @click="closeCafeteriaPurchasesModel()" class="bg-blue-400 px-6 py-1 rounded-xl text-white">
+                        Close
+                    </button>
+
+                </footer>
+            </form>
 
         </div>
     </div>

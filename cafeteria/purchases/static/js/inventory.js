@@ -56,21 +56,21 @@ function addInventoryItem() {
             // console.log(data)
             Object.keys(data).forEach(key => {
                 elem = data[key];
-                console.log(elem)
+                console.log(elem['supplier_id'])
 
                 document.getElementById("update-id").value = elem['id'];
                 document.getElementById("item-code").value = elem['inventory_item_id']['item_code'];
                 document.getElementById("item-name").value = elem['inventory_item_id']['item_name'];
                 document.getElementById("item-unit").value = elem['inventory_item_id']['item_unit'];
-                document.getElementById("unit-price").value = elem['inventory_unit_price'];
+                // document.getElementById("unit-price").value = elem['inventory_unit_price'];
                 document.getElementById("image").src = elem['inventory_item_id']['item_image'];
-                document.getElementById("net-price").value = elem['inventory_net_price'];
-                document.getElementById("purchased-qty").value = elem['inventory_purchased_quantity'];
+                // document.getElementById("net-price").value = elem['inventory_net_price'];
+                // document.getElementById("purchased-qty").value = elem['inventory_purchased_quantity'];
                 document.getElementById("sub-total").value = elem['inventory_stock_available'];
-                document.getElementById("item-total").value = elem['inventory_item_total'];
-                document.getElementById("order-number").value = elem['inventory_order_number'];
-                document.getElementById("reference-number").value = elem['inventory_reference_number'];
-                document.getElementById("supplier").value = elem['supplier_id']['supplier_name'];
+                // document.getElementById("item-total").value = elem['inventory_item_total'];
+                // document.getElementById("order-number").value = elem['inventory_order_number'];
+                // document.getElementById("reference-number").value = elem['inventory_reference_number'];
+                // document.getElementById("supplier").value = elem['supplier_id']['supplier_name'];
                 // document.getElementById("available-stock").value = elem['inventory_stock_in_shop'];
             });
 
@@ -103,7 +103,7 @@ function ImageLoder(data) {
 
 }
 //  calculating the total price values 
-document.getElementById("purchased-qty").onchange = function () {
+document.getElementById("purchased-qty").onkeyup = function () {
     var unit_price = document.getElementById('unit-price').value;
     var purchased = document.getElementById('purchased-qty').value;
     var total = unit_price * purchased;

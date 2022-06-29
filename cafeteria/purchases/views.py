@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from cafeteria.Items.models import NonStock
-from .models import Inventory, Purchases
+from .models import Inventory, Purchases, PurchasesReturn
 from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import InventorySerializer, PurchasesSerializer
 from django.urls import reverse
 from cafeteria.suppliers.models import Supplier
-from .functions import UpdateInventory, CustomerPurchasesSerializer
+from .functions import AddReturnPurchases, UpdateInventory, CustomerPurchasesSerializer
 from cafeteria.Items.serializer import NonStockSerializer
 # Create your views here.
 def inventory(request):
@@ -26,9 +26,10 @@ def inventory(request):
 def purchases(request):
     if request.method=="POST":
         print("purchases")
-        if request.POST.get("return-stock"):
-            print("add purchase return data")
+        if request.POST.get("return-stock-btn"):
+            # print("add purchase return data")
             print(request.POST.get("model-id"))
+            AddReturnPurchases(request)
             # UpdateInventory(request)
             return HttpResponseRedirect(reverse('purchaseReturn'))
             # HttpResponseRedirect(reverse('viewMembers'))
@@ -36,9 +37,12 @@ def purchases(request):
         return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('purchases_item_id').select_related('purchases_supplier_id').order_by('-id'),})
 
 def purchaseReturn(request):
-    print("purchaseReturn")
     
-    return render(request, "purchaseReturn.html")
+    return render(request, "purchaseReturn.html",
+    {
+        'purchases': PurchasesReturn.objects.all().select_related('purchases_id').order_by('-id'),
+    }
+    )
 
 @api_view(['GET'])
 def updateInventoryQueryCall(request):

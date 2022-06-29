@@ -82,16 +82,15 @@ def CustomerPurchasesSerializer(query):
 def AddReturnPurchases(request):
     try:
         PurchasesReturn.objects.create(
-            available_stock=request.POST.get("unit-price"),
-            return_stock=request.POST.get("net-price"),
-            tatal_price=request.POST.get("purchased-qty"),
+            available_stock=request.POST.get("available-stock"),
+            return_stock=request.POST.get("return-stock"),
+            tatal_price=int(request.POST.get("return-stock"))*int(request.POST.get("unit-price")),
             # inventory_sub_total=request.POST.get("sub-total"),
             unit_price=request.POST.get(
-                "item-total"),
-            inventoryid=request.POST.get(
-                "reference-number"),
-            supplier_id=Supplier.objects.filter(
-                supplier_name=request.POST.get("supplier-name")).first(),
+                "unit-price"),
+            purchases_id=Purchases.objects.filter(purchases_order_number=request.POST.get("order-number")).first(),
+            # supplier_id=Supplier.objects.filter(
+            #     supplier_name=request.POST.get("supplier-name")).first(),
         )
 
         # PurchasesReturn.objects.create(status='Returned', inventory_id=Inventory.objects.get(
