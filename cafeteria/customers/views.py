@@ -27,11 +27,11 @@ def updateCustomer(request):
         if request.POST.get("customer-payment"):
             print("customer payment")
             PaymentDues(request)
-            return HttpResponseRedirect(reverse("updateCustomer"))
+            return HttpResponseRedirect(reverse("updateCustomer")+"?customer="+request.POST.get('customer-id'))
     
     else:
         return render(request, "updateCustomer.html", {'customerData': CafeteriaCustomer.objects.filter(id=request.GET.get("customer")).first(),
-                                                        "payment": CustomerPayment.objects.all()})
+                                                        "payment": CustomerPayment.objects.filter(customer_id=request.GET.get('customer')).select_related('customer_id')})
 
 # api work
 @api_view(['GET'])

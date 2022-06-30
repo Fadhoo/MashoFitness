@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .functions import *
-from .models import Supplier
+from .models import Supplier, SupplierPayment
 from django.urls import  reverse
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from .serializer import SupplierSerializer
@@ -24,9 +24,13 @@ def updateSupplier(request):
             print("update supplier data")
             updateSupplierData(request)
             return HttpResponseRedirect(reverse("supplier"))
-    
+        if request.POST.get("supplier-payment"):
+            print("supplier payment")
+            PaymentDues(request)
+            return HttpResponseRedirect(reverse("updateSupplier")+"?supplier="+request.POST.get('supplier-id'))
     else:
-        return render(request, "updateSupplier.html", {'supplierData': Supplier.objects.filter(id=request.GET.get("supplier")).first()})
+        return render(request, "updateSupplier.html", {'supplierData': Supplier.objects.filter(id=request.GET.get("supplier")).first(),
+                                                        "payment": SupplierPayment.objects.filter(supplier_id=request.GET.get('supplier')).select_related('supplier_id')})  
 
 # api work
 @api_view(['GET'])

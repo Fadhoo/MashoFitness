@@ -12,3 +12,11 @@ class Supplier(models.Model):
     supplier_city = models.CharField(max_length=50)
     supplier_country = models.CharField(max_length=50)
     supplier_created_at = models.DateField(default=datetime.now)
+    supplier_dues = models.IntegerField(default=0)
+
+
+class SupplierPayment(models.Model):
+    payment_date = models.DateField(default=datetime.now)
+    payment_amount = models.IntegerField(default=0)
+    remaining_amount = models.IntegerField(default=0)
+    supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE)
