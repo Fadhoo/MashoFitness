@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from cafeteria.Items.models import NonStock
-from .models import Inventory, Purchases
+from .models import Inventory, Purchases, PurchasesReturn
 from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import InventorySerializer
+from .serializer import InventorySerializer, PurchasesSerializer
 from django.urls import reverse
 from cafeteria.suppliers.models import Supplier
-from .functions import UpdateInventory
+from .functions import AddReturnPurchases, UpdateInventory, CustomerPurchasesSerializer
 from cafeteria.Items.serializer import NonStockSerializer
 # Create your views here.
 def inventory(request):
@@ -24,10 +24,25 @@ def inventory(request):
                     })  
 
 def purchases(request):
-    return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('inventory_id')})
+    if request.method=="POST":
+        print("purchases")
+        if request.POST.get("return-stock-btn"):
+            # print("add purchase return data")
+            print(request.POST.get("model-id"))
+            AddReturnPurchases(request)
+            # UpdateInventory(request)
+            return HttpResponseRedirect(reverse('purchaseReturn'))
+            # HttpResponseRedirect(reverse('viewMembers'))
+    else:
+        return render(request, "purchases.html", {'purchases': Purchases.objects.all().select_related('purchases_item_id').select_related('purchases_supplier_id').order_by('-id'),})
 
 def purchaseReturn(request):
-    return render(request, "purchaseReturn.html")
+    
+    return render(request, "purchaseReturn.html",
+    {
+        'purchases': PurchasesReturn.objects.all().select_related('purchases_id').order_by('-id'),
+    }
+    )
 
 @api_view(['GET'])
 def updateInventoryQueryCall(request):
@@ -56,3 +71,66 @@ def addToCartNonStock(request):
         return Response(NonStockSerializer(NonStock.objects.filter(nonStock_item_name=value).first()).data)
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def search_inventory_ItemName(request):
+    if request.method == "GET":
+        name=request.GET.get("item_name")
+        print(name,'namem')
+        inventory = Inventory.objects.filter(inventory_item_id__item_name__icontains=name).select_related('inventory_item_id').order_by("-id")
+        if inventory:
+            serializer = InventorySerializer(inventory, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"message":"No inventory found"})
+
+@api_view(['GET'])
+def search_inventory_ItemCode(request):
+    if request.method == "GET":
+        code=request.GET.get("item_code")
+        # print(name,'namem')
+        inventory = Inventory.objects.filter(inventory_item_id__item_code__icontains=code).select_related('inventory_item_id').order_by("-id")
+        if inventory:
+            serializer = InventorySerializer(inventory, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"message":"No inventory found"})
+
+
+@api_view(['GET'])
+def search_purchases_supplierName(request):
+    if request.method == "GET":
+        name=request.GET.get("supplier_name")
+        print(name,'namem')
+        purchases = Purchases.objects.filter(purchases_supplier_id__supplier_name__icontains=name).select_related('purchases_item_id').select_related('purchases_supplier_id').order_by("-id")
+        if purchases:
+            serializer = PurchasesSerializer(purchases,many=True).data
+            return Response(serializer)
+        else:
+            return Response({"message":"No inventory found"})
+
+@api_view(['GET'])
+def search_purchases_orderNumber(request):
+    if request.method == "GET":
+        code=request.GET.get("order_name")
+        # print(name,'namem')
+        purchases = Purchases.objects.filter(purchases_order_number__icontains=code).select_related('purchases_item_id').select_related('purchases_supplier_id').order_by("-id")
+        if purchases:
+            serializer = PurchasesSerializer(purchases,many=True).data
+            return Response(serializer)
+        else:
+            return Response({"message":"No inventory found"})
+
+
+
+@api_view(['GET'])
+def purchaseReturnCall(request,pk):
+    if request.method == "GET":
+        # print(name,'namem')
+        purchases = Purchases.objects.filter(id=pk).select_related('purchases_item_id').select_related('purchases_supplier_id')
+        print(purchases,'purchases')
+        if purchases:
+            serializer = PurchasesSerializer(purchases,many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"message":"No inventory found"})

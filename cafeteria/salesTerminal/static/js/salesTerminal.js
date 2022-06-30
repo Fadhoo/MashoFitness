@@ -1,5 +1,7 @@
 member_id = null;
 item_name = [];
+
+
 function addToCart(id) {
     $.ajax({
         url: '/api/salesTerminal/addToCart',
@@ -429,13 +431,12 @@ function submitForm() {
             dangerMode: false,
         })
             .then((willDelete) => {
-
+                // window.alpine_data.openViewCafeteriaBillModal();
                 if (willDelete) {
                     swal("Order Completed  ", {
                         icon: "success",
                     });
-                    var myJSON = JSON.stringify({ 'data': values });
-                    console.log(myJSON);
+                    // var myJSON = JSON.stringify({ 'data': values });
                     // POST - send JSON data to Python/Django server
                     $.ajax({
                         url: "/api/CafeteriaOrderPlacement",
@@ -451,9 +452,11 @@ function submitForm() {
                         // async: false,
                         success: function () {
                             console.log('Your data is saved :)');
+                            
                             $("#myTableBody > tr").remove();
                             item_name=[];
-                            window.location.reload();
+                           
+                            // window.location.reload();
                         },
                         error: function () {
                             console.log('Error occured :(');
@@ -564,8 +567,8 @@ function cashlessCredit() {
                     swal("Order Completed  ", {
                         icon: "success",
                     });
-                    var myJSON = JSON.stringify({ 'data': values });
-                    console.log(myJSON);
+                    // var myJSON = JSON.stringify({ 'data': values });
+                    // console.log(myJSON);
                     // POST - send JSON data to Python/Django server
                     $.ajax({
                         url: "/api/CafeteriaOrderPlacementAdmin",
@@ -582,9 +585,10 @@ function cashlessCredit() {
                             console.log('Your data is saved :)');
                             $("#myTableBody > tr").remove();
                             // openViewCafeteriaBillModal();
-                            
+                            // document.dispatchEvent('checking');
                             item_name = [];
-                            window.location.reload();
+                            // document.dispatchEvent(new Event('checking'));
+                            // window.location.reload();
 
                         },
                         error: function () {
@@ -599,7 +603,41 @@ function cashlessCredit() {
 
 }
 
-const $printPaymentBill = document.querySelector("#printPaymentBill");
-$printPaymentBill.addEventListener("click", () => {
-    window.print();
-});
+function ZeroCheck(id) {
+    if (id != 0) {
+        return id;
+    }
+    else{
+        return 0;
+    }
+}
+
+
+function PrintTable() {
+    console.log('print tabel')
+    const rows = document.querySelectorAll("#myTableBody > tr");
+    if (rows.length == 0) {
+        window.alpine_data.closeCafeteriaBillModel();
+    }
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        console.log(row);
+        // $('#printTable').append(row);
+        $('#printTable').append(
+
+
+            '<tr>' +
+            // '<td class="p-1">' + row.children[1].innerHTML + '</td>' +
+            // '<td class="p-1">' + row.children[2].innerHTML + '</td>' +
+            '<td class="p-1">' + row.children[3].innerHTML + '</td>' +   
+            '<td class="p-1">' + row.children[4].innerHTML + '</td>' +
+            '<td class="p-1">' + row.children[5].innerHTML + '</td>' +
+            // '<td class="p-1">' + row.children[6].innerHTML + '</td>' +
+            // '<td class="p-1">' + row.children[7].innerHTML + '</td>' +
+            '<td class="p-1">' + ZeroCheck(row.querySelectorAll("td > input")[0].value) + '</td>' +
+            '<td class="p-1">' + row.children[8].innerHTML + '</td>' +
+            '</tr>'
+        );
+    }
+    
+   };

@@ -99,7 +99,7 @@ def CafeteriaOrderPlacementAdmin(request):
     for i in json.loads(item_name):
         obj=json.loads(i)
         c=CafeteriaCustomer.objects.filter(customer_name="Mashoo").first()
-        print(c)
+        # print(c)
         c.customer_dues=c.customer_dues+int(obj["total-price"])
         c.save()
         order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"],customer_id=c)

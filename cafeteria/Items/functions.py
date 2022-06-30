@@ -44,7 +44,7 @@ def ItemsAdd(request):
                         inventory_unit_price= 0,
                         inventory_net_price= 0,
                         inventory_purchased_quantity=0,
-                        inventory_sub_total= 0,
+                        # inventory_sub_total= 0,
                         inventory_item_total=0,
                         inventory_order_number=0,
                         inventory_reference_number=0,
