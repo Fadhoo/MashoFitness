@@ -568,13 +568,90 @@
                             </div>
                         </form>
                     </div>
-                    
+                    <div class="px-3 py-3 mb-5 mt-5 bg-white rounded-lg border-b-2 border-blue-400 shadow-md ">
+
+                        <form action="{% url 'updateSupplier'%}" method="post">
+                            {% csrf_token %}
+
+                            <div class="flex flex-row justify-between border-b border-gray-700 border-opacity-80">
+                                <p class="p-2 text-lg text-gray-600   ">
+                                    Payment
+                                </p>
+                            </div>
+
+                            <div class="grid sm:grid-cols-1 md:grid-cols-5 font-semibold gap-2">
+                                <div class="flex flex-col">
+                                    <label for=""
+                                        class="m-1  after:content-['*'] after:ml-0.5 after:text-red-600">Date</label>
+                                    <input type="date"
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200"
+                                        required name="payment-date" id="payment-date">
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for=""
+                                        class="m-1 after:ml-0.5 after:text-red-600">Dues</label>
+                                    <input type="text"
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
+                                        name="dues" id="dues" value="55" readonly>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <label for=""
+                                        class="m-1  after:ml-0.5 after:text-red-600">Paid</label>
+                                    <input type="text"
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-200" onkeyup="getPaymentChange()"
+                                        name="payment" id="payment">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="" class="m-1 after:ml-0.5 after:text-red-600">
+                                        Remaining</label>
+                                    <input type="text"
+                                        class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300" 
+                                        name="remaining" id="remaining" readonly >
+                                </div>
+
+
+                            </div>
+                            <input type="number" name="supplier-id" id="" hidden value="{{supplierData.id}}">
+                            <button 
+                            class="bg-blue-500 rounded-lg w-36 text-white shadow-md rounded-br-none py-2 float-right"
+                            name="supplier-payment" value="supplier-payment"
+                            >Add Payment</button>
+
+                        </form>
+                    </div>
+                    <input type="text" id="name" value="" hidden>
+                            <table class="table-auto border-gray-200 w-full" id="myTable">
+                                <thead class="border-b-2 border-gray-400">
+                                    <tr class="text-left">
+                                        <th class="p-2">Payment Id.</th>
+                                        <th class="p-2">Date</th>
+                                        <th class="p-2">Dues</th>
+                                        <th class="p-2">Paid Amount</th>
+                                        <th class="p-2">Remaining</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for bill in payment %}
+                                    <tr class="text-left text-md border-2 hover:bg-slate-300">
+                                        <td class="p-2">{{bill.id}}</td>
+                                        <td class="p-2">{{bill.payment_date}}</td>
+                                        <td class="p-2">{{bill.supplier_id.supplier_dues}}</td>
+                                        <td class="p-2">{{bill.payment_amount}}</td>
+                                        <td class="p-2">{{bill.remaining_amount}}</td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                 </div>
             </main>
 
         </div>
 
     </div>
+    <script src="{% static 'js/supplier.js' %}"></script>
 </body>
 
 </html>

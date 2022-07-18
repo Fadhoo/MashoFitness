@@ -126,3 +126,11 @@ function update_supplier_table(data){
     });
     $('#myTable tbody').html(all_rows);
 }
+
+function getPaymentChange(){
+    let dues = document.getElementById("dues").value;
+    let paidamount = document.getElementById("payment").value;
+    let remainingamount = dues - paidamount
+    document.getElementById("remaining").value = remainingamount;
+    
+};

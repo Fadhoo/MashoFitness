@@ -1,4 +1,4 @@
-from .models import Supplier
+from .models import Supplier, SupplierPayment
 from cafeteria.purchases.models import Inventory
 
 def addSupplier(request):
@@ -46,4 +46,16 @@ def updateSupplierData(request):
                         )
     except Exception as e:
         print("Error in updating supplier data", e)
+        return False
+
+def PaymentDues(request):
+    try:
+        payment_date= SupplierPayment.objects.create(payment_date=request.POST.get("payment-date"),
+                                payment_amount=request.POST.get("payment"),
+                                remaining_amount=request.POST.get("remaining"),
+                                supplier_id=Supplier.objects.filter(id=request.POST.get('supplier-id')).first())
+        payment_date.save()
+        print("payment done")
+    except Exception as e:
+        print("Error in updating customer payment", e)
         return False
