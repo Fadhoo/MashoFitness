@@ -47,6 +47,8 @@ def OrderPlaced(dictonary:dict,order:Order):
     if Items.objects.filter(item_name=dictonary["itemName"]).exists():
         inventory=Inventory.objects.get(inventory_item_id=Items.objects.get(item_name=dictonary["itemName"]))
         inventory.inventory_purchased_quantity-=int(dictonary["quantity"])
+        # inventory.inventory_stock_available-=int(dictonary["quantity"])
+        inventory.save()
     elif NonStock.objects.filter(nonStock_item_name=dictonary["itemName"]).exists():
         pass
     discount=int(dictonary["discount"]) if dictonary["discount"] else 0
@@ -54,7 +56,7 @@ def OrderPlaced(dictonary:dict,order:Order):
     quantity=int(dictonary["quantity"]) if dictonary["quantity"] else 0
     price=(price+discount)//quantity
     total=(price*quantity)-discount
-    print(price,quantity,discount,total)
+    # print(price,quantity,discount,total)
     OrderHistory.objects.create(
         order_id=order,
         order_item_name=dictonary["itemName"],

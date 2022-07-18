@@ -637,6 +637,7 @@
                                     <th class="p-1">Item </th>
                                     <th class="p-1">Supplier Name</th>
                                     <th class="p-1">Created Date</th>
+                                    <th class="p-1">Purchase Stock</th>
                                     <th class="p-1">Total</th>
                                     <th class="p-1">Status</th>
                                     <!-- <th class="p-1">Expiration Date</th> -->
@@ -664,6 +665,7 @@
                                     <td class="p-2">{{item.purchases_item_id.item_name}}</td>
                                     <td class="p-2">{{item.purchases_supplier_id.supplier_name}}</td>
                                     <td class="p-2">{{item.create_date}}</td>
+                                    <td class="p-2">{{item.purchases_purchased_quantity}}</td>
                                     <td class="p-2">{{item.purchases_item_total|intcomma}}</td>
                                     <td class="p-2">{{item.status}}</td>
 

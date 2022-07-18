@@ -452,10 +452,10 @@ function submitForm() {
                         // async: false,
                         success: function () {
                             console.log('Your data is saved :)');
-                            
+
                             $("#myTableBody > tr").remove();
-                            item_name=[];
-                           
+                            item_name = [];
+
                             // window.location.reload();
                         },
                         error: function () {
@@ -521,23 +521,6 @@ function orderDetailTable(data) {
 }
 
 function cashlessCredit() {
-    // swal({
-    //     title: "Are you sure?",
-    //     text: "Once deleted, you will not be able to recover this imaginary file!",
-    //     icon: "warning",
-    //     buttons: true,
-    //     dangerMode: true,
-    //   })
-    //   .then((willDelete) => {
-    //     if (willDelete) {
-    //       swal("Poof! Your imaginary file has been deleted!", {
-    //         icon: "success",
-    //       });
-    //     } else {
-    //       swal("Your imaginary file is safe!");
-    //     }
-    //   });
-
     console.log("success");
     var values = [];
     $('#myTableBody').find('tr').each(function () {
@@ -562,14 +545,10 @@ function cashlessCredit() {
             dangerMode: false,
         })
             .then((willDelete) => {
-
                 if (willDelete) {
                     swal("Order Completed  ", {
                         icon: "success",
                     });
-                    // var myJSON = JSON.stringify({ 'data': values });
-                    // console.log(myJSON);
-                    // POST - send JSON data to Python/Django server
                     $.ajax({
                         url: "/api/CafeteriaOrderPlacementAdmin",
                         type: "GET",
@@ -578,18 +557,11 @@ function cashlessCredit() {
                             "object": values,
                             "total-price": document.getElementById("total-price").innerHTML,
                             "total-discount": document.getElementById("total-discount").innerHTML,
-
                         }),
-                        // async: false,
                         success: function () {
                             console.log('Your data is saved :)');
                             $("#myTableBody > tr").remove();
-                            // openViewCafeteriaBillModal();
-                            // document.dispatchEvent('checking');
                             item_name = [];
-                            // document.dispatchEvent(new Event('checking'));
-                            // window.location.reload();
-
                         },
                         error: function () {
                             console.log('Error occured :(');
@@ -607,7 +579,7 @@ function ZeroCheck(id) {
     if (id != 0) {
         return id;
     }
-    else{
+    else {
         return 0;
     }
 }
@@ -629,7 +601,7 @@ function PrintTable() {
             '<tr>' +
             // '<td class="p-1">' + row.children[1].innerHTML + '</td>' +
             // '<td class="p-1">' + row.children[2].innerHTML + '</td>' +
-            '<td class="p-1">' + row.children[3].innerHTML + '</td>' +   
+            '<td class="p-1">' + row.children[3].innerHTML + '</td>' +
             '<td class="p-1">' + row.children[4].innerHTML + '</td>' +
             '<td class="p-1">' + row.children[5].innerHTML + '</td>' +
             // '<td class="p-1">' + row.children[6].innerHTML + '</td>' +
@@ -639,5 +611,5 @@ function PrintTable() {
             '</tr>'
         );
     }
-    
-   };
+
+};

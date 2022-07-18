@@ -5,11 +5,11 @@ from cafeteria.suppliers.models import Supplier
 
 
 def UpdateInventory(request):
-    print(request.POST.get("supplier-name"))
+    # print(request.POST.get("supplier-name"))
     try:
-        print("photo is selected", request.FILES)
+        # print("photo is selected", request.FILES)
         if request.FILES:
-            print("photo is selected", request.FILES['photos'])
+            # print("photo is selected", request.FILES['photos'])
             f = request.FILES["photos"]
             fs = FileSystemStorage()
             filename = fs.save(f.name, f)
@@ -17,7 +17,13 @@ def UpdateInventory(request):
             filename = "default.png"
 
         # print(request.POST.get("update-id"))
+        # print(request.POST.get("available-stock"))
+        # print(request.POST.get("item-name"))
+        # print(request.POST.get("unit-price"))
+        # print(request.POST.get("order-number"))
+        # print(request.POST.get("reference-number"))
         # print(request.POST.get("net-price"))
+        # print(request.POST.get("purchased-qty"))
         Inventory.objects.filter(id=request.POST.get("update-id")).update(
             inventory_unit_price=request.POST.get("unit-price"),
             inventory_net_price=request.POST.get("net-price"),
