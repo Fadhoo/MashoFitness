@@ -1,4 +1,5 @@
 
+import re
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -27,7 +28,7 @@ def zeroValue(value):
     else:
         return value
 
-def index(request):
+def index(request,employee_type=None):
     if request.user.is_superuser==True:
         print("super user")
         return render(request, 'index.html',
@@ -47,8 +48,11 @@ def index(request):
             'snooker_expenses':f"{zeroValue(expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
         })
     elif request.user.is_superuser==False:
-        print("employee user")
-        return render(request, 'index.html')
+        print("employee user",request)
+        if employee_type=='Cafeteria':
+            return render(request, 'pos.html',)
+        else:
+            return render(request, 'index.html')
             
     else:
         return render(request, 'login.html')
@@ -68,7 +72,7 @@ def Userlogin(request):
                         if auth:
                             print("auth")
                             login(request,auth)
-                            return index(request)
+                            return index(request, EmployeeRecord.objects.filter(id=request.user.id).first().employee_type)
                         else:
                             print("user login failed")
                             messages.error(request,"Invalid username or password")

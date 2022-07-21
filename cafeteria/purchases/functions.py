@@ -36,8 +36,8 @@ def UpdateInventory(request):
             inventory_reference_number=request.POST.get(
                 "reference-number"),
             # inventory_stock_in_shop=request.POST.get("available-stock-inshop"),
-            inventory_stock_available=request.POST.get(
-                "available-stock"),
+            inventory_stock_available=int(request.POST.get(
+                "available-stock"))+int(request.POST.get("purchased-qty")),
             supplier_id=Supplier.objects.filter(
                 supplier_name=request.POST.get("supplier-name")).first(),
         )

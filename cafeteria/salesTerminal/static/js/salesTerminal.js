@@ -126,6 +126,7 @@ $(document).ready(function () {
         currentRow.find("td:eq(5)").text(count);
         currentRow.find("td:eq(8)").text(count * col4); // get current row 4thTD
         updateCart();
+        $('#available-stock').text(parseInt($('#available-stock').text()) + 1);
         //  console.log(col4);
     });
     $("#myTable").on('click', '.add-btn', function () {
@@ -136,6 +137,9 @@ $(document).ready(function () {
         currentRow.find("td:eq(5)").text(count);
         currentRow.find("td:eq(8)").text(count * col4); // get current row 4thTD
         updateCart();
+        console.log(col4);
+        console.log($('#available-stock').text());
+        document.getElementById('available-stock').innerHTML = parseInt($('#available-stock').text()) - 1;
     });
 
 });

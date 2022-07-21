@@ -22,7 +22,7 @@ def salesTerminal(request):
     #     return HttpResponse(request,"hello")
     # else:
         return render(request, "salesTerminal.html", {
-                            "itemsData": Items.objects.all(),
+                            "itemsData": Inventory.objects.select_related("inventory_item_id").all(),
                             "nonStockItems": NonStock.objects.all(),
                             'customer': CafeteriaCustomer.objects.all(),
                             "orders": Order.objects.all().select_related("customer_id"),

@@ -15,4 +15,8 @@ urlpatterns = [
     path("api/SearchByStockField/", views.SearchByStockField, name='SearchByStockField'),
     path("api/UpdateItemQueryCall/", views.UpdateItemQueryCall, name='UpdateItemQueryCall'),
     path("api/UpdateNonStockQueryCall/", views.UpdateNonStockQueryCall, name='UpdateNonStockQueryCall'),
+    path("api/ItemCodeCheck/", views.ItemCodeCheck, name='ItemCodeCheck'),
+    path("api/ItemNameCheck/", views.ItemNameCheck, name='ItemNameCheck'),
+    path("api/NonStockItemCodeCheck/", views.NonStockItemCodeCheck, name='NonStockItemCodeCheck'),
+    path("api/NonStockItemNameCheck/", views.NonStockItemNameCheck, name='NonStockItemNameCheck'),
 ]

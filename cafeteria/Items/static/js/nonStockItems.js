@@ -58,5 +58,58 @@ function update_table(data){
     $('#myTable tbody').html(all_rows);
 }
 
+function onItemCode(data){
+    var item_code = data.value;
+    // console.log(item_code);
+    // document.getElementById("item-barcode").innerHTML = item_code;
+    JsBarcode("#barcode", item_code);
+    // console.log(JsBarcode);
+    $.ajax({
+        method: "GET",
+        url: "/api/NonStockItemCodeCheck/",
+        data: { "item_code": item_code},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#item-code').removeClass('text-red-500');
+            $('#item-code').addClass('text-green-500');
+            $('#item-code').text('Available');
+        }else{
+            $('#item-code').removeClass('text-green-500');
+            $('#item-code').addClass('text-red-500');
+            $('#item-code').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
+}
+
+function ItemNameCheck(data){
+    var item_name = data.value;
+    $.ajax({
+        method: "GET",
+        url: "/api/NonStockItemNameCheck/",
+        data: { "item_name": item_name},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#item-name').removeClass('text-red-500');
+            $('#item-name').addClass('text-green-500');
+            $('#item-name').text('Available');
+        }else{
+            $('#item-name').removeClass('text-green-500');
+            $('#item-name').addClass('text-red-500');
+            $('#item-name').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
+}
 
 
