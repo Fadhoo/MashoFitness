@@ -33,20 +33,20 @@ def salesTerminal(request):
 @api_view(['GET'])
 def searchItemInSalesTerminal(request):
     item_name = request.GET.get("item_name")
-    item_data = Items.objects.filter(item_name__icontains=item_name)
-    nonStock= NonStock.objects.filter(nonStock_item_name__icontains=item_name)
-    if item_data and nonStock:
+    data=CostomSerializer(item_name)
+    # item_data = Items.objects.filter(item_name__icontains=item_name)
+    # nonStock= NonStock.objects.filter(nonStock_item_name__icontains=item_name)
+
+    # if item_data and nonStock:
         
-        return JsonResponse({"Both":CostomSerializer(item_data,nonStock)})
-    elif item_data:
+    #     return JsonResponse({"Both":CostomSerializer(item_data,nonStock)})
+    # elif item_data:
         
-        return Response({'Stock':ItemSerializer(item_data,many=True).data})
-    elif nonStock:
-        
-        return Response({"NonStock":NonStockSerializer(nonStock,many=True).data})
+    #     return Response({'Stock':ItemSerializer(item_data,many=True).data})
+    if data:
+        return JsonResponse({"Both":data})
     else:
-        
-        return JsonResponse({"Both":CostomSerializer()})
+        return JsonResponse({"NotFound":{"item_name":item_name}})
 
 @api_view(['GET'])
 def searchbynameCafeteriaCustomer(request):

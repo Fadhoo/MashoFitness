@@ -1,38 +1,58 @@
 
+from ast import Invert
 from cafeteria.Items.models import Items, NonStock
 from cafeteria.purchases.models import Inventory
 from cafeteria.salesTerminal.models import Order, OrderHistory
 
 
 
-def CostomSerializer(stock=None,nonstock=None):
-    if stock is None:
-        stock=Items.objects.all()
-        nonstock=NonStock.objects.all()
+def CostomSerializer(item_name):
+    # if stock is None:
+    #     stock=Items.objects.all()
+    #     nonstock=NonStock.objects.all()
     data=list()
-    for i in stock:
+    if Items.objects.filter(item_name__icontains=item_name).exists():
+        for i in Inventory.objects.filter(inventory_item_id__item_name__icontains=item_name):
+            
+            data.append(
+                    {
+                'id':i.id,
+                'item_name':i.inventory_item_id.item_name,
+                'item_price':i.inventory_item_id.item_selling_price,
+                'item_category':i.inventory_item_id.item_category,
+                'item_image':i.inventory_item_id.item_image.url,
+                'item_stock':i.inventory_stock_available,
+            }
+            )
+    if NonStock.objects.filter(nonStock_item_name__icontains=item_name).exists():
+        for i in NonStock.objects.filter(nonStock_item_name__icontains=item_name):
+            data.append(
+                    {
+                'id':i.id,
+                'item_name':i.nonStock_item_name,
+                'item_price':i.nonStock_item_selling_price,
+                'item_category':i.nonStock_item_category,
+                'item_image':i.nonStock_item_image.url,
+                'item_stock':str('inf'),
+            }
+            )
+    if not data:
+        return False
+    else:
+        return data
+
+    # for i in nonstock:
         
-        data.append(
-                {
-            'id':i.id,
-            'item_name':i.item_name,
-            'item_price':i.item_selling_price,
-            'item_category':i.item_category,
-            'item_image':i.item_image.url,
-        }
-        )
-    for i in nonstock:
-        
-        data.append(
-            {
-            'id':i.id,
-            'item_name':i.nonStock_item_name,
-            'item_price':i.nonStock_item_selling_price,
-            'item_category':i.nonStock_item_category,
-            'item_image':i.nonStock_item_image.url,
-        }
-        )
-    return data
+    #     data.append(
+    #         {
+    #         'id':i.id,
+    #         'item_name':i.nonStock_item_name,
+    #         'item_price':i.nonStock_item_selling_price,
+    #         'item_category':i.nonStock_item_category,
+    #         'item_image':i.nonStock_item_image.url,
+    #     }
+    #     )
+    # return data
 
 
 def OrderPlaced(dictonary:dict,order:Order):

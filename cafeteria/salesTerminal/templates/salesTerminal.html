@@ -127,16 +127,18 @@
                                     <div onclick="addToCart('{{item.inventory_item_id.item_name}}')"
                                         class="px-3 py-3 flex flex-col hover:border-2 border-blue-200 cursor-pointer bg-gray-200 rounded-md h-32 justify-between">
                                         <div>
-                                            <div class="font-bold text-gray-800">{{item.inventory_item_id.item_name}}</div>
-                                            <span class="font-light text-sm text-gray-400">{{item.inventory_item_id.item_category}}</span>
-                                            <span class="text-sm" id="available-stock">{{ item.inventory_stock_available }}</span>
+                                            <div class="font-bold text-gray-800">{{item.inventory_item_id.item_name}}
+                                            </div>
+                                            <span
+                                                class="font-light text-sm text-gray-400">{{item.inventory_item_id.item_category}}</span>
+                                            <span class="text-sm" id="{{item.inventory_item_id.item_name}}">{{item.inventory_stock_available }}</span>
                                         </div>
 
 
                                         <div class="flex flex-row justify-between items-center">
                                             <span
                                                 class="self-end font-bold text-lg text-yellow-500">{{item.inventory_item_id.item_selling_price}}</span>
-                                            <img src="{% static 'img/wallet.png' %}"
+                                            <img src="{{ MEDIA_URL }}/{{item.inventory_item_id.item_image}}"
                                                 class="h-14 object-cover rounded-md" alt="">
                                         </div>
 
@@ -153,12 +155,15 @@
                                             <div class="font-bold text-gray-800">{{item.nonStock_item_name}}</div>
                                             <span
                                                 class="font-light text-sm text-gray-400">{{item.nonStock_item_category}}</span>
+                                            <span class="text-sm" id="{{item.nonStock_item_name}}">inf</span>
+                                            <!-- <span class="text-sm" id="{{item.inventory_item_id.item_name}}">{{ item.inventory_stock_available }}</span> -->
+
 
                                         </div>
                                         <div class="flex flex-row justify-between items-center">
                                             <span
                                                 class="self-end font-bold text-lg text-yellow-500">{{item.nonStock_item_selling_price}}</span>
-                                            <img src="{% static 'img/wallet.png' %}"
+                                            <img src="{{ MEDIA_URL }}/{{item.nonStock_item_image}}"
                                                 class="h-14 object-cover rounded-md" alt="">
                                         </div>
 
@@ -526,11 +531,11 @@
 
                     <div class="px-3 mt-3 gap-3 flex flex-row">
                         <div>
-                            <table class="table-auto border-gray-200 w-full" id="myPrintTable"  name="table-data">
+                            <table class="table-auto border-gray-200 w-full" id="myPrintTable" name="table-data">
 
                                 <thead class="border-b-2 border-gray-400  top-0 bg-red-100">
                                     <tr class=" text-sm">
-    
+
                                         <!-- <th class="p-1"></th> -->
                                         <!-- <th class="p-1">S No.</th> -->
                                         <!-- <th class="p-1">Item Code</th> -->
@@ -542,9 +547,9 @@
                                         <th class="p-1">Total Price</th>
                                     </tr>
                                 </thead>
-    
-                                <tbody class="" id="printTable" >
-                                    
+
+                                <tbody class="" id="printTable">
+
                                 </tbody>
                                 <!-- <script>
                                     var p = $(o).closest('tr');
@@ -555,7 +560,7 @@
                                 </script> -->
                             </table>
                         </div>
-                        
+
 
 
                         <!-- <div>
