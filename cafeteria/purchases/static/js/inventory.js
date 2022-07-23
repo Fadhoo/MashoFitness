@@ -68,8 +68,8 @@ function addInventoryItem() {
                 // document.getElementById("purchased-qty").value = elem['inventory_purchased_quantity'];
                 document.getElementById("sub-total").value = elem['inventory_stock_available'];
                 // document.getElementById("item-total").value = elem['inventory_item_total'];
-                // document.getElementById("order-number").value = elem['inventory_order_number'];
-                // document.getElementById("reference-number").value = elem['inventory_reference_number'];
+                // document.getElementById("order-number").value = elem['id'];
+                // document.getElementById("reference-number").value = elem['id'];
                 // document.getElementById("supplier").value = elem['supplier_id']['supplier_name'];
                 // document.getElementById("available-stock").value = elem['inventory_stock_in_shop'];
             });
@@ -207,4 +207,79 @@ function createTable(data) {
         row += "</tr>";
         $('#InventoryTable').append(row);
     }
+}
+
+function checkOrderNumber(data){
+    var item_name = data.value;
+    $.ajax({
+        method: "GET",
+        url: "/api/checkOrderNumber/",
+        data: { "item_name": item_name},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#order-number').removeClass('text-red-500');
+            $('#order-number').addClass('text-green-500');
+            $('#order-number').text('Available');
+        }else{
+            $('#order-number').removeClass('text-green-500');
+            $('#order-number').addClass('text-red-500');
+            $('#order-number').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
+}
+
+function checkOrderNumber(data){
+    var code = data.value;
+    $.ajax({
+        method: "GET",
+        url: "/api/checkOrderNumber/",
+        data: { "code": code},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#order-number').removeClass('text-red-500');
+            $('#order-number').addClass('text-green-500');
+            $('#order-number').text('Available');
+        }else{
+            $('#order-number').removeClass('text-green-500');
+            $('#order-number').addClass('text-red-500');
+            $('#order-number').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
+}
+
+function checkRefferenceNumber(data){
+    var code = data.value;
+    $.ajax({
+        method: "GET",
+        url: "/api/checkRefferenceNumber/",
+        data: { "code": code},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#reference-number').removeClass('text-red-500');
+            $('#reference-number').addClass('text-green-500');
+            $('#reference-number').text('Available');
+        }else{
+            $('#reference-number').removeClass('text-green-500');
+            $('#reference-number').addClass('text-red-500');
+            $('#reference-number').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
 }

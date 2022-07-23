@@ -614,7 +614,7 @@
                             <thead class="text-left border-2 border-gray-500">
 
                                 <tr class="">
-                                    <th class="p-1"></th>
+                                    <!-- <th class="p-1"></th> -->
                                     <th class="p-1">Code</th>
                                     <th class="p-1">Name</th>
                                     <th class="p-1">unit Of</th>
@@ -628,11 +628,9 @@
                             <tbody>
                                 {% for item in addItems %}
                                 <tr class="text-left hover:bg-red-200">
-
+<!-- 
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
-
-                                            <!-- <input type="text" value="{{item.id}}" id="row_id"> -->
                                             <span @click="openUpdateModal({{item.id}}, 'stock')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -642,7 +640,7 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td class="p-2">{{item.item_code}}</td>
                                     <td class="p-2">{{item.item_name}}</td>
                                     <td class="p-2">{{item.item_unit}}</td>
@@ -752,10 +750,14 @@
                             </div>
 
 
-                            <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                                 <label for="">Re Order Level</label>
                                 <input type="text" class="h-7 rounded-md shadow-inner text-right" value="10"
                                     name="reorder-level">
+                            </div> -->
+                            <div class="flex flex-col">
+                                <label for="">Description</label>
+                                <input type="text" class="rounded-md shadow-inner" name="item-description">
                             </div>
 
                         </div>
@@ -802,21 +804,18 @@
 
                                 <!-- <label for="" id="item-barcode">000000000</label> -->
                             </div>
-                            <div class="flex flex-col">
-                                <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
+                            <!-- <div class="flex flex-col">
+                                <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1"  >
                                     Print
                                 </button>
-                            </div>
+                            </div> -->
                             <!-- <div class="flex flex-col">
                                 <label for="">Expiry Date</label>
                                 <input type="date" placeholder="" class="h-7 p-0 rounded-md shadow-inner" 
                                 name="expiry-date" id="expiry-date">
                             </div> -->
 
-                            <div class="flex flex-col">
-                                <label for="">Description</label>
-                                <input type="text" class="rounded-md shadow-inner" name="item-description">
-                            </div>
+                            
 
                             <div class="flex flex-col">
                                 <label for="" class="">Status</label>

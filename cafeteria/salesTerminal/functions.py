@@ -1,7 +1,7 @@
 
-from ast import Invert
+# from ast import Invert
 from cafeteria.Items.models import Items, NonStock
-from cafeteria.purchases.models import Inventory
+from cafeteria.purchases.models import Inventory, Purchases
 from cafeteria.salesTerminal.models import Order, OrderHistory
 
 
@@ -67,8 +67,13 @@ def OrderPlaced(dictonary:dict,order:Order):
     if Items.objects.filter(item_name=dictonary["itemName"]).exists():
         inventory=Inventory.objects.get(inventory_item_id=Items.objects.get(item_name=dictonary["itemName"]))
         inventory.inventory_purchased_quantity-=int(dictonary["quantity"])
+        inventory.inventory_stock_available-=int(dictonary["quantity"])
         # inventory.inventory_stock_available-=int(dictonary["quantity"])
         inventory.save()
+
+        purchases=Purchases.objects.get(purchases_order_number=inventory.inventory_order_number)
+        purchases.purchases_stock_available -=int(dictonary["quantity"])
+        purchases.save()
     elif NonStock.objects.filter(nonStock_item_name=dictonary["itemName"]).exists():
         pass
     discount=int(dictonary["discount"]) if dictonary["discount"] else 0

@@ -1,4 +1,4 @@
-from pytest import Item
+# from pytest import Item
 from .models import *
 from django.core.files.storage import FileSystemStorage
 from cafeteria.suppliers.models import Supplier
@@ -54,11 +54,12 @@ def UpdateInventory(request):
             purchases_reference_number=request.POST.get(
                 "reference-number"),
             # inventory_stock_in_shop=request.POST.get("available-stock-inshop"),
-            purchases_stock_available=request.POST.get(
-                "available-stock"),
+            purchases_stock_available=int(request.POST.get(
+                "available-stock"))+int(request.POST.get("purchased-qty")),
             purchases_supplier_id=Supplier.objects.filter(
                 supplier_name=request.POST.get("supplier-name")).first(),
-            purchases_item_id=Items.objects.get(id=Inventory.objects.get(id=request.POST.get("update-id")).inventory_item_id.id)
+            purchases_item_id=Items.objects.get(id=Inventory.objects.get(
+                id=request.POST.get("update-id")).inventory_item_id.id)
         ).save()
         print("successfully updated inventory")
     except Exception as e:
@@ -87,20 +88,31 @@ def CustomerPurchasesSerializer(query):
 
 def AddReturnPurchases(request):
     try:
+        purchases = Purchases.objects.filter(
+            purchases_order_number=request.POST.get("order-number")).first()
         PurchasesReturn.objects.create(
             available_stock=request.POST.get("available-stock"),
             return_stock=request.POST.get("return-stock"),
-            tatal_price=int(request.POST.get("return-stock"))*int(request.POST.get("unit-price")),
+            tatal_price=int(request.POST.get("return-stock")) *
+            int(request.POST.get("unit-price")),
             # inventory_sub_total=request.POST.get("sub-total"),
             unit_price=request.POST.get(
                 "unit-price"),
-            purchases_id=Purchases.objects.filter(purchases_order_number=request.POST.get("order-number")).first(),
+            purchases_id=purchases,
             # supplier_id=Supplier.objects.filter(
             #     supplier_name=request.POST.get("supplier-name")).first(),
         )
+        # purchases.purchases_stock_available=int(request.POST.get("available-stock"))-int(request.POST.get("return-stock"))
+        # purchases.save()
+        inventory=Inventory.objects.filter(inventory_order_number=request.POST.get("order-number")).first()
+        inventory.inventory_stock_available-=int(request.POST.get("return-stock"))
+        inventory.save()
+            # inventory_stock_available=int(request.POST.get("available-stock"))-int(request.POST.get("return-stock")))
+        purchases.purchases_stock_available=inventory.inventory_stock_available
+        purchases.save()
 
         # PurchasesReturn.objects.create(status='Returned', inventory_id=Inventory.objects.get(
-            # id=request.POST.get("update-id"))).save()
+        # id=request.POST.get("update-id"))).save()
         print("successfully Added Return Purchases")
     except Exception as e:
         print("No data found {}".format(e))

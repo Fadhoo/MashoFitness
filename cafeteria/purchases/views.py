@@ -134,3 +134,31 @@ def purchaseReturnCall(request,pk):
             return Response(serializer.data)
         else:
             return Response({"message":"No inventory found"})
+
+@api_view(['GET'])
+def checkOrderNumber(request):
+    try:
+        code=request.GET.get("code")
+        # print(item_code)
+        if Purchases.objects.filter(purchases_order_number=code).exists():
+            # print('if')
+            return Response({"status":'fail'})
+        else:
+            # print('else')
+            return Response({"status":'success'})
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def checkRefferenceNumber(request):
+    try:
+        code=request.GET.get("code")
+        # print(item_code)
+        if Purchases.objects.filter(purchases_order_number=code).exists():
+            # print('if')
+            return Response({"status":'fail'})
+        else:
+            # print('else')
+            return Response({"status":'success'})
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})

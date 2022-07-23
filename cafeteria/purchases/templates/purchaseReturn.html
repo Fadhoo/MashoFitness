@@ -633,7 +633,7 @@
                         <table class="table-auto w-full">
                             <thead class="text-left border-2 border-gray-500">
                                 <tr class="">
-                                    <th class="p-1"></th>
+                                    <!-- <th class="p-1"></th> -->
                                     <th class="p-1">Order Number</th>
                                     <th class="p-1">Reference Number</th>
                                     <th class="p-1">Supplier</th>
@@ -649,7 +649,7 @@
                             <tbody>
                                 {% for item in purchases %}
                                 <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
+                                    <!-- <td class="p-2">
                                         <div class="float-left hover:text-red-600">
                                             <span @click="openModal({{item.id}}, 'purchase')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
@@ -660,7 +660,7 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td class="p-2">{{item.purchases_id.purchases_order_number}}</td>
                                     <td class="p-2">{{item.purchases_id.purchases_reference_number}}</td>
                                     <td class="p-2">{{item.purchases_id.purchases_supplier_id.supplier_name}}</td>
