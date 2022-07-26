@@ -2,14 +2,14 @@ function reload() {
     window.location.reload();
 }
 
-function searchInventory(value) {
+function searchPurchases(value) {
     var type = $('#searchType').find(":selected").text();
     console.log(type);
-    if (type == "Item Name") {
+    if (type == "Supllier Name") {
         $.ajax({
-            url: '/api/cafeteria/inventory/search_inventory_ItemName/',
+            url: '/api/cafeteria/purchases/search_purchases_supplierName/',
             type: 'GET',
-            data: { 'item_name': value.value },
+            data: { 'supplier_name': value.value },
             // dataType: 'json',
             success: function (data) {
                 createTable(data);
@@ -19,11 +19,11 @@ function searchInventory(value) {
             },
         });
     }
-    else if (type == "Item Code") {
+    else if (type == "Order Number") {
         $.ajax({
-            url: '/api/cafeteria/inventory/search_inventory_ItemCode/',
+            url: '/api/cafeteria/purchases/search_purchases_orderNumber/',
             type: 'GET',
-            data: { 'item_code': value.value },
+            data: { 'order_name': value.value },
             // dataType: 'json',
             success: function (data) {
                 createTable(data);

@@ -594,25 +594,25 @@
 
                                     <li class="relative">
                                         <div class="flex">
-                                            <select name="" id=""
+                                            <select name="searchType" id="searchType"
                                                 class="rounded-md bg-gray-100 text-sm h-8 outline-none border-none shadow-inner">
                                                 <option value="" class="">select search Type</option>
-                                                <option value="">Name</option>
-                                                <option value="">Code</option>
+                                                <option value="">Supllier Name</option>
+                                                <option value="">Order Number</option>
                                             </select>
                                         </div>
                                     </li>
                                     <!-- Search Item -->
                                     <li class="relative">
                                         <div class="flex flex-col w-60">
-                                            <input type="search"
+                                            <input type="search" onkeyup="searchPurchases(this)"
                                                 class="rounded-md bg-gray-100 h-8 outline-none border-none shadow-inner"
                                                 placeholder="search">
                                         </div>
                                     </li>
 
                                     <li class="relative">
-                                        <button
+                                        <button onclick="reload()"
                                             class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -1095,7 +1095,7 @@
         </div>
     </div>
     <!-- End of Product modal backdrop -->
-
+ <script src="{% static 'js/purchaseReturn.js'%}"></script>
 </body>
 
 </html>

@@ -614,7 +614,7 @@
                             <thead class="text-left border-2 border-gray-500">
 
                                 <tr class="">
-                                    <!-- <th class="p-1"></th> -->
+                                    <th class="p-1"></th>
                                     <th class="p-1">Code</th>
                                     <th class="p-1">Name</th>
                                     <th class="p-1">unit Of</th>
@@ -628,7 +628,7 @@
                             <tbody>
                                 {% for item in addItems %}
                                 <tr class="text-left hover:bg-red-200">
-<!-- 
+
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
                                             <span @click="openUpdateModal({{item.id}}, 'stock')">
@@ -640,7 +640,7 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                    </td> -->
+                                    </td>
                                     <td class="p-2">{{item.item_code}}</td>
                                     <td class="p-2">{{item.item_name}}</td>
                                     <td class="p-2">{{item.item_unit}}</td>
@@ -745,7 +745,7 @@
                             <div class="flex flex-col">
                                 <label for="" class="after:content-['*'] after:ml-0.5 after:text-red-500">Selling
                                     Price</label>
-                                <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0"
+                                <input type="text" class="h-7 text-right rounded-md shadow-inner" required
                                     name="selling-price">
                             </div>
 
@@ -880,7 +880,7 @@
             </header>
             <form action="{% url 'addItem' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="text" id="update-row-id" hidden>
+                <!-- <input type="text" id="update-row-id" hidden> -->
                 <!-- Modal body -->
                 <div class="bg-white p-1">
                     <div class=" grid grid-cols-2 gap-1">
@@ -888,18 +888,18 @@
                         <div class="p-1 border border-gray-500">
                             <div class="flex flex-col">
                                 <label for="">Item Code</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" value="" onkeyup="onItemCodeUpdate(this)"
-                                    id="item-code">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-code" required onkeyup="onItemCodeUpdate(this)"
+                                    id="update-item-code">
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Item Name</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" value=""
-                                    id="item-name">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-name" required onkeyup="ItemNameCheckUpdate(this)"
+                                    id="update-item-name">
                             </div>
                             <div class="flex flex-col">
                                 <label for="" class="">Unit of Measure</label>
-                                <select name="unit-measure" id="item-unit"
-                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
+                                <select name="update-unit-measure" id="update-unit-measure"
+                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" required>
                                     <!-- <option value="Select Units">Select</option> -->
                                     <option value="pcs">pcs</option>
                                     <option value="Glass">Glass</option>
@@ -908,8 +908,8 @@
                             </div>
                             <div class="flex flex-col">
                                 <label for="" class="">Item Category</label>
-                                <select name="item-category" id="item-category"
-                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
+                                <select name="update-item-category" id="update-item-category" required
+                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" >
                                     <!-- <option value="Select Units">Select</option> -->
                                     <option value="Food">Food</option>
                                     <option value="Cold Drinks">Cold Drinks</option>
@@ -920,26 +920,30 @@
 
                             <div class="flex flex-col">
                                 <label for="">Item Brand</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-brand" value=""
-                                    id="item-brand">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-brand"  required
+                                    id="update-item-brand">
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Manufacturer</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="manufacturer" value=""
-                                    id="item-manufacturer">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-manufacturer" required
+                                    id="update-item-manufacturer">
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Selling Price</label>
-                                <input type="text" class="h-7 text-right rounded-md shadow-inner" value=""
-                                    name="selling-price" value="" id="item-selling-price">
+                                <input type="text" class="h-7 text-right rounded-md shadow-inner" required
+                                    name="update-selling-price" id="update-selling-price">
                             </div>
-
-
+                            <div class="flex flex-col">
+                                <label for="">Description</label>
+                                <input type="text" class="rounded-md shadow-inner" name="item-description" value=""
+                                    id="update-item-description">
+                            </div>
+<!-- 
                             <div class="flex flex-col">
                                 <label for="">Re Order Level</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner text-right" value=""
+                                <input type="text" class="h-7 rounded-md shadow-inner text-right" 
                                     name="reorder-level" value="" id="item-reorder-level">
-                            </div>
+                            </div> -->
 
                         </div>
                         <!-- Right -->
@@ -982,22 +986,18 @@
                                 <svg id="barcode-update" name="update-barcode">
                                 </svg>
                             </div>
-                            <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                                 <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
                                     Print
                                 </button>
-                            </div>
+                            </div> -->
 
 
-                            <div class="flex flex-col">
-                                <label for="">Description</label>
-                                <input type="text" class="rounded-md shadow-inner" name="item-description"
-                                    id="update-item-description">
-                            </div>
+                            
 
                             <div class="flex flex-col">
                                 <label for="" class="">Status</label>
-                                <select name="status" id="update-status" value=""
+                                <select name="update-status" id="update-status" value=""
                                     class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>

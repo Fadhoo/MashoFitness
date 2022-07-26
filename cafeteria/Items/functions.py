@@ -79,13 +79,13 @@ def UpdateItem(request):
             filename="default.png"
         print(filename)
         print("update id recieved:",request.POST.get("update-id"))
-        update_item = Items.objects.filter(id=request.POST.get("update-id")).update(item_code=request.POST.get("item-code"),
-                        item_name=request.POST.get("item-name"), item_unit=request.POST.get("unit-measure"),
-                        item_category=request.POST.get("item-category"), item_brand=request.POST.get("item-brand"),
-                        item_manufacturer=request.POST.get("manufacturer"), item_selling_price=request.POST.get("selling-price"),
-                        item_reorder_level=request.POST.get("reorder-level"), item_image=filename,
-                        item_description=request.POST.get("item-description"),
-                        item_status=request.POST.get("status")
+        update_item = Items.objects.filter(id=request.POST.get("update-id")).update(item_code=request.POST.get("update-item-code"),
+                        item_name=request.POST.get("update-item-name"), item_unit=request.POST.get("update-unit-measure"),
+                        item_category=request.POST.get("update-item-category"), item_brand=request.POST.get("update-item-brand"),
+                        item_manufacturer=request.POST.get("update-item-manufacturer"), item_selling_price=request.POST.get("update-selling-price"),
+                        item_reorder_level=0, item_image=filename,
+                        item_description=request.POST.get("update-item-description"),
+                        item_status=request.POST.get("update-status")
                         )
 
         return update_item
