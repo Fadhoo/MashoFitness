@@ -1,4 +1,4 @@
-from pytest import Item
+
 from .models import *
 from django.core.files.storage import FileSystemStorage
 from cafeteria.suppliers.models import Supplier
