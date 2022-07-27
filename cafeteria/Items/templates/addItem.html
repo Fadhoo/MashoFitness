@@ -34,6 +34,7 @@
 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->
+                    {% if request.user.is_superuser %}
                     <li class="relative px-6 py-2">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="/index/">
@@ -45,6 +46,7 @@
                             <span class="ml-4">Dashboard</span>
                         </a>
                     </li>
+                    {% endif %}
 
                     <!-- POS -->
                     <li class="relative px-6 py-2 ">
@@ -629,8 +631,6 @@
 
                                     <td class="p-2">
                                         <div class="float-left hover:text-red-600">
-
-                                            <!-- <input type="text" value="{{item.id}}" id="row_id"> -->
                                             <span @click="openUpdateModal({{item.id}}, 'stock')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -706,13 +706,13 @@
                             <div class="flex flex-col">
                                 <label for="" class="after:content-['*'] after:ml-0.5 after:text-red-500">Item
                                     Code</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-code"
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" id="item-code"
                                     onkeyup="onItemCode(this)" required>
                             </div>
                             <div class="flex flex-col">
                                 <label for="" class="after:content-['*'] after:ml-0.5 after:text-red-500">Item
                                     Name</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" required>
+                                <input type="text" class="h-7 rounded-md shadow-inner" id="item-name" name="item-name" onkeyup="ItemNameCheck(this)" required>
                             </div>
                             <div class="flex flex-col">
                                 <label for="" class="">Unit of Measure</label>
@@ -745,15 +745,19 @@
                             <div class="flex flex-col">
                                 <label for="" class="after:content-['*'] after:ml-0.5 after:text-red-500">Selling
                                     Price</label>
-                                <input type="text" class="h-7 text-right rounded-md shadow-inner" value="0"
+                                <input type="text" class="h-7 text-right rounded-md shadow-inner" required
                                     name="selling-price">
                             </div>
 
 
-                            <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                                 <label for="">Re Order Level</label>
                                 <input type="text" class="h-7 rounded-md shadow-inner text-right" value="10"
                                     name="reorder-level">
+                            </div> -->
+                            <div class="flex flex-col">
+                                <label for="">Description</label>
+                                <input type="text" class="rounded-md shadow-inner" name="item-description">
                             </div>
 
                         </div>
@@ -800,21 +804,18 @@
 
                                 <!-- <label for="" id="item-barcode">000000000</label> -->
                             </div>
-                            <div class="flex flex-col">
-                                <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
+                            <!-- <div class="flex flex-col">
+                                <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1"  >
                                     Print
                                 </button>
-                            </div>
+                            </div> -->
                             <!-- <div class="flex flex-col">
                                 <label for="">Expiry Date</label>
                                 <input type="date" placeholder="" class="h-7 p-0 rounded-md shadow-inner" 
                                 name="expiry-date" id="expiry-date">
                             </div> -->
 
-                            <div class="flex flex-col">
-                                <label for="">Description</label>
-                                <input type="text" class="rounded-md shadow-inner" name="item-description">
-                            </div>
+                            
 
                             <div class="flex flex-col">
                                 <label for="" class="">Status</label>
@@ -879,7 +880,7 @@
             </header>
             <form action="{% url 'addItem' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="text" id="update-row-id" hidden>
+                <!-- <input type="text" id="update-row-id" hidden> -->
                 <!-- Modal body -->
                 <div class="bg-white p-1">
                     <div class=" grid grid-cols-2 gap-1">
@@ -887,18 +888,18 @@
                         <div class="p-1 border border-gray-500">
                             <div class="flex flex-col">
                                 <label for="">Item Code</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" value="" onkeyup="onItemCodeUpdate(this)"
-                                    id="item-code">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-code" required onkeyup="onItemCodeUpdate(this)"
+                                    id="update-item-code">
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Item Name</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" value=""
-                                    id="item-name">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-name" required onkeyup="ItemNameCheckUpdate(this)"
+                                    id="update-item-name">
                             </div>
                             <div class="flex flex-col">
                                 <label for="" class="">Unit of Measure</label>
-                                <select name="unit-measure" id="item-unit"
-                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
+                                <select name="update-unit-measure" id="update-unit-measure"
+                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" required>
                                     <!-- <option value="Select Units">Select</option> -->
                                     <option value="pcs">pcs</option>
                                     <option value="Glass">Glass</option>
@@ -907,8 +908,8 @@
                             </div>
                             <div class="flex flex-col">
                                 <label for="" class="">Item Category</label>
-                                <select name="item-category" id="item-category"
-                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
+                                <select name="update-item-category" id="update-item-category" required
+                                    class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" >
                                     <!-- <option value="Select Units">Select</option> -->
                                     <option value="Food">Food</option>
                                     <option value="Cold Drinks">Cold Drinks</option>
@@ -919,26 +920,30 @@
 
                             <div class="flex flex-col">
                                 <label for="">Item Brand</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-brand" value=""
-                                    id="item-brand">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-brand"  required
+                                    id="update-item-brand">
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Manufacturer</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="manufacturer" value=""
-                                    id="item-manufacturer">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="update-item-manufacturer" required
+                                    id="update-item-manufacturer">
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Selling Price</label>
-                                <input type="text" class="h-7 text-right rounded-md shadow-inner" value=""
-                                    name="selling-price" value="" id="item-selling-price">
+                                <input type="text" class="h-7 text-right rounded-md shadow-inner" required
+                                    name="update-selling-price" id="update-selling-price">
                             </div>
-
-
+                            <div class="flex flex-col">
+                                <label for="">Description</label>
+                                <input type="text" class="rounded-md shadow-inner" name="item-description" value=""
+                                    id="update-item-description">
+                            </div>
+<!-- 
                             <div class="flex flex-col">
                                 <label for="">Re Order Level</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner text-right" value=""
+                                <input type="text" class="h-7 rounded-md shadow-inner text-right" 
                                     name="reorder-level" value="" id="item-reorder-level">
-                            </div>
+                            </div> -->
 
                         </div>
                         <!-- Right -->
@@ -981,22 +986,18 @@
                                 <svg id="barcode-update" name="update-barcode">
                                 </svg>
                             </div>
-                            <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                                 <button class="bg-blue-500 mx-14 my-2 rounded-lg py-1">
                                     Print
                                 </button>
-                            </div>
+                            </div> -->
 
 
-                            <div class="flex flex-col">
-                                <label for="">Description</label>
-                                <input type="text" class="rounded-md shadow-inner" name="item-description"
-                                    id="update-item-description">
-                            </div>
+                            
 
                             <div class="flex flex-col">
                                 <label for="" class="">Status</label>
-                                <select name="status" id="update-status" value=""
+                                <select name="update-status" id="update-status" value=""
                                     class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner">
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>

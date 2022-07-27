@@ -33,6 +33,7 @@
                 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->
+                    {% if request.user.is_superuser %}
                     <li class="relative px-6 py-2">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="/index/">
@@ -44,6 +45,7 @@
                             <span class="ml-4">Dashboard</span>
                         </a>
                     </li>
+                    {% endif %}
                       
                     <!-- POS -->
                     <li class="relative px-6 py-2 text-red-900">
@@ -526,7 +528,8 @@
                                         <select name="supplier-status" id="status"
                                             class="rounded-md bg-gray-200 outline-none border-none shadow-inner">
                                             <option value="{{supplierData.supplier_status}}">{{supplierData.supplier_status}}</option>
-                                            <option value="{{supplierData.supplier_status}}">{{supplierData.supplier_status}}</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
                                         </select>
                                     </div>
                                     <!-- supplier name -->
@@ -593,7 +596,7 @@
                                         class="m-1 after:ml-0.5 after:text-red-600">Dues</label>
                                     <input type="text"
                                         class="rounded-md p-2 outline-none border-none shadow-inner bg-gray-300"
-                                        name="dues" id="dues" value="55" readonly>
+                                        name="dues" id="dues" value="{{supplierData.supplier_duess5}}" readonly>
                                 </div>
 
                                 <div class="flex flex-col">

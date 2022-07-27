@@ -121,3 +121,59 @@ def UpdateNonStockQueryCall(request):
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
 
+
+@api_view(['GET'])
+def ItemCodeCheck(request):
+    try:
+        item_code=request.GET.get("item_code")
+        # print(item_code)
+        if Items.objects.filter(item_code=item_code).exists():
+            # print('if')
+            return Response({"status":'fail'})
+        else:
+            # print('else')
+            return Response({"status":'success'})
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def ItemNameCheck(request):
+    try:
+        item_name=request.GET.get("item_name")
+        # print(item_code)
+        if Items.objects.filter(item_name=item_name).exists():
+            # print('if')
+            return Response({"status":'fail'})
+        else:
+            # print('else')
+            return Response({"status":'success'})
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def NonStockItemCodeCheck(request):
+    try:
+        item_code=request.GET.get("item_code")
+        # print(item_code)
+        if NonStock.objects.filter(nonStock_item_code=item_code).exists():
+            # print('if')
+            return Response({"status":'fail'})
+        else:
+            # print('else')
+            return Response({"status":'success'})
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def NonStockItemNameCheck(request):
+    try:
+        item_name=request.GET.get("item_name")
+        # print(item_code)
+        if NonStock.objects.filter(nonStock_item_name=item_name).exists():
+            # print('if')
+            return Response({"status":'fail'})
+        else:
+            # print('else')
+            return Response({"status":'success'})
+    except Exception as e:
+        return Response({"message":"No data found {}".format(e)})

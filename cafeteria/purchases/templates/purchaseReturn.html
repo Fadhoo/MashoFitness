@@ -34,6 +34,7 @@
 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->
+                    {% if request.user.is_superuser %}
                     <li class="relative px-6 py-2">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="/index/">
@@ -45,6 +46,7 @@
                             <span class="ml-4">Dashboard</span>
                         </a>
                     </li>
+                    {% endif %}
 
                     <!-- POS -->
                     <li class="relative px-6 py-2 ">
@@ -560,7 +562,7 @@
                             <div class="flex flex-col py-1">
                                 <ul class="hidden sm:flex flex-shrink-0 space-x-6">
 
-                                    <li class="relative">
+                                    <!-- <li class="relative">
                                         <button @click="openModal"
                                             class="w-32 text-lg inline-flex justify-center text-white bg-green-700 shadow-md rounded-md rounded-br-none px-1">
 
@@ -588,29 +590,29 @@
                                                     d="M12 4v16m8-8H4" />
                                             </svg>
                                         </button>
-                                    </li>
+                                    </li> -->
 
                                     <li class="relative">
                                         <div class="flex">
-                                            <select name="" id=""
+                                            <select name="searchType" id="searchType"
                                                 class="rounded-md bg-gray-100 text-sm h-8 outline-none border-none shadow-inner">
                                                 <option value="" class="">select search Type</option>
-                                                <option value="">Name</option>
-                                                <option value="">Code</option>
+                                                <option value="">Supllier Name</option>
+                                                <option value="">Order Number</option>
                                             </select>
                                         </div>
                                     </li>
                                     <!-- Search Item -->
                                     <li class="relative">
                                         <div class="flex flex-col w-60">
-                                            <input type="search"
+                                            <input type="search" onkeyup="searchPurchases(this)"
                                                 class="rounded-md bg-gray-100 h-8 outline-none border-none shadow-inner"
                                                 placeholder="search">
                                         </div>
                                     </li>
 
                                     <li class="relative">
-                                        <button
+                                        <button onclick="reload()"
                                             class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -631,7 +633,7 @@
                         <table class="table-auto w-full">
                             <thead class="text-left border-2 border-gray-500">
                                 <tr class="">
-                                    <th class="p-1"></th>
+                                    <!-- <th class="p-1"></th> -->
                                     <th class="p-1">Order Number</th>
                                     <th class="p-1">Reference Number</th>
                                     <th class="p-1">Supplier</th>
@@ -647,7 +649,7 @@
                             <tbody>
                                 {% for item in purchases %}
                                 <tr class="text-left hover:bg-red-200">
-                                    <td class="p-2">
+                                    <!-- <td class="p-2">
                                         <div class="float-left hover:text-red-600">
                                             <span @click="openModal({{item.id}}, 'purchase')">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
@@ -658,7 +660,7 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                    </td>
+                                    </td> -->
                                     <td class="p-2">{{item.purchases_id.purchases_order_number}}</td>
                                     <td class="p-2">{{item.purchases_id.purchases_reference_number}}</td>
                                     <td class="p-2">{{item.purchases_id.purchases_supplier_id.supplier_name}}</td>
@@ -1093,7 +1095,7 @@
         </div>
     </div>
     <!-- End of Product modal backdrop -->
-
+ <script src="{% static 'js/purchaseReturn.js'%}"></script>
 </body>
 
 </html>

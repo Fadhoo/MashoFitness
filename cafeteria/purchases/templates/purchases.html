@@ -34,6 +34,7 @@
 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->
+                    {% if request.user.is_superuser %}
                     <li class="relative px-6 py-2">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="/index/">
@@ -45,6 +46,7 @@
                             <span class="ml-4">Dashboard</span>
                         </a>
                     </li>
+                    {% endif %}
 
                     <!-- POS -->
                     <li class="relative px-6 py-2 ">
@@ -637,6 +639,7 @@
                                     <th class="p-1">Item </th>
                                     <th class="p-1">Supplier Name</th>
                                     <th class="p-1">Created Date</th>
+                                    <th class="p-1">Purchase Stock</th>
                                     <th class="p-1">Total</th>
                                     <th class="p-1">Status</th>
                                     <!-- <th class="p-1">Expiration Date</th> -->
@@ -664,6 +667,7 @@
                                     <td class="p-2">{{item.purchases_item_id.item_name}}</td>
                                     <td class="p-2">{{item.purchases_supplier_id.supplier_name}}</td>
                                     <td class="p-2">{{item.create_date}}</td>
+                                    <td class="p-2">{{item.purchases_purchased_quantity}}</td>
                                     <td class="p-2">{{item.purchases_item_total|intcomma}}</td>
                                     <td class="p-2">{{item.status}}</td>
 
@@ -725,11 +729,11 @@
                         <div class="p-1 border border-gray-500">
                             <div class="flex flex-col">
                                 <label for="">Item Code</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-code">
+                                <input type="text" class="h-7 rounded-md shadow-inner" readonly id="model-item-code">
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Item Name</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" id="model-item-name">
+                                <input type="text" class="h-7 rounded-md shadow-inner" readonly id="model-item-name">
                             </div>
                             <!-- <div class="flex flex-col">
                             <label for="" class="">Unit of Measure</label>
@@ -740,8 +744,8 @@
                         </div> -->
                             <div class="flex flex-col">
                                 <label for="">Unit Price</label>
-                                <input type="text" name="unit-price" id="model-item-unit-price"
-                                    class="h-7 rounded-md text-right shadow-inner">
+                                <input type="text" name="unit-price" id="model-item-unit-price" readonly
+                                    class="h-7 rounded-md text-right shadow-inner"> 
                             </div>
                             <!-- <div class="flex flex-row pt-1">
                             <input type="checkbox" class="m-1 rounded-md shadow-inner">
@@ -760,7 +764,7 @@
 
                             <div class="flex flex-col">
                                 <label for="">Purchased Quantity</label>
-                                <input type="text" id="model-item-quantity"
+                                <input type="text" id="model-item-quantity" readonly
                                     class="h-7 rounded-md text-right shadow-inner">
                             </div>
 
@@ -776,7 +780,7 @@
 
                             <div class="flex flex-col">
                                 <label for="">Item Total Price</label>
-                                <input type="text" id="model-item-total" name="total-price"
+                                <input type="text" id="model-item-total" name="total-price" readonly
                                     class="h-7 rounded-md text-right shadow-inner" value="0">
                             </div>
 
@@ -823,14 +827,14 @@
 
                             <div class="flex flex-col">
                                 <label for="">Order Number</label>
-                                <input type="text" placeholder="" name="order-number" id="model-order-number"
+                                <input type="text" placeholder="" name="order-number" id="model-order-number" readonly
                                     class="h-7 rounded-md shadow-inner">
                             </div>
 
 
                             <div class="flex flex-col">
                                 <label for="">Reference Number</label>
-                                <input type="text" placeholder="" name="reference-number" id="model-reference-number"
+                                <input type="text" placeholder="" name="reference-number" id="model-reference-number" readonly
                                     class="h-7 rounded-md shadow-inner">
                             </div>
 

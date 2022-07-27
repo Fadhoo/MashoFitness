@@ -32,6 +32,7 @@
                 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->
+                    {% if request.user.is_superuser %}
                     <li class="relative px-6 py-2">
                         <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-red-700 "
                             href="/index/">
@@ -43,6 +44,7 @@
                             <span class="ml-4">Dashboard</span>
                         </a>
                     </li>
+                    {% endif %}
                       
                     <!-- POS -->
                     <li class="relative px-6 py-2">
@@ -683,12 +685,12 @@
                         <div class="p-1 border border-gray-500">
                             <div class="flex flex-col">
                                 <label for="">Item Code</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" 
+                                <input type="text" class="h-7 rounded-md shadow-inner" id="item-code" onkeyup="onItemCode(this)"
                                 name="item-code" >
                             </div>
                             <div class="flex flex-col">
                                 <label for="">Item Name</label>
-                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-name">
+                                <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" id="item-name" onkeyup="ItemNameCheck(this)" required>
                             </div>
                             <div class="flex flex-col">
                                 <label for=""  class="">Unit of Measure</label>
@@ -1012,6 +1014,7 @@
     </div>
     <script src="{% static 'js/items.js'%}"></script>
     <script src="{% static 'js/nonStockItems.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
 </body>
 
 </html>

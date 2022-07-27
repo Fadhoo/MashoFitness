@@ -16,6 +16,8 @@ urlpatterns = [
     path("api/cafeteria/purchases/search_purchases_supplierName/",views.search_purchases_supplierName,name="purchases supplier search"),
     path("api/cafeteria/purchases/search_purchases_orderNumber/",views.search_purchases_orderNumber,name="purchases order search"),
     path("api/cafeteria/purchases/return/<int:pk>",views.purchaseReturnCall,name="purchases return id call"),
+    path("api/checkOrderNumber/",views.checkOrderNumber,name="checkOrderNumber"),
+    path("api/checkRefferenceNumber/",views.checkRefferenceNumber,name="checkRefferenceNumber"),
 
 
 

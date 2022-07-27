@@ -44,7 +44,7 @@
         </div>
         <form action="{% url 'login'%}" method="post">
             {% csrf_token %}
-            <div class="flex bg-gray-200 rounded-md my-10 mx-auto flex-col w-1/4 shadow-lg p-5 gap-4">
+            <div class="flex bg-gray-200 rounded-md my-10 sm:mx-auto mx-5 flex-col   sm:w-1/4 shadow-lg p-5 gap-4">
                 <div class="mx-auto">
                     <span class="font-serif text-xl font-semibold text-zinc-600">Login Here</span>
                 </div>
@@ -65,7 +65,7 @@
                     </button>
                 </div>
             </div>
-            <div class="flex bg-gray-200 rounded-md my-10 mx-auto flex-col w-1/4 shadow-lg p-5 gap-4 align-baseline text-center">
+            <div class="flex bg-gray-200 rounded-md my-10 sm:mx-auto flex-col sm:w-1/4 shadow-inner p-5 mx-5 gap-4 align-baseline text-center">
                 <p class="align-middle text-orange-700 text-3xl font-mono "><a href="https://www.ownsofttech.com/" target="_blank">OwnSoftTech</a></p>
                 <p class="align-middle text-blue-500 text-sm font-mono ">Commited to Serve Excellence</p>
             </div>
