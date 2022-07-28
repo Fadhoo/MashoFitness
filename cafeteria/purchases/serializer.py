@@ -3,7 +3,7 @@
 from rest_framework import serializers
 from cafeteria.suppliers.serializer import SupplierSerializer
 # from cafeteria.suppliers.models import Supplier
-from .models import Inventory , Purchases
+from .models import Inventory , Purchases, PurchasesReturn
 from cafeteria.Items.serializer import ItemSerializer
 
 class InventorySerializer(serializers.ModelSerializer):
@@ -28,3 +28,10 @@ class PurchasesSerializer(serializers.ModelSerializer):
     #     job_category = Inventory.objects.get(id=job_category_id) # get the object from db
     #     serialized_data['supplier_name'] = job_category.supplier_id.supplier_name # replace id with category name
         # return serialized_data # return modified serialized data
+
+
+class PurchasesReturnSerializer(serializers.ModelSerializer):
+    purchases_id = PurchasesSerializer(read_only=True)
+    class Meta:
+        model=PurchasesReturn
+        fields='__all__'

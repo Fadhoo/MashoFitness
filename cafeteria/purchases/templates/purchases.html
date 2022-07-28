@@ -30,7 +30,12 @@
         <aside
             class="z-20 hidden w-56 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
             <div class="py-4 text-gray-600 ">
+                {% if request.user.is_superuser %}
                 <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% else %}
+
+                <a href="#" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% endif %}
 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->

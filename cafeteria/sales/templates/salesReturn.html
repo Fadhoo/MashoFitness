@@ -52,7 +52,12 @@
     <aside
       class="z-20 hidden w-56 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white md:block flex-shrink-0">
       <div class="py-4 text-gray-600">
-        <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+        {% if request.user.is_superuser %}
+                <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% else %}
+
+                <a href="#" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% endif %}
 
         <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
           <!-- DASHBOARD -->
@@ -632,7 +637,7 @@
       <main class="h-full overflow-y-auto">
         <div class=" mx-auto grid">
           <h2 class="my-1 text-2xl text-center font-semibold text-gray-700 ">
-            Sales
+            Sales Return
           </h2>
           <div class=" bg-gray-200 rounded-none ">
             <div class="grid grid-cols-6 gap-5 p-1 bg-white">
@@ -674,7 +679,7 @@
             <table class="table-auto w-full" id="salesTable">
               <thead class="text-left border-2 border-gray-500">
                 <tr class="">
-                  <th class="p-1"></th>
+                  <!-- <th class="p-1"></th> -->
                   <th class="p-1">Invoice No.</th>
                   <th class="p-1">Customer</th>
                   <th class="p-1">Date</th>
@@ -687,31 +692,31 @@
               </thead>
 
               <tbody>
-                {% for order in salesReturn %}
+                {% for return in salesReturn %}
                 <tr class="text-left hover:bg-red-200">
-                  <td class="p-2">
-                    <span onclick="rowSelected('{{order.id}}')" @click="openViewCafeteriaSalesModal">
+                  <!-- <td class="p-2">
+                    <span onclick="rowSelected('{{return.id}}')" @click="openViewCafeteriaSalesModal">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                       </svg>
                     </span>
-                  </td>
-                  <td class='p-2'>{{order.id}}</td>
-                  {% if order.customer_id.customer_name != None %}
-                  <td class="p-2">{{order.customer_id.customer_name}}</td>
+                  </td> -->
+                  <td class='p-2'>{{return.order_id.id}}</td>
+                  {% if return.order_id.customer_id.customer_name != None %}
+                  <td class="p-2">{{return.order_id.customer_id.customer_name}}</td>
                   {% else %}
                   <td class="p-2">Walking Customer</td>
                   {% endif %}
-                  <td class="p-2">{{order.order_date}}</td>
-                  <td class="p-2">{{order.order_total_price}}</td>
+                  <td class="p-2">{{return.order_id.salesReturn_date}}</td>
+                  <td class="p-2">{{return.order_id.order_total_price}}</td>
                   <td class="p-2">
-                    {{order.order_total_discount}}
+                    {{return.order_id.order_total_discount}}
                   </td>
-                  <td class="p-2">{{order.order_total_price|sub:order.order_total_discount}}</td>
+                  <td class="p-2">{{return.order_id.order_total_price|sub:return.order_id.order_total_discount}}</td>
                   <!-- <td class="p-2">good</td> -->
-                  <td class="p-2">{{order.order_status}}</td>
+                  <td class="p-2">{{return.order_id.order_status}}</td>
 
 
                 </tr>
@@ -733,12 +738,11 @@
   </div>
 
   <!-- Modal backdrop. This what you want to place close to the closing body tag -->
-  <div x-show="isViewCafeteriaSalesModalOpen" x-transition:enter="transition ease-out duration-150"
+  <!-- <div x-show="isViewCafeteriaSalesModalOpen" x-transition:enter="transition ease-out duration-150"
     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
     x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
     class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
-    <!-- Modal -->
     <div x-show="isViewCafeteriaSalesModalOpen" x-transition:enter="transition ease-out duration-150"
       x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100"
       x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
@@ -746,7 +750,6 @@
       @keydown.escape="closeModal"
       class="w-full h-11/12 overflow-auto bg-white rounded-t-lg  sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog"
       id="ViewCafeteriaSalesModal">
-      <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
       <header class="sticky top-0 px-2 font-bold flex justify-between bg-blue-200">
         <span>Sales Item</span>
         <button
@@ -759,10 +762,8 @@
           </svg>
         </button>
       </header>
-      <!-- Modal body -->
       <div class="bg-white p-1">
         <div class=" grid grid-cols-2 gap-1">
-          <!-- Left -->
           <div class="p-1 border border-gray-500">
             <div class="flex flex-col">
               <label for="">Sub Total</label>
@@ -778,7 +779,6 @@
             </div>
 
           </div>
-          <!-- Right -->
           <div class="p-1 border border-gray-500">
 
             <div class="flex flex-col">
@@ -805,16 +805,7 @@
 
       <footer
         class="sticky bottom-0 py-1 flex flex-col items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-blue-200 ">
-        <!-- <form action="{% url 'salesReturn'%}" method="post">
-                    {% csrf_token %}
-                    <input type="text" hidden 
-                    class="h-7 bg-gray-300 rounded-md shadow-inner"
-                    id="sale-return-id" name="sale-return-id" readonly>
-                <button name="btn-salesReturn" id="btn-salesReturn" value="btn-salesReturn"
-                    class="bg-blue-900 px-6 py-1 rounded-xl text-white ">
-                    Sale Return
-                </button>
-            </form> -->
+  
         <button class="bg-blue-500 px-6 py-1 rounded-xl text-white ">
           Save
         </button>
@@ -825,7 +816,7 @@
       </footer>
 
     </div>
-  </div>
+  </div> -->
   <!-- End of modal backdrop -->
   <script src="{% static 'js/salesReturn.js'%}"></script>
 </body>

@@ -96,41 +96,7 @@ function update_query_call(id){
     })
 }
 
-// function on NonStock Item Code Update
-function update_query_call_nonstock(id){
-    $.ajax({
-        method: "GET",
-        url: "/api/UpdateNonStockQueryCall/",
-        data: { "nonStock-id": id},
-        success: function (data) {
-            Object.keys(data).forEach(key => {
-            elem = data[key];
-            console.log(elem['nonStock_item_image']);
-            
-            document.getElementById("update-id").value=elem['id'];
 
-            document.getElementById("item-code").value=elem['nonStock_item_code'];
-            document.getElementById("item-name").value=elem['nonStock_item_name'];
-            document.getElementById("item-unit").value=elem['nonStock_item_unit'];
-            document.getElementById("item-category").value=elem['nonStock_item_category'];
-            document.getElementById("item-brand").value=elem['nonStock_item_brand'];
-            document.getElementById("item-manufacturer").value=elem['nonStock_item_manufacturer'];
-            document.getElementById("purchase-price").value=elem['nonStock_item_purchase_price'];
-            document.getElementById("item-selling-price").value=elem['nonStock_item_selling_price'];
-            document.getElementById("update-status").value=elem['nonStock_item_status'];
-            document.getElementById("update-image").src=elem['nonStock_item_image'];
-            document.getElementById("item-description").value=elem['nonStock_item_description'];
-            // document.getElementById("item-barcode").value=elem['item_code'];
-
-            });
-            
-        },
-        error: function () {
-            console.log('error');
-        }
-
-    })
-}
 
 
 function onItemCode(data){

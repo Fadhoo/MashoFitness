@@ -69,17 +69,17 @@ function update_query_call(id){
         success: function (data) {
             Object.keys(data).forEach(key => {
             elem = data[key];
-            console.log(elem['item_image'])
+            // console.log(elem['item_image'])
             
             document.getElementById("update-id").value=elem['id'];
-            document.getElementById("item-code").value=elem['item_code'];
-            document.getElementById("item-name").value=elem['item_name'];
-            document.getElementById("item-unit").value=elem['item_unit'];
-            document.getElementById("item-brand").value=elem['item_brand'];
-            document.getElementById("item-category").value=elem['item_category'];
-            document.getElementById("item-manufacturer").value=elem['item_manufacturer'];
-            document.getElementById("item-selling-price").value=elem['item_selling_price'];
-            document.getElementById("item-reorder-level").value=elem['item_reorder_level'];
+            document.getElementById("update-item-code").value=elem['item_code'];
+            document.getElementById("update-item-name").value=elem['item_name'];
+            document.getElementById("update-unit-measure").value=elem['item_unit'];
+            document.getElementById("update-item-brand").value=elem['item_brand'];
+            document.getElementById("update-item-category").value=elem['item_category'];
+            document.getElementById("update-item-manufacturer").value=elem['item_manufacturer'];
+            document.getElementById("update-selling-price").value=elem['item_selling_price'];
+            // document.getElementById("item-reorder-level").value=elem['item_reorder_level'];
             document.getElementById("update-image").src=elem['item_image'];
             // document.getElementById("item-barcode").value=elem['item_code'];
             document.getElementById("update-item-description").value=elem['item_description'];
@@ -96,50 +96,64 @@ function update_query_call(id){
     })
 }
 
-// function on NonStock Item Code Update
-function update_query_call_nonstock(id){
-    $.ajax({
-        method: "GET",
-        url: "/api/UpdateNonStockQueryCall/",
-        data: { "nonStock-id": id},
-        success: function (data) {
-            Object.keys(data).forEach(key => {
-            elem = data[key];
-            console.log(elem['nonStock_item_image']);
-            
-            document.getElementById("update-id").value=elem['id'];
 
-            document.getElementById("item-code").value=elem['nonStock_item_code'];
-            document.getElementById("item-name").value=elem['nonStock_item_name'];
-            document.getElementById("item-unit").value=elem['nonStock_item_unit'];
-            document.getElementById("item-category").value=elem['nonStock_item_category'];
-            document.getElementById("item-brand").value=elem['nonStock_item_brand'];
-            document.getElementById("item-manufacturer").value=elem['nonStock_item_manufacturer'];
-            document.getElementById("purchase-price").value=elem['nonStock_item_purchase_price'];
-            document.getElementById("item-selling-price").value=elem['nonStock_item_selling_price'];
-            document.getElementById("update-status").value=elem['nonStock_item_status'];
-            document.getElementById("update-image").src=elem['nonStock_item_image'];
-            document.getElementById("item-description").value=elem['nonStock_item_description'];
-            // document.getElementById("item-barcode").value=elem['item_code'];
-
-            });
-            
-        },
-        error: function () {
-            console.log('error');
-        }
-
-    })
-}
 
 
 function onItemCode(data){
     var item_code = data.value;
-    console.log(item_code);
+    // console.log(item_code);
     // document.getElementById("item-barcode").innerHTML = item_code;
     JsBarcode("#barcode", item_code);
+    // console.log(JsBarcode);
+    $.ajax({
+        method: "GET",
+        url: "/api/ItemCodeCheck/",
+        data: { "item_code": item_code},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#item-code').removeClass('text-red-500');
+            $('#item-code').addClass('text-green-500');
+            $('#item-code').text('Available');
+        }else{
+            $('#item-code').removeClass('text-green-500');
+            $('#item-code').addClass('text-red-500');
+            $('#item-code').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
     
 }
+
+function ItemNameCheck(data){
+    var item_name = data.value;
+    $.ajax({
+        method: "GET",
+        url: "/api/ItemNameCheck/",
+        data: { "item_name": item_name},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#item-name').removeClass('text-red-500');
+            $('#item-name').addClass('text-green-500');
+            $('#item-name').text('Available');
+        }else{
+            $('#item-name').removeClass('text-green-500');
+            $('#item-name').addClass('text-red-500');
+            $('#item-name').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
+}
+
+
 function onItemCodeUpdate(data){
     var item_code = data.value;
     console.log(item_code);
@@ -159,3 +173,56 @@ function ImageLoder(data){
     reader.readAsDataURL(file);
 }
 
+function onItemCodeUpdate(data){
+    var item_code = data.value;
+    // console.log(item_code);
+    // document.getElementById("item-barcode").innerHTML = item_code;
+    JsBarcode("#barcode", item_code);
+    // console.log(JsBarcode);
+    $.ajax({
+        method: "GET",
+        url: "/api/ItemCodeCheck/",
+        data: { "item_code": item_code},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#update-item-code').removeClass('text-red-500');
+            $('#update-item-code').addClass('text-green-500');
+            $('#update-item-code').text('Available');
+        }else{
+            $('#update-item-code').removeClass('text-green-500');
+            $('#update-item-code').addClass('text-red-500');
+            $('#update-item-code').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
+}
+
+function ItemNameCheckUpdate(data){
+    var item_name = data.value;
+    $.ajax({
+        method: "GET",
+        url: "/api/ItemNameCheck/",
+        data: { "item_name": item_name},
+        success: function (data) {
+        // console.log(data);
+        if(data['status']=='success'){
+            $('#update-item-name').removeClass('text-red-500');
+            $('#update-item-name').addClass('text-green-500');
+            $('#update-item-name').text('Available');
+        }else{
+            $('#update-item-name').removeClass('text-green-500');
+            $('#update-item-name').addClass('text-red-500');
+            $('#update-item-name').text('Not Available');
+        }
+        },
+        error: function () {
+            console.log('error');
+        }
+    });
+    
+}

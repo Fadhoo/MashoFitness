@@ -8,19 +8,13 @@ from cafeteria.customers.serializer import CustomerSerializer
 import json
 
 from cafeteria.customers.models import CafeteriaCustomer
+from cafeteria.sales.models import Sales
 from .models import Order
 from .serializer import OrderHistorySerializer, OrderSerializer
 from .functions import *
 # Create your views here.
 
 def salesTerminal(request):
-    # print("sales terminal")
-    # if request.method == "POST":
-    #     print("post")
-    #     # if request.POST.get("add-item-data"):
-    #     print("table data", request.POST.getlist("helloworld[]"))
-    #     return HttpResponse(request,"hello")
-    # else:
         return render(request, "salesTerminal.html", {
                             "itemsData": Inventory.objects.select_related("inventory_item_id").all(),
                             "nonStockItems": NonStock.objects.all(),
@@ -34,15 +28,6 @@ def salesTerminal(request):
 def searchItemInSalesTerminal(request):
     item_name = request.GET.get("item_name")
     data=CostomSerializer(item_name)
-    # item_data = Items.objects.filter(item_name__icontains=item_name)
-    # nonStock= NonStock.objects.filter(nonStock_item_name__icontains=item_name)
-
-    # if item_data and nonStock:
-        
-    #     return JsonResponse({"Both":CostomSerializer(item_data,nonStock)})
-    # elif item_data:
-        
-    #     return Response({'Stock':ItemSerializer(item_data,many=True).data})
     if data:
         return JsonResponse({"Both":data})
     else:
@@ -111,6 +96,7 @@ def CafeteriaOrderPlacement(request):
             order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"],customer_id=c)
         else:
             order=Order.objects.create(order_total_discount=obj["total-discount"],order_total_price=obj["total-price"])
+        Sales.objects.create(order_id=order)
         for j in obj["object"]:
             OrderPlaced(dict(j),order)
     return Response({'message':'success'})

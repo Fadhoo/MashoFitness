@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from numpy import average
+from cafeteria.sales.models import Sales, SalesReturn
+from cafeteria.sales.serializer import SalesReturnSerializer, SalesSerializer
 from cafeteria.salesTerminal.models import Order, OrderHistory
 from django.urls import reverse
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
@@ -16,7 +18,7 @@ def sales(request):
         pass
     else:
         return render(request, "sales.html",{
-            "sales":Order.objects.filter(order_status='Completed').select_related('customer_id').order_by("-id")
+            "sales":Sales.objects.all().select_related('order_id').order_by("-id")
         })
 
 
@@ -24,19 +26,25 @@ def salesReturn(request):
     if request.method == "POST":
         if request.POST.get("btn-salesReturn"):
             print("salesReturn",request.POST.get("sale-return-id"))
-            order = Order.objects.get(id=request.POST.get("sale-return-id"))
-            if order.customer_id:
-                CafeteriaCustomer.objects.filter(id=order.customer_id.id).update(
-                    customer_dues=order.customer_id.customer_dues-order.order_total_price
+            sale = Sales.objects.get(id=request.POST.get("sale-return-id"))
+            if sale.order_id.customer_id:
+                CafeteriaCustomer.objects.filter(id=sale.order_id.customer_id.id).update(
+                    customer_dues=sale.order_id.customer_id.customer_dues-sale.order_id.order_total_price
                 )
-            order.order_status = "Returned"
+            order=Order.objects.get(id=sale.order_id.id)
+            order.order_status="Returned"
             order.save()
+            Sales.objects.filter(id=sale.id).get().delete()
+            SalesReturn.objects.create(
+                order_id=order
+            )
+            # order.save()
             return HttpResponseRedirect(reverse("salesReturn"))
 
     else:
         return render(
             request, "salesReturn.html",{
-                "salesReturn":Order.objects.filter(order_status='Returned').select_related('customer_id').order_by("-id")
+                "salesReturn":SalesReturn.objects.all().select_related('order_id').order_by("-id")
                 }
             )
 
@@ -45,9 +53,9 @@ def salesReturn(request):
 @api_view(['GET'])
 def GetsalesApi(request,pk):
     if request.method == "GET":
-        sales = Order.objects.filter(order_status='Completed').filter(id=pk).select_related('customer_id').order_by("-id")
+        sales = Sales.objects.filter(id=pk).order_by("-id")
         if sales:
-            serializer = OrderSerializer(sales, many=True)
+            serializer = SalesSerializer(sales, many=True)
             return Response(serializer.data)
         else:
             return Response({"message":"No sales found"})
@@ -55,9 +63,9 @@ def GetsalesApi(request,pk):
 @api_view(['GET'])
 def GetsalesInvoiceIDsearchApi(request,pk):
     if request.method == "GET":
-        sales = Order.objects.filter(order_status='Completed').filter(id=pk).select_related('customer_id').order_by("-id")
+        sales = Sales.objects.filter(id=pk).select_related('order_id').order_by("-id")
         if sales:
-            serializer = OrderSerializer(sales, many=True)
+            serializer = SalesSerializer(sales, many=True)
             return Response(serializer.data)
         else:
             return Response({"message":"No sales found"})
@@ -67,9 +75,9 @@ def GetsalesCustomerSearchApi(request):
     if request.method == "GET":
         name=request.GET.get("customer_name")
         print(name,'namem')
-        sales = Order.objects.filter(order_status='Completed').filter(customer_id__customer_name__icontains=name).select_related('customer_id').order_by("-id")
+        sales = Sales.objects.filter(order_id__customer_id__customer_name__icontains=name).select_related('order_id').order_by("-id")
         if sales:
-            serializer = OrderSerializer(sales, many=True)
+            serializer = SalesSerializer(sales, many=True)
             return Response(serializer.data)
         else:
             return Response({"message":"No sales found"})
@@ -79,9 +87,9 @@ def GetsalesCustomerSearchApi(request):
 @api_view(['GET'])
 def GetsalesReturnApi(request,pk):
     if request.method == "GET":
-        sales = Order.objects.filter(id=pk).filter(order_status='Returned').select_related('customer_id').order_by("-id")
+        sales = SalesReturn.objects.filter(order_id__id=pk).select_related('order_id').order_by("-id")
         if sales:
-            serializer = OrderSerializer(sales, many=True)
+            serializer = SalesReturnSerializer(sales, many=True)
             return Response(serializer.data)
         else:
             return Response({"message":"No sales found"})
@@ -89,9 +97,9 @@ def GetsalesReturnApi(request,pk):
 @api_view(['GET'])
 def GetsalesReturnInvoiceIDsearchApi(request,pk):
     if request.method == "GET":
-        sales = Order.objects.filter(id=pk).filter(order_status='Returned').select_related('customer_id').order_by("-id")
+        sales = SalesReturn.objects.filter(order_id__id=pk).select_related('order_id').order_by("-id")
         if sales:
-            serializer = OrderSerializer(sales, many=True)
+            serializer = SalesReturnSerializer(sales, many=True)
             return Response(serializer.data)
         else:
             return Response({"message":"No sales found"})
@@ -101,9 +109,9 @@ def GetsalesReturnCustomerSearchApi(request):
     if request.method == "GET":
         name=request.GET.get("customer_name")
         print(name,'namem')
-        sales = Order.objects.filter(order_status='Returned').filter(customer_id__customer_name__icontains=name).select_related('customer_id').order_by("-id")
+        sales = SalesReturn.objects.filter(order_id__customer_id__customer_name__icontains=name).select_related('order_id').order_by("-id")
         if sales:
-            serializer = OrderSerializer(sales, many=True)
+            serializer = SalesReturnSerializer(sales, many=True)
             return Response(serializer.data)
         else:
             return Response({"message":"No sales found"})

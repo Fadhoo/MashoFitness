@@ -30,7 +30,12 @@
         <aside
             class="z-20 hidden w-56 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
             <div class="py-4 text-gray-600 ">
+                {% if request.user.is_superuser %}
                 <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% else %}
+
+                <a href="#" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% endif %}
 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->
@@ -630,7 +635,7 @@
 
 
 
-                        <table class="table-auto w-full">
+                        <table class="table-auto w-full" id="ReturnTable">
                             <thead class="text-left border-2 border-gray-500">
                                 <tr class="">
                                     <!-- <th class="p-1"></th> -->
@@ -668,7 +673,6 @@
                                     <td class="p-2">{{item.return_stock}}</td>
                                     <td class="p-2">{{item.tatal_price|intcomma}}</td>
                                     <td class="p-2">Returned</td>
-
 
                                 </tr>
                                 {% endfor %}
@@ -1095,7 +1099,7 @@
         </div>
     </div>
     <!-- End of Product modal backdrop -->
- <script src="{% static 'js/purchaseReturn.js'%}"></script>
+    <script src="{% static 'js/purchasesReturn.js' %}"></script>
 </body>
 
 </html>

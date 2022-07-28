@@ -4,10 +4,10 @@ from .models import Inventory, Purchases, PurchasesReturn
 from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import InventorySerializer, PurchasesSerializer
+from .serializer import InventorySerializer, PurchasesSerializer, PurchasesReturnSerializer
 from django.urls import reverse
 from cafeteria.suppliers.models import Supplier
-from .functions import AddReturnPurchases, UpdateInventory, CustomerPurchasesSerializer
+from .functions import AddReturnPurchases, UpdateInventory
 from cafeteria.Items.serializer import NonStockSerializer
 # Create your views here.
 def inventory(request):
@@ -162,3 +162,27 @@ def checkRefferenceNumber(request):
             return Response({"status":'success'})
     except Exception as e:
         return Response({"message":"No data found {}".format(e)})
+
+@api_view(['GET'])
+def search_purchasesReturn_supplierName(request):
+    if request.method == "GET":
+        name=request.GET.get("supplier_name")
+        print(name,'namem')
+        purchases = PurchasesReturn.objects.filter(purchases_id__purchases_supplier_id__supplier_name__icontains=name).select_related('purchases_id').order_by("-id")
+        if purchases:
+            serializer = PurchasesReturnSerializer(purchases,many=True).data
+            return Response(serializer)
+        else:
+            return Response({"message":"No inventory found"})
+
+@api_view(['GET'])
+def search_purchasesReturn_orderNumber(request):
+    if request.method == "GET":
+        code=request.GET.get("order_name")
+        print(code,'namem')
+        purchases = PurchasesReturn.objects.filter(purchases_id__purchases_order_number__icontains=code).select_related('purchases_id').order_by("-id")
+        if purchases:
+            serializer = PurchasesReturnSerializer(purchases,many=True).data
+            return Response(serializer)
+        else:
+            return Response({"message":"No inventory found"})
