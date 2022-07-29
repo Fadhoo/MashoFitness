@@ -62,3 +62,11 @@ def deleteSupplier(request):
     except Exception as e:
         print(e)
         return Response({"error":str(e)})
+        
+@api_view(['GET'])
+def getSupplierDetails(request):
+    try:
+        return Response(SupplierSerializer(Supplier.objects.filter(supplier_name=request.GET.get("supplierName")).first()).data)
+    except Exception as e:
+        print(e)
+        return Response({"error":str(e)})

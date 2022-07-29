@@ -1,7 +1,7 @@
 # from pytest import Item
 from .models import *
 from django.core.files.storage import FileSystemStorage
-from cafeteria.suppliers.models import Supplier
+from cafeteria.suppliers.models import Supplier, SupplierPayment
 
 
 def UpdateInventory(request):
@@ -42,7 +42,7 @@ def UpdateInventory(request):
                 supplier_name=request.POST.get("supplier-name")).first(),
         )
 
-        Purchases.objects.create(
+        purchases=Purchases.objects.create(
             purchases_unit_price=request.POST.get("unit-price"),
             purchases_net_price=request.POST.get("net-price"),
             purchases_purchased_quantity=request.POST.get("purchased-qty"),
@@ -60,7 +60,9 @@ def UpdateInventory(request):
                 supplier_name=request.POST.get("supplier-name")).first(),
             purchases_item_id=Items.objects.get(id=Inventory.objects.get(
                 id=request.POST.get("update-id")).inventory_item_id.id)
-        ).save()
+        )
+        purchases.save()
+        AddSupplierDues(request.POST.get("supplier-name"), request.POST.get("item-total"), request.POST.get("net-price"),request.POST.get("remaining"),purchases)
         print("successfully updated inventory")
     except Exception as e:
         print("No data found {}".format(e))
@@ -114,5 +116,20 @@ def AddReturnPurchases(request):
         # PurchasesReturn.objects.create(status='Returned', inventory_id=Inventory.objects.get(
         # id=request.POST.get("update-id"))).save()
         print("successfully Added Return Purchases")
+    except Exception as e:
+        print("No data found {}".format(e))
+
+def AddSupplierDues(name,total_amount,paid_amount,remaining_amount,purchases:Purchases):
+    try:
+        supplier=Supplier.objects.filter(supplier_name=name).first()
+        supplier.supplier_due+=int(total_amount)-int(paid_amount)
+        SupplierPayment.objects.create(
+            supplier_id=supplier,
+            total_amount=total_amount,
+            paid_amount=paid_amount,
+            remaining_amount=remaining_amount,
+            purchases_id=purchases
+        ).save()
+        print("successfully Added Supplier Dues")
     except Exception as e:
         print("No data found {}".format(e))

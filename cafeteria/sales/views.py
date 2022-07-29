@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from numpy import average
+from cafeteria.Items.models import Items
+from cafeteria.purchases.models import Inventory, Purchases
 from cafeteria.sales.models import Sales, SalesReturn
 from cafeteria.sales.serializer import SalesReturnSerializer, SalesSerializer
 from cafeteria.salesTerminal.models import Order, OrderHistory
@@ -11,6 +13,16 @@ from cafeteria.salesTerminal.serializer import OrderSerializer
 from cafeteria.customers.models import CafeteriaCustomer
 # Create your views here.
 
+def ReverseOrder(order_id):
+    order = OrderHistory.objects.filter(order_id__id=order_id)
+    for i in order:
+        if Items.objects.filter(item_name=i.order_item_name).exists():
+            inventory=Inventory.objects.filter(inventory_item_id__item_name=i.order_item_name).first()
+            inventory.inventory_stock_available += int(i.order_item_quantity)
+            inventory.save()
+            purchases=Purchases.objects.filter(purchases_item_id__item_name=i.order_item_name).first()
+            purchases.purchases_stock_available += int(i.order_item_quantity)
+            purchases.save()
 
 def sales(request):
     if request.method == "POST":
@@ -38,6 +50,8 @@ def salesReturn(request):
             SalesReturn.objects.create(
                 order_id=order
             )
+            ReverseOrder(order.id)
+            return HttpResponseRedirect(reverse("sales"))
             # order.save()
             return HttpResponseRedirect(reverse("salesReturn"))
 

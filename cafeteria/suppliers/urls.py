@@ -11,4 +11,5 @@ urlpatterns = [
     # api path
     path('api/SearchBySupplierField/', views.SearchBySupplierField, name='SearchBySupplierField'),
     path('api/deleteSupplier/', views.deleteSupplier, name='deleteSupplier'),
+    path('api/getSupplierDetails/', views.getSupplierDetails, name='getSupplierDetails'),
 ]

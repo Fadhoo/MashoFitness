@@ -768,10 +768,20 @@
                             </div> -->
 
                             <div class="flex flex-col">
-                                <label for="">Item Total</label>
+                                <label for="">Total Amount</label>
                                 <input type="number" class="h-7 rounded-md text-right shadow-inner" required
                                     name="item-total" id="item-total" readonly>
                             </div>
+                            <div class="flex flex-col">
+                                <label for="">Paid Amount</label>
+                                <input type="number" class="h-7 rounded-md text-right shadow-inner" required onkeyup="calculateTotal(this)"
+                                    name="net-price" id="net-price">
+                            </div>  
+                            <div class="flex flex-col">
+                                <label for="">Remaining Amount</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" required
+                                    name="remaining" id="remaining">
+                            </div>  
 
                         </div>
                         <!-- Right -->
@@ -822,8 +832,9 @@
                             <div class="flex flex-col">
                                 <label for="">Supplier</label>
                                 <!-- <div class="inline-flex w-full"> -->
-                                    <select name="supplier-name"
-                                        class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner" id="" required>
+                                    <select name="supplier-name"  id="supplier-name"
+                                        class="h-8 p-0 px-2 text-sm rounded-md bg-gray-200 shadow-inner" required>
+                                        <option value="" selected>Select Supplier</option>
                                         {% for supplier in suppliersName %}
                                         <option value="{{supplier}}">{{supplier}}</option>
                                         {% endfor %}
@@ -842,6 +853,11 @@
                                 <input type="text" class="h-7 rounded-md text-right shadow-inner" readonly
                                     name="available-stock" id="sub-total">
                             </div>
+                            <!-- <div class="flex flex-col">
+                                <label for="">Total Supplier Dues</label>
+                                <input type="text" class="h-7 rounded-md text-right shadow-inner" readonly
+                                    name="supplier-dues" id="supplier-dues">
+                            </div> -->
 
                             <!-- <div class="flex flex-col">
                                 <label for="">Stock in Shop</label>
@@ -849,11 +865,7 @@
                                 name="available-stock-inshop" id="available-stock">
                             </div> -->
 
-                            <div class="flex flex-col">
-                                <label for="">Paid Amount</label>
-                                <input type="text" class="h-7 rounded-md text-right shadow-inner" required
-                                    name="net-price" id="net-price">
-                            </div>
+                            
 
                             <!-- <div class="flex flex-col">
                                 <label for="">Stock In Storeroom</label>

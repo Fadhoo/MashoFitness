@@ -15,6 +15,7 @@ def inventory(request):
         if request.POST.get("add-inventory-data"):
             print("add inventory data")
             UpdateInventory(request)
+            
             return HttpResponseRedirect(reverse("inventory"))
     else:
         return render(request, "inventory.html", {

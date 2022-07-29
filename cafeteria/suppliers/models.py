@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+
+
 # Create your models here.
 
 class Supplier(models.Model):
@@ -17,6 +19,8 @@ class Supplier(models.Model):
 
 class SupplierPayment(models.Model):
     payment_date = models.DateField(default=datetime.now)
-    payment_amount = models.IntegerField(default=0)
+    total_amount = models.IntegerField(default=0)
+    paid_amount = models.IntegerField(default=0)
     remaining_amount = models.IntegerField(default=0)
     supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    purchase_id = models.ForeignKey('purchases.Purchases', on_delete=models.CASCADE,default=0)
