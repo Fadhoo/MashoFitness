@@ -1,3 +1,4 @@
+from tkinter import N
 from django.db import models
 from datetime import datetime
 
@@ -23,4 +24,4 @@ class SupplierPayment(models.Model):
     paid_amount = models.IntegerField(default=0)
     remaining_amount = models.IntegerField(default=0)
     supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE)
-    purchase_id = models.ForeignKey('purchases.Purchases', on_delete=models.CASCADE,default=0)
+    # purchase_id = models.ForeignKey('purchases.Purchases', on_delete=models.DO_NOTHING ,default=0,null=True)

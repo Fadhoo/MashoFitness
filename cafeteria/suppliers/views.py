@@ -30,7 +30,7 @@ def updateSupplier(request):
             return HttpResponseRedirect(reverse("updateSupplier")+"?supplier="+request.POST.get('supplier-id'))
     else:
         return render(request, "updateSupplier.html", {'supplierData': Supplier.objects.filter(id=request.GET.get("supplier")).first(),
-                                                        "payment": SupplierPayment.objects.filter(supplier_id=request.GET.get('supplier')).select_related('supplier_id')})  
+                                                        "payment": SupplierPayment.objects.filter(supplier_id=request.GET.get('supplier')).select_related('supplier_id').order_by('-id')})  
 
 # api work
 @api_view(['GET'])

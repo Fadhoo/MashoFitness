@@ -62,7 +62,9 @@ def UpdateInventory(request):
                 id=request.POST.get("update-id")).inventory_item_id.id)
         )
         purchases.save()
-        AddSupplierDues(request.POST.get("supplier-name"), request.POST.get("item-total"), request.POST.get("net-price"),request.POST.get("remaining"),purchases)
+        AddSupplierDues(request.POST.get("supplier-name"), request.POST.get("item-total"), request.POST.get("net-price"),request.POST.get("remaining"))
+        # supplier=Supplier.objects.filter(supplier_name=request.POST.get("supplier-name")).first()
+        # supplier.supplier_dues+=int(total_amount)-int(paid_amount)
         print("successfully updated inventory")
     except Exception as e:
         print("No data found {}".format(e))
@@ -111,25 +113,36 @@ def AddReturnPurchases(request):
         inventory.save()
             # inventory_stock_available=int(request.POST.get("available-stock"))-int(request.POST.get("return-stock")))
         purchases.purchases_stock_available=inventory.inventory_stock_available
+        purchases.purchases_purchased_quantity-=int(request.POST.get("return-stock"))
         purchases.save()
+
+        suppiler_id=Supplier.objects.filter(id=purchases.purchases_supplier_id.id ).first()
+        suppiler_id.supplier_dues-=int(request.POST.get("return-stock"))*int(request.POST.get("unit-price"))
+        suppiler_id.save()
+
+        # AddSupplierDues(suppiler_id.supplier_name, int(request.POST.get('model-item-quantity')) , -int(request.POST.get("return-stock"))*int(request.POST.get("unit-price")),-int((request.POST.get("remaining-stock-price")).split('=')[-1]),purchases)
+        
 
         # PurchasesReturn.objects.create(status='Returned', inventory_id=Inventory.objects.get(
         # id=request.POST.get("update-id"))).save()
+        supplier=Supplier.objects.filter(id=purchases.purchases_supplier_id.id)
+        supplier.supplier_dues-=int(request.POST.get("return-stock"))*int(request.POST.get("unit-price"))
+        supplier.save()
         print("successfully Added Return Purchases")
     except Exception as e:
         print("No data found {}".format(e))
 
-def AddSupplierDues(name,total_amount,paid_amount,remaining_amount,purchases:Purchases):
+def AddSupplierDues(name,total_amount,paid_amount,remaining_amount):
     try:
         supplier=Supplier.objects.filter(supplier_name=name).first()
-        supplier.supplier_due+=int(total_amount)-int(paid_amount)
+        supplier.supplier_dues+=int(remaining_amount)
         SupplierPayment.objects.create(
             supplier_id=supplier,
             total_amount=total_amount,
             paid_amount=paid_amount,
             remaining_amount=remaining_amount,
-            purchases_id=purchases
         ).save()
+        supplier.save()
         print("successfully Added Supplier Dues")
     except Exception as e:
         print("No data found {}".format(e))

@@ -127,13 +127,23 @@ function LoadPurchaseReturn(id){
 }
 
 function returnStockQuantity(data){
-    let available=$("#model-available-stock").val();
+    let available=$("#model-item-quantity").val();
+    console.log(available)
+    console.log(data.value)
     let unitprice=$("#model-item-unit-price").val();
     let totalPrice=$("#model-item-total").val();
     // console.log(available)
-    let total=available-data.value;
+    if (parseInt(data.value) <= parseInt(available)) {
+        let total=available-data.value;
     $("#model-remaining-stock").val(total);
     // let totalPrice=$().val()+'-'+data.value*price;
     // console.log(totalPrice+'-'+(data.value*unitprice)+'='+(totalPrice-(data.value*unitprice)))
     $("#model-remaining-price").val(totalPrice+'-'+(data.value*unitprice)+'='+(totalPrice-(data.value*unitprice)));
+       
+    }
+    else{
+        alert("Available stock is less than the quantity you are trying to return");
+        return;
+    }
+    
 }
