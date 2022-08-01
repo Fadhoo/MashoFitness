@@ -3,6 +3,9 @@ import re
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from cafeteria.customers.models import CafeteriaCustomer
+
+from cafeteria.sales.models import Sales
 from .models import *
 from .functions import CreateAdminUserFirst,addEmployee,updateEmployee,renewSalary
 from django.shortcuts import render
@@ -16,6 +19,7 @@ import datetime as dt
 from theme.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
+from cafeteria.salesTerminal.models import Order
 # def fetchAllData(dbmodel):
 #     data=dbmodel.objects.all()
 #     ls=[]
@@ -46,6 +50,10 @@ def index(request,employee_type=None):
             'total_expenses':f"{zeroValue(expensesData.objects.aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
             'today_snooker_income':f"{zeroValue(snookerTableIncome.objects.select_related('snooker_id').aggregate(Sum('amount'))['amount__sum']):,}",
             'snooker_expenses':f"{zeroValue(expensesData.objects.filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
+            'cafeteria_enpense':f"{zeroValue(expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
+            'cafeteria_income':f"{zeroValue(Order.objects.all().aggregate(Sum('order_total_price'))['order_total_price__sum']  ):,}",
+            'cafeteria_sales':Sales.objects.all().count(),
+            'cafeteria_customer':CafeteriaCustomer.objects.all().count(),
         })
     elif request.user.is_superuser==False:
         print("employee user",request)

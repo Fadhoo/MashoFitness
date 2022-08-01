@@ -395,7 +395,7 @@
                             </table>
                             {% endif %}
                             <!-- Cafeteria -->
-                            {% if CafeteriaData %}
+                            {% if cafeteriaData %}
                             <table class="table-auto border-gray-200 w-full" id="myTable">
                                 <thead class="border-b-2 text-left border-gray-400">
                                     <tr class="">
@@ -410,23 +410,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for cafe in cafeteriaData %}
                                     <tr class="border-2 hover:bg-slate-300">
-                                        <td class="p-1">1</td>
-                                        <td class="p-1">11/11/111</td>
-                                        <td class="p-1 font-semibold">Cafeteria</td>
-                                        <td class="p-1">salary</td>
-                                        <td class="p-1">sami</td>
-                                        <td class="p-1">bla bla</td>
-                                        <td class="p-1">admin</td>
-                                        <td class="p-1">1000</td>
+                                        <td class="p-1">{{cafe.id}}</td>
+                                        <td class="p-1">{{cafe.date}}</td>
+                                        <td class="p-1 font-semibold">Snooker</td>
+                                        <td class="p-1">{{cafe.account_head}}</td>
+                                        <td class="p-1">{{cafe.receipent_name}}</td>
+                                        <td class="p-1">{{cafe.description}}</td>
+                                        <td class="p-1">{{cafe.expense_attended_by.user.username}}</td>
+                                        <td class="p-1">{{cafe.paid_amount|intcomma}}</td>
 
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
 
                             <div class="text-right p-1 border-2 mt-1">
                                 <span class="font-bold">Cafeteria Total Amount:</span>
-                                <span class="font-semibold">10000000</span>
+                                <span class="font-semibold">{{cafeteria_expense_total}}</span>
                             </div>
                             {% endif %}
                             <!-- Rental -->
