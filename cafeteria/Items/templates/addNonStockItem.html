@@ -28,7 +28,12 @@
         <aside
             class="z-20 hidden w-56 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
             <div class="py-4 text-gray-600 ">
+                {% if request.user.is_superuser %}
                 <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% else %}
+
+                <a href="#" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+                {% endif %}
                 
                 <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                     <!-- DASHBOARD -->
@@ -565,7 +570,7 @@
                                     <!-- Search Item -->
                                     <li class="relative">
                                         <div class="flex flex-col w-60">
-                                            <input type="search" name="search-by-value" id="search-by-value" oninput="SearchByItemField();"
+                                            <input type="search" name="search-by-value" id="search-by-value" oninput="SearchByStockField();"
                                                 class="rounded-md bg-gray-100 h-8 outline-none border-none shadow-inner"
                                                 placeholder="search">
                                         </div>
@@ -872,15 +877,15 @@
                         <div class="flex flex-col">
                             <label for="">Item Code</label>
                             <input type="text" class="h-7 rounded-md shadow-inner" name="item-code" 
-                            value="" id="item-code" >
+                            value="" onkeyup="onItemCodeUpdate(this)" id="update-item-code" >
                         </div>
                         <div class="flex flex-col">
                             <label for="">Item Name</label>
-                            <input type="text" class="h-7 rounded-md shadow-inner" name="item-name" value="" id="item-name">
+                            <input type="text" onkeyup="ItemNameCheckUpdate(this)" class="h-7 rounded-md shadow-inner" name="item-name" value="" id="update-item-name">
                         </div>
                         <div class="flex flex-col">
                             <label for=""  class="">Unit of Measure</label>
-                            <select name="unit-measurement" id="item-unit" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
+                            <select name="unit-measurement" id="update-item-unit" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
                                 <!-- <option value="Select Units">Select</option> -->
                                 <option value="pcs">pcs</option>
                                 <option value="Glass">Glass</option>
@@ -889,7 +894,7 @@
                         </div>
                         <div class="flex flex-col">
                             <label for=""  class="">Item Category</label>
-                            <select name="item-category" id="item-category" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
+                            <select name="item-category" id="update-item-category" class="h-8 p-0 px-2 text-sm rounded-md shadow-inner" value="">
                                 <!-- <option value="Select Units">Select</option> -->
                                 <option value="Food">Food</option>
                                 <option value="Cold Drinks">Cold Drinks</option>
@@ -901,24 +906,24 @@
                         <div class="flex flex-col">
                             <label for="">Item Brand</label>
                             <input type="text" class="h-7 rounded-md shadow-inner" 
-                            name="item-brand" value="" id="item-brand">
+                            name="item-brand" value="" id="update-item-brand">
                         </div>
                         <div class="flex flex-col">
                             <label for="">Manufacturer</label>
                             <input type="text" class="h-7 rounded-md shadow-inner" 
-                            name="manufacturer" value="" id="item-manufacturer">
+                            name="manufacturer" value="" id="update-item-manufacturer">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="">Purchase Price</label>
                             <input type="text" class="h-7 text-right rounded-md shadow-inner" value="" 
-                            name="purchase-price" id="purchase-price">
+                            name="purchase-price" id="update-purchase-price">
                         </div>
 
                         <div class="flex flex-col">
                             <label for="">Selling Price</label>
                             <input type="text" class="h-7 text-right rounded-md shadow-inner" value="" 
-                            name="selling-price" value="" id="item-selling-price">
+                            name="selling-price" value="" id="update-item-selling-price">
                         </div>
 
                         <div class="flex flex-col">
@@ -981,7 +986,7 @@
 
                         <div class="flex flex-col">
                             <label for="">Description</label>
-                            <input type="text" class="h-22 rounded-md shadow-inner" name="description" id="item-description">
+                            <input type="text" class="h-22 rounded-md shadow-inner" name="description" id="update-item-description">
                         </div>
 
                         
@@ -1012,7 +1017,6 @@
 
     </div>
     </div>
-    <script src="{% static 'js/items.js'%}"></script>
     <script src="{% static 'js/nonStockItems.js'%}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.4/dist/JsBarcode.all.min.js"></script>
 </body>

@@ -1,14 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect
+
+from cafeteria.sales.models import Sales
+from cafeteria.salesTerminal.models import Order
 from .models import *
 from .functions import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import ItemSerializer, NonStockSerializer
 from django.urls import reverse
-
-
-
+from django.db.models import Sum
+from expenses.models import expensesData
+from cafeteria.customers.models import CafeteriaCustomer
 def addItem(request):
     if request.method== "POST":
         if request.POST.get("save-button"):
@@ -49,18 +52,18 @@ def addNonStockItem(request):
     else:
         return render(request, "addNonStockItem.html", {'nonStock': NonStock.objects.all()})
 
-
-
-
-
-
-
-
-
-
-
 def pos(request):
-    return render(request, "pos.html")
+
+    return render(request, "pos.html",
+    {
+        'income':Order.objects.all().aggregate(Sum('order_total_price'))['order_total_price__sum'],
+        'expenses':expensesData.objects.filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum'],
+        'monthlysales':Sales.objects.filter(order_id__order_date__month=datetime.now().month).aggregate(Sum('order_id__order_total_price'))['order_id__order_total_price__sum'],
+        'totalcustomers':CafeteriaCustomer.objects.all().count(),
+        'totalsupplier':Supplier.objects.all().count(),
+    }
+    )
+
 
 def barcodeLabel(request):
     return render(request, "barcodeLabel.html")

@@ -31,7 +31,12 @@
        <aside
        class="z-20 hidden w-56 overflow-y-auto scrollbar scrollbar-thin  scrollbar-thumb-red-500 scrollbar-track-red-200 bg-white  md:block flex-shrink-0">
        <div class="py-4 text-gray-600 ">
-           <a href="#" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+        {% if request.user.is_superuser %}
+        <a href="/index/" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+        {% else %}
+
+        <a href="#" class="ml-6 text-lg font-bold text-red-600">Masho Fitness</a>
+        {% endif %}
            
            <ul class="ml-1 mt-6 mr-1 shadow-inner rounded-md shadow-slate-300 cursor-pointer">
                <!-- DASHBOARD -->
@@ -479,10 +484,10 @@
                             </thead>
 
                             <tbody>
-                                {% for order in sales %}
+                                {% for sale in sales %}
                                 <tr class="text-left hover:bg-red-200">
                                     <td class="p-2">
-                                        <span onclick="rowSelected('{{order.id}}')" @click="openViewCafeteriaSalesModal">
+                                        <span onclick="rowSelected('{{sale.id}}')" @click="openViewCafeteriaSalesModal">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -491,20 +496,20 @@
                                                 </svg>
                                         </span>
                                     </td>
-                                    <td class='p-2'>{{order.id}}</td>
-                                    {% if order.customer_id.customer_name != None %}
-                                        <td class="p-2">{{order.customer_id.customer_name}}</td>
+                                    <td class='p-2'>{{sale.order_id.id}}</td>
+                                    {% if sale.order_id.customer_id.customer_name != None %}
+                                        <td class="p-2">{{sale.order_id.customer_id.customer_name}}</td>
                                     {% else %}
                                         <td class="p-2">Walking Customer</td>
                                     {% endif %}
-                                    <td class="p-2">{{order.order_date}}</td>
-                                    <td class="p-2">{{order.order_total_price}}</td>
+                                    <td class="p-2">{{sale.sale_date}}</td>
+                                    <td class="p-2">{{sale.order_id.order_total_price}}</td>
                                     <td class="p-2">
-                                        {{order.order_total_discount}}
+                                        {{sale.order_id.order_total_discount}}
                                     </td>
-                                    <td class="p-2">{{order.order_total_price|sub:order.order_total_discount}}</td>
+                                    <td class="p-2">{{sale.order_id.order_total_price|sub:sale.order_id.order_total_discount}}</td>
                                     <!-- <td class="p-2">good</td> -->
-                                    <td class="p-2">{{order.order_status}}</td>
+                                    <td class="p-2">{{sale.order_id.order_status}}</td>
 
 
                                 </tr>

@@ -16,6 +16,7 @@ class CafeteriaCustomer(models.Model):
 
 class CustomerPayment(models.Model):
     payment_date = models.DateField(default=datetime.now)
+    total_amount = models.IntegerField(default=0)
     payment_amount = models.IntegerField(default=0)
     remaining_amount = models.IntegerField(default=0)
     customer_id = models.ForeignKey(CafeteriaCustomer, on_delete=models.CASCADE)

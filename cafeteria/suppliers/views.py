@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .functions import *
 from .models import Supplier, SupplierPayment
 from django.urls import  reverse
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from .serializer import SupplierSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -30,7 +30,7 @@ def updateSupplier(request):
             return HttpResponseRedirect(reverse("updateSupplier")+"?supplier="+request.POST.get('supplier-id'))
     else:
         return render(request, "updateSupplier.html", {'supplierData': Supplier.objects.filter(id=request.GET.get("supplier")).first(),
-                                                        "payment": SupplierPayment.objects.filter(supplier_id=request.GET.get('supplier')).select_related('supplier_id')})  
+                                                        "payment": SupplierPayment.objects.filter(supplier_id=request.GET.get('supplier')).select_related('supplier_id').order_by('-id')})  
 
 # api work
 @api_view(['GET'])
@@ -59,6 +59,14 @@ def deleteSupplier(request):
             return Response(SupplierSerializer(Supplier.objects.all().order_by("-id"),many=True).data)
         else:
             return Response({"error":str("No data selected")})
+    except Exception as e:
+        print(e)
+        return Response({"error":str(e)})
+        
+@api_view(['GET'])
+def getSupplierDetails(request):
+    try:
+        return Response(SupplierSerializer(Supplier.objects.filter(supplier_name=request.GET.get("supplierName")).first()).data)
     except Exception as e:
         print(e)
         return Response({"error":str(e)})

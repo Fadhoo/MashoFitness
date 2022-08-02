@@ -398,35 +398,36 @@
                         </table>
                         {% endif %}
                         <!-- Cafeteria -->
-                        {% if CafeteriaData %}
+                        {% if cafeteriaData %}
                         <table class="table-auto border-gray-200 w-full" id="myTable5">
                             <thead class="border-b-2 text-left border-gray-400">
                                 <tr class="">
                                     <th class="p-1">S No.</th>
-                                    <th class="p-1">Sale Date</th>
+                                    <th class="p-1">Order Date</th>
                                     <th class="p-1">Module</th>
-                                    <th class="p-1">Item</th>
-                                    <th class="p-1">Price</th>
-                                    <th class="p-1">Attended by</th>
-                                    <th class="p-1">Amount</th>
+                                    <th class="p-1">Status</th>
+                                    <th class="p-1">Total amount</th>
+                                    <th class="p-1">Discount</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for sale in cafeteriaData %}
                                 <tr class="border-2 hover:bg-slate-300">
-                                    <td class="p-1">1</td>
-                                    <td class="p-1">11/11/111</td>
+                                    <td class="p-1">{{sale.id}}</td>
+                                    <td class="p-1">{{sale.order_id.order_date}}</td>
                                     <td class="p-1 font-semibold">Cafeteria</td>
-                                    <td class="p-1">Cofee</td>
-                                    <td class="p-1">30</td>
-                                    <td class="p-1">admin</td>
-                                    <td class="p-1">1000</td>
+                                    <td class="p-1">{{sale.order_id.order_status}}</td>
+                                    <td class="p-1">{{sale.order_id.order_total_price}}</td>
+                                    <td class="p-1">{{sale.order_id.order_total_discount}}</td>
+                                    <!-- <td class="p-1">1000</td> -->
 
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                         <div class="text-right p-1 border-2 mt-1">
                             <span class="font-bold">Cafeteria Total Amount:</span>
-                            <span class="font-semibold">10000000</span>
+                            <span class="font-semibold">{{cafeteria_revenue_total}}</span>
                         </div>
                         {% endif %}
                         <!-- Rental -->

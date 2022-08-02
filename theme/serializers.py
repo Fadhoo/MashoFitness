@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import MembershipCategory, Member,Payment,Fee,BodyAssesments,Bill
+from .models import MembershipCategory, Member,Payment,Fee,Bill
 
 
 class MembershipCategorySerializer(serializers.ModelSerializer):

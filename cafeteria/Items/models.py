@@ -1,6 +1,5 @@
 from email.policy import default
 from django.db import models
-from datetime import datetime
 
 class Items(models.Model):
     item_code = models.CharField(max_length=10)

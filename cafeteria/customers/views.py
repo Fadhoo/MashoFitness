@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import CafeteriaCustomer
 from .functions import *
 from django.urls import reverse
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializer import CustomerSerializer

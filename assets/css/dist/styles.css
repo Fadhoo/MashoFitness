@@ -1013,6 +1013,11 @@ select {
   margin-bottom: 2.5rem;
 }
 
+.mx-5 {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
 .mx-8 {
   margin-left: 2rem;
   margin-right: 2rem;
@@ -1377,10 +1382,6 @@ select {
 
 .w-64 {
   width: 16rem;
-}
-
-.w-1\/4 {
-  width: 25%;
 }
 
 .w-3\/5 {
@@ -2923,6 +2924,11 @@ select {
     margin: 1rem;
   }
 
+  .sm\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .sm\:mt-auto {
     margin-top: auto;
   }
@@ -2933,6 +2939,10 @@ select {
 
   .sm\:w-2\/4 {
     width: 50%;
+  }
+
+  .sm\:w-1\/4 {
+    width: 25%;
   }
 
   .sm\:max-w-xl {

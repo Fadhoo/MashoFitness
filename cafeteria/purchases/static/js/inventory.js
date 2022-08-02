@@ -283,3 +283,28 @@ function checkRefferenceNumber(data){
     });
     
 }
+
+
+function calculateTotal(data){
+    var total=$('#item-total').val();
+    // console.log(total-data.value);
+    document.getElementById('remaining').value = total-data.value;
+}
+
+// function getSupplierDetails(data){
+//     var supplierName= data.value;
+//     $.ajax({
+//         method: "GET",
+//         url: "/api/getSupplierDetails/",
+//         data: { "supplierName": supplierName},
+//         success: function (data) {
+//         console.log(data);
+
+        
+//         },
+//         error: function () {
+//             console.log('error');
+//         }
+//     });
+    
+// }
