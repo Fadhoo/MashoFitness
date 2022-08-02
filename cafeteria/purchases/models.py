@@ -1,5 +1,4 @@
 from django.db import models
-from matplotlib.style import available
 from cafeteria.Items.models import Items
 from cafeteria.suppliers.models import Supplier
 from django.utils import timezone

@@ -1,12 +1,10 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework.response import Response
-from cafeteria.Items.models import Items, NonStock
-from cafeteria.Items.serializer import ItemSerializer, NonStockSerializer
+from cafeteria.Items.models import NonStock
 from rest_framework.decorators import api_view
 from cafeteria.customers.serializer import CustomerSerializer
 import json
-
 from cafeteria.customers.models import CafeteriaCustomer
 from cafeteria.sales.models import Sales
 from .models import Order

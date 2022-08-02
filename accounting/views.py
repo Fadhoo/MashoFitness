@@ -1,11 +1,10 @@
-from tabnanny import check
 from django.shortcuts import render
 from expenses.models import expensesData
 from django.db.models import Sum
 from theme.models import Bill
 from futsal.models import Match
 from snooker.models import snookerTableIncome
-from rental.models import rentalPayment, RentalData
+from rental.models import rentalPayment
 import datetime
 from cafeteria.sales.models import Sales
 
@@ -65,7 +64,6 @@ def revenue(request):
                         'rentalData': rentalPayment.objects.filter(rent_pay_date__range=[from_date, to_date]).select_related('rental_id'),
                         'rental_revenue': f"{checkNone(rentalPayment.objects.filter(rent_pay_date__range=[from_date,to_date]).aggregate(Sum('total_rent'))['total_rent__sum']):,}",
                         "cafeteriaData": Sales.objects.filter(order_id__order_date__range=[from_date, to_date]).select_related("order_id"),
-
                         'cafeteria_revenue': f"{checkNone(Sales.objects.filter(order_id__order_date__range=[from_date,to_date]).aggregate(Sum('order_id__order_total_price'))['order_id__order_total_price__sum']):,}",
                         "All_total": f"{checkNone(Sales.objects.filter(order_id__order_date__range=[from_date,to_date]).aggregate(Sum('order_id__order_total_price'))['order_id__order_total_price__sum'])+ checkNone(snookerTableIncome.objects.filter(snooker_id__date__range=[from_date,to_date]).select_related('snooker_id').aggregate(Sum('amount'))['amount__sum'])+ checkNone(Bill.objects.filter(bill_created_at__range=[from_date,to_date]).aggregate(Sum('paid'))['paid__sum'])+ checkNone(Match.objects.filter(date__range=[from_date,to_date]).aggregate(Sum('fee'))['fee__sum']):,}",
                         'from_date': from_date,
@@ -152,7 +150,7 @@ def expensesReport(request):
                         'rentalData': expensesData.objects.filter(date__range=[from_date, to_date]).filter(expenses_for='Rental'),
                         'cafeteriaData': expensesData.objects.filter(date__range=[from_date, to_date]).filter(expenses_for='Cafeteria'),
                         'cafeteria_expense_total': f"{checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
-                        "All_total": f"{checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Cafeteria').aggregate(Sum('paid_amount'))['paid_amount__sum'])+ checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Gym').aggregate(Sum('paid_amount'))['paid_amount__sum'])+ checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Futsal').aggregate(Sum('paid_amount'))['paid_amount__sum'])+checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Snooker').aggregate(Sum('paid_amount'))['paid_amount__sum'])+ checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).filter(expenses_for='Rental').aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
+                        "All_total": f"{checkNone(expensesData.objects.filter(date__range=[from_date,to_date]).aggregate(Sum('paid_amount'))['paid_amount__sum']):,}",
                         'from_date': from_date,
                         'to_date': to_date,
                     })

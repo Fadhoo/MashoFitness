@@ -1,15 +1,13 @@
 from django.shortcuts import render
-from numpy import average
 from cafeteria.Items.models import Items
 from cafeteria.purchases.models import Inventory, Purchases
 from cafeteria.sales.models import Sales, SalesReturn
 from cafeteria.sales.serializer import SalesReturnSerializer, SalesSerializer
 from cafeteria.salesTerminal.models import Order, OrderHistory
 from django.urls import reverse
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from cafeteria.salesTerminal.serializer import OrderSerializer
 from cafeteria.customers.models import CafeteriaCustomer
 # Create your views here.
 

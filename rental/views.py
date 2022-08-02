@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.db.models import Sum
 from .models import RentalData, rentalPayment
 from django.http import HttpResponseRedirect
 from .functions import addRental, editRental, renew
@@ -7,9 +6,7 @@ from django.urls import reverse
 # Create your views here.
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import RentalSerializer,RentalUpdateSerializer
-from django.contrib import messages
-from employees.models import EmployeeRecord
+from .serializer import RentalUpdateSerializer
 import datetime as dt
 
 def checkNone(data):

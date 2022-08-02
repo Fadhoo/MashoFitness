@@ -2,7 +2,6 @@ from django.db import models
 from django.db import models
 from django.utils import timezone
 from cafeteria.salesTerminal.models import Order
-from cafeteria.customers.models import CafeteriaCustomer
 
 class Sales(models.Model):
     sale_date = models.DateField(default=timezone.now)

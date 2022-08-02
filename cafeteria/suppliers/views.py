@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .functions import *
 from .models import Supplier, SupplierPayment
 from django.urls import  reverse
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from .serializer import SupplierSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response

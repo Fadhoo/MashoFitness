@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 
 from cafeteria.sales.models import Sales
 from cafeteria.salesTerminal.models import Order

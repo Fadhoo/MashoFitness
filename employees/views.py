@@ -1,5 +1,3 @@
-
-import re
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -13,7 +11,6 @@ from django.contrib import messages
 from futsal.models import Match, Team
 from snooker.models import snookerTableIncome
 from django.db.models import Sum
-from django.utils import timezone
 from expenses.models import  expensesData
 import datetime as dt
 from theme.models import *
